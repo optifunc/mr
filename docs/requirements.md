@@ -80,7 +80,6 @@ interface MindMapNode {
   children: MindMapNode[];
   collapsed?: boolean;
   checked?: boolean;
-  metadata?: unknown;
 }
 
 interface RootChild extends MindMapNode {
@@ -102,8 +101,6 @@ Requirements:
 - Child array order shall define sibling order.
 - A root child shall explicitly store its side. Descendants inherit the side of
   their containing root branch.
-- The widget shall preserve opaque metadata without interpreting or cloning it
-  destructively.
 - The public API shall return snapshots that callers may safely inspect without
   mutating internal state.
 - When the widget creates nodes, it shall obtain IDs from a configurable host
@@ -396,8 +393,10 @@ Ordinary sibling
 - Pasting onto the root shall place the new top-level nodes on the right side.
 - All pasted nodes shall receive new IDs.
 - Paste shall be one undoable transaction.
-- If the clipboard contains plain text without a hierarchy, it shall create one
-  child node whose label is that text after escape decoding.
+- Each physical clipboard line shall create one node, including when all lines
+  are unindented. Unindented lines become sibling children of the active node.
+- A newline within one node's label shall be represented by the escaped "\n"
+  sequence and decoded after parsing the physical lines.
 
 ### 12.3 Copy and cut
 
@@ -548,6 +547,21 @@ interface MindMapEditor {
 The command union shall cover every built-in context-menu and keyboard command
 and allow explicit target IDs where meaningful.
 
+"execute" shall keep a synchronous boolean return contract. It returns true
+when a command is accepted and false when it is rejected or is a no-op.
+Clipboard commands may finish asynchronously: true reports acceptance, not
+successful clipboard access. Successful asynchronous clipboard commands emit
+"commandcomplete"; failures emit "error". Cut shall delete only after a
+successful clipboard write, and paste shall mutate only after a successful
+read and validation. "canExecute" reports current command applicability and
+does not guarantee browser clipboard permission.
+
+When "readonly" is true, selection, navigation among visible nodes, copy, link
+opening, and viewport changes remain available. All editing commands, cut,
+paste, drag-and-drop moves, checkbox changes, undo/redo, and expand/collapse
+shall be disabled. Outward navigation on a collapsed node shall leave it
+unchanged. The host may still replace the document through "setDocument".
+
 Events shall include:
 
 - "documentchange": emitted once after each committed mutation, carrying the
@@ -555,6 +569,9 @@ Events shall include:
 - "selectionchange": carrying selected IDs and active ID.
 - "viewportchange": carrying pan and zoom.
 - "editstart", "editcommit", and "editcancel".
+- "commandcomplete": emitted when an asynchronous clipboard command succeeds,
+  identifying the command and its origin. Copy emits this event even though it
+  does not change the document.
 - "linkopen": emitted immediately before opening a URL; cancellable so a host
   can enforce application policy.
 - "error": carrying a stable error code and human-readable message for invalid
@@ -686,3 +703,9 @@ The following defaults have been confirmed:
 - Pasting top-level clipboard nodes on the root uses the right side.
 - Keyboard zoom bindings are Primary-modifier+Plus/Minus/0 and
   Primary-modifier+Shift+0 for fit.
+- Each physical clipboard line creates a node; escaped "\n" creates a newline
+  within a label.
+- The command API keeps a synchronous boolean acceptance contract, with events
+  reporting asynchronous clipboard completion or failure.
+- Read-only mode also disables expand/collapse, because collapse state is part
+  of the document.
