@@ -40,7 +40,14 @@ Stage 1 passed: build (ESM/declarations/CSS), strict typecheck, 1 unit test, and
 3 browser tests across Chromium/Firefox/WebKit. Two mounts, real Tab focus, and
 independent teardown verified. [Screenshot](evidence/milestone-a/stage1-chromium.png)
 captured and inspected. Tested stage-1 working tree based on `79b9d86`.
-[Commands and environment notes](testing.md). Stage 2–3 evidence pending.
+[Commands and environment notes](testing.md). Stage 2 passed: build, strict typecheck, 45 unit tests, 9 browser tests. Covers
+12,000-level validation/snapshots; invalid shapes/cycles/shared nodes/IDs;
+atomic ID callback failures; side-aware insertion and wrapping; ancestor
+normalization/root protection; move cycles/no-ops/side adoption; bounded patch
+history; independent checkboxes; collapse selection cleanup; all implemented
+mutations in read-only mode; detached events, callback exceptions/reentrancy,
+invalid replacement, and independent instance histories. Tested stage-2 working
+tree based on `7ea0658`. Stage 3 evidence pending.
 User decision: pending.
 
 ## Milestone B: stages 4–5

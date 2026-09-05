@@ -4,10 +4,11 @@ Last updated: 2026-09-05
 
 ## Current state
 
-Milestone A is in progress. Stage 1 complete: pinned pnpm/Vite/TypeScript package,
-public contract types, mount/destroy skeleton, two-instance demo, Vitest and
-three-engine Playwright harness. Build, typecheck, 1 unit test, and 3 browser tests
-passed. Chromium screenshot captured and inspected. Next: stage 2 model and transactions.
+Milestone A is in progress. Stages 1–2 complete. Stage 2 adds iterative validation,
+detached snapshots, indexed records, atomic structural/checkbox/collapse reducers,
+patch history, read-only enforcement, and the model API/event facade. Build,
+typecheck, 45 unit tests and 9 browser cases across three engines passed.
+Next: stage 3 rendering, layout, and reference comparison.
 
 ## Milestones
 
@@ -30,5 +31,7 @@ passed. Chromium screenshot captured and inspected. Next: stage 2 model and tran
 See [testing commands](testing.md). Stage-1 screenshot:
 [Chromium](evidence/milestone-a/stage1-chromium.png) (also Firefox and WebKit).
 Tested working tree based on `79b9d86`, comprising the stage-1 scaffold.
-No stage 2–9 behavior is claimed implemented. Release browser, accessibility,
+Stage 2 tested working tree based on `7ea0658`. Creation reducers accept final text;
+provisional creation/editor coordination remains stage 5. No stage 3–9 behavior
+is claimed implemented. Release browser, accessibility,
 packaged-consumer, and performance checks remain required at milestone D.
