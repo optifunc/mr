@@ -53,9 +53,8 @@ inspected. Final gates passed: ESM/declarations/CSS build, strict typecheck,
 - [Run instructions](testing.md), [current API](api.md), [revision/status](progress.md)
 
 Stage 1 commit: `7ea0658` (1 unit / 3 browser tests). Stage 2 commit: `a165cca`
-(45 unit / 9 browser tests). Stage 3 tested working tree is based on `a165cca`,
-with its implementation and durable evidence committed together. See progress for
-the final handover revision.
+(45 unit / 9 browser tests). Stage 3 tested implementation and durable evidence: `ab99572`.
+The final handover commit updates documentation references only; see progress.
 
 The report explains before/after visual refinement, residual font/raster differences,
 and all later-stage gaps. Images are candidate review evidence; no approved visual

@@ -24,8 +24,9 @@ comparison, and `/?workload` diagnostic are included. [API checkpoint](api.md).
 
 - Stage 1: `7ea0658`, package/contracts and working three-browser harness.
 - Stage 2: `a165cca`, validated model, atomic reducers, patch history, API/events.
-- Stage 3: tested working tree based on `a165cca`; implementation/evidence commit
-  is the next task commit. Final handover revision will be recorded after committing.
+- Stage 3: `ab99572`, measured layout/rendering, reference/demo fixtures, tests,
+  screenshots, diagnostics, and acceptance report. This is the tested implementation
+  revision; the following handover commit changes documentation references only.
 - Passed: strict typecheck, build (ESM/declarations/CSS), **54 unit tests**, and
   **30 browser cases** across Chromium 145.0.7632.6, Firefox 146.0.1, WebKit 26.0.
 - Final comparison screenshots, geometry, focus, multiline root, and workload

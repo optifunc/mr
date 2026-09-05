@@ -1,9 +1,9 @@
 # Milestone A: stage-3 product checkpoint
 
 Date: 2026-09-05. Technical status: complete. **User visual acceptance: pending.**
-Tested state: stage-3 working tree based on `a165cca`; the implementation/evidence
-commit following that revision contains this report. Final handover revision is
-recorded in [progress](../../progress.md). No supplied reference image was changed.
+Tested implementation/evidence revision: `ab99572` (stage 3), following `a165cca`
+(stage 2) and `7ea0658` (stage 1). The final handover commit updates documentation
+references only; see [progress](../../progress.md). No supplied reference image was changed.
 
 ## Run and review
 
