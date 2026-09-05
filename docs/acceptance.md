@@ -36,7 +36,12 @@ The arrow and red annotation in the drag reference are explanatory, not widget U
 - Show two isolated mounts, package output, and the stage 1–3 automated gates.
 - Run the target workload as an early diagnostic; retain final profiling for D.
 
-Evidence: not run. User decision: pending.
+Stage 1 passed: build (ESM/declarations/CSS), strict typecheck, 1 unit test, and
+3 browser tests across Chromium/Firefox/WebKit. Two mounts, real Tab focus, and
+independent teardown verified. [Screenshot](evidence/milestone-a/stage1-chromium.png)
+captured and inspected. Tested stage-1 working tree based on `79b9d86`.
+[Commands and environment notes](testing.md). Stage 2–3 evidence pending.
+User decision: pending.
 
 ## Milestone B: stages 4–5
 

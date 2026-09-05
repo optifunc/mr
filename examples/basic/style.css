@@ -1,0 +1,2 @@
+body { margin: 24px; background: #f4f4f2; color: #252525; font: 14px system-ui, sans-serif; }
+h1 { font-size: 22px; font-weight: 500; } main { display: grid; gap: 24px; } #primary { height: 598px; } #secondary { height: 240px; }
