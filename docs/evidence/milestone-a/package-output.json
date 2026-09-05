@@ -1,0 +1,38 @@
+{
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/mindmap.js"
+    },
+    "./styles.css": "./dist/mindmap.css"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "esmExports": [
+    "se",
+    "M"
+  ],
+  "files": [
+    {
+      "file": "dist/mindmap.js",
+      "bytes": 29766
+    },
+    {
+      "file": "dist/index.d.ts",
+      "bytes": 90
+    },
+    {
+      "file": "dist/editor.d.ts",
+      "bytes": 1178
+    },
+    {
+      "file": "dist/types.d.ts",
+      "bytes": 2839
+    },
+    {
+      "file": "dist/mindmap.css",
+      "bytes": 2548
+    }
+  ]
+}

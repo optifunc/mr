@@ -36,19 +36,30 @@ The arrow and red annotation in the drag reference are explanatory, not widget U
 - Show two isolated mounts, package output, and the stage 1–3 automated gates.
 - Run the target workload as an early diagnostic; retain final profiling for D.
 
-Stage 1 passed: build (ESM/declarations/CSS), strict typecheck, 1 unit test, and
-3 browser tests across Chromium/Firefox/WebKit. Two mounts, real Tab focus, and
-independent teardown verified. [Screenshot](evidence/milestone-a/stage1-chromium.png)
-captured and inspected. Tested stage-1 working tree based on `79b9d86`.
-[Commands and environment notes](testing.md). Stage 2 passed: build, strict typecheck, 45 unit tests, 9 browser tests. Covers
-12,000-level validation/snapshots; invalid shapes/cycles/shared nodes/IDs;
-atomic ID callback failures; side-aware insertion and wrapping; ancestor
-normalization/root protection; move cycles/no-ops/side adoption; bounded patch
-history; independent checkboxes; collapse selection cleanup; all implemented
-mutations in read-only mode; detached events, callback exceptions/reentrancy,
-invalid replacement, and independent instance histories. Tested stage-2 working
-tree based on `7ea0658`. Stage 3 evidence pending.
-User decision: pending.
+**Technical status: complete (2026-09-05). User decision: pending.**
+
+Stages 1–3 are implemented. All three supplied reference images were opened and
+inspected. Final gates passed: ESM/declarations/CSS build, strict typecheck,
+54 unit tests, and 30 browser cases across Chromium/Firefox/WebKit. The
+1,000-total/500-visible mixed-depth diagnostic ran in all three engines.
+
+- [Full milestone report, environment, gates, known gaps, and next action](evidence/milestone-a/report.md)
+- [Side-by-side reference comparison](evidence/milestone-a/comparison-chromium.png)
+- [Geometry fixture](evidence/milestone-a/geometry-chromium.png) and
+  [multiline root](evidence/milestone-a/root-multiline-chromium.png)
+- [Build/type/unit log](evidence/milestone-a/checks.txt),
+  [browser log](evidence/milestone-a/browser-checks.txt),
+  [package output](evidence/milestone-a/package-output.json)
+- [Run instructions](testing.md), [current API](api.md), [revision/status](progress.md)
+
+Stage 1 commit: `7ea0658` (1 unit / 3 browser tests). Stage 2 commit: `a165cca`
+(45 unit / 9 browser tests). Stage 3 tested working tree is based on `a165cca`,
+with its implementation and durable evidence committed together. See progress for
+the final handover revision.
+
+The report explains before/after visual refinement, residual font/raster differences,
+and all later-stage gaps. Images are candidate review evidence; no approved visual
+regression baseline exists. Stop at this product checkpoint as requested.
 
 ## Milestone B: stages 4–5
 
