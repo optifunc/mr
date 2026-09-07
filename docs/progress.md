@@ -10,7 +10,9 @@ and host-transform-independent measurement. No later milestone was started.
 
 - Item 1: runtime validation and atomic rejection regression coverage implemented;
   typecheck, 79 unit tests, and 9 API browser cases passed.
-- Items 2–4: pending implementation. Full milestone gates and refreshed evidence
+- Item 2: one iterative FIFO drain implemented; typecheck and all 18 API browser
+  cases passed, including branching, errors, destruction, and a 3,000-operation chain.
+- Items 3–4: implementation in progress. Full milestone gates and refreshed evidence
   follow all four fixes. The previously recorded checks below predate this review.
 
 Run `pnpm dev`, then open http://127.0.0.1:5173. The live reference, independent

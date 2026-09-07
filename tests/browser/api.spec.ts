@@ -88,3 +88,63 @@ test('reentrant listeners run after the current event batch and exceptions are i
     expect(result.events).toEqual(['error', 'New Mindmap', 'selection', 'error', 'Queued']);
     expect(result.text).toBe('Queued');
 });
+
+test('reentrant branches drain FIFO and preserve event batches despite callback errors', async ({ page }) => {
+    await page.goto('/');
+    const result = await page.evaluate(() => {
+        const a = window.primary, events: string[] = [], errors: string[] = [];
+        const set = (text: string) => a.execute({ type: 'setText', targetId: 'root', text });
+        a.on('error', e => { errors.push(e.code); });
+        a.on('documentchange', e => {
+            const text = e.document.root.text;
+            events.push(`first:${text}`);
+            if (text === 'A') { set('B'); set('C'); }
+            if (text === 'B') { set('D'); throw new Error('host failure'); }
+        });
+        a.on('documentchange', e => events.push(`second:${e.document.root.text}`));
+        set('A');
+        const finalText = a.getDocument().root.text;
+        a.undo(); const undone = a.getDocument().root.text;
+        return { finalText, undone, events, errors };
+    });
+    expect(result.events.slice(0, 8)).toEqual(['first:A', 'second:A', 'first:B', 'second:B',
+        'first:C', 'second:C', 'first:D', 'second:D']);
+    expect(result.finalText).toBe('D');
+    expect(result.undone).toBe('C');
+    expect(result.errors).toEqual(['HOST_CALLBACK']);
+});
+
+test('destroy during a queue drain discards pending work and remaining notifications', async ({ page }) => {
+    await page.goto('/');
+    const result = await page.evaluate(() => {
+        const a = window.primary, events: string[] = [];
+        const set = (text: string) => a.execute({ type: 'setText', targetId: 'root', text });
+        a.on('documentchange', e => {
+            events.push(e.document.root.text);
+            if (e.document.root.text === 'A') { set('B'); set('C'); }
+            if (e.document.root.text === 'B') { set('D'); a.destroy(); }
+        });
+        a.on('documentchange', e => events.push(`second:${e.document.root.text}`));
+        set('A');
+        return { events, text: a.getDocument().root.text, mounted: !!document.querySelector('#primary .mindmap') };
+    });
+    expect(result).toEqual({ events: ['A', 'second:A', 'B'], text: 'B', mounted: false });
+});
+
+test('long reentrant chains do not depend on the JavaScript call stack', async ({ page }) => {
+    await page.goto('/');
+    const result = await page.evaluate(() => {
+        const a = window.primary;
+        let count = 0;
+        const errors: string[] = [];
+        a.on('error', e => errors.push(e.code));
+        a.on('selectionchange', () => {
+            count++;
+            if (count < 3000) a.setSelection([count % 2 ? 'one' : 'two']);
+        });
+        a.setSelection(['two']);
+        return { count, errors };
+    });
+    expect(result.errors).toEqual([]);
+    expect(result.count).toBe(3000);
+});

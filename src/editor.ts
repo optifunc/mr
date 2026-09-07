@@ -13,7 +13,7 @@ export class MindMapEditor {
     private destroyed = false;
     private dispatching = false;
     private reportingError = false;
-    private queue: (() => void)[] = [];
+    private queue: (() => boolean)[] = [];
     private readonly listeners = new Map<keyof MindMapEditorEvents, Set<(event: never) => void>>();
     constructor(host: HTMLElement, options: MindMapEditorOptions) {
         this.store = new Store(options);
@@ -60,25 +60,28 @@ export class MindMapEditor {
         if (this.destroyed)
             return false;
         if (this.dispatching) {
-            this.queue.push(() => { this.run(operation); });
+            this.queue.push(operation);
             return true;
         }
         this.dispatching = true;
         let result = false;
+        this.queue.push(operation);
         try {
-            result = operation();
-        }
-        catch (error) {
-            this.report(error);
+            // Keep one queue throughout the drain. Work appended by B stays
+            // behind C if A already enqueued B and C. An index avoids recursion
+            // and repeated shifting of the remaining queue.
+            for (let index = 0; index < this.queue.length && !this.destroyed; index++) {
+                try {
+                    const applied = this.queue[index]!();
+                    if (index === 0) result = applied;
+                } catch (error) {
+                    this.report(error);
+                }
+            }
         }
         finally {
             this.dispatching = false;
-            const pending = this.queue;
             this.queue = [];
-            for (const task of pending) {
-                if (!this.destroyed)
-                    task();
-            }
         }
         return result;
     }
