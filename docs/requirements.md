@@ -3,7 +3,7 @@
 Status: Draft requirements specification  
 Target: First implementation  
 Language: TypeScript  
-Last updated: 2026-09-05
+Last updated: 2026-09-07
 
 ## 1. Purpose
 
@@ -18,6 +18,7 @@ collaboration, and other application-level concerns are outside this widget.
 The visual design and interaction model shall closely reproduce the reference
 images in the "free-mind-references" directory:
 
+- "FreeMind-reference-100dpi.png" (primary reference for default proportions and root selection)
 - "FreeMind-reference1.png"
 - "FreeMind-reference-editing.png"
 - "FreeMind-reference-DnD.png"
@@ -116,7 +117,8 @@ Requirements:
 
 ### 5.1 General appearance
 
-- The default theme shall mimic the reference images closely.
+- The default theme shall mimic the reference images closely, using the Windows
+  100% DPI reference at native size to calibrate default proportions.
 - The canvas background shall be white.
 - Labels and connectors shall use a compact sans-serif font and neutral
   black/gray colors comparable to the references.
@@ -132,10 +134,15 @@ Requirements:
   outward end of its branch line, as in the reference.
 - Checkbox nodes shall show a native-looking square checkbox immediately
   before the label. Checked labels shall remain readable; no strike-through is
-  required.
-- A selected node shall use the light-gray rectangular highlight seen in the
-  references. Multiple selected nodes shall each be visibly highlighted. The
-  active node shall have an additional subtle focus indication.
+  required. The checked background shall be #339933 with a white checkmark.
+- A selected non-root node shall use the light-gray rectangular highlight seen
+  in the references. A selected root shall fill its entire ellipse with #d2d2d2,
+  preserving the outline and readable label. Multiple selected nodes shall each
+  be visibly highlighted. Branch lines and the ellipse outline shall render over
+  selection backgrounds so their strokes remain unobstructed.
+- The active node shall not have a dotted or other additional node focus outline.
+  Keyboard focus and active-node accessibility semantics shall remain intact;
+  the canvas may retain its keyboard-focus indication.
 - Rendering shall remain legible at all supported zoom levels.
 
 ### 5.2 Inline editor

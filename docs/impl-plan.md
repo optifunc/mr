@@ -4,6 +4,8 @@ Status: Draft implementation plan
 
 Date: 2026-09-05
 
+Appearance defaults/focus revised after product review: 2026-09-07
+
 Scope: First implementation of [requirements.md](requirements.md)
 
 ## 1. Outcome and agreed decisions
@@ -175,7 +177,7 @@ Collapsed descendants participate in the document index but have no geometry or
 rendered node elements. Use cubic SVG curves joining horizontal branch lines,
 with reference-compatible shared bends at sibling groups. Place labels immediately
 above their branch lines. Size the root ellipse around its label and optional
-checkbox. Include selection outlines and gradient drop zones without changing
+checkbox. Include selection fills and gradient drop zones without changing
 measured geometry.
 
 Reconcile visible elements by ID. Selection updates touch only affected node
@@ -189,8 +191,9 @@ can apply runtime theme changes explicitly. Font-load notifications also invalid
 measurements. Defer geometry refresh until an active text edit ends. Host resize
 updates viewport dimensions without changing layout inputs or document data.
 
-Match all three images in [free-mind-references](free-mind-references/). Use them
-for visual review and create browser-specific screenshot baselines from the actual
+Use the Windows 100% DPI image as the default proportions/root-selection anchor;
+retain the earlier appearance, editing, and dragging references in
+[free-mind-references](free-mind-references/). Use them for visual review and create browser-specific screenshot baselines from the actual
 demo; do not require pixel equality to raster references with different fonts.
 
 ## 5. Selection and navigation defaults
@@ -365,8 +368,9 @@ one per rendered frame and never emit document events for these operations.
 Use one focusable tree entry point with `aria-activedescendant`. Represent visible
 nodes as treeitems with hierarchy/group semantics, explicit accessible labels,
 selection, expansion, and checkbox states. Keep node controls out of the normal
-Tab order; keyboard commands provide equivalent actions. The active-node outline
-must distinguish focus independently of the selection fill.
+Tab order; keyboard commands provide equivalent actions. Do not draw an additional
+active-node focus outline, per the 2026-09-07 product review. Preserve
+active-descendant semantics and the canvas keyboard-focus indication.
 
 Build the menu from command applicability. Keep a consistent menu order and show
 unavailable commands disabled. Support Shift+F10, Context Menu key, arrows,

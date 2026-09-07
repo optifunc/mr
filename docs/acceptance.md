@@ -36,6 +36,17 @@ The arrow and red annotation in the drag reference are explanatory, not widget U
 - Show two isolated mounts, package output, and the stage 1–3 automated gates.
 - Run the target workload as an early diagnostic; retain final profiling for D.
 
+**2026-09-07 correction review:** the user requested smaller, native-DPI
+proportions, a filled selected root ellipse, unobstructed selection lines, removal
+of the dotted node focus outline, and #339933 checked backgrounds. All five
+corrections are implemented; **revised visual acceptance remains pending**.
+
+[Current correction report](evidence/milestone-a/100dpi/report.md),
+[native-size comparison](evidence/milestone-a/100dpi/comparison-chromium.png),
+[geometry/selection lines](evidence/milestone-a/100dpi/selection-lines-chromium.png).
+Build/typecheck, 54 unit tests, and 33 browser cases passed. The earlier evidence
+below is retained unchanged for before/after review; it is not an approved baseline.
+
 **Technical status: complete (2026-09-05). User decision: pending.**
 
 Stages 1–3 are implemented. All three supplied reference images were opened and

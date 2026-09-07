@@ -78,14 +78,15 @@ Labels preserve whitespace and explicit newlines and never wrap automatically.
 
 | Properties (all prefixed `--mindmap-`) | Defaults |
 |---|---|
-| `font-family`, `font-size`, `line-height` | Arial/Helvetica/sans-serif, 14.5px, 18px |
+| `font-family`, `font-size`, `line-height` | Arial/Helvetica/sans-serif, 12px, 15px |
 | `text-color`, `background`, `line-color`, `line-width` | #111, #fff, #888, 1px |
-| `selection-color`, `focus-color` | #d4d4d4, #777 |
-| `label-padding-x`, `label-padding-y` | 7px, 3px |
-| `root-padding-x`, `root-padding-y` | 12px, 15px |
-| `sibling-gap`, `branch-gap`, `root-gap` | 4px, 24px, 24px |
-| `marker-radius`, `chain-rise` | 3px, 2px |
-| `checkbox-size`, `checkbox-gap` | 13px, 4px |
+| `selection-color`, `focus-color` | #d2d2d2, #777 |
+| `label-padding-x`, `label-padding-y` | 6px, 2.5px |
+| `root-padding-x`, `root-padding-y` | 11px, 12px |
+| `sibling-gap`, `branch-gap`, `root-gap` | 3px, 20px, 20px |
+| `marker-radius`, `chain-rise` | 2.5px, 1.5px |
+| `checkbox-size`, `checkbox-gap` | 11px, 3px |
+| `checkbox-color` | #339933 |
 
 Measurement uses hidden, inert DOM labels with the same CSS as visible labels,
 caches unique text/checkbox/root combinations until invalidation, and batches reads
@@ -93,6 +94,13 @@ before scene writes. Only visible nodes get geometry or DOM elements. Layout use
 subtree envelopes that include multiline heights, single-child rise, and markers.
 The SVG and HTML share one translated scene. Normal mounting centers the root at
 100%; resizing recenters the stage-A scene without recomputing world layout.
+
+The Windows 100% DPI reference calibrates the default size. A selected root fills
+its entire ellipse; non-root selections remain rectangular. SVG strokes render
+above selection fills. Nodes have no additional focus outline; the canvas retains
+its keyboard-focus indication and active-descendant semantics. Checkboxes retain
+native input semantics with an explicit green fill and white tick, avoiding native
+WebKit tinting; forced-color mode uses native appearance.
 
 Selection only updates affected highlights/ARIA state and does not relayout.
 Checked-state changes reconcile controls without measuring or relayout; presence

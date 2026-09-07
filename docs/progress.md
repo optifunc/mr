@@ -1,64 +1,68 @@
 # Implementation progress
 
-Last updated: 2026-09-05
+Last updated: 2026-09-07
 
 ## Current state
 
-**Milestone A (stages 1–3) is technically complete. Stopped at the requested stage-3
-product checkpoint. User visual acceptance is pending.**
+**Milestone A (stages 1–3) and the five requested appearance corrections are
+technically complete. Revised visual acceptance is pending.** Work remains stopped
+at the stage-3 product checkpoint; no later milestone was started.
 
-Runnable demo: `pnpm install --frozen-lockfile`, `pnpm dev`, then
-http://127.0.0.1:5173. Live reference map, independent geometry mount, side-by-side
-comparison, and `/?workload` diagnostic are included. [API checkpoint](api.md).
+Run `pnpm dev`, then open http://127.0.0.1:5173. The live reference, independent
+geometry mount, native-size 100% DPI comparison, and `/?workload` diagnostic are
+available. [Current review report](evidence/milestone-a/100dpi/report.md),
+[API](api.md), [testing](testing.md).
 
 ## Milestones
 
 | Milestone | Stages | Technical status | User acceptance | Evidence |
 |---|---|---|---|---|
-| A: Foundation and appearance | 1–3 | Complete | Pending | [A](acceptance.md#milestone-a-stages-13) |
+| A: Foundation and appearance | 1–3 | Complete, including review corrections | Pending revised review | [A](acceptance.md#milestone-a-stages-13) |
 | B: Navigation and editing | 4–5 | Not started | Pending | [B](acceptance.md#milestone-b-stages-45) |
 | C: Clipboard and dragging | 6–7 | Not started | Pending | [C](acceptance.md#milestone-c-stages-67) |
 | D: Integration and release | 8–9 | Not started | Pending | [D](acceptance.md#milestone-d-stages-89) |
 
 ## Verification and revisions
 
-- Stage 1: `7ea0658`, package/contracts and working three-browser harness.
-- Stage 2: `a165cca`, validated model, atomic reducers, patch history, API/events.
-- Stage 3: `ab99572`, measured layout/rendering, reference/demo fixtures, tests,
-  screenshots, diagnostics, and acceptance report. This is the tested implementation
-  revision; the following handover commit changes documentation references only.
-- Passed: strict typecheck, build (ESM/declarations/CSS), **54 unit tests**, and
-  **30 browser cases** across Chromium 145.0.7632.6, Firefox 146.0.1, WebKit 26.0.
-- Final comparison screenshots, geometry, focus, multiline root, and workload
-  captures inspected. [Full evidence and known gaps](evidence/milestone-a/report.md).
-- Early mixed-depth workload confirms exactly 1,000 total / 500 visible. Recorded
-  relayout p95 is below 100 ms in all three engines; final profiling remains D.
+- Stage 1: `7ea0658`; stage 2: `a165cca`; original stage 3: `ab99572`, with
+  handover `a50ede7`. [Historical evidence](evidence/milestone-a/report.md).
+- Current tested working tree is based on `9dfdd7e`, the user's 100% DPI reference
+  commit. The following appearance correction commit contains the implementation,
+  updated contract, tests, and new evidence together.
+- Passed: strict typecheck, ESM/declarations/CSS build, **54 unit tests**,
+  **33 browser cases** across Chromium, Firefox, and WebKit, and diff whitespace check.
+- Actual measurements: root about **98.7×39px**, regular A/B/C row pitch **23px**.
+  Root selection/line paint order, absent node outline, and exact checkbox background
+  checked across all engines. Final comparisons and geometry screenshots inspected.
+- The 1,000-total/500-visible diagnostic reran in all engines; measurements are in
+  the current report directory. Final profiling and release checks remain D.
 
-## Decisions and corrections
+## Product decisions and corrections
 
-- Inspected all three references; permanent fixture retains all 21 visible labels
-  and a deterministic hidden child for the collapsed marker.
-- Preserved pnpm, strict TypeScript, Vite, Vitest, Playwright, HTML/SVG, stage order,
-  and the planned textarea. No stage-4+ interaction implementation was begun.
-- Refined font/curves, added a 2px single-child rise with complete subtree bounds,
-  and made empty/multiline root ellipses contain their labels and checkbox.
-- Fixed collapse selection preservation, reused-root-ID reconciliation, and
-  checkbox accessibility state after hidden DOM recreation.
-- Model insertion currently commits final text; stage 5 will coordinate prepared
-  patches with provisional creation and editing. This temporary checkpoint behavior
-  is documented and does not replace the required full editing contract.
-- Initial visual baselines remain unapproved. Font metrics/rasterization differences
-  are explicit in the comparison report; supplied reference images are untouched.
+- User authorized the five appearance changes on 2026-09-07 after reviewing the
+  proposal. The new Windows screenshot anchors native-size proportions and root
+  selection; the previous three references remain unchanged and applicable.
+- Default font is 12px with 15px line height; spacing, root padding, markers, and
+  checkbox size were reduced proportionally while strokes remain 1px.
+- Root selection fills the entire ellipse with #d2d2d2. SVG strokes now paint over
+  selection backgrounds and remain pointer-transparent. Node focus outlines were
+  removed; canvas keyboard focus and active-descendant semantics remain.
+- Checked inputs use #339933 with a white tick. Explicit CSS avoids WebKit's native
+  tinting; inputs retain their semantics and native forced-color appearance.
+- The original fixture is preserved. A separate 100% DPI variant matches the new
+  screenshot's labels. New evidence is in `docs/evidence/milestone-a/100dpi/`;
+  earlier evidence is retained for comparison. No baseline has been approved.
 
-## Review gaps and next action
+## Next action and known limits
 
-No unresolved stage 1–3 behavioral test failure is known. Review the
-[side-by-side candidate](evidence/milestone-a/comparison-chromium.png); confirm the
-appearance or request corrections before screenshot baselines are approved.
+Review the [new comparison](evidence/milestone-a/100dpi/comparison-chromium.png)
+and [selection/checkbox fixture](evidence/milestone-a/100dpi/selection-lines-chromium.png).
+Windows/macOS font rasterization and small branch-position differences remain
+explicit. No unresolved stage-3 behavior failure is known.
 
-After product feedback and authorization, implement stage 4 (selection/navigation
-and viewport), then stage 5 (textarea and creation coordination). Clipboard, URLs,
-and drag feedback remain C. Final menu/API, packaged consumer, actual stable
-browsers, VoiceOver/NVDA, and full performance profiling remain required D gates.
-Do not treat Playwright WebKit as actual Safari or preliminary ARIA as manual
-accessibility acceptance. No later-stage or release check has been waived.
+After feedback and authorization, proceed with stages 4–5: selection/navigation,
+viewport, and textarea/provisional creation. Model insertion still commits supplied
+text immediately at this checkpoint. Clipboard, links, and dragging remain C.
+Final menu/API, packaged consumer, actual stable browsers, VoiceOver/NVDA, and full
+performance profiling remain required D gates. Playwright WebKit is not actual
+Safari verification. No later-stage check has been waived.

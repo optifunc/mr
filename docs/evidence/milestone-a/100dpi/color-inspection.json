@@ -1,0 +1,17 @@
+{
+  "chromium": {
+    "image": "selection-lines-chromium.png",
+    "exactCheckedFill": "#339933",
+    "exactFillPixelCount": 264
+  },
+  "firefox": {
+    "image": "selection-lines-firefox.png",
+    "exactCheckedFill": "#339933",
+    "exactFillPixelCount": 252
+  },
+  "webkit": {
+    "image": "selection-lines-webkit.png",
+    "exactCheckedFill": "#339933",
+    "exactFillPixelCount": 258
+  }
+}

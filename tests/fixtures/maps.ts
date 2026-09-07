@@ -9,6 +9,18 @@ export function referenceMap(): MindMapDocument {
                 { ...node('three', 'Three', [node('n1', 'N1'), node('n2', 'N2'), node('n3', 'N3', [node('c1', 'C1', [{ ...node('collapsed', 'Collapsed node', [node('hidden', 'Hidden descendant')]), collapsed: true }]), node('c2', 'C2')]), node('n4', 'N4')]), side: 'right' },
             ] } };
 }
+/** The 100% DPI screenshot has a committed label change and tighter C2.3 spelling. */
+export function reference100DpiMap(): MindMapDocument {
+    const document = referenceMap();
+    const stack: MindMapNode[] = [document.root];
+    while (stack.length) {
+        const node = stack.pop()!;
+        if (node.id === 'single') node.text = 'In-place editing';
+        if (node.id === 'c23') node.text = 'C2.3';
+        stack.push(...node.children);
+    }
+    return document;
+}
 export function geometryMap(): MindMapDocument {
     return { root: { ...node('root', 'Geometry'), checked: true, children: [
                 { ...node('multi', 'First line\nSecond line', [node('empty', ''), node('space', '   ')]), side: 'left', checked: false },

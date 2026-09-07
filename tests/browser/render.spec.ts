@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { writeFileSync } from 'node:fs';
 test('reference appearance and geometry evidence', async ({ page }, info) => {
     await page.goto('/');
     await page.evaluate(() => document.fonts.ready);
@@ -19,12 +20,12 @@ test('reference appearance and geometry evidence', async ({ page }, info) => {
     await page.setViewportSize({ width: 1440, height: 1200 });
     await page.locator('.comparison').scrollIntoViewIfNeeded();
     await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
-    await page.locator('.comparison').screenshot({ path: `docs/evidence/milestone-a/comparison-${info.project.name}.png` });
-    await page.locator('#comparison-map').screenshot({ path: `docs/evidence/milestone-a/reference-${info.project.name}.png` });
-    await page.locator('#secondary').screenshot({ path: `docs/evidence/milestone-a/geometry-${info.project.name}.png` });
+    await page.locator('.comparison').screenshot({ path: `docs/evidence/milestone-a/100dpi/comparison-${info.project.name}.png` });
+    await page.locator('#comparison-map').screenshot({ path: `docs/evidence/milestone-a/100dpi/reference-${info.project.name}.png` });
+    await page.locator('#secondary').screenshot({ path: `docs/evidence/milestone-a/100dpi/geometry-${info.project.name}.png` });
     await page.getByRole('button', { name: 'Select One', exact: true }).click();
     await expect(widget).toBeFocused();
-    await widget.screenshot({ path: `docs/evidence/milestone-a/focus-${info.project.name}.png` });
+    await widget.screenshot({ path: `docs/evidence/milestone-a/100dpi/focus-${info.project.name}.png` });
 });
 test('selection and checked state reuse geometry; structural changes relayout and undo', async ({ page }) => {
     await page.goto('/');
@@ -86,9 +87,59 @@ test('root ellipse contains long multiline content and keeps an empty root horiz
         const cx=box.x+box.width/2,cy=box.y+box.height/2;
         return {ratio:box.width/box.height,corners:[...root.children].flatMap(child=>{const rect=child.getBoundingClientRect();return [rect.left,rect.right].flatMap(x=>[rect.top,rect.bottom].map(y=>((x-cx)/(box.width/2))**2+((y-cy)/(box.height/2))**2));}),labelHeight:label.height};
     });
-    expect(containment.ratio).toBeGreaterThan(1.7);expect(Math.max(...containment.corners)).toBeLessThanOrEqual(1);expect(containment.labelHeight).toBe(108);
+    expect(containment.ratio).toBeGreaterThan(1.7);expect(Math.max(...containment.corners)).toBeLessThanOrEqual(1);expect(containment.labelHeight).toBe(90);
     await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
-    await page.locator('#secondary').screenshot({path:`docs/evidence/milestone-a/root-multiline-${info.project.name}.png`});
+    await page.locator('#secondary').screenshot({path:`docs/evidence/milestone-a/100dpi/root-multiline-${info.project.name}.png`});
     const empty=await page.evaluate(()=>{window.secondary.execute({type:'setText',targetId:'root',text:''});const box=document.querySelector('#secondary .mindmap-root-node')!.getBoundingClientRect();return{width:box.width,height:box.height};});
     expect(empty.width).toBeGreaterThan(empty.height);
+});
+
+test('100% DPI proportions, root fill, unobstructed lines, focus, and checkbox color', async ({ page }, info) => {
+    await page.goto('/');
+    await page.evaluate(() => document.fonts.ready);
+    await page.getByRole('button', { name: 'Select One', exact: true }).click();
+    const focused = page.locator('#primary [data-node-id="one"]');
+    await expect(page.locator('#primary .mindmap')).toBeFocused();
+    await expect(focused).toHaveCSS('outline-style', 'none');
+    await expect(focused).toHaveAttribute('aria-selected', 'true');
+    const appearance = await page.evaluate(() => {
+        const widget = document.querySelector('#primary .mindmap')!;
+        const item = (id: string) => widget.querySelector(`[data-node-id="${id}"]`)!;
+        const root = item('root').getBoundingClientRect();
+        const a = item('a').getBoundingClientRect(), b = item('b').getBoundingClientRect();
+        const selected = item('one').getBoundingClientRect();
+        const before = widget.getAttribute('data-layout-count');
+        // Enable hit testing only for this paint-order probe. Production SVG stays
+        // pointer-transparent, so it cannot intercept future node gestures.
+        const svg = widget.querySelector('svg')!;
+        svg.style.pointerEvents = 'all';
+        const lineOnTop = document.elementFromPoint(selected.x + selected.width / 2, selected.bottom - 0.25)?.tagName;
+        window.primary.setSelection(['root']);
+        const rootStyle = getComputedStyle(item('root'));
+        const ellipseOnTop = document.elementFromPoint(root.right - 0.25, root.y + root.height / 2)?.tagName;
+        svg.style.removeProperty('pointer-events');
+        return { rootWidth: root.width, rootHeight: root.height, rowPitch: b.y - a.y,
+            font: getComputedStyle(item('one')).fontSize, fill: rootStyle.backgroundColor,
+            radius: rootStyle.borderRadius, labelFill: getComputedStyle(item('root').querySelector('.mindmap-label')!).backgroundColor,
+            lineOnTop, ellipseOnTop, before, after: widget.getAttribute('data-layout-count') };
+    });
+    expect(appearance.font).toBe('12px');
+    expect(appearance.rootWidth).toBeGreaterThanOrEqual(98);
+    expect(appearance.rootWidth).toBeLessThanOrEqual(100);
+    expect(appearance.rootHeight).toBe(39);
+    expect(appearance.rowPitch).toBe(23);
+    expect(appearance.fill).toBe('rgb(210, 210, 210)');
+    expect(appearance.radius).toBe('50%');
+    expect(appearance.labelFill).toBe('rgba(0, 0, 0, 0)');
+    expect(appearance.lineOnTop).toBe('path');
+    expect(appearance.ellipseOnTop).toBe('ellipse');
+    expect(appearance.after).toBe(appearance.before);
+    writeFileSync(`docs/evidence/milestone-a/100dpi/appearance-${info.project.name}.json`, JSON.stringify(appearance, null, 2) + '\n');
+    const checked = page.locator('#secondary [data-node-id="checked"] input');
+    await expect(checked).toBeChecked();
+    await expect(checked).toHaveCSS('background-color', 'rgb(51, 153, 51)');
+    await expect(page.locator('#secondary [data-node-id="unchecked"] input')).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+    await page.locator('#secondary').scrollIntoViewIfNeeded();
+    await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+    await page.locator('#secondary').screenshot({ path: `docs/evidence/milestone-a/100dpi/selection-lines-${info.project.name}.png` });
 });
