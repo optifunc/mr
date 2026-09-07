@@ -1,0 +1,34 @@
+
+> @mindmap/widget@0.1.0 typecheck /Users/yezo/Scratch/09-26/mr
+> tsc --noEmit
+
+
+> @mindmap/widget@0.1.0 test /Users/yezo/Scratch/09-26/mr
+> vitest run
+
+
+ RUN  v4.0.18 /Users/yezo/Scratch/09-26/mr
+
+ ✓ tests/unit/contracts.test.ts (1 test) 2ms
+ ✓ tests/unit/interaction.test.ts (14 tests) 7ms
+ ✓ tests/unit/model.test.ts (69 tests) 47ms
+ ✓ tests/unit/layout.test.ts (9 tests) 603ms
+   ✓ visible label boxes never overlap  576ms
+
+ Test Files  4 passed (4)
+      Tests  93 passed (93)
+   Start at  21:55:46
+   Duration  765ms (transform 218ms, setup 0ms, import 275ms, tests 658ms, environment 0ms)
+
+
+> @mindmap/widget@0.1.0 build /Users/yezo/Scratch/09-26/mr
+> vite build && tsc -p tsconfig.build.json
+
+vite v7.3.1 building client environment for production...
+transforming...
+✓ 16 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/mindmap.css   3.54 kB │ gzip:  1.07 kB
+dist/mindmap.js   45.35 kB │ gzip: 12.73 kB
+✓ built in 95ms

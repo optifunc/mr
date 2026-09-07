@@ -112,3 +112,23 @@ comparisons. Windows/macOS font
 rasterization differences remain accepted A limitations. Clipboard, links, and
 dragging remain C; menu, packaged consumer, actual stable browsers, assistive
 technology, and release performance checks remain D. No release gate is waived.
+
+## B stage-4 checkpoint (2026-09-07)
+
+Selection, pure geometry navigation/range paths, keyboard block movement, mouse
+pan, wheel/keyboard zoom, fit/reveal, resize preservation, and checkbox/structural
+key routing are implemented. Movement uses the shared reducer and history path.
+Passed: typecheck/build, 93 unit tests, 18 new interaction browser cases across all
+three engines. Full regression: 69 passed / 3 initially failed because the old
+mount test expected Tab to leave the widget; Tab is now the required insert-child
+binding. Corrected the test to use pointer entry into the independent mount;
+all 3 rerun cases passed. No assertion tolerance was increased.
+
+Evidence: [stage-4 checks](evidence/milestone-b/stage4/checks.txt),
+[full run](evidence/milestone-b/stage4/browser-checks.txt),
+[corrected focus check](evidence/milestone-b/stage4/mount-checks.txt).
+All three default reference PNGs are byte-identical to accepted A images.
+Inspected Chromium/WebKit default images and Firefox checkbox geometry.
+Accepted A evidence is preserved; new captures go to `evidence/milestone-b/`.
+Next: stage 5 provisional creation, textarea and focus/composition coordination,
+then final B regression, review demo and editing comparisons. B acceptance pending.

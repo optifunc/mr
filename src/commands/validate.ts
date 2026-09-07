@@ -16,6 +16,10 @@ export function validateCommand(command: unknown): asserts command is MindMapCom
         ['insertChild', 'insertBefore', 'insertAfter', 'insertParent'].includes(value.type as string) &&
         value.text !== undefined && typeof value.text !== 'string')
         throw new MindMapError('INVALID_DOCUMENT', 'Node text must be a string');
+    if (['navigate', 'moveSelection'].includes(value.type as string) && !['left', 'right', 'up', 'down'].includes(value.direction as string))
+        throw new MindMapError('INVALID_TARGET', 'Invalid arrow direction');
+    if (value.extend !== undefined && typeof value.extend !== 'boolean')
+        throw new MindMapError('INVALID_DOCUMENT', 'extend must be boolean');
     if (value.type === 'move') {
         const destination = value.destination as Record<string, unknown> | undefined;
         if (!destination || typeof destination !== 'object' || Array.isArray(destination) ||

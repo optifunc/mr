@@ -57,6 +57,9 @@ export type MindMapCommand = {
 } | {
     type: 'undo' | 'redo' | 'selectAll' | 'clearSelection' | 'zoomIn' | 'zoomOut' | 'resetZoom' | 'fit';
 } | {
+    type: 'moveSelection';
+    direction: 'left' | 'right' | 'up' | 'down';
+} | {
     type: 'navigate';
     direction: 'left' | 'right' | 'up' | 'down';
     extend?: boolean;

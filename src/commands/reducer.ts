@@ -5,7 +5,8 @@ import { normalizeRoots, normalizeSelection } from '../model/document';
 import { patchesBetween } from '../history/history';
 import type { Transaction } from '../history/history';
 import { validateCommand } from './validate';
-export const contentCommands = new Set<MindMapCommand['type']>(['insertChild', 'insertBefore', 'insertAfter', 'insertParent', 'setText', 'delete', 'toggleChecked', 'addCheckbox', 'removeCheckbox', 'toggleCollapse', 'collapse', 'expand', 'move']);
+import { keyboardMove } from './keyboard-move';
+export const contentCommands = new Set<MindMapCommand['type']>(['insertChild', 'insertBefore', 'insertAfter', 'insertParent', 'setText', 'delete', 'toggleChecked', 'addCheckbox', 'removeCheckbox', 'toggleCollapse', 'collapse', 'expand', 'move', 'moveSelection']);
 export interface Prepared {
     model: Model;
     transaction: Transaction;
@@ -15,6 +16,13 @@ export function prepare(model: Model, selection: Selection, command: MindMapComm
     validateCommand(command);
     if (!contentCommands.has(command.type))
         return;
+    if (command.type === 'moveSelection') {
+        const move = keyboardMove(model, selection, command.direction);
+        if (!move) return;
+        const result = prepare(model, selection, move, createId, order);
+        if (result) result.transaction.after = { ...selection, ids: [...selection.ids] };
+        return result;
+    }
     const nodes = new Map(model.nodes);
     let nextSelection = selection;
     const get = (id: string | undefined): NodeRecord => { const n = id === undefined ? undefined : nodes.get(id); if (!n)
@@ -57,7 +65,7 @@ export function prepare(model: Model, selection: Selection, command: MindMapComm
             else if (command.type !== 'insertChild')
                 index = get(parent).children.indexOf(target.id) + (command.type === 'insertAfter' ? 1 : 0);
             const id = newId();
-            nodes.set(id, { id, text: command.text ?? '', children: wrap ? [target.id] : [], parent, ...(side ? { side } : {}), ...(!wrap && target.checked !== undefined ? { checked: false } : {}) });
+            nodes.set(id, { id, text: command.text ?? '', children: wrap ? [target.id] : [], parent, ...(side ? { side } : {}), ...(command.type !== 'insertParent' && target.checked !== undefined ? { checked: false } : {}) });
             splice(parent, index, wrap ? 1 : 0, id);
             if (wrap) {
                 const { side: _side, ...rest } = target;

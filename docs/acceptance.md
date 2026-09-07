@@ -196,3 +196,9 @@ action recorded. Do not declare release validation complete while required evide
 is missing. Document any user-approved change to release scope explicitly.
 
 Evidence: not run. User decision: pending.
+
+### B stage-4 interim evidence
+
+Stage-4 implementation and checks are recorded in [progress](progress.md#b-stage-4-checkpoint-2026-09-07).
+Default PNGs remain byte-identical to the three accepted A engine images. Editing
+and final stage-5 product evidence are pending; this is not the B handover.

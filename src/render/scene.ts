@@ -24,6 +24,7 @@ export class Scene {
     private previousModel: Model | undefined;
     constructor(private readonly widget: HTMLElement) { const doc = widget.ownerDocument; this.scene = doc.createElement('div'); this.scene.className = 'mindmap-scene'; this.svg = doc.createElementNS(NS, 'svg'); this.svg.classList.add('mindmap-lines'); this.svg.setAttribute('aria-hidden', 'true'); this.labels = doc.createElement('div'); this.labels.className = 'mindmap-nodes'; this.ellipse = doc.createElementNS(NS, 'ellipse'); this.svg.append(this.ellipse); this.scene.append(this.svg, this.labels); widget.append(this.scene); this.measurements = new Measurements(widget); }
     refresh(): void { this.measurements.clear(); }
+    nodeElement(id: string): HTMLDivElement | undefined { return this.elements.get(id); }
     center(): void { this.scene.style.transform = `translate(${this.widget.clientWidth / 2}px, ${this.widget.clientHeight / 2}px)`; }
     render(model: Model, selection: Selection, geometry: boolean): Layout {
         if (geometry || !this.geometry) {
