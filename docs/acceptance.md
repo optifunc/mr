@@ -36,12 +36,21 @@ The arrow and red annotation in the drag reference are explanatory, not widget U
 - Show two isolated mounts, package output, and the stage 1–3 automated gates.
 - Run the target workload as an early diagnostic; retain final profiling for D.
 
-**2026-09-07 correction review:** the user requested smaller, native-DPI
+**2026-09-07 spacing follow-up:** the user requested a larger gap above N1,
+a smaller text-to-line gap, and higher checkboxes. These corrections are complete;
+**visual acceptance remains pending**. [Current report](evidence/milestone-a/spacing/report.md),
+[comparison](evidence/milestone-a/spacing/comparison-chromium.png),
+[checkbox alignment](evidence/milestone-a/spacing/geometry-chromium.png),
+and [native gap measurements](evidence/milestone-a/spacing/ink-spacing.json).
+Build/typecheck, 54 unit tests, and 36 browser cases passed. Final screenshots
+were inspected in all three engines. Earlier candidates remain unchanged.
+
+**2026-09-07 first correction review:** the user requested smaller, native-DPI
 proportions, a filled selected root ellipse, unobstructed selection lines, removal
 of the dotted node focus outline, and #339933 checked backgrounds. All five
 corrections are implemented; **revised visual acceptance remains pending**.
 
-[Current correction report](evidence/milestone-a/100dpi/report.md),
+[First correction report](evidence/milestone-a/100dpi/report.md),
 [native-size comparison](evidence/milestone-a/100dpi/comparison-chromium.png),
 [geometry/selection lines](evidence/milestone-a/100dpi/selection-lines-chromium.png).
 Build/typecheck, 54 unit tests, and 33 browser cases passed. The earlier evidence

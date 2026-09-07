@@ -157,6 +157,10 @@ line height, whitespace handling, padding, and checkbox dimensions. Preserve
 multiline, empty, and whitespace-only labels. Do not introduce automatic label
 wrapping in the first version; explicit newlines determine lines. Cache by text
 and geometry-affecting style values. Batch measurement reads before scene writes.
+Default non-root content sits 2px below the row center, redistributing the existing
+vertical padding without changing node height; root text stays centered. Raise
+checkboxes 1px relative to the label block for optical alignment. The native-DPI
+reference anchors these spacings; expose both offsets as theme properties.
 
 Use a deterministic layout in unzoomed world coordinates:
 

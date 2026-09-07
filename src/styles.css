@@ -10,6 +10,7 @@
   --mindmap-focus-color: #777;
   --mindmap-label-padding-x: 6px;
   --mindmap-label-padding-y: 2.5px;
+  --mindmap-label-offset-y: 2px;
   --mindmap-root-padding-x: 11px;
   --mindmap-root-padding-y: 12px;
   --mindmap-sibling-gap: 3px;
@@ -20,6 +21,7 @@
   --mindmap-checkbox-size: 11px;
   --mindmap-checkbox-gap: 3px;
   --mindmap-checkbox-color: #339933;
+  --mindmap-checkbox-raise: 1px;
   position: relative; overflow: hidden; width: 100%; height: 100%;
   background: var(--mindmap-background); color: var(--mindmap-text-color);
   font-family: var(--mindmap-font-family); font-size: var(--mindmap-font-size); line-height: var(--mindmap-line-height);
@@ -30,12 +32,14 @@
 .mindmap .mindmap-lines { position: absolute; z-index: 1; left: 0; top: 0; width: 1px; height: 1px; overflow: visible; pointer-events: none; fill: none; stroke: var(--mindmap-line-color); stroke-width: var(--mindmap-line-width); }
 .mindmap .mindmap-lines circle { fill: var(--mindmap-background); }
 .mindmap .mindmap-nodes { position: absolute; z-index: 0; left: 0; top: 0; }
-.mindmap .mindmap-node { position: absolute; display: flex; align-items: center; width: max-content; box-sizing: border-box; padding: var(--mindmap-label-padding-y) var(--mindmap-label-padding-x); gap: var(--mindmap-checkbox-gap); border: 0; margin: 0; font: inherit; color: inherit; }
+/* Lower content toward its branch while preserving the measured row height.
+   Clamp the offset so themes with smaller padding cannot create negative padding. */
+.mindmap .mindmap-node { position: absolute; display: flex; align-items: center; width: max-content; box-sizing: border-box; padding: var(--mindmap-label-padding-y) var(--mindmap-label-padding-x); padding-top: calc(var(--mindmap-label-padding-y) + clamp(0px, var(--mindmap-label-offset-y), var(--mindmap-label-padding-y))); padding-bottom: calc(var(--mindmap-label-padding-y) - clamp(0px, var(--mindmap-label-offset-y), var(--mindmap-label-padding-y))); gap: var(--mindmap-checkbox-gap); border: 0; margin: 0; font: inherit; color: inherit; }
 .mindmap .mindmap-label { display: block; white-space: pre; min-width: 1px; min-height: var(--mindmap-line-height); font: inherit; }
 .mindmap .mindmap-root-node { padding: var(--mindmap-root-padding-y) var(--mindmap-root-padding-x); justify-content: center; }
 .mindmap .mindmap-selected { background: var(--mindmap-selection-color); }
 .mindmap .mindmap-root-node.mindmap-selected { border-radius: 50%; }
-.mindmap .mindmap-checkbox { flex: none; box-sizing: border-box; width: var(--mindmap-checkbox-size); height: var(--mindmap-checkbox-size); padding: 0; margin: 0; accent-color: var(--mindmap-checkbox-color); pointer-events: none; appearance: none; display: inline-grid; place-items: center; border: 1px solid #888; border-radius: 2px; background: #fff; }
+.mindmap .mindmap-checkbox { position: relative; top: calc(0px - var(--mindmap-checkbox-raise)); flex: none; box-sizing: border-box; width: var(--mindmap-checkbox-size); height: var(--mindmap-checkbox-size); padding: 0; margin: 0; accent-color: var(--mindmap-checkbox-color); pointer-events: none; appearance: none; display: inline-grid; place-items: center; border: 1px solid #888; border-radius: 2px; background: #fff; }
 /* Keep native input semantics, with the same checked fill on every platform. */
 .mindmap .mindmap-checkbox::before { content: ""; width: 55%; height: 30%; border: solid #fff; border-width: 0 0 1.5px 1.5px; transform: translateY(-1px) rotate(-45deg); opacity: 0; }
 .mindmap .mindmap-checkbox:checked { background: var(--mindmap-checkbox-color); border-color: var(--mindmap-checkbox-color); }

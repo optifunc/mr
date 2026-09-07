@@ -20,12 +20,12 @@ test('reference appearance and geometry evidence', async ({ page }, info) => {
     await page.setViewportSize({ width: 1440, height: 1200 });
     await page.locator('.comparison').scrollIntoViewIfNeeded();
     await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
-    await page.locator('.comparison').screenshot({ path: `docs/evidence/milestone-a/100dpi/comparison-${info.project.name}.png` });
-    await page.locator('#comparison-map').screenshot({ path: `docs/evidence/milestone-a/100dpi/reference-${info.project.name}.png` });
-    await page.locator('#secondary').screenshot({ path: `docs/evidence/milestone-a/100dpi/geometry-${info.project.name}.png` });
+    await page.locator('.comparison').screenshot({ path: `docs/evidence/milestone-a/spacing/comparison-${info.project.name}.png` });
+    await page.locator('#comparison-map').screenshot({ path: `docs/evidence/milestone-a/spacing/reference-${info.project.name}.png` });
+    await page.locator('#secondary').screenshot({ path: `docs/evidence/milestone-a/spacing/geometry-${info.project.name}.png` });
     await page.getByRole('button', { name: 'Select One', exact: true }).click();
     await expect(widget).toBeFocused();
-    await widget.screenshot({ path: `docs/evidence/milestone-a/100dpi/focus-${info.project.name}.png` });
+    await widget.screenshot({ path: `docs/evidence/milestone-a/spacing/focus-${info.project.name}.png` });
 });
 test('selection and checked state reuse geometry; structural changes relayout and undo', async ({ page }) => {
     await page.goto('/');
@@ -89,9 +89,61 @@ test('root ellipse contains long multiline content and keeps an empty root horiz
     });
     expect(containment.ratio).toBeGreaterThan(1.7);expect(Math.max(...containment.corners)).toBeLessThanOrEqual(1);expect(containment.labelHeight).toBe(90);
     await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
-    await page.locator('#secondary').screenshot({path:`docs/evidence/milestone-a/100dpi/root-multiline-${info.project.name}.png`});
+    await page.locator('#secondary').screenshot({path:`docs/evidence/milestone-a/spacing/root-multiline-${info.project.name}.png`});
     const empty=await page.evaluate(()=>{window.secondary.execute({type:'setText',targetId:'root',text:''});const box=document.querySelector('#secondary .mindmap-root-node')!.getBoundingClientRect();return{width:box.width,height:box.height};});
     expect(empty.width).toBeGreaterThan(empty.height);
+});
+
+test('text-to-branch spacing and optical checkbox alignment preserve row geometry', async ({ page }, info) => {
+    await page.goto('/');
+    await page.evaluate(() => document.fonts.ready);
+    const spacing = await page.evaluate(() => {
+        const map = document.querySelector('#comparison-map .mindmap') as HTMLElement;
+        const geometry = document.querySelector('#secondary .mindmap') as HTMLElement;
+        const measure = (host: HTMLElement, id: string) => {
+            const node = host.querySelector(`.mindmap-nodes [data-node-id="${id}"]`)!;
+            const box = node.getBoundingClientRect();
+            const label = node.querySelector('.mindmap-label')!.getBoundingClientRect();
+            const checkbox = node.querySelector('input')?.getBoundingClientRect();
+            return { box: box.toJSON(), label: label.toJSON(), clearance: box.bottom - label.bottom,
+                checkboxOffset: checkbox ? checkbox.y + checkbox.height / 2 - (label.y + label.height / 2) : null };
+        };
+        const snapshot = () => ({
+            reference: ['root', 'child2', 'single', 'n1', 'a', 'b'].map(id => measure(map, id)),
+            checkboxes: ['root', 'checked', 'unchecked', 'multi', 'nested'].map(id => measure(geometry, id)),
+            paths: [...map.querySelectorAll('path')].map(path => path.getAttribute('d')),
+            layoutCount: map.getAttribute('data-layout-count'),
+        });
+        const current = snapshot();
+        for (const host of [map, geometry]) {
+            host.style.setProperty('--mindmap-label-offset-y', '0px');
+            host.style.setProperty('--mindmap-checkbox-raise', '0px');
+        }
+        const previous = snapshot();
+        for (const host of [map, geometry]) {
+            host.style.removeProperty('--mindmap-label-offset-y');
+            host.style.removeProperty('--mindmap-checkbox-raise');
+        }
+        return { current, previous };
+    });
+    const { current, previous } = spacing;
+    expect(current.paths).toEqual(previous.paths);
+    expect(current.layoutCount).toBe(previous.layoutCount);
+    for (const group of ['reference', 'checkboxes'] as const) {
+        current[group].forEach((node, index) => {
+            const old = previous[group][index]!;
+            expect(node.box).toEqual(old.box);
+            // Root text stays centered; other labels move toward their branch.
+            expect(node.label.y - old.label.y).toBe(index === 0 ? 0 : 2);
+            if (index !== 0) expect(node.clearance).toBe(0.5);
+        });
+    }
+    for (const node of current.checkboxes) expect(node.checkboxOffset).toBe(-1);
+    for (const node of previous.checkboxes) expect(node.checkboxOffset).toBe(0);
+    const chainGap = (state: typeof current) => state.reference[3]!.label.top - state.reference[2]!.box.bottom;
+    expect(chainGap(current) - chainGap(previous)).toBe(2);
+    expect(current.reference[5]!.box.y - current.reference[4]!.box.y).toBe(23);
+    writeFileSync(`docs/evidence/milestone-a/spacing/spacing-${info.project.name}.json`, JSON.stringify(spacing, null, 2) + '\n');
 });
 
 test('100% DPI proportions, root fill, unobstructed lines, focus, and checkbox color', async ({ page }, info) => {
@@ -134,12 +186,12 @@ test('100% DPI proportions, root fill, unobstructed lines, focus, and checkbox c
     expect(appearance.lineOnTop).toBe('path');
     expect(appearance.ellipseOnTop).toBe('ellipse');
     expect(appearance.after).toBe(appearance.before);
-    writeFileSync(`docs/evidence/milestone-a/100dpi/appearance-${info.project.name}.json`, JSON.stringify(appearance, null, 2) + '\n');
+    writeFileSync(`docs/evidence/milestone-a/spacing/appearance-${info.project.name}.json`, JSON.stringify(appearance, null, 2) + '\n');
     const checked = page.locator('#secondary [data-node-id="checked"] input');
     await expect(checked).toBeChecked();
     await expect(checked).toHaveCSS('background-color', 'rgb(51, 153, 51)');
     await expect(page.locator('#secondary [data-node-id="unchecked"] input')).toHaveCSS('background-color', 'rgb(255, 255, 255)');
     await page.locator('#secondary').scrollIntoViewIfNeeded();
     await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
-    await page.locator('#secondary').screenshot({ path: `docs/evidence/milestone-a/100dpi/selection-lines-${info.project.name}.png` });
+    await page.locator('#secondary').screenshot({ path: `docs/evidence/milestone-a/spacing/selection-lines-${info.project.name}.png` });
 });

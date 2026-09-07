@@ -123,7 +123,8 @@ Requirements:
 - Labels and connectors shall use a compact sans-serif font and neutral
   black/gray colors comparable to the references.
 - Non-root nodes shall appear as text resting immediately above a thin
-  horizontal branch line.
+  horizontal branch line, with text-to-line and neighboring-label clearances
+  comparable to the native-DPI reference.
 - Parent-child connectors shall be thin, smooth gray curves that merge into
   each node's horizontal branch line.
 - The root shall be centered in an outlined horizontal ellipse containing its
@@ -133,7 +134,8 @@ Requirements:
 - A collapsed node that has children shall show a small outlined circle at the
   outward end of its branch line, as in the reference.
 - Checkbox nodes shall show a native-looking square checkbox immediately
-  before the label. Checked labels shall remain readable; no strike-through is
+  before the label, optically aligned with the text (with the text block for
+  multiline labels). Checked labels shall remain readable; no strike-through is
   required. The checked background shall be #339933 with a white checkmark.
 - A selected non-root node shall use the light-gray rectangular highlight seen
   in the references. A selected root shall fill its entire ellipse with #d2d2d2,

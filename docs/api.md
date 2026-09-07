@@ -82,11 +82,13 @@ Labels preserve whitespace and explicit newlines and never wrap automatically.
 | `text-color`, `background`, `line-color`, `line-width` | #111, #fff, #888, 1px |
 | `selection-color`, `focus-color` | #d2d2d2, #777 |
 | `label-padding-x`, `label-padding-y` | 6px, 2.5px |
+| `label-offset-y` | 2px downward, clamped to `label-padding-y` |
 | `root-padding-x`, `root-padding-y` | 11px, 12px |
 | `sibling-gap`, `branch-gap`, `root-gap` | 3px, 20px, 20px |
 | `marker-radius`, `chain-rise` | 2.5px, 1.5px |
 | `checkbox-size`, `checkbox-gap` | 11px, 3px |
 | `checkbox-color` | #339933 |
+| `checkbox-raise` | 1px above the label block center |
 
 Measurement uses hidden, inert DOM labels with the same CSS as visible labels,
 caches unique text/checkbox/root combinations until invalidation, and batches reads
@@ -94,6 +96,11 @@ before scene writes. Only visible nodes get geometry or DOM elements. Layout use
 subtree envelopes that include multiline heights, single-child rise, and markers.
 The SVG and HTML share one translated scene. Normal mounting centers the root at
 100%; resizing recenters the stage-A scene without recomputing world layout.
+
+Non-root content uses 4.5px top and 0.5px bottom padding by default. This moves
+text closer to its branch without changing row height or subtree spacing. Root
+text remains centered. Checkboxes sit 1px above the label block center for optical
+alignment, including beside multiline labels.
 
 The Windows 100% DPI reference calibrates the default size. A selected root fills
 its entire ellipse; non-root selections remain rectangular. SVG strokes render
