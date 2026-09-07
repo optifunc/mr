@@ -1,0 +1,13 @@
+{
+  "rootWidth": 98.6875,
+  "rootHeight": 39,
+  "rowPitch": 23,
+  "font": "12px",
+  "fill": "rgb(210, 210, 210)",
+  "radius": "50%",
+  "labelFill": "rgba(0, 0, 0, 0)",
+  "lineOnTop": "path",
+  "ellipseOnTop": "ellipse",
+  "before": "2",
+  "after": "2"
+}

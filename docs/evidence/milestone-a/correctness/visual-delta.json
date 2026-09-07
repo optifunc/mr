@@ -1,0 +1,50 @@
+[
+  {
+    "browser": "chromium",
+    "fixture": "comparison",
+    "before": "docs/evidence/milestone-a/checkbox-gap/comparison-chromium.png",
+    "after": "docs/evidence/milestone-a/correctness/comparison-chromium.png",
+    "sameSize": true,
+    "changedPixels": 3
+  },
+  {
+    "browser": "chromium",
+    "fixture": "geometry",
+    "before": "docs/evidence/milestone-a/checkbox-gap/geometry-chromium.png",
+    "after": "docs/evidence/milestone-a/correctness/geometry-chromium.png",
+    "sameSize": true,
+    "changedPixels": 91
+  },
+  {
+    "browser": "firefox",
+    "fixture": "comparison",
+    "before": "docs/evidence/milestone-a/checkbox-gap/comparison-firefox.png",
+    "after": "docs/evidence/milestone-a/correctness/comparison-firefox.png",
+    "sameSize": true,
+    "changedPixels": 43
+  },
+  {
+    "browser": "firefox",
+    "fixture": "geometry",
+    "before": "docs/evidence/milestone-a/checkbox-gap/geometry-firefox.png",
+    "after": "docs/evidence/milestone-a/correctness/geometry-firefox.png",
+    "sameSize": true,
+    "changedPixels": 30
+  },
+  {
+    "browser": "webkit",
+    "fixture": "comparison",
+    "before": "docs/evidence/milestone-a/checkbox-gap/comparison-webkit.png",
+    "after": "docs/evidence/milestone-a/correctness/comparison-webkit.png",
+    "sameSize": true,
+    "changedPixels": 0
+  },
+  {
+    "browser": "webkit",
+    "fixture": "geometry",
+    "before": "docs/evidence/milestone-a/checkbox-gap/geometry-webkit.png",
+    "after": "docs/evidence/milestone-a/correctness/geometry-webkit.png",
+    "sameSize": true,
+    "changedPixels": 0
+  }
+]

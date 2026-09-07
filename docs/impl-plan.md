@@ -107,8 +107,10 @@ mutate internal state through an input document, a returned snapshot, or an even
 payload. Do not expose the node index or mutable selection sets.
 
 Each content command prepares a complete set of forward and inverse changes
-before applying them. Validate destinations and obtain all new IDs before any
-commit. A host ID callback that throws, returns an invalid ID, or produces a
+before applying them. Validate runtime command fields, destination enums, and
+required text; optional insertion text still defaults to empty. Applicability and
+execution share these checks. Validate destinations and obtain all new IDs before
+any commit. A host ID callback that throws, returns an invalid ID, or produces a
 collision rejects the whole command. Use a cryptographically backed UUID generator
 by default, with a compatible browser fallback where needed.
 
@@ -155,8 +157,12 @@ for accessibility; the HTML tree supplies node semantics and pointer targets.
 Measure text with a hidden DOM measurement element using exactly the label font,
 line height, whitespace handling, padding, and checkbox dimensions. Preserve
 multiline, empty, and whitespace-only labels. Do not introduce automatic label
-wrapping in the first version; explicit newlines determine lines. Cache by text
-and geometry-affecting style values. Batch measurement reads before scene writes.
+wrapping in the first version; explicit newlines determine lines, including the
+final empty row after a trailing newline. Use the same line-box mechanism for
+measurement and visible labels without inserting text into the document. Cache by text
+and geometry-affecting style values. Measure fractional local CSS dimensions
+(including root content), never transformed screen bounds; ancestor scaling must
+not enter world geometry. Batch measurement reads before scene writes.
 Default non-root content sits 0.5px below the row center, redistributing the existing
 vertical padding without changing node height; root text stays centered. Raise
 checkboxes 1px relative to the label block for optical alignment. The native-DPI
@@ -394,7 +400,9 @@ follow the rendering scheduler. `setDocument` emits a replacement change reason
 without creating history.
 
 Queue commands invoked reentrantly by event listeners until the current event
-batch completes, preserving event order. Isolate listener exceptions so they cannot
+batch completes, preserving FIFO order across nested enqueues. Drain one queue
+iteratively so newly appended work cannot overtake existing work or grow the call
+stack. Destroy discards pending work. Isolate listener exceptions so they cannot
 interrupt transaction installation or prevent remaining listeners from running.
 Report callback failures through a guarded error path that cannot recurse if an
 error listener itself throws. A failed link-policy callback prevents opening.

@@ -1,0 +1,39 @@
+
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test tests/browser/layout-edge.spec.ts
+
+
+Running 6 tests using 4 workers
+
+(node:37592) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37589) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37590) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37591) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37590) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37592) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37591) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37589) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/browser/layout-edge.spec.ts:4:1 › explicit newlines retain every empty row in measurement, rendering, and selection (401ms)
+  ✓  2 [chromium] › tests/browser/layout-edge.spec.ts:47:1 › ancestor transforms do not enter local measurements at mount or refresh (429ms)
+(node:37628) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37631) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37628) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37631) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  4 [firefox] › tests/browser/layout-edge.spec.ts:4:1 › explicit newlines retain every empty row in measurement, rendering, and selection (1.8s)
+  ✓  6 [webkit] › tests/browser/layout-edge.spec.ts:47:1 › ancestor transforms do not enter local measurements at mount or refresh (871ms)
+  ✓  3 [firefox] › tests/browser/layout-edge.spec.ts:47:1 › ancestor transforms do not enter local measurements at mount or refresh (1.9s)
+  ✓  5 [webkit] › tests/browser/layout-edge.spec.ts:4:1 › explicit newlines retain every empty row in measurement, rendering, and selection (989ms)
+
+  6 passed (4.3s)

@@ -4,25 +4,14 @@ Last updated: 2026-09-07
 
 ## Current state
 
-**Stage-3 correctness review fixes are in progress.** The user authorized fixes
-for malformed-command atomicity, reentrant FIFO ordering, trailing newline rows,
-and host-transform-independent measurement. No later milestone was started.
-
-- Item 1: runtime validation and atomic rejection regression coverage implemented;
-  typecheck, 79 unit tests, and 9 API browser cases passed.
-- Item 2: one iterative FIFO drain implemented; typecheck and all 18 API browser
-  cases passed, including branching, errors, destruction, and a 3,000-operation chain.
-- Item 3: shared zero-width inline box preserves trailing rows without changing
-  text; typecheck and all 3 newline browser cases passed. Screenshots inspected.
-- Item 4: fractional local CSS measurements implemented, including root content.
-  Typecheck and all 6 edge-case browser tests passed; scaled screenshots inspected.
-  The initial Firefox screen-bounds formula failed by 0.008px due to edge rounding;
-  the final test compares actual pre-refresh bounds exactly. Full gates remain pending. Full milestone gates and refreshed evidence
-  follow all four fixes. The previously recorded checks below predate this review.
+**All four stage-3 correctness review fixes are complete and verified.**
+Milestone A remains at the product checkpoint for review; no later milestone was
+started. The fixes cover command atomicity, FIFO reentrancy, trailing newline
+rows, and host-transform-independent measurement.
 
 Run `pnpm dev`, then open http://127.0.0.1:5173. The live reference, independent
 geometry mount, native-size 100% DPI comparison, and `/?workload` diagnostic are
-available. [Current review report](evidence/milestone-a/checkbox-gap/report.md),
+available. [Current review report](evidence/milestone-a/correctness/report.md),
 [API](api.md), [testing](testing.md).
 
 ## Milestones
@@ -43,10 +32,13 @@ available. [Current review report](evidence/milestone-a/checkbox-gap/report.md),
 - Previous spacing correction: `0f6ab03`; [retained evidence](evidence/milestone-a/spacing/report.md).
 - Descender-clearance correction: `2742408`; the user said it looks good and
   requested only a 1px larger checkbox-to-text gap.
-- Current tested working tree is based on `2742408`. The checkbox-gap commit
-  contains the change, verification, and evidence.
-- Passed: strict typecheck, ESM/declarations/CSS build, **56 unit tests**,
-  **36 browser cases** across Chromium, Firefox, and WebKit, and diff whitespace check.
+- Checkbox-gap correction: `0964854`; [retained evidence](evidence/milestone-a/checkbox-gap/report.md).
+- Correctness fixes: `81195b2` command validation, `845c9cc` FIFO queue,
+  `f4bf9fa` trailing rows, and `1086255` local measurements.
+- Final tested working tree is based on `1086255`, with artifact-path updates and
+  the current report/evidence recorded in the handover commit.
+- Passed: strict typecheck, ESM/declarations/CSS build, **79 unit tests**,
+  **54 browser cases** across Chromium, Firefox, and WebKit, and diff whitespace check.
 - Actual measurements: root about **98.7×39px**, regular A/B/C row pitch **23px**.
   Root selection/line paint order, absent node outline, and exact checkbox background
   checked across all engines. Final comparisons and geometry screenshots inspected.
@@ -77,14 +69,25 @@ available. [Current review report](evidence/milestone-a/checkbox-gap/report.md),
 - Checkbox-to-text gap is now 4px (previously 3px), as requested. The input’s
   vertical alignment, dimensions, and color remain unchanged. Browser assertions
   measure the 4px gap beside root, single-line, multiline, and nested labels.
+- Runtime commands validate required text, ID shapes, and move enums before any
+  installation. Rejection preserves document, selection, DOM, and undo/redo; errors
+  are stable validation codes. Twenty-two malformed-input cases are covered.
+- Reentrant commands drain one iterative FIFO queue: A/B/C/D ordering, full event
+  batches, listener failures, destruction, and 3,000-operation chains are covered.
+- Empty trailing rows now participate in both measured and visible line boxes
+  without adding text. LF/CRLF and newline-only labels are covered.
+- Measurement reads fractional local CSS sizes, including root content. Mount and
+  refresh preserve exact local geometry under scales, nested/nonuniform transforms,
+  rotation, and restoration. Half-scale multiline height remains 17.5px.
 - The original fixture is preserved. A separate 100% DPI variant matches the new
-  screenshot's labels. New evidence is in `docs/evidence/milestone-a/checkbox-gap/`;
+  screenshot's labels. New evidence is in `docs/evidence/milestone-a/correctness/`;
   earlier evidence is retained for comparison. No baseline has been approved.
 
 ## Next action and known limits
 
-Review the [checkbox spacing](evidence/milestone-a/checkbox-gap/geometry-chromium.png)
-and [comparison](evidence/milestone-a/checkbox-gap/comparison-chromium.png).
+Review the [correctness report](evidence/milestone-a/correctness/report.md),
+[checkbox spacing](evidence/milestone-a/correctness/geometry-chromium.png)
+and [comparison](evidence/milestone-a/correctness/comparison-chromium.png).
 Windows/macOS font rasterization and small branch-position differences remain.
 Ordinary letters have slightly more line clearance than the reference, preserving
 a consistent baseline and sufficient space below descenders. No unresolved stage-3 behavior failure is known.

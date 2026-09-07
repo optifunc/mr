@@ -1,0 +1,126 @@
+
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test tests/browser/layout-edge.spec.ts tests/browser/render.spec.ts
+
+
+Running 30 tests using 4 workers
+
+(node:37380) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37381) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37383) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37382) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37380) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37381) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37382) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37383) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   3 [chromium] › tests/browser/render.spec.ts:30:1 › selection and checked state reuse geometry; structural changes relayout and undo (648ms)
+  ✓   2 [chromium] › tests/browser/layout-edge.spec.ts:4:1 › explicit newlines retain every empty row in measurement, rendering, and selection (787ms)
+  ✓   1 [chromium] › tests/browser/layout-edge.spec.ts:47:1 › ancestor transforms do not enter local measurements at mount or refresh (793ms)
+  ✓   5 [chromium] › tests/browser/render.spec.ts:45:1 › literal text, empty/multiline labels, theme refresh, font completion, resize, and lifecycle (151ms)
+  ✓   6 [chromium] › tests/browser/render.spec.ts:63:1 › replacement reconciles reused root IDs, namespaced DOM IDs, and optional checkboxes (153ms)
+  ✓   7 [chromium] › tests/browser/render.spec.ts:74:1 › checkbox accessibility state survives hidden-node removal and recreation (168ms)
+  ✓   9 [chromium] › tests/browser/render.spec.ts:97:1 › text-to-branch spacing and optical checkbox alignment preserve row geometry (178ms)
+  ✓   8 [chromium] › tests/browser/render.spec.ts:80:1 › root ellipse contains long multiline content and keeps an empty root horizontal (371ms)
+  ✓   4 [chromium] › tests/browser/render.spec.ts:3:1 › reference appearance and geometry evidence (1.2s)
+(node:37423) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  10 [chromium] › tests/browser/render.spec.ts:162:1 › 100% DPI proportions, root fill, unobstructed lines, focus, and checkbox color (372ms)
+(node:37424) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37425) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37426) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37423) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37424) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37425) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37426) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  14 [firefox] › tests/browser/render.spec.ts:30:1 › selection and checked state reuse geometry; structural changes relayout and undo (1.7s)
+  ✘  12 [firefox] › tests/browser/layout-edge.spec.ts:47:1 › ancestor transforms do not enter local measurements at mount or refresh (1.2s)
+(node:37465) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  11 [firefox] › tests/browser/layout-edge.spec.ts:4:1 › explicit newlines retain every empty row in measurement, rendering, and selection (1.8s)
+  ✓  15 [firefox] › tests/browser/render.spec.ts:45:1 › literal text, empty/multiline labels, theme refresh, font completion, resize, and lifecycle (643ms)
+(node:37465) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  16 [firefox] › tests/browser/render.spec.ts:74:1 › checkbox accessibility state survives hidden-node removal and recreation (610ms)
+  ✓  17 [firefox] › tests/browser/render.spec.ts:80:1 › root ellipse contains long multiline content and keeps an empty root horizontal (806ms)
+  ✓  19 [firefox] › tests/browser/render.spec.ts:97:1 › text-to-branch spacing and optical checkbox alignment preserve row geometry (522ms)
+  ✓  13 [firefox] › tests/browser/render.spec.ts:3:1 › reference appearance and geometry evidence (2.5s)
+  ✓  20 [firefox] › tests/browser/render.spec.ts:162:1 › 100% DPI proportions, root fill, unobstructed lines, focus, and checkbox color (680ms)
+(node:37482) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37486) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37488) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37482) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  18 [firefox] › tests/browser/render.spec.ts:63:1 › replacement reconciles reused root IDs, namespaced DOM IDs, and optional checkboxes (1.1s)
+(node:37486) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37488) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37521) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  21 [webkit] › tests/browser/layout-edge.spec.ts:4:1 › explicit newlines retain every empty row in measurement, rendering, and selection (1.2s)
+  ✓  22 [webkit] › tests/browser/layout-edge.spec.ts:47:1 › ancestor transforms do not enter local measurements at mount or refresh (1.0s)
+  ✓  25 [webkit] › tests/browser/render.spec.ts:63:1 › replacement reconciles reused root IDs, namespaced DOM IDs, and optional checkboxes (264ms)
+  ✓  24 [webkit] › tests/browser/render.spec.ts:45:1 › literal text, empty/multiline labels, theme refresh, font completion, resize, and lifecycle (366ms)
+  ✓  26 [webkit] › tests/browser/render.spec.ts:74:1 › checkbox accessibility state survives hidden-node removal and recreation (270ms)
+(node:37521) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  23 [webkit] › tests/browser/render.spec.ts:3:1 › reference appearance and geometry evidence (1.3s)
+  ✓  27 [webkit] › tests/browser/render.spec.ts:80:1 › root ellipse contains long multiline content and keeps an empty root horizontal (435ms)
+  ✓  28 [webkit] › tests/browser/render.spec.ts:97:1 › text-to-branch spacing and optical checkbox alignment preserve row geometry (319ms)
+  ✓  30 [webkit] › tests/browser/render.spec.ts:162:1 › 100% DPI proportions, root fill, unobstructed lines, focus, and checkbox color (474ms)
+  ✓  29 [webkit] › tests/browser/render.spec.ts:30:1 › selection and checked state reuse geometry; structural changes relayout and undo (548ms)
+
+
+  1) [firefox] › tests/browser/layout-edge.spec.ts:47:1 › ancestor transforms do not enter local measurements at mount or refresh
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeCloseTo[2m([22m[32mexpected[39m[2m, [22mprecision[2m)[22m
+
+    Expected: [32m75.4749984741211[39m
+    Received: [31m75.4666748046875[39m
+
+    Expected precision:    2
+    Expected difference: < [32m0.005[39m
+    Received difference:   [31m0.00832366943359375[39m
+
+      101 |                 const local = results.baseline.displayed[index]!, m = row.matrix;
+      102 |                 // Axis-aligned screen bounds of the transformed local rectangle.
+    > 103 |                 expect(box.width).toBeCloseTo(Math.abs(m.a) * local.width + Math.abs(m.c) * local.height, 2);
+          |                                   ^
+      104 |                 expect(box.height).toBeCloseTo(Math.abs(m.b) * local.width + Math.abs(m.d) * local.height, 2);
+      105 |             });
+      106 |         }
+        at forEach (/Users/yezo/Scratch/09-26/mr/tests/browser/layout-edge.spec.ts:103:35)
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/layout-edge.spec.ts:100:29
+
+    Error Context: test-results/layout-edge-ancestor-trans-860ba-rements-at-mount-or-refresh-firefox/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/layout-edge-ancestor-trans-860ba-rements-at-mount-or-refresh-firefox/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/layout-edge-ancestor-trans-860ba-rements-at-mount-or-refresh-firefox/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [firefox] › tests/browser/layout-edge.spec.ts:47:1 › ancestor transforms do not enter local measurements at mount or refresh
+  29 passed (12.0s)
+ ELIFECYCLE  Command failed with exit code 1.

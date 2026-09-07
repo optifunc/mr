@@ -49,11 +49,20 @@ editor.destroy();
 - Events currently emitted: `documentchange`, `selectionchange`, `error`.
   Mutation events follow installation/rendering, document before selection.
   Listener exceptions are isolated; listener-triggered commands queue after the
-  current event batch. Every document listener receives its own detached snapshot.
+  current event batch in FIFO order, including work enqueued by queued commands.
+  Every document listener receives its own detached snapshot.
 - Read-only rejects every implemented content command, including history and
   collapse. Host replacement and selection remain available. No-op commands return
   false and create no history. Invalid document construction throws `MindMapError`;
   invalid replacement/commands emit `error` and leave state intact.
+
+JavaScript command input is validated before transaction installation. `setText`
+requires a string (including the empty string); insertion text may be omitted.
+Move destinations require a known target and `before`, `after`, or `child`, with
+an optional `left`/`right` side. Malformed input returns false and emits
+`INVALID_DOCUMENT` for shape/text errors or `INVALID_TARGET` for target/destination
+errors. It leaves document, selection, rendered geometry, and undo/redo intact;
+`canExecute` returns false without emitting an event.
 
 For this checkpoint, insertion reducers commit the supplied `text` (default empty)
 immediately. Stage 5 will coordinate these prepared patches with provisional
@@ -74,7 +83,9 @@ Set custom properties on `.your-host .mindmap`, then call `refreshLayout()` afte
 changing font, measurement, or spacing properties. Font-loading completion also
 invalidates measurements. Colors update directly through CSS. All distances below
 are unzoomed CSS pixels; spacing custom properties expect nonnegative pixel values.
-Labels preserve whitespace and explicit newlines and never wrap automatically.
+Labels preserve whitespace and every explicit newline, including the final empty
+row of a trailing newline, and never wrap automatically. Empty text occupies one
+row. Measurement and rendering use the same line-box behavior without adding text.
 
 | Properties (all prefixed `--mindmap-`) | Defaults |
 |---|---|
@@ -93,7 +104,9 @@ Labels preserve whitespace and explicit newlines and never wrap automatically.
 
 Measurement uses hidden, inert DOM labels with the same CSS as visible labels,
 caches unique text/checkbox/root combinations until invalidation, and batches reads
-before scene writes. Only visible nodes get geometry or DOM elements. Layout uses
+before scene writes. Sizes are fractional local CSS dimensions, independent of
+ancestor transforms; host scaling is applied once by the browser, including when
+mounting or refreshing a scaled host. Only visible nodes get geometry or DOM elements. Layout uses
 subtree envelopes that include multiline heights, single-child rise, and markers.
 The SVG and HTML share one translated scene. Normal mounting centers the root at
 100%; resizing recenters the stage-A scene without recomputing world layout.
