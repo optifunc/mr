@@ -1,0 +1,123 @@
+
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test tests/browser/editing.spec.ts tests/browser/interaction.spec.ts
+
+
+Running 66 tests using 4 workers
+
+(node:42232) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:42230) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:42229) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:42231) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:42231) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:42229) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:42230) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:42232) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   3 [chromium] › tests/browser/editing.spec.ts:20:5 › Tab on root: visible provisional insertion, exact placement and one-entry commit (693ms)
+  ✓   2 [chromium] › tests/browser/editing.spec.ts:20:5 › Enter on root: visible provisional insertion, exact placement and one-entry commit (699ms)
+  ✓   4 [chromium] › tests/browser/editing.spec.ts:20:5 › Shift+Enter on root: visible provisional insertion, exact placement and one-entry commit (739ms)
+  ✓   1 [chromium] › tests/browser/editing.spec.ts:5:1 › F2 selects text, native multiline typing freezes geometry and one commit relayouts once (805ms)
+  ✓   6 [chromium] › tests/browser/editing.spec.ts:20:5 › Tab on one: visible provisional insertion, exact placement and one-entry commit (471ms)
+  ✓   5 [chromium] › tests/browser/editing.spec.ts:20:5 › Shift+Tab on root: visible provisional insertion, exact placement and one-entry commit (477ms)
+  ✓   8 [chromium] › tests/browser/editing.spec.ts:20:5 › Shift+Enter on one: visible provisional insertion, exact placement and one-entry commit (347ms)
+  ✓   7 [chromium] › tests/browser/editing.spec.ts:20:5 › Enter on one: visible provisional insertion, exact placement and one-entry commit (472ms)
+  ✓   9 [chromium] › tests/browser/editing.spec.ts:20:5 › Shift+Tab on one: visible provisional insertion, exact placement and one-entry commit (400ms)
+  ✓  10 [chromium] › tests/browser/editing.spec.ts:40:1 › Escape restores collapsed-parent creation and inserted-parent wrapping with selection and redo intact (446ms)
+  ✓  11 [chromium] › tests/browser/editing.spec.ts:50:1 › click-to-edit only on sole selection and after pointer release; moved presses never edit (561ms)
+  ✓  12 [chromium] › tests/browser/editing.spec.ts:58:1 › outside pointer commits before resolving the new node target; external blur commits without stealing focus (542ms)
+  ✓  14 [chromium] › tests/browser/editing.spec.ts:78:1 › checkbox inheritance, empty creation commit, existing unchanged no-op and event order/origin (316ms)
+  ✓  13 [chromium] › tests/browser/editing.spec.ts:68:1 › composition Enter is guarded; platform textarea shortcuts never move, select map nodes or create history (371ms)
+  ✓  16 [chromium] › tests/browser/editing.spec.ts:94:1 › deferred style refresh cannot move the scene during typing; cancellation applies refresh (322ms)
+  ✓  15 [chromium] › tests/browser/editing.spec.ts:85:1 › valid replacement/destroy discard edits, invalid replacement preserves buffer, public content commands finish it (402ms)
+  ✓  18 [chromium] › tests/browser/interaction.spec.ts:22:1 › actual block keys wrap, promote, flip, preserve selection, emit one event and undo/redo once (356ms)
+  ✓  19 [chromium] › tests/browser/interaction.spec.ts:41:1 › ineligible movement does not navigate or change viewport/history; interleaved siblings use same-side order (288ms)
+  ✓  21 [chromium] › tests/browser/interaction.spec.ts:77:1 › checkbox click and mixed keyboard toggle are independent and do not relayout (284ms)
+  ✓  22 [chromium] › tests/browser/interaction.spec.ts:87:1 › read-only gestures allow navigation/viewport but reject movement/collapse and preserve instance isolation (221ms)
+  ✓  17 [chromium] › tests/browser/interaction.spec.ts:5:1 › mouse toggle/range/empty selection and keyboard central-child navigation, contraction and collapse (741ms)
+  ✓  20 [chromium] › tests/browser/interaction.spec.ts:53:1 › pan, wheel variants, pointer-anchored zoom, keyboard fit/clamps and resize keep document/history intact (572ms)
+(node:42283) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:42284) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:42285) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:42286) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:42283) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:42285) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:42284) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:42286) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  26 [firefox] › tests/browser/editing.spec.ts:20:5 › Shift+Enter on root: visible provisional insertion, exact placement and one-entry commit (2.2s)
+  ✓  23 [firefox] › tests/browser/editing.spec.ts:20:5 › Enter on root: visible provisional insertion, exact placement and one-entry commit (2.3s)
+  ✓  27 [firefox] › tests/browser/editing.spec.ts:20:5 › Shift+Tab on root: visible provisional insertion, exact placement and one-entry commit (1.2s)
+  ✓  28 [firefox] › tests/browser/editing.spec.ts:20:5 › Tab on one: visible provisional insertion, exact placement and one-entry commit (1.3s)
+  ✓  24 [firefox] › tests/browser/editing.spec.ts:5:1 › F2 selects text, native multiline typing freezes geometry and one commit relayouts once (3.2s)
+  ✓  29 [firefox] › tests/browser/editing.spec.ts:20:5 › Enter on one: visible provisional insertion, exact placement and one-entry commit (898ms)
+  ✓  25 [firefox] › tests/browser/editing.spec.ts:20:5 › Tab on root: visible provisional insertion, exact placement and one-entry commit (2.5s)
+  ✓  30 [firefox] › tests/browser/editing.spec.ts:20:5 › Shift+Enter on one: visible provisional insertion, exact placement and one-entry commit (754ms)
+  ✓  31 [firefox] › tests/browser/editing.spec.ts:20:5 › Shift+Tab on one: visible provisional insertion, exact placement and one-entry commit (859ms)
+  ✓  32 [firefox] › tests/browser/editing.spec.ts:40:1 › Escape restores collapsed-parent creation and inserted-parent wrapping with selection and redo intact (806ms)
+  ✓  33 [firefox] › tests/browser/editing.spec.ts:50:1 › click-to-edit only on sole selection and after pointer release; moved presses never edit (1.1s)
+  ✓  34 [firefox] › tests/browser/editing.spec.ts:58:1 › outside pointer commits before resolving the new node target; external blur commits without stealing focus (779ms)
+  ✓  36 [firefox] › tests/browser/editing.spec.ts:78:1 › checkbox inheritance, empty creation commit, existing unchanged no-op and event order/origin (554ms)
+  ✓  35 [firefox] › tests/browser/editing.spec.ts:68:1 › composition Enter is guarded; platform textarea shortcuts never move, select map nodes or create history (692ms)
+  ✓  38 [firefox] › tests/browser/editing.spec.ts:94:1 › deferred style refresh cannot move the scene during typing; cancellation applies refresh (552ms)
+  ✓  37 [firefox] › tests/browser/editing.spec.ts:85:1 › valid replacement/destroy discard edits, invalid replacement preserves buffer, public content commands finish it (780ms)
+  ✓  40 [firefox] › tests/browser/interaction.spec.ts:22:1 › actual block keys wrap, promote, flip, preserve selection, emit one event and undo/redo once (671ms)
+  ✓  41 [firefox] › tests/browser/interaction.spec.ts:41:1 › ineligible movement does not navigate or change viewport/history; interleaved siblings use same-side order (552ms)
+  ✓  39 [firefox] › tests/browser/interaction.spec.ts:5:1 › mouse toggle/range/empty selection and keyboard central-child navigation, contraction and collapse (1.1s)
+  ✓  43 [firefox] › tests/browser/interaction.spec.ts:77:1 › checkbox click and mixed keyboard toggle are independent and do not relayout (530ms)
+  ✓  42 [firefox] › tests/browser/interaction.spec.ts:53:1 › pan, wheel variants, pointer-anchored zoom, keyboard fit/clamps and resize keep document/history intact (750ms)
+  ✓  44 [firefox] › tests/browser/interaction.spec.ts:87:1 › read-only gestures allow navigation/viewport but reject movement/collapse and preserve instance isolation (411ms)
+(node:42344) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:42345) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:42346) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:42347) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:42344) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:42345) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:42346) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:42347) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  48 [webkit] › tests/browser/editing.spec.ts:20:5 › Shift+Enter on root: visible provisional insertion, exact placement and one-entry commit (795ms)
+  ✓  47 [webkit] › tests/browser/editing.spec.ts:20:5 › Enter on root: visible provisional insertion, exact placement and one-entry commit (1.2s)
+  ✓  46 [webkit] › tests/browser/editing.spec.ts:20:5 › Tab on root: visible provisional insertion, exact placement and one-entry commit (1.2s)
+  ✓  45 [webkit] › tests/browser/editing.spec.ts:5:1 › F2 selects text, native multiline typing freezes geometry and one commit relayouts once (1.8s)
+  ✓  50 [webkit] › tests/browser/editing.spec.ts:20:5 › Tab on one: visible provisional insertion, exact placement and one-entry commit (579ms)
+  ✓  49 [webkit] › tests/browser/editing.spec.ts:20:5 › Shift+Tab on root: visible provisional insertion, exact placement and one-entry commit (592ms)
+  ✓  51 [webkit] › tests/browser/editing.spec.ts:20:5 › Enter on one: visible provisional insertion, exact placement and one-entry commit (584ms)
+  ✓  52 [webkit] › tests/browser/editing.spec.ts:20:5 › Shift+Enter on one: visible provisional insertion, exact placement and one-entry commit (550ms)
+  ✓  54 [webkit] › tests/browser/editing.spec.ts:20:5 › Shift+Tab on one: visible provisional insertion, exact placement and one-entry commit (528ms)
+  ✓  55 [webkit] › tests/browser/editing.spec.ts:50:1 › click-to-edit only on sole selection and after pointer release; moved presses never edit (606ms)
+  ✓  53 [webkit] › tests/browser/editing.spec.ts:40:1 › Escape restores collapsed-parent creation and inserted-parent wrapping with selection and redo intact (676ms)
+  ✓  56 [webkit] › tests/browser/editing.spec.ts:58:1 › outside pointer commits before resolving the new node target; external blur commits without stealing focus (664ms)
+  ✓  58 [webkit] › tests/browser/editing.spec.ts:78:1 › checkbox inheritance, empty creation commit, existing unchanged no-op and event order/origin (476ms)
+  ✓  57 [webkit] › tests/browser/editing.spec.ts:68:1 › composition Enter is guarded; platform textarea shortcuts never move, select map nodes or create history (664ms)
+  ✓  59 [webkit] › tests/browser/editing.spec.ts:85:1 › valid replacement/destroy discard edits, invalid replacement preserves buffer, public content commands finish it (626ms)
+  ✓  60 [webkit] › tests/browser/editing.spec.ts:94:1 › deferred style refresh cannot move the scene during typing; cancellation applies refresh (456ms)
+  ✓  62 [webkit] › tests/browser/interaction.spec.ts:22:1 › actual block keys wrap, promote, flip, preserve selection, emit one event and undo/redo once (536ms)
+  ✓  63 [webkit] › tests/browser/interaction.spec.ts:41:1 › ineligible movement does not navigate or change viewport/history; interleaved siblings use same-side order (456ms)
+  ✓  61 [webkit] › tests/browser/interaction.spec.ts:5:1 › mouse toggle/range/empty selection and keyboard central-child navigation, contraction and collapse (958ms)
+  ✓  65 [webkit] › tests/browser/interaction.spec.ts:77:1 › checkbox click and mixed keyboard toggle are independent and do not relayout (468ms)
+  ✓  66 [webkit] › tests/browser/interaction.spec.ts:87:1 › read-only gestures allow navigation/viewport but reject movement/collapse and preserve instance isolation (463ms)
+  ✓  64 [webkit] › tests/browser/interaction.spec.ts:53:1 › pan, wheel variants, pointer-anchored zoom, keyboard fit/clamps and resize keep document/history intact (743ms)
+
+  66 passed (18.3s)

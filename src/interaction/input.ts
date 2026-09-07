@@ -53,7 +53,7 @@ export class Input {
         if (e.pointerType !== 'mouse' || e.button !== 0 || (e.target as HTMLElement).closest('textarea')) return;
         e.preventDefault(); this.element.focus({ preventScroll: true });
         const id = this.actions.hit(e.clientX, e.clientY), toggle = this.primary(e), range = e.shiftKey;
-        if (id && (e.target as HTMLElement).closest('input')) { this.actions.command({ type: 'toggleChecked', ids: [id] }); return; }
+        if (id && this.element.ownerDocument.elementFromPoint(e.clientX, e.clientY)?.closest('input')) { this.actions.command({ type: 'toggleChecked', ids: [id] }); return; }
         this.press = { kind: id ? 'node' : 'canvas', pointerId: e.pointerId, x: e.clientX, y: e.clientY, view: this.actions.viewport(), ...(id ? { id } : {}), moved: false, toggle, range };
         if (id && (!this.actions.selected(id) || toggle || range)) {
             this.actions.select(id, toggle, range, false);

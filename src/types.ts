@@ -87,14 +87,17 @@ export interface MindMapEditorEvents {
     editstart: {
         id: NodeId;
         provisional: boolean;
+        origin: Origin;
     };
     editcommit: {
         id: NodeId;
         provisional: boolean;
+        origin: Origin;
     };
     editcancel: {
         id: NodeId;
         provisional: boolean;
+        origin: Origin;
     };
     commandcomplete: {
         command: MindMapCommand['type'];

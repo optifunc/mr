@@ -4,15 +4,16 @@ Last updated: 2026-09-07
 
 ## Current state
 
-**Milestone A accepted, including its default visual baseline at `253b99d`.**
-The user authorized Milestone B (stages 4–5) on 2026-09-07. Navigation,
-viewport controls, inline editing, and provisional creation are now in progress.
-Stop at B's product checkpoint after verification and fixes.
+**Milestone B is technically complete and stopped at the stage-5 product checkpoint.**
+User acceptance of B's navigation/editing experience and editing screenshots is
+pending. Milestone A's default baseline at `253b99d` remains accepted and unchanged.
+Stages 6–9 have not been started.
 
-The 2026-09-07 requirements update adds keyboard movement to stage 4/Milestone B.
-This update changes documentation only; movement implementation and verification
-remain pending. [Behavior](requirements.md#91-keyboard-movement-of-selected-nodes),
-[plan](impl-plan.md#keyboard-movement), [review coverage](acceptance.md#milestone-b-stages-45).
+Stages 4–5 include mouse/range selection, geometry navigation, keyboard sibling-block
+movement, viewport controls, checkbox/structural gestures, native textarea editing,
+and provisional creation with one-entry commit or full cancellation restoration.
+[Review report and gaps](evidence/milestone-b/report.md),
+[product exercises](acceptance.md#milestone-b-stages-45).
 
 Run `pnpm dev`, then open http://127.0.0.1:5173.
 [Accepted A baseline](evidence/milestone-a/checkbox-size/report.md),
@@ -23,7 +24,7 @@ Run `pnpm dev`, then open http://127.0.0.1:5173.
 | Milestone | Stages | Technical status | User acceptance | Evidence |
 |---|---|---|---|---|
 | A: Foundation and appearance | 1–3 | Complete | Accepted at `253b99d`, including default visuals | [A](acceptance.md#milestone-a-stages-13) |
-| B: Navigation and editing | 4–5 | In progress | Pending | [B](acceptance.md#milestone-b-stages-45) |
+| B: Navigation and editing | 4–5 | Complete | Pending | [B](acceptance.md#milestone-b-stages-45) |
 | C: Clipboard and dragging | 6–7 | Not started | Pending | [C](acceptance.md#milestone-c-stages-67) |
 | D: Integration and release | 8–9 | Not started | Pending | [D](acceptance.md#milestone-d-stages-89) |
 
@@ -106,12 +107,16 @@ Run `pnpm dev`, then open http://127.0.0.1:5173.
 
 ## Next action and known limits
 
-Implement stages 4–5 under the updated plan, including keyboard block movement,
-preserve accepted A screenshots, and produce B interaction tests and editing
-comparisons. Windows/macOS font
-rasterization differences remain accepted A limitations. Clipboard, links, and
-dragging remain C; menu, packaged consumer, actual stable browsers, assistive
-technology, and release performance checks remain D. No release gate is waived.
+User stage-5 product review, followed by any requested corrections. Do not begin
+milestone C without authorization. The runnable demo exposes all B behaviors,
+reference/editing comparisons, event/selection/history state, read-only mode and
+an interleaved-side fixture. See the [B report](evidence/milestone-b/report.md).
+
+Clipboard, links and dragging remain C; menu, packaged consumer, actual stable
+browsers, assistive technology and release performance checks remain D. Real OS
+IME composition is not manually verified; synthetic composition-event guards are
+covered. Default font/rasterization differences from the supplied Windows/older
+editing rasters remain explicit. No release gate is waived.
 
 ## B stage-4 checkpoint (2026-09-07)
 
@@ -132,3 +137,39 @@ Inspected Chromium/WebKit default images and Firefox checkbox geometry.
 Accepted A evidence is preserved; new captures go to `evidence/milestone-b/`.
 Next: stage 5 provisional creation, textarea and focus/composition coordination,
 then final B regression, review demo and editing comparisons. B acceptance pending.
+
+## B stage-5 handover (2026-09-07)
+
+Stage 4 is `a5f97bc`. Stage 5 is the implementation/evidence commit containing this
+entry; the subsequent documentation handover records its hash. Tested state:
+task-only working tree based on `a5f97bc`; no unrelated starting changes existed.
+
+- **Passed:** strict typecheck, ESM/CSS/declaration build, **101 unit tests**,
+  **150 browser cases** across Chromium/Firefox/WebKit using
+  `pnpm test:browser --workers=1`, and `git diff --check`.
+- **Passed:** exact PNG regression against all three accepted A default images,
+  using the original page geometry; supplied references/A evidence are untouched.
+- **Inspected:** editing/reference comparisons in all engines, frozen/committed
+  multiline geometry, and root/checkbox editors at 150%. Measured textarea content
+  origin equals label origin (dx=dy=0 in all captured cases).
+- **Passed:** 1,000-total/500-visible early diagnostic in each engine. Final release
+  profiling, actual stable browsers, screen readers and packaged consumer remain
+  not run at this checkpoint, as planned.
+- Provisional insertion immediately renders/selects the new node, without a
+  document event/history entry. Commit combines creation and label; Escape restores
+  structure, collapse, selection, prior view, and redo. Public snapshots exclude
+  the textarea buffer. Origin/event behavior is documented in [API](api.md).
+- Routine refinements: textarea is bounded to the viewport and scrolls long text;
+  zero-size deferred fit refreshes observation so a coalesced hide/show cannot
+  strand it; no-op zoom commands return false and emit no events. Reentrant
+  destruction prevents a following mutation. Ordinary read-only gestures are silent.
+- Retained failure evidence and corrections are in the [report](evidence/milestone-b/report.md).
+  One run was interrupted during extreme host contention without relaxing tests.
+  The single-worker rerun reproduced a Firefox deferred-fit race; the code fix then
+  passed the full suite. Historical API/focus tests were updated against the B
+  contract, with exact assertions retained.
+
+[Checks](evidence/milestone-b/checks.txt), [browser log](evidence/milestone-b/browser-checks.txt),
+[editing comparison](evidence/milestone-b/editing-comparison-chromium.png),
+[default regression](evidence/milestone-b/regression-reference-chromium.png).
+Technical completion is not user acceptance. Stop here for the requested review.

@@ -65,7 +65,8 @@ test('model commands, event isolation, replacement, and independent histories', 
     });
     expect(result.after.root.children).toHaveLength(result.initialCount + 1);
     expect(result.untouched.root.children).toHaveLength(result.secondaryCount);
-    expect(result.events.slice(0, 3)).toEqual(['document:api', 'New Mindmap', 'selection']);
+    // Provisional creation selects immediately; its document event waits for commit.
+    expect(result.events.slice(0, 3)).toEqual(['selection', 'document:api', 'New Mindmap']);
     expect(result.error).toBe('INVALID_DOCUMENT');
     expect(result.afterInvalid).toEqual(result.beforeInvalid);
 });
@@ -83,9 +84,11 @@ test('reentrant listeners run after the current event batch and exceptions are i
         a.on('documentchange', e => events.push(e.document.root.text));
         a.on('selectionchange', () => events.push('selection'));
         a.execute({ type: 'insertChild' });
+        // A public content command finishes the provisional creation before running.
+        a.execute({ type: 'setText', targetId: 'root', text: a.getDocument().root.text });
         return { events, text: a.getDocument().root.text };
     });
-    expect(result.events).toEqual(['error', 'New Mindmap', 'selection', 'error', 'Queued']);
+    expect(result.events).toEqual(['selection', 'error', 'New Mindmap', 'error', 'Queued']);
     expect(result.text).toBe('Queued');
 });
 

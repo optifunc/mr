@@ -5,7 +5,7 @@ test.beforeEach(async ({ page }) => { await page.goto('/'); await page.evaluate(
 test('mouse toggle/range/empty selection and keyboard central-child navigation, contraction and collapse', async ({ page }) => {
     const n = (id: string) => page.locator(`#primary [data-node-id="${id}"]`);
     const selection = () => page.evaluate(() => window.primary.getSelection());
-    await n('one').click(); await page.keyboard.press('ArrowRight'); expect((await selection()).activeId).toBe('b');
+    await page.evaluate(() => window.primary.focus()); await page.keyboard.press('ArrowRight'); expect((await selection()).activeId).toBe('b');
     await page.keyboard.press('Shift+ArrowUp'); expect((await selection()).ids).toEqual(['b', 'a']);
     await page.keyboard.press('Shift+ArrowDown'); expect((await selection()).ids).toEqual(['b', 'a', 'one']);
     await page.keyboard.press('Shift+ArrowRight'); expect((await selection()).ids).toEqual(['b']);

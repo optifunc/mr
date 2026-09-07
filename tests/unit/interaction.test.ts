@@ -82,3 +82,16 @@ test('pointer zoom clamps around the same world point; fit and reveal preserve d
     expect(reveal(view, { x: 0, y: 0, width: 20, height: 20 }, 500, 500)).toEqual(view);
     expect(reveal(view, { x: 500, y: 0, width: 20, height: 20 }, 500, 500)).toEqual({ x: -36, y: 200, zoom: 1 });
 });
+test('vertical navigation crosses branch groups, excludes same rows, and only falls back to root in the requested direction', () => {
+    const s = new Store({ document: referenceMap() }), g = geometry(s);
+    const centers: Record<string, number> = { root: 0, one: -40, a: -60, b: -40, c: -20, two: 10, single: 10, chain: 8, three: 50, n1: 30, n2: 40, n3: 60, n4: 80, c1: 55, c2: 65, collapsed: 54, child1: -30, child2: 20, c21: -5, c22: 20, c23: 40 };
+    for (const [id, n] of g.nodes) n.box.y = centers[id]! - n.box.height / 2;
+    expect(navigate(s.model, g, 'c', 'down')).toEqual({ id: 'chain' });
+    expect(navigate(s.model, g, 'two', 'up')).toEqual({ id: 'chain' });
+    expect(navigate(s.model, g, 'a', 'up')).toEqual({});
+    expect(navigate(s.model, g, 'c21', 'up')).toEqual({ id: 'child1' });
+    expect(navigate(s.model, g, 'root', 'up')).toEqual({ id: 'c21' });
+    expect(navigate(s.model, g, 'root', 'down')).toEqual({ id: 'chain' });
+    for (const n of g.nodes.values()) if (n.side === 'left') n.box.y -= 100;
+    expect(navigate(s.model, g, 'c23', 'down')).toEqual({ id: 'root' });
+});

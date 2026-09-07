@@ -2,7 +2,7 @@ import { MindMapError } from '../types';
 import type { MindMapCommand, MindMapDocument, MindMapEditorOptions, Selection } from '../types';
 import { generateId, normalizeSelection, snapshot, validateDocument } from './document';
 import type { Model } from './document';
-import { History, applyPatches } from '../history/history';
+import { History, applyPatches, patchesBetween } from '../history/history';
 import { contentCommands, prepare } from '../commands/reducer';
 import { validateCommand } from '../commands/validate';
 export class Store {
@@ -10,16 +10,47 @@ export class Store {
     selection: Selection;
     readonly history: History;
     lastGeometry = false;
+    edit: { id: string; provisional: boolean; base: Model; selection: Selection; command: MindMapCommand['type'] } | undefined;
     private readonly createId: () => string;
     readonly readonly: boolean;
     visualOrder: readonly string[] | undefined;
     constructor(options: MindMapEditorOptions) { this.model = validateDocument(options.document); this.selection = { ids: [this.model.rootId], activeId: this.model.rootId }; this.history = new History(options.historyLimit); this.createId = options.createNodeId ?? generateId; this.readonly = options.readonly ?? false; }
     getDocument(): MindMapDocument { return snapshot(this.model); }
-    setDocument(document: MindMapDocument): void { const candidate = validateDocument(document); this.model = candidate; this.selection = { ids: [candidate.rootId], activeId: candidate.rootId }; this.history.clear(); this.lastGeometry = true; }
+    setDocument(document: MindMapDocument): void { const candidate = validateDocument(document); this.edit = undefined; this.model = candidate; this.selection = { ids: [candidate.rootId], activeId: candidate.rootId }; this.history.clear(); this.lastGeometry = true; }
     setSelection(ids: string[], activeId?: string): void {
         if (ids.some(id => !this.model.nodes.has(id)) || activeId !== undefined && !ids.includes(activeId))
             throw new MindMapError('INVALID_TARGET', 'Selection must contain known IDs and its active node');
         this.selection = normalizeSelection(this.model, { ids, ...(activeId !== undefined ? { activeId } : {}) });
+    }
+    beginEdit(id: string): boolean {
+        if (this.readonly) throw new MindMapError('READ_ONLY', 'Editing is disabled in read-only mode');
+        if (!this.model.nodes.has(id)) throw new MindMapError('INVALID_TARGET', 'Unknown edit target');
+        this.edit = { id, provisional: false, base: this.model, selection: { ...this.selection, ids: [...this.selection.ids] }, command: 'setText' };
+        return true;
+    }
+    beginCreation(command: MindMapCommand): boolean {
+        if (this.readonly) throw new MindMapError('READ_ONLY', 'Editing is disabled in read-only mode');
+        const result = prepare(this.model, this.selection, command, this.createId, this.visualOrder);
+        if (!result) return false;
+        this.edit = { id: result.transaction.after.activeId!, provisional: true, base: this.model, selection: { ...this.selection, ids: [...this.selection.ids] }, command: command.type };
+        this.model = result.model; this.selection = result.transaction.after; this.lastGeometry = true;
+        return true;
+    }
+    commitEdit(text: string): boolean {
+        const edit = this.edit; if (!edit) return false;
+        const result = prepare(this.model, this.selection, { type: 'setText', targetId: edit.id, text }, this.createId, this.visualOrder);
+        const model = result?.model ?? this.model;
+        const patches = patchesBetween(edit.base, model);
+        this.edit = undefined; this.model = model;
+        this.lastGeometry = edit.provisional || !!result?.transaction.geometry;
+        if (!patches.length) return false;
+        this.history.push({ patches, before: edit.selection, after: { ...this.selection, ids: [...this.selection.ids] }, geometry: this.lastGeometry });
+        return true;
+    }
+    cancelEdit(): void {
+        const edit = this.edit; if (!edit) return;
+        if (edit.provisional) { this.model = edit.base; this.selection = edit.selection; }
+        this.edit = undefined; this.lastGeometry = edit.provisional;
     }
     canExecute(command: MindMapCommand): boolean {
         try { validateCommand(command); } catch { return false; }

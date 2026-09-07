@@ -1,6 +1,6 @@
-# Milestone A API checkpoint
+# Milestone B API checkpoint
 
-This is the stages 1–3 foundation, not the completed editor. The complete contract
+Stages 1–5 are implemented; this checkpoint stops before clipboard, links, dragging and menus. The complete contract
 remains in [requirements](requirements.md). See [acceptance](acceptance.md) for
 verified behavior and pending interaction stages.
 
@@ -40,13 +40,23 @@ editor.destroy();
   active ID must belong to the requested IDs. Replacement clears history/selects root.
 - `execute`, `canExecute`, `undo`, `redo`, `canUndo`, `canRedo`.
 - Content reducers: `insertChild`, `insertBefore`, `insertAfter`, `insertParent`,
-  `setText`, `delete`, `move`, `toggleCollapse`, `expand`, `collapse`,
+  `setText`, `delete`, `move`, `moveSelection`, `toggleCollapse`, `expand`, `collapse`,
   `addCheckbox`, `removeCheckbox`, and `toggleChecked`.
 - Optional target IDs use the active node by default; optional ID groups use
   selection. `move` takes `destination: { targetId, position, side? }`, with
   `position` of `before`, `after`, or `child`; side applies to root child drops.
-- `focus`, `refreshLayout`, event subscription/unsubscription, idempotent `destroy`.
-- Events currently emitted: `documentchange`, `selectionchange`, `error`.
+- `navigate` with `direction` and optional `extend`, `selectAll`, `clearSelection`,
+  `edit`, `zoomIn`, `zoomOut`, `resetZoom`, and `fit`.
+- `moveSelection` takes a `direction` arrow; it requires the entire selection to
+  be a contiguous sibling block on one root side. It wraps, promotes, or flips
+  as specified in requirements §9.1 and preserves selection/active IDs.
+- `focus`, `editNode(id)`, `refreshLayout`, event subscription/unsubscription,
+  and idempotent `destroy`.
+- `getViewport`, `setZoom(scale)`, `fit`, `panToNode(id)` (minimal reveal of a visible
+  node), and `panTo(x, y)` (absolute scene translation in local CSS pixels). Zoom
+  clamps to .25–4; keyboard steps multiply/divide by 1.2. Viewport never enters history.
+- Events currently emitted: `documentchange`, `selectionchange`, `viewportchange`,
+  `editstart`, `editcommit`, `editcancel`, and `error`.
   Mutation events follow installation/rendering, document before selection.
   Listener exceptions are isolated; listener-triggered commands queue after the
   current event batch in FIFO order, including work enqueued by queued commands.
@@ -64,18 +74,42 @@ an optional `left`/`right` side. Malformed input returns false and emits
 errors. It leaves document, selection, rendered geometry, and undo/redo intact;
 `canExecute` returns false without emitting an event.
 
-For this checkpoint, insertion reducers commit the supplied `text` (default empty)
-immediately. Stage 5 will coordinate these prepared patches with provisional
-creation and the textarea so creation plus its initial edit becomes one commit.
-The stage-5 editing experience is not claimed by the current API.
+## Editing and provisional creation
 
-The command union and event types reserve the remaining full-product contract.
-Unsupported commands currently return false. Clipboard/link/menu/edit events are
-not emitted yet. `contextMenu` is reserved; no menu exists at this checkpoint.
-`editNode`, `panToNode`, `fit`, `setZoom`, and `getViewport` arrive in later stages.
-No node mouse/keyboard editing, checkbox gesture, navigation, pan, zoom, clipboard,
-link opening, or drag behavior is implemented yet. Demo buttons exercise the same
-model command facade that future gestures will use.
+Every insertion command opens the new node's textarea, including API insertions
+with a supplied initial `text`. It is selected for editing. Creation and its initial
+label commit form one transaction. `getDocument()` includes the provisional
+structure and its initial text, but excludes the textarea buffer. Hosts should
+persist committed `documentchange` snapshots, not edit-time snapshots.
+
+Enter commits; Shift+Enter inserts a native newline; Escape cancels. Outside
+pointer actions commit before hit testing the new layout. Focus leaving the textarea
+also commits; it does not steal focus back from the destination. IME composition
+Enter is guarded. Normal text shortcuts, including Command/Ctrl+arrows, stay inside
+the textarea. The editor is bounded to the available viewport and scrolls long text;
+scene geometry remains frozen until commit. Explicit refresh/font invalidation is
+deferred until the edit finishes.
+
+Creation selection is observable immediately (`selectionchange`, then `editstart`).
+No document event or history entry exists until commit. Commit emits one
+`documentchange`, any resulting selection change, then `editcommit`. Edit events
+contain `{ id, provisional, origin }`, with the origin of the initiating edit.
+Unchanged existing-label commits emit `editcommit` without document history.
+Cancelling creation restores structure, collapse state, selection, and its prior
+viewport; emits any selection change followed by `editcancel`; and preserves redo.
+Cancelling an existing edit discards only the buffer.
+
+Public content commands finish the current edit before running. Valid replacement
+and destruction discard unfinished edits; replacement keeps the current viewport
+and resets selection/history. Invalid replacement preserves the editor and buffer.
+`canUndo`/`canRedo` describe committed history, so an uncommitted creation alone
+has no undo entry. Calling public `undo()` first commits that edit and then undoes
+it. Inside the textarea, the keyboard undo shortcut remains native text undo.
+
+Unsupported clipboard/link commands currently return false. `contextMenu` is
+reserved; menus arrive at stage 8. Node dragging remains stage 7. Read-only allows
+selection, visible navigation and viewport changes; user mutation gestures are
+silent no-ops, while API mutation attempts report `READ_ONLY`.
 
 ## Theme and layout
 
@@ -108,8 +142,9 @@ before scene writes. Sizes are fractional local CSS dimensions, independent of
 ancestor transforms; host scaling is applied once by the browser, including when
 mounting or refreshing a scaled host. Only visible nodes get geometry or DOM elements. Layout uses
 subtree envelopes that include multiline heights, single-child rise, and markers.
-The SVG and HTML share one translated scene. Normal mounting centers the root at
-100%; resizing recenters the stage-A scene without recomputing world layout.
+The SVG, HTML and textarea share one translated/scaled scene. Normal mounting
+centers the root at 100%. Resize preserves the view without relayout; initially
+zero-size hosts center when measurable, and a pending fit runs at that point.
 
 Non-root content uses 3px top and 2px bottom padding by default. This moves
 text toward its branch while reserving room for descenders, without changing row

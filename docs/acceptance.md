@@ -152,10 +152,29 @@ Use the reference map for a short repeatable exercise:
 Include editing screenshot comparison and regression against accepted default
 appearance. Exercise gestures in the browser as well as command/model tests.
 Keyboard movement extends requirement acceptance criterion 3 and stage 4; use
-Command on macOS and Ctrl elsewhere. Its requirements were approved on 2026-09-07;
-implementation and browser evidence remain pending.
+Command on macOS and Ctrl elsewhere. The approved movement requirements are now
+implemented and covered by pure rules and actual browser key input.
 
-Evidence: not run. User decision: pending.
+**Technical status: complete (2026-09-07). User decision: pending.**
+
+Stages 4–5 passed strict typecheck/build, **101 unit tests**, **150 browser cases**
+in Chromium/Firefox/WebKit, and whitespace checks. New editing screenshots were
+inspected; all three accepted A default PNGs match byte-for-byte in the original
+page geometry. B editing images remain candidates awaiting this product review.
+
+- [Full report, environment, exercise instructions, fixes and known gaps](evidence/milestone-b/report.md)
+- [Editing comparison](evidence/milestone-b/editing-comparison-chromium.png),
+  [frozen multiline buffer](evidence/milestone-b/editing-multiline-chromium.png),
+  [committed multiline](evidence/milestone-b/committed-multiline-firefox.png)
+- [Approved-default regression](evidence/milestone-b/regression-reference-chromium.png)
+- [Build/type/unit results](evidence/milestone-b/checks.txt),
+  [full browser results](evidence/milestone-b/browser-checks.txt)
+- [Revision/next action](progress.md#b-stage-5-handover-2026-09-07), [run instructions](testing.md), [API](api.md)
+
+The demo includes the reference exercises, event/selection/history state, independent
+checkbox geometry, read-only mode, and interleaved root sides. Later clipboard/link/drag,
+menu, packaged-consumer, actual stable-browser, screen-reader and final performance
+checks remain unimplemented or unverified as recorded; no release gate is waived.
 
 ## Milestone C: stages 6–7
 
@@ -200,5 +219,4 @@ Evidence: not run. User decision: pending.
 ### B stage-4 interim evidence
 
 Stage-4 implementation and checks are recorded in [progress](progress.md#b-stage-4-checkpoint-2026-09-07).
-Default PNGs remain byte-identical to the three accepted A engine images. Editing
-and final stage-5 product evidence are pending; this is not the B handover.
+Default PNGs remain byte-identical to the three accepted A engine images. This interim record is superseded by the complete stage-5 evidence above.

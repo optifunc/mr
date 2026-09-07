@@ -1,0 +1,93 @@
+
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test tests/browser/api.spec.ts tests/browser/checkpoint-b.spec.ts
+
+
+Running 36 tests using 4 workers
+
+(node:43327) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:43328) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:43330) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:43329) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:43327) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:43328) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:43329) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:43330) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   3 [chromium] › tests/browser/api.spec.ts:73:1 › reentrant listeners run after the current event batch and exceptions are isolated (510ms)
+  ✓   2 [chromium] › tests/browser/api.spec.ts:95:1 › reentrant branches drain FIFO and preserve event batches despite callback errors (512ms)
+  ✓   1 [chromium] › tests/browser/api.spec.ts:45:1 › model commands, event isolation, replacement, and independent histories (553ms)
+  ✓   6 [chromium] › tests/browser/api.spec.ts:137:1 › long reentrant chains do not depend on the JavaScript call stack (211ms)
+  ✓   5 [chromium] › tests/browser/api.spec.ts:120:1 › destroy during a queue drain discards pending work and remaining notifications (231ms)
+  ✓   4 [chromium] › tests/browser/api.spec.ts:12:1 › malformed JavaScript commands reject atomically with stable errors (795ms)
+  ✓  10 [chromium] › tests/browser/checkpoint-b.spec.ts:65:1 › destroy from editcommit listener prevents a queued follow-on content mutation (313ms)
+  ✓   8 [chromium] › tests/browser/checkpoint-b.spec.ts:52:1 › an outside click re-hits geometry after a large relayout, rather than selecting its stale DOM target (359ms)
+  ✓   9 [chromium] › tests/browser/checkpoint-b.spec.ts:34:1 › Ctrl routing on simulated non-Mac platform, all movement no-op classes, left promotion, empty destination and reveal (541ms)
+  ✓  11 [chromium] › tests/browser/checkpoint-b.spec.ts:73:1 › read-only edit/delete/checkbox shortcuts are silent; invalid creation callback is atomic in the browser (290ms)
+  ✓  12 [chromium] › tests/browser/checkpoint-b.spec.ts:82:1 › accepted-A rendering regression in its original page geometry (328ms)
+(node:43371) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:43372) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:43373) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   7 [chromium] › tests/browser/checkpoint-b.spec.ts:4:1 › editing reference, multiline, checkbox/root alignment and frozen geometry evidence (1.2s)
+(node:43374) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:43371) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:43372) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:43373) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:43374) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  14 [firefox] › tests/browser/api.spec.ts:45:1 › model commands, event isolation, replacement, and independent histories (1.2s)
+  ✓  17 [firefox] › tests/browser/api.spec.ts:120:1 › destroy during a queue drain discards pending work and remaining notifications (676ms)
+  ✓  13 [firefox] › tests/browser/api.spec.ts:12:1 › malformed JavaScript commands reject atomically with stable errors (1.9s)
+  ✓  18 [firefox] › tests/browser/api.spec.ts:137:1 › long reentrant chains do not depend on the JavaScript call stack (712ms)
+  ✓  15 [firefox] › tests/browser/api.spec.ts:73:1 › reentrant listeners run after the current event batch and exceptions are isolated (1.9s)
+  ✓  16 [firefox] › tests/browser/api.spec.ts:95:1 › reentrant branches drain FIFO and preserve event batches despite callback errors (1.7s)
+  ✓  21 [firefox] › tests/browser/checkpoint-b.spec.ts:52:1 › an outside click re-hits geometry after a large relayout, rather than selecting its stale DOM target (918ms)
+  ✓  20 [firefox] › tests/browser/checkpoint-b.spec.ts:34:1 › Ctrl routing on simulated non-Mac platform, all movement no-op classes, left promotion, empty destination and reveal (1.3s)
+  ✓  19 [firefox] › tests/browser/checkpoint-b.spec.ts:4:1 › editing reference, multiline, checkbox/root alignment and frozen geometry evidence (1.7s)
+  ✓  22 [firefox] › tests/browser/checkpoint-b.spec.ts:65:1 › destroy from editcommit listener prevents a queued follow-on content mutation (800ms)
+  ✓  23 [firefox] › tests/browser/checkpoint-b.spec.ts:73:1 › read-only edit/delete/checkbox shortcuts are silent; invalid creation callback is atomic in the browser (648ms)
+  ✓  24 [firefox] › tests/browser/checkpoint-b.spec.ts:82:1 › accepted-A rendering regression in its original page geometry (572ms)
+(node:43419) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:43420) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:43423) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:43419) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:43424) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:43420) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:43423) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:43424) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  26 [webkit] › tests/browser/api.spec.ts:45:1 › model commands, event isolation, replacement, and independent histories (959ms)
+  ✓  27 [webkit] › tests/browser/api.spec.ts:73:1 › reentrant listeners run after the current event batch and exceptions are isolated (749ms)
+  ✓  28 [webkit] › tests/browser/api.spec.ts:95:1 › reentrant branches drain FIFO and preserve event batches despite callback errors (769ms)
+  ✓  25 [webkit] › tests/browser/api.spec.ts:12:1 › malformed JavaScript commands reject atomically with stable errors (1.5s)
+  ✓  29 [webkit] › tests/browser/api.spec.ts:120:1 › destroy during a queue drain discards pending work and remaining notifications (453ms)
+  ✓  30 [webkit] › tests/browser/api.spec.ts:137:1 › long reentrant chains do not depend on the JavaScript call stack (490ms)
+  ✓  33 [webkit] › tests/browser/checkpoint-b.spec.ts:52:1 › an outside click re-hits geometry after a large relayout, rather than selecting its stale DOM target (470ms)
+  ✓  34 [webkit] › tests/browser/checkpoint-b.spec.ts:65:1 › destroy from editcommit listener prevents a queued follow-on content mutation (382ms)
+  ✓  32 [webkit] › tests/browser/checkpoint-b.spec.ts:34:1 › Ctrl routing on simulated non-Mac platform, all movement no-op classes, left promotion, empty destination and reveal (971ms)
+  ✓  35 [webkit] › tests/browser/checkpoint-b.spec.ts:73:1 › read-only edit/delete/checkbox shortcuts are silent; invalid creation callback is atomic in the browser (458ms)
+  ✓  31 [webkit] › tests/browser/checkpoint-b.spec.ts:4:1 › editing reference, multiline, checkbox/root alignment and frozen geometry evidence (1.2s)
+  ✓  36 [webkit] › tests/browser/checkpoint-b.spec.ts:82:1 › accepted-A rendering regression in its original page geometry (454ms)
+
+  36 passed (12.4s)

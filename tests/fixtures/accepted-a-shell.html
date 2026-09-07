@@ -1,0 +1,20 @@
+<style>body { margin: 24px; background: #f4f4f2; color: #252525; font: 14px system-ui, sans-serif; }
+header { margin-bottom: 24px; } h1 { font-size: 22px; font-weight: 500; } h1 span { font-size: 14px; color: #666; margin-left: 16px; }
+h2 { font-size: 16px; font-weight: 500; margin-top: 0; } p { color: #555; line-height: 1.6; }
+main { display: grid; gap: 24px; } section { min-width: 0; } #primary { height: 440px; } #secondary { height: 300px; }
+.demo-actions { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; } button { border: 1px solid #ccc; border-radius: 4px; background: white; padding: 6px 10px; font: inherit; cursor: pointer; } a { color: #555; margin-left: 8px; }
+.comparison { display: flex; width: max-content; gap: 16px; } figure { margin: 0; } figcaption { font-size: 12px; color: #555; margin-bottom: 8px; } figure img { display: block; }
+#comparison-map { width: 605px; height: 324px; }
+/* Evidence-only translation aligns roots with the supplied raster; normal mounts center the root. */
+#comparison-map .mindmap-scene { transform: translate(204px, 159px) !important; }
+</style>
+<header><h1>Mind map <span>Milestone A · appearance review</span></h1>
+<p>Reference fixture at 100%. Model commands are available through the demo buttons and public API. Mouse navigation and editing arrive in milestone B.</p></header>
+<main>
+<section><h2>Live reference map</h2>
+<div class="demo-actions"><button id="select">Select One</button><button id="collapse">Expand / collapse One</button><button id="undo">Undo</button><button id="reset">Reset map</button><a href="/?workload">Workload fixture</a></div>
+<div id="primary"></div></section>
+<section><h2>Geometry and instance isolation</h2><p>Multiline, empty and whitespace labels, independent checkboxes, and literal HTML text. This second mount has its own history.</p><div id="secondary"></div></section>
+<section><h2>Side-by-side visual comparison</h2><p>Windows FreeMind at 100% DPI and the current widget (12px Arial, 100% zoom), both displayed at native size. Both are aligned at the root for review. Candidate rendering awaits acceptance.</p>
+<div class="comparison"><figure><figcaption>FreeMind · Windows, 100% DPI</figcaption><img width="605" height="324" src="/docs/free-mind-references/FreeMind-reference-100dpi.png" alt="Supplied FreeMind reference showing a two-sided map"></figure><figure><figcaption>Current widget · candidate</figcaption><div id="comparison-map"></div></figure></div></section>
+</main>
