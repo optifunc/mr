@@ -27,6 +27,12 @@ The arrow and red annotation in the drag reference are explanatory, not widget U
 
 ## Milestone A: stages 1–3
 
+**Accepted 2026-09-07:** the user explicitly accepted Milestone A, including its
+default visual baseline at `253b99d`. The approved browser-specific images are
+preserved in [checkbox-size evidence](evidence/milestone-a/checkbox-size/report.md).
+Historical pending decisions below are superseded by this acceptance. Milestone B
+is authorized; its editing appearance requires a separate product review.
+
 **Product review:** appearance and geometry of the reference map.
 
 - Compare the supplied default image and actual rendered fixture side by side.

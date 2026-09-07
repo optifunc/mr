@@ -4,21 +4,21 @@ Last updated: 2026-09-07
 
 ## Current state
 
-**A 13×13px checkbox trial is implemented and verified**, increased from 11×11px at the
-user's request (1px on each side). The prior four correctness fixes are complete.
-The candidate remains at stage 3 for visual review; no later milestone was started.
+**Milestone A accepted, including its default visual baseline at `253b99d`.**
+The user authorized Milestone B (stages 4–5) on 2026-09-07. Navigation,
+viewport controls, inline editing, and provisional creation are now in progress.
+Stop at B's product checkpoint after verification and fixes.
 
-Run `pnpm dev`, then open http://127.0.0.1:5173. The live reference, independent
-geometry mount, native-size 100% DPI comparison, and `/?workload` diagnostic are
-available. [Current review report](evidence/milestone-a/checkbox-size/report.md),
+Run `pnpm dev`, then open http://127.0.0.1:5173.
+[Accepted A baseline](evidence/milestone-a/checkbox-size/report.md),
 [API](api.md), [testing](testing.md).
 
 ## Milestones
 
 | Milestone | Stages | Technical status | User acceptance | Evidence |
 |---|---|---|---|---|
-| A: Foundation and appearance | 1–3 | Complete, including review corrections | Pending revised review | [A](acceptance.md#milestone-a-stages-13) |
-| B: Navigation and editing | 4–5 | Not started | Pending | [B](acceptance.md#milestone-b-stages-45) |
+| A: Foundation and appearance | 1–3 | Complete | Accepted at `253b99d`, including default visuals | [A](acceptance.md#milestone-a-stages-13) |
+| B: Navigation and editing | 4–5 | In progress | Pending | [B](acceptance.md#milestone-b-stages-45) |
 | C: Clipboard and dragging | 6–7 | Not started | Pending | [C](acceptance.md#milestone-c-stages-67) |
 | D: Integration and release | 8–9 | Not started | Pending | [D](acceptance.md#milestone-d-stages-89) |
 
@@ -81,23 +81,15 @@ available. [Current review report](evidence/milestone-a/checkbox-size/report.md)
   rotation, and restoration. Half-scale multiline height remains 17.5px.
 - The checkbox-size trial increases the square from 11×11px to 13×13px. Its
   center remains 1px above the text-block center, with a 4px gap to the label.
-  Geometry measurement includes the larger square. Visual acceptance is pending.
+  Geometry measurement includes the larger square. Accepted in Milestone A.
 - The original fixture is preserved. A separate 100% DPI variant matches the new
   screenshot's labels. New evidence is in `docs/evidence/milestone-a/checkbox-size/`;
-  earlier evidence is retained for comparison. No baseline has been approved.
+  earlier evidence is retained for comparison. The checkbox-size default visuals are now approved.
 
 ## Next action and known limits
 
-Review the [checkbox-size trial](evidence/milestone-a/checkbox-size/report.md),
-[larger checkboxes](evidence/milestone-a/checkbox-size/geometry-chromium.png), and
-[previous size](evidence/milestone-a/correctness/geometry-chromium.png).
-Windows/macOS font rasterization and small branch-position differences remain.
-Ordinary letters have slightly more line clearance than the reference, preserving
-a consistent baseline and sufficient space below descenders. No unresolved stage-3 behavior failure is known.
-
-After feedback and authorization, proceed with stages 4–5: selection/navigation,
-viewport, and textarea/provisional creation. Model insertion still commits supplied
-text immediately at this checkpoint. Clipboard, links, and dragging remain C.
-Final menu/API, packaged consumer, actual stable browsers, VoiceOver/NVDA, and full
-performance profiling remain required D gates. Playwright WebKit is not actual
-Safari verification. No later-stage check has been waived.
+Implement stages 4–5 under the existing plan, preserve accepted A screenshots,
+and produce B interaction tests and editing comparisons. Windows/macOS font
+rasterization differences remain accepted A limitations. Clipboard, links, and
+dragging remain C; menu, packaged consumer, actual stable browsers, assistive
+technology, and release performance checks remain D. No release gate is waived.
