@@ -36,6 +36,12 @@ The arrow and red annotation in the drag reference are explanatory, not widget U
 - Show two isolated mounts, package output, and the stage 1–3 automated gates.
 - Run the target workload as an early diagnostic; retain final profiling for D.
 
+**2026-09-07 checkbox-size trial:** the user requested expanding the checkbox
+1px in each direction. The candidate uses 13×13px squares (previously 11×11px),
+retaining the 4px label gap and vertical optical alignment. Visual acceptance is
+pending. [Trial report](evidence/milestone-a/checkbox-size/report.md),
+[larger checkbox fixture](evidence/milestone-a/checkbox-size/geometry-chromium.png).
+
 **2026-09-07 correctness review:** all four P2 findings were independently
 reproduced and fixed after the user's go-ahead. Runtime command rejection preserves
 state/history/events, reentrant operations run FIFO, final newline rows render,

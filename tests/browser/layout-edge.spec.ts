@@ -38,10 +38,10 @@ test('explicit newlines retain every empty row in measurement, rendering, and se
         expect(row.selected).toBe(true);
         expect(row.overlaps).toBe(false);
     }
-    writeFileSync(`docs/evidence/milestone-a/correctness/newlines-${info.project.name}.json`, JSON.stringify(results, null, 2) + '\n');
+    writeFileSync(`docs/evidence/milestone-a/checkbox-size/newlines-${info.project.name}.json`, JSON.stringify(results, null, 2) + '\n');
     await page.locator('#secondary').scrollIntoViewIfNeeded();
     await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
-    await page.locator('#secondary').screenshot({ path: `docs/evidence/milestone-a/correctness/newlines-${info.project.name}.png` });
+    await page.locator('#secondary').screenshot({ path: `docs/evidence/milestone-a/checkbox-size/newlines-${info.project.name}.png` });
 });
 
 test('ancestor transforms do not enter local measurements at mount or refresh', async ({ page }, info) => {
@@ -107,8 +107,8 @@ test('ancestor transforms do not enter local measurements at mount or refresh', 
     const multiIndex = half.local.findIndex(node => node.id === 'multi');
     expect(half.displayed[multiIndex]!.height).toBe(17.5);
     expect(half.multilineLabelHeight).toBe(15);
-    writeFileSync(`docs/evidence/milestone-a/correctness/scaling-${info.project.name}.json`, JSON.stringify(results, null, 2) + '\n');
+    writeFileSync(`docs/evidence/milestone-a/checkbox-size/scaling-${info.project.name}.json`, JSON.stringify(results, null, 2) + '\n');
     await page.locator('#secondary').scrollIntoViewIfNeeded();
     await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
-    await page.locator('#secondary').screenshot({ path: `docs/evidence/milestone-a/correctness/scaling-${info.project.name}.png` });
+    await page.locator('#secondary').screenshot({ path: `docs/evidence/milestone-a/checkbox-size/scaling-${info.project.name}.png` });
 });

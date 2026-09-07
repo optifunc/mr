@@ -98,7 +98,7 @@ row. Measurement and rendering use the same line-box behavior without adding tex
 | `sibling-gap`, `branch-gap`, `root-gap` | 3px, 20px, 20px |
 | `root-sibling-gap` | 4.5px between root-level subtree extents |
 | `marker-radius`, `chain-rise` | 2.5px, 1.5px |
-| `checkbox-size`, `checkbox-gap` | 11px, 4px |
+| `checkbox-size`, `checkbox-gap` | 13px, 4px |
 | `checkbox-color` | #339933 |
 | `checkbox-raise` | 1px above the label block center |
 

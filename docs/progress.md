@@ -4,14 +4,13 @@ Last updated: 2026-09-07
 
 ## Current state
 
-**All four stage-3 correctness review fixes are complete and verified.**
-Milestone A remains at the product checkpoint for review; no later milestone was
-started. The fixes cover command atomicity, FIFO reentrancy, trailing newline
-rows, and host-transform-independent measurement.
+**A 13×13px checkbox trial is implemented and verified**, increased from 11×11px at the
+user's request (1px on each side). The prior four correctness fixes are complete.
+The candidate remains at stage 3 for visual review; no later milestone was started.
 
 Run `pnpm dev`, then open http://127.0.0.1:5173. The live reference, independent
 geometry mount, native-size 100% DPI comparison, and `/?workload` diagnostic are
-available. [Current review report](evidence/milestone-a/correctness/report.md),
+available. [Current review report](evidence/milestone-a/checkbox-size/report.md),
 [API](api.md), [testing](testing.md).
 
 ## Milestones
@@ -35,8 +34,9 @@ available. [Current review report](evidence/milestone-a/correctness/report.md),
 - Checkbox-gap correction: `0964854`; [retained evidence](evidence/milestone-a/checkbox-gap/report.md).
 - Correctness fixes: `81195b2` command validation, `845c9cc` FIFO queue,
   `f4bf9fa` trailing rows, and `1086255` local measurements.
-- Final tested working tree is based on `1086255`, with artifact-path updates and
-  the current report/evidence recorded in the handover commit.
+- Correctness handover: `ceb73d7`; [retained report](evidence/milestone-a/correctness/report.md).
+- Current checkbox-size trial is based on `ceb73d7`, with verification and evidence
+  in the commit containing the trial report.
 - Passed: strict typecheck, ESM/declarations/CSS build, **79 unit tests**,
   **54 browser cases** across Chromium, Firefox, and WebKit, and diff whitespace check.
 - Actual measurements: root about **98.7×39px**, regular A/B/C row pitch **23px**.
@@ -79,15 +79,18 @@ available. [Current review report](evidence/milestone-a/correctness/report.md),
 - Measurement reads fractional local CSS sizes, including root content. Mount and
   refresh preserve exact local geometry under scales, nested/nonuniform transforms,
   rotation, and restoration. Half-scale multiline height remains 17.5px.
+- The checkbox-size trial increases the square from 11×11px to 13×13px. Its
+  center remains 1px above the text-block center, with a 4px gap to the label.
+  Geometry measurement includes the larger square. Visual acceptance is pending.
 - The original fixture is preserved. A separate 100% DPI variant matches the new
-  screenshot's labels. New evidence is in `docs/evidence/milestone-a/correctness/`;
+  screenshot's labels. New evidence is in `docs/evidence/milestone-a/checkbox-size/`;
   earlier evidence is retained for comparison. No baseline has been approved.
 
 ## Next action and known limits
 
-Review the [correctness report](evidence/milestone-a/correctness/report.md),
-[checkbox spacing](evidence/milestone-a/correctness/geometry-chromium.png)
-and [comparison](evidence/milestone-a/correctness/comparison-chromium.png).
+Review the [checkbox-size trial](evidence/milestone-a/checkbox-size/report.md),
+[larger checkboxes](evidence/milestone-a/checkbox-size/geometry-chromium.png), and
+[previous size](evidence/milestone-a/correctness/geometry-chromium.png).
 Windows/macOS font rasterization and small branch-position differences remain.
 Ordinary letters have slightly more line clearance than the reference, preserving
 a consistent baseline and sufficient space below descenders. No unresolved stage-3 behavior failure is known.
