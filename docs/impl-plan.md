@@ -157,17 +157,21 @@ line height, whitespace handling, padding, and checkbox dimensions. Preserve
 multiline, empty, and whitespace-only labels. Do not introduce automatic label
 wrapping in the first version; explicit newlines determine lines. Cache by text
 and geometry-affecting style values. Batch measurement reads before scene writes.
-Default non-root content sits 2px below the row center, redistributing the existing
+Default non-root content sits 0.5px below the row center, redistributing the existing
 vertical padding without changing node height; root text stays centered. Raise
 checkboxes 1px relative to the label block for optical alignment. The native-DPI
-reference anchors these spacings; expose both offsets as theme properties.
+reference anchors these spacings; expose both offsets as theme properties. Reserve
+visible clearance below descenders including their faint antialiased edges. Root
+subtree spacing is 4.5px, independently configurable from the 3px inner sibling
+gap, so text clearance and spacing between major branches can be tuned separately.
 
 Use a deterministic layout in unzoomed world coordinates:
 
 1. Filter root children into left and right sequences, preserving document order.
 2. Traverse visible nodes and calculate each subtree's vertical extent from the
    node's measured height, child extents, and configured sibling gap.
-3. Place each side around the root independently. Stack sibling subtree extents
+3. Place each side around the root independently using the root sibling gap.
+   Within other parents use the inner sibling gap. Stack sibling subtree extents
    without overlap and center the parent against its visible child extent.
 4. Place outward child branches after the parent's line endpoint and connector
    gap; mirror horizontal geometry on the left. Align a single child close to

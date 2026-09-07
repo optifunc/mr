@@ -4,6 +4,7 @@ declare global {
     interface Window {
         primary: MindMapEditor;
         secondary: MindMapEditor;
+        comparison: MindMapEditor;
     }
 }
 test('model commands, event isolation, replacement, and independent histories', async ({ page }) => {

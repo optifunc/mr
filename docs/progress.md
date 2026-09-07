@@ -4,13 +4,13 @@ Last updated: 2026-09-07
 
 ## Current state
 
-**Milestone A remains at the stage-3 checkpoint. The follow-up spacing and
-checkbox alignment corrections are complete; revised visual acceptance is pending.** Work remains stopped
-at the stage-3 product checkpoint; no later milestone was started.
+**Milestone A remains at the stage-3 checkpoint. The descender-clearance
+correction is technically complete; revised visual acceptance is pending.**
+No later milestone was started.
 
 Run `pnpm dev`, then open http://127.0.0.1:5173. The live reference, independent
 geometry mount, native-size 100% DPI comparison, and `/?workload` diagnostic are
-available. [Current review report](evidence/milestone-a/spacing/report.md),
+available. [Current review report](evidence/milestone-a/clearance/report.md),
 [API](api.md), [testing](testing.md).
 
 ## Milestones
@@ -28,9 +28,10 @@ available. [Current review report](evidence/milestone-a/spacing/report.md),
   handover `a50ede7`. [Historical evidence](evidence/milestone-a/report.md).
 - First appearance corrections: `f59980d`, following the user's reference commit
   `9dfdd7e`. [Retained evidence](evidence/milestone-a/100dpi/report.md).
-- Current tested working tree is based on `f59980d`. The spacing correction commit
-  contains implementation, updated contract, tests, and new evidence together.
-- Passed: strict typecheck, ESM/declarations/CSS build, **54 unit tests**,
+- Previous spacing correction: `0f6ab03`; [retained evidence](evidence/milestone-a/spacing/report.md).
+- Current tested working tree is based on `0f6ab03`. The descender-clearance commit
+  contains implementation, contract, tests, and evidence together.
+- Passed: strict typecheck, ESM/declarations/CSS build, **56 unit tests**,
   **36 browser cases** across Chromium, Firefox, and WebKit, and diff whitespace check.
 - Actual measurements: root about **98.7×39px**, regular A/B/C row pitch **23px**.
   Root selection/line paint order, absent node outline, and exact checkbox background
@@ -50,22 +51,26 @@ available. [Current review report](evidence/milestone-a/spacing/report.md),
   removed; canvas keyboard focus and active-descendant semantics remain.
 - Checked inputs use #339933 with a white tick. Explicit CSS avoids WebKit's native
   tinting; inputs retain their semantics and native forced-color appearance.
-- Follow-up feedback requested more clearance above N1, less clearance between
-  text and its branch line, and higher checkboxes. Non-root content moves down
-  2px within unchanged node boxes; checkboxes move up 1px relative to text. Root
-  text stays centered. Native ink-gap measurements match the reference in
-  Chromium/WebKit; Firefox differs by one glyph row (see the report).
+- Follow-up feedback identified insufficient descender clearance. The user approved
+  retaining Arial, restoring text clearance, and adjusting the N1 gap separately.
+  Standard Java Windows SansSerif maps Latin text to Arial (sources in the report).
+- Non-root offset is now 0.5px downward (a 1.5px lift from the previous candidate),
+  with 2px bottom padding. Root subtree gap is independently 4.5px; inner gap stays
+  3px. Checkboxes remain raised 1px relative to text; root text stays centered.
+- Native pixel checks now include all nonwhite descender pixels: two completely
+  clear rows below In-place editing and eleven above N1 in all three engines.
+  The earlier dark-only measurement missed faint edges and overstated clearance.
 - The original fixture is preserved. A separate 100% DPI variant matches the new
-  screenshot's labels. New evidence is in `docs/evidence/milestone-a/spacing/`;
+  screenshot's labels. New evidence is in `docs/evidence/milestone-a/clearance/`;
   earlier evidence is retained for comparison. No baseline has been approved.
 
 ## Next action and known limits
 
-Review the [new comparison](evidence/milestone-a/spacing/comparison-chromium.png)
-and [selection/checkbox fixture](evidence/milestone-a/spacing/selection-lines-chromium.png).
-Windows/macOS font rasterization (including Firefox’s one-pixel ink-gap difference)
-and small branch-position differences remain
-explicit. No unresolved stage-3 behavior failure is known.
+Review the [new comparison](evidence/milestone-a/clearance/comparison-chromium.png)
+and [selection/checkbox fixture](evidence/milestone-a/clearance/selection-lines-chromium.png).
+Windows/macOS font rasterization and small branch-position differences remain.
+Ordinary letters have slightly more line clearance than the reference, preserving
+a consistent baseline and sufficient space below descenders. No unresolved stage-3 behavior failure is known.
 
 After feedback and authorization, proceed with stages 4–5: selection/navigation,
 viewport, and textarea/provisional creation. Model insertion still commits supplied

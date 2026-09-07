@@ -1,0 +1,107 @@
+{
+  "reference": {
+    "source": "docs/free-mind-references/FreeMind-reference-100dpi.png",
+    "size": [
+      605,
+      324
+    ],
+    "child2_last_ink_row": 175,
+    "child2_line_row": 180,
+    "child2_blank_rows_to_line": 4,
+    "single_line_row": 142,
+    "n1_first_ink_row": 154,
+    "descender_blank_rows_dark": 2,
+    "descender_blank_rows_including_faint_edges": 2,
+    "single_line_blank_rows_to_n1": 11
+  },
+  "before-chromium": {
+    "source": "docs/evidence/milestone-a/spacing/reference-chromium.png",
+    "size": [
+      605,
+      325
+    ],
+    "child2_last_ink_row": 175,
+    "child2_line_row": 180,
+    "child2_blank_rows_to_line": 4,
+    "single_line_row": 144,
+    "n1_first_ink_row": 156,
+    "descender_blank_rows_dark": 2,
+    "descender_blank_rows_including_faint_edges": 1,
+    "single_line_blank_rows_to_n1": 11
+  },
+  "after-chromium": {
+    "source": "docs/evidence/milestone-a/clearance/reference-chromium.png",
+    "size": [
+      605,
+      325
+    ],
+    "child2_last_ink_row": 174,
+    "child2_line_row": 181,
+    "child2_blank_rows_to_line": 6,
+    "single_line_row": 144,
+    "n1_first_ink_row": 156,
+    "descender_blank_rows_dark": 3,
+    "descender_blank_rows_including_faint_edges": 2,
+    "single_line_blank_rows_to_n1": 11
+  },
+  "before-firefox": {
+    "source": "docs/evidence/milestone-a/spacing/reference-firefox.png",
+    "size": [
+      605,
+      325
+    ],
+    "child2_last_ink_row": 176,
+    "child2_line_row": 180,
+    "child2_blank_rows_to_line": 3,
+    "single_line_row": 144,
+    "n1_first_ink_row": 156,
+    "descender_blank_rows_dark": 1,
+    "descender_blank_rows_including_faint_edges": 0,
+    "single_line_blank_rows_to_n1": 11
+  },
+  "after-firefox": {
+    "source": "docs/evidence/milestone-a/clearance/reference-firefox.png",
+    "size": [
+      605,
+      325
+    ],
+    "child2_last_ink_row": 175,
+    "child2_line_row": 181,
+    "child2_blank_rows_to_line": 5,
+    "single_line_row": 144,
+    "n1_first_ink_row": 156,
+    "descender_blank_rows_dark": 3,
+    "descender_blank_rows_including_faint_edges": 2,
+    "single_line_blank_rows_to_n1": 11
+  },
+  "before-webkit": {
+    "source": "docs/evidence/milestone-a/spacing/reference-webkit.png",
+    "size": [
+      605,
+      324
+    ],
+    "child2_last_ink_row": 175,
+    "child2_line_row": 180,
+    "child2_blank_rows_to_line": 4,
+    "single_line_row": 144,
+    "n1_first_ink_row": 156,
+    "descender_blank_rows_dark": 2,
+    "descender_blank_rows_including_faint_edges": 1,
+    "single_line_blank_rows_to_n1": 11
+  },
+  "after-webkit": {
+    "source": "docs/evidence/milestone-a/clearance/reference-webkit.png",
+    "size": [
+      605,
+      324
+    ],
+    "child2_last_ink_row": 174,
+    "child2_line_row": 181,
+    "child2_blank_rows_to_line": 6,
+    "single_line_row": 144,
+    "n1_first_ink_row": 156,
+    "descender_blank_rows_dark": 3,
+    "descender_blank_rows_including_faint_edges": 2,
+    "single_line_blank_rows_to_n1": 11
+  }
+}

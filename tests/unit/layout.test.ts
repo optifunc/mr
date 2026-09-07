@@ -3,7 +3,7 @@ import { layout } from '../../src/layout/layout';
 import { validateDocument, visibleIds } from '../../src/model/document';
 import { referenceMap, geometryMap, node, workloadMap } from '../fixtures/maps';
 import type { MindMapDocument } from '../../src/types';
-const style = { siblingGap: 4, branchGap: 24, rootGap: 24, markerRadius: 3, chainRise: 2 };
+const style = { siblingGap: 4, rootSiblingGap: 4, branchGap: 24, rootGap: 24, markerRadius: 3, chainRise: 2 };
 const measure = (m: ReturnType<typeof validateDocument>) => new Map([...m.nodes.values()].map(n => [n.id, { width: Math.max(...n.text.split('\n').map(line => line.length * 7), 1) + 14 + (n.checked !== undefined ? 17 : 0), height: n.text.split('\n').length * 18 + 6 }]));
 test('reference tree: deterministic geometry, stable order, hidden exclusion, and ellipse bounds', () => { const m = validateDocument(referenceMap()); const a = layout(m, measure(m), style); expect(a).toEqual(layout(m, measure(m), style)); expect(a.nodes.size).toBe(21); expect(a.nodes.has('hidden')).toBe(false); expect(a.paths.size).toBe(20); expect(a.nodes.get('collapsed')!.marker).toBeDefined(); expect(a.nodes.get('root')!.box.x).toBe(-a.nodes.get('root')!.box.width / 2); expect(a.nodes.get('one')!.order).toBeLessThan(a.nodes.get('two')!.order); });
 test('symmetric inputs mirror x geometry exactly and preserve side order', () => { const d: MindMapDocument = { root: { id: 'root', text: 'root', children: [{ ...node('l', 'Same', [node('lc', 'Child')]), side: 'left' }, { ...node('r', 'Same', [node('rc', 'Child')]), side: 'right' }] } }; const m = validateDocument(d), a = layout(m, measure(m), style); for (const [l, r] of [['l', 'r'], ['lc', 'rc']]) {
@@ -22,3 +22,22 @@ test('collapsed root retains only ellipse and marker; deep layout is iterative',
     n.children.push(next);
     n = next;
 } const dm = validateDocument(deep); expect(layout(dm, measure(dm), style).nodes.size).toBe(5001); });
+
+test.each([0, 7])('root subtree gap %ipx is independent of inner rows on both sides', rootSiblingGap => {
+    const d: MindMapDocument = { root: { id: 'root', text: 'Root', children: [] } };
+    for (const side of ['left', 'right'] as const) {
+        for (const branch of ['top', 'bottom']) {
+            const id = `${side}-${branch}`;
+            d.root.children.push({ ...node(id, 'Branch', [node(`${id}-a`), node(`${id}-b`)]), side });
+        }
+    }
+    const m = validateDocument(d), sizes = measure(m);
+    const result = layout(m, sizes, { ...style, rootSiblingGap });
+    for (const side of ['left', 'right']) {
+        const box = (suffix: string) => result.nodes.get(`${side}-${suffix}`)!.box;
+        expect(box('bottom-a').y - (box('top-b').y + box('top-b').height)).toBe(rootSiblingGap);
+        expect(box('top-b').y - (box('top-a').y + box('top-a').height)).toBe(style.siblingGap);
+        expect(box('top').y + box('top').height / 2).toBe((box('top-a').y + box('top-b').y + box('top-b').height) / 2);
+        expect(box('bottom-b').y + box('bottom-b').height).toBe(-box('top-a').y);
+    }
+});

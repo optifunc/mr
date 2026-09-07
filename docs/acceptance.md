@@ -36,9 +36,19 @@ The arrow and red annotation in the drag reference are explanatory, not widget U
 - Show two isolated mounts, package output, and the stage 1–3 automated gates.
 - Run the target workload as an early diagnostic; retain final profiling for D.
 
+**2026-09-07 descender-clearance follow-up:** implemented after the user's go-ahead.
+Arial is retained; text moves up 1.5px and root subtree spacing increases separately.
+Two fully clear rows now separate descenders from the line in all three engines,
+including every faint edge; the gap above N1 and inner row pitch are preserved.
+[Current report](evidence/milestone-a/clearance/report.md),
+[comparison](evidence/milestone-a/clearance/comparison-chromium.png),
+[pixel measurements](evidence/milestone-a/clearance/ink-spacing.json).
+Typecheck/build, 56 unit tests, 36 browser cases, and pixel checks passed.
+**Visual acceptance remains pending.** Earlier evidence remains unchanged.
+
 **2026-09-07 spacing follow-up:** the user requested a larger gap above N1,
 a smaller text-to-line gap, and higher checkboxes. These corrections are complete;
-**visual acceptance remains pending**. [Current report](evidence/milestone-a/spacing/report.md),
+**visual acceptance remains pending**. [Previous report](evidence/milestone-a/spacing/report.md),
 [comparison](evidence/milestone-a/spacing/comparison-chromium.png),
 [checkbox alignment](evidence/milestone-a/spacing/geometry-chromium.png),
 and [native gap measurements](evidence/milestone-a/spacing/ink-spacing.json).

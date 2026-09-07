@@ -82,9 +82,10 @@ Labels preserve whitespace and explicit newlines and never wrap automatically.
 | `text-color`, `background`, `line-color`, `line-width` | #111, #fff, #888, 1px |
 | `selection-color`, `focus-color` | #d2d2d2, #777 |
 | `label-padding-x`, `label-padding-y` | 6px, 2.5px |
-| `label-offset-y` | 2px downward, clamped to `label-padding-y` |
+| `label-offset-y` | 0.5px downward, clamped to `label-padding-y` |
 | `root-padding-x`, `root-padding-y` | 11px, 12px |
 | `sibling-gap`, `branch-gap`, `root-gap` | 3px, 20px, 20px |
+| `root-sibling-gap` | 4.5px between root-level subtree extents |
 | `marker-radius`, `chain-rise` | 2.5px, 1.5px |
 | `checkbox-size`, `checkbox-gap` | 11px, 3px |
 | `checkbox-color` | #339933 |
@@ -97,8 +98,9 @@ subtree envelopes that include multiline heights, single-child rise, and markers
 The SVG and HTML share one translated scene. Normal mounting centers the root at
 100%; resizing recenters the stage-A scene without recomputing world layout.
 
-Non-root content uses 4.5px top and 0.5px bottom padding by default. This moves
-text closer to its branch without changing row height or subtree spacing. Root
+Non-root content uses 3px top and 2px bottom padding by default. This moves
+text toward its branch while reserving room for descenders, without changing row
+height. Root-level subtree spacing is independent of the 3px inner sibling gap. Root
 text remains centered. Checkboxes sit 1px above the label block center for optical
 alignment, including beside multiline labels.
 

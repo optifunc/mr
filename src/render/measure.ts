@@ -61,6 +61,6 @@ export class Measurements {
             result.set(id, this.cache.get(key)!);
         return result;
     }
-    style(): LayoutStyle { const css = getComputedStyle(this.widget); const number = (key: string, fallback: number) => { const n = Number.parseFloat(css.getPropertyValue(key)); return Number.isFinite(n) && n >= 0 ? n : fallback; }; return { siblingGap: number('--mindmap-sibling-gap', 3), branchGap: number('--mindmap-branch-gap', 20), rootGap: number('--mindmap-root-gap', 20), markerRadius: number('--mindmap-marker-radius', 2.5), chainRise: number('--mindmap-chain-rise', 1.5) }; }
+    style(): LayoutStyle { const css = getComputedStyle(this.widget); const number = (key: string, fallback: number) => { const n = Number.parseFloat(css.getPropertyValue(key)); return Number.isFinite(n) && n >= 0 ? n : fallback; }; return { siblingGap: number('--mindmap-sibling-gap', 3), rootSiblingGap: number('--mindmap-root-sibling-gap', 4.5), branchGap: number('--mindmap-branch-gap', 20), rootGap: number('--mindmap-root-gap', 20), markerRadius: number('--mindmap-marker-radius', 2.5), chainRise: number('--mindmap-chain-rise', 1.5) }; }
     destroy(): void { this.element.remove(); this.cache.clear(); }
 }

@@ -124,7 +124,8 @@ Requirements:
   black/gray colors comparable to the references.
 - Non-root nodes shall appear as text resting immediately above a thin
   horizontal branch line, with text-to-line and neighboring-label clearances
-  comparable to the native-DPI reference.
+  comparable to the native-DPI reference. Descenders, including their visible
+  antialiased edges, shall remain clearly separated from the line.
 - Parent-child connectors shall be thin, smooth gray curves that merge into
   each node's horizontal branch line.
 - The root shall be centered in an outlined horizontal ellipse containing its

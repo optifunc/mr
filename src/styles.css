@@ -10,10 +10,11 @@
   --mindmap-focus-color: #777;
   --mindmap-label-padding-x: 6px;
   --mindmap-label-padding-y: 2.5px;
-  --mindmap-label-offset-y: 2px;
+  --mindmap-label-offset-y: 0.5px;
   --mindmap-root-padding-x: 11px;
   --mindmap-root-padding-y: 12px;
   --mindmap-sibling-gap: 3px;
+  --mindmap-root-sibling-gap: 4.5px;
   --mindmap-branch-gap: 20px;
   --mindmap-root-gap: 20px;
   --mindmap-marker-radius: 2.5px;

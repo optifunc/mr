@@ -1,0 +1,81 @@
+
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test tests/browser/render.spec.ts
+
+
+Running 24 tests using 4 workers
+
+(node:34091) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34089) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34092) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34090) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34091) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34090) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34089) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34092) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   4 [chromium] › tests/browser/render.spec.ts:63:1 › replacement reconciles reused root IDs, namespaced DOM IDs, and optional checkboxes (453ms)
+  ✓   2 [chromium] › tests/browser/render.spec.ts:45:1 › literal text, empty/multiline labels, theme refresh, font completion, resize, and lifecycle (537ms)
+  ✓   3 [chromium] › tests/browser/render.spec.ts:30:1 › selection and checked state reuse geometry; structural changes relayout and undo (649ms)
+  ✓   5 [chromium] › tests/browser/render.spec.ts:74:1 › checkbox accessibility state survives hidden-node removal and recreation (184ms)
+  ✓   7 [chromium] › tests/browser/render.spec.ts:97:1 › text-to-branch spacing and optical checkbox alignment preserve row geometry (184ms)
+  ✓   6 [chromium] › tests/browser/render.spec.ts:80:1 › root ellipse contains long multiline content and keeps an empty root horizontal (368ms)
+  ✓   8 [chromium] › tests/browser/render.spec.ts:158:1 › 100% DPI proportions, root fill, unobstructed lines, focus, and checkbox color (371ms)
+(node:34130) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34131) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/browser/render.spec.ts:3:1 › reference appearance and geometry evidence (1.2s)
+(node:34132) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34133) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34130) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34131) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34132) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34133) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  10 [firefox] › tests/browser/render.spec.ts:30:1 › selection and checked state reuse geometry; structural changes relayout and undo (1.4s)
+  ✓  13 [firefox] › tests/browser/render.spec.ts:74:1 › checkbox accessibility state survives hidden-node removal and recreation (622ms)
+  ✓   9 [firefox] › tests/browser/render.spec.ts:3:1 › reference appearance and geometry evidence (2.4s)
+  ✓  14 [firefox] › tests/browser/render.spec.ts:80:1 › root ellipse contains long multiline content and keeps an empty root horizontal (779ms)
+  ✓  11 [firefox] › tests/browser/render.spec.ts:45:1 › literal text, empty/multiline labels, theme refresh, font completion, resize, and lifecycle (2.0s)
+  ✓  12 [firefox] › tests/browser/render.spec.ts:63:1 › replacement reconciles reused root IDs, namespaced DOM IDs, and optional checkboxes (1.6s)
+  ✓  15 [firefox] › tests/browser/render.spec.ts:97:1 › text-to-branch spacing and optical checkbox alignment preserve row geometry (517ms)
+  ✓  16 [firefox] › tests/browser/render.spec.ts:158:1 › 100% DPI proportions, root fill, unobstructed lines, focus, and checkbox color (697ms)
+(node:34172) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34173) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34174) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34175) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34172) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34173) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34174) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34175) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  20 [webkit] › tests/browser/render.spec.ts:63:1 › replacement reconciles reused root IDs, namespaced DOM IDs, and optional checkboxes (587ms)
+  ✓  18 [webkit] › tests/browser/render.spec.ts:45:1 › literal text, empty/multiline labels, theme refresh, font completion, resize, and lifecycle (1.2s)
+  ✓  19 [webkit] › tests/browser/render.spec.ts:30:1 › selection and checked state reuse geometry; structural changes relayout and undo (1.1s)
+  ✓  21 [webkit] › tests/browser/render.spec.ts:74:1 › checkbox accessibility state survives hidden-node removal and recreation (379ms)
+  ✓  23 [webkit] › tests/browser/render.spec.ts:97:1 › text-to-branch spacing and optical checkbox alignment preserve row geometry (345ms)
+  ✓  17 [webkit] › tests/browser/render.spec.ts:3:1 › reference appearance and geometry evidence (1.7s)
+  ✓  22 [webkit] › tests/browser/render.spec.ts:80:1 › root ellipse contains long multiline content and keeps an empty root horizontal (544ms)
+  ✓  24 [webkit] › tests/browser/render.spec.ts:158:1 › 100% DPI proportions, root fill, unobstructed lines, focus, and checkbox color (486ms)
+
+  24 passed (10.5s)

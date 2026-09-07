@@ -11,6 +11,7 @@ export interface Box extends Size {
 }
 export interface LayoutStyle {
     siblingGap: number;
+    rootSiblingGap: number;
     branchGap: number;
     rootGap: number;
     markerRadius: number;
@@ -81,10 +82,10 @@ export function layout(model: Model, sizes: ReadonlyMap<string, Size>, style: La
         depth: number;
     };
     const placements: Placement[] = [];
-    const schedule = (children: readonly string[], side: RootSide, center: number, inward: number, depth: number): void => { const total = children.reduce((sum, id) => sum + extents.get(id)!.height, 0) + Math.max(0, children.length - 1) * style.siblingGap; let y = center - total / 2; const group: Placement[] = []; for (const id of children) {
+    const schedule = (children: readonly string[], side: RootSide, center: number, inward: number, depth: number): void => { const gap = depth === 2 ? style.rootSiblingGap : style.siblingGap; const total = children.reduce((sum, id) => sum + extents.get(id)!.height, 0) + Math.max(0, children.length - 1) * gap; let y = center - total / 2; const group: Placement[] = []; for (const id of children) {
         const extent = extents.get(id)!;
         group.push({ id, side, center: y - extent.top, inward, depth });
-        y += extent.height + style.siblingGap;
+        y += extent.height + gap;
     } for (let i = group.length - 1; i >= 0; i--)
         placements.push(group[i]!); };
     const rootNode = model.nodes.get(model.rootId)!;
