@@ -17,11 +17,14 @@ export function navigate(model: Model, layout: Layout, active: string | undefine
     }
     const sign = direction === 'up' ? -1 : 1;
     const candidates = [...layout.nodes.values()].filter(c => c.id !== g.id &&
-        (g.side === null || c.side === g.side) && sign * (center(c) - center(g)) > 0)
-        .sort((a, b) => sign * (center(a) - center(b)) || a.order - b.order);
-    if (candidates.length) return { id: candidates[0]!.id };
-    const root = layout.nodes.get(model.rootId)!;
-    return g.side && sign * (center(root) - center(g)) > 0 ? { id: root.id } : {};
+        (g.side === null || c.side === g.side && c.depth === g.depth) && sign * (center(c) - center(g)) > 0)
+        .sort((a, b) => {
+            // Visit siblings before continuing at the same depth in another branch.
+            const siblingPriority = Number(b.parent === g.parent) - Number(a.parent === g.parent);
+            return siblingPriority || sign * (center(a) - center(b)) || a.order - b.order;
+        });
+    return candidates.length ? { id: candidates[0]!.id } : {};
+
 }
 export class SelectionPath {
     anchor: string | undefined;

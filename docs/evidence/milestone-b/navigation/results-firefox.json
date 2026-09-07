@@ -1,0 +1,47 @@
+{
+  "browser": "146.0.1",
+  "results": [
+    {
+      "from": "one",
+      "direction": "down",
+      "to": "two",
+      "actual": "two"
+    },
+    {
+      "from": "c",
+      "direction": "up",
+      "to": "b",
+      "actual": "b"
+    },
+    {
+      "from": "a",
+      "direction": "down",
+      "to": "b",
+      "actual": "b"
+    },
+    {
+      "from": "single",
+      "direction": "up",
+      "to": "c",
+      "actual": "c"
+    },
+    {
+      "from": "single",
+      "direction": "down",
+      "to": "n1",
+      "actual": "n1"
+    },
+    {
+      "from": "n2",
+      "direction": "down",
+      "to": "n3",
+      "actual": "n3"
+    },
+    {
+      "from": "n3",
+      "direction": "up",
+      "to": "n2",
+      "actual": "n2"
+    }
+  ]
+}

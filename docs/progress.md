@@ -7,6 +7,8 @@ Last updated: 2026-09-07
 **Milestone B is technically complete and stopped at the stage-5 product checkpoint.**
 User acceptance of B's navigation/editing experience and editing screenshots is
 pending. Milestone A's default baseline at `253b99d` remains accepted and unchanged.
+The user requested a same-depth Up/Down correction after review; it is verified
+and ready for further product feedback. [Correction evidence](evidence/milestone-b/navigation/report.md).
 Stages 6–9 have not been started.
 
 Stages 4–5 include mouse/range selection, geometry navigation, keyboard sibling-block
@@ -175,3 +177,25 @@ For a fresh run, `pnpm dev` prints the available local port.
 [editing comparison](evidence/milestone-b/editing-comparison-chromium.png),
 [default regression](evidence/milestone-b/regression-reference-chromium.png).
 Technical completion is not user acceptance. Stop here for the requested review.
+
+## B navigation correction (2026-09-07)
+
+Approved after clarification: Up/Down prefers siblings, then continues at the same
+depth in adjacent branches on the same side, skipping other depths. Single child
++ Down is N1. Non-root edges stay selected; root entry and Left/Right behavior are
+preserved. The requirements table, plan, API and acceptance exercise now agree.
+
+Tested working tree: task-only changes based on `0204593`, captured in the commit
+containing this entry and its [report](evidence/milestone-b/navigation/report.md).
+Passed: build/typecheck, **110 unit tests**, **27 interaction/navigation browser
+cases** and **3 exact accepted-A screenshot regressions**, all three engines,
+plus `git diff --check`. All seven user examples were exercised with actual keys
+in editable/read-only mounts; mirrored trees, sibling priority, ties, collapsed
+peers, edge no-ops and Shift contraction are covered. New selection screenshots
+were inspected in each engine. Earlier B evidence is preserved.
+
+The focused pre-fix run failed nine cases, confirming the old cross-depth behavior.
+Updated old assertions now enforce the approved rule; none were relaxed. The full
+B browser suite, workload and manual/release checks were not rerun for this small
+navigation-only correction; their prior evidence and remaining gaps still apply.
+Next: user review of the correction and any further B feedback. Remain at stage 5.

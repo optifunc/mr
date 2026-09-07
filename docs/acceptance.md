@@ -125,10 +125,20 @@ regression baseline exists. Stop at this product checkpoint as requested.
 
 **Product review:** fluent keyboard creation, selection, navigation, and editing.
 
+**2026-09-07 navigation correction:** updated to the user's confirmed sibling-first,
+same-depth rule, including Single child + Down → N1. Build/typecheck, 110 unit tests,
+27 interaction/navigation browser cases and 3 exact approved-default regressions
+passed. [Correction report, results and screenshots](evidence/milestone-b/navigation/report.md).
+B product acceptance remains pending; earlier handover results below are historical.
+
 Use the reference map for a short repeatable exercise:
 
 1. Create and label root branches on both sides and nested children.
-2. Navigate across groups and enter the visually central child on each side.
+2. Navigate siblings, continue across groups at the same depth, and enter the
+   visually central child on each side. Verify all seven movements in requirements
+   §8.1, especially Single child + Up → C and + Down → N1. Other depths must be
+   skipped; non-root edges stay selected. Extend and reverse with Shift to check
+   contraction, including across groups.
 3. Extend and contract selection, then pan and zoom around the pointer.
 4. Edit a multiline label; verify geometry stays frozen until commit.
 5. Cancel creation under a collapsed parent and cancel insert-parent creation;

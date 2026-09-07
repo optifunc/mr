@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'vitest';
+import { navigationExamples } from '../fixtures/navigation';
 import { Store } from '../../src/model/store';
 import { node, referenceMap } from '../fixtures/maps';
 import { layout } from '../../src/layout/layout';
@@ -82,16 +83,42 @@ test('pointer zoom clamps around the same world point; fit and reveal preserve d
     expect(reveal(view, { x: 0, y: 0, width: 20, height: 20 }, 500, 500)).toEqual(view);
     expect(reveal(view, { x: 500, y: 0, width: 20, height: 20 }, 500, 500)).toEqual({ x: -36, y: 200, zoom: 1 });
 });
-test('vertical navigation crosses branch groups, excludes same rows, and only falls back to root in the requested direction', () => {
+test('vertical navigation stays at the same depth across groups; root keeps its entry behavior', () => {
     const s = new Store({ document: referenceMap() }), g = geometry(s);
     const centers: Record<string, number> = { root: 0, one: -40, a: -60, b: -40, c: -20, two: 10, single: 10, chain: 8, three: 50, n1: 30, n2: 40, n3: 60, n4: 80, c1: 55, c2: 65, collapsed: 54, child1: -30, child2: 20, c21: -5, c22: 20, c23: 40 };
     for (const [id, n] of g.nodes) n.box.y = centers[id]! - n.box.height / 2;
-    expect(navigate(s.model, g, 'c', 'down')).toEqual({ id: 'chain' });
-    expect(navigate(s.model, g, 'two', 'up')).toEqual({ id: 'chain' });
+    expect(navigate(s.model, g, 'c', 'down')).toEqual({ id: 'single' });
+    expect(navigate(s.model, g, 'two', 'up')).toEqual({ id: 'one' });
     expect(navigate(s.model, g, 'a', 'up')).toEqual({});
-    expect(navigate(s.model, g, 'c21', 'up')).toEqual({ id: 'child1' });
+    expect(navigate(s.model, g, 'c21', 'up')).toEqual({});
     expect(navigate(s.model, g, 'root', 'up')).toEqual({ id: 'c21' });
     expect(navigate(s.model, g, 'root', 'down')).toEqual({ id: 'chain' });
     for (const n of g.nodes.values()) if (n.side === 'left') n.box.y -= 100;
-    expect(navigate(s.model, g, 'c23', 'down')).toEqual({ id: 'root' });
+    expect(navigate(s.model, g, 'c23', 'down')).toEqual({});
+});
+
+test.each(navigationExamples)('review navigation: $from + $direction → $to on either side', ({ from, direction, to }) => {
+    for (const mirrored of [false, true]) {
+        const document = referenceMap();
+        if (mirrored) for (const child of document.root.children) child.side = child.side === 'right' ? 'left' : 'right';
+        const s = new Store({ document });
+        expect(navigate(s.model, geometry(s), from, direction)).toEqual({ id: to });
+    }
+});
+test('siblings take priority over closer same-depth nodes in another group; cross-group ties are stable', () => {
+    const s = new Store({ document: referenceMap() }), g = geometry(s);
+    const at = (id: string, y: number) => { const n = g.nodes.get(id)!; n.box.y = y - n.box.height / 2; };
+    at('a', -100); at('b', -40); at('c', -20); at('single', -70);
+    expect(navigate(s.model, g, 'a', 'down')).toEqual({ id: 'b' });
+    at('single', 0); at('n1', 0);
+    expect(navigate(s.model, g, 'c', 'down')).toEqual({ id: 'single' });
+});
+test('collapsed descendants are excluded and non-root edges never fall back to ancestors or the opposite side', () => {
+    const s = new Store({ document: referenceMap() });
+    expect(navigate(s.model, geometry(s), 'single', 'up')).toEqual({ id: 'c' });
+    s.execute({ type: 'collapse', targetId: 'one' });
+    expect(navigate(s.model, geometry(s), 'single', 'up')).toEqual({});
+    expect(navigate(s.model, geometry(s), 'collapsed', 'up')).toEqual({});
+    expect(navigate(s.model, geometry(s), 'c23', 'down')).toEqual({});
+    expect(navigate(s.model, geometry(s), 'three', 'down')).toEqual({});
 });

@@ -250,22 +250,39 @@ shall not become eligible through normalization.
 
 ## 8. Visual keyboard navigation
 
-Plain arrow navigation shall follow rendered geometry rather than raw child-array
-order. Primary-modifier+arrow movement follows sibling order as specified in
-section 9.1.
+Plain arrow navigation shall follow the sibling/depth rules below using rendered
+geometry to order eligible destinations. Primary-modifier+arrow movement follows
+sibling order as specified in section 9.1.
 
 ### 8.1 Up and Down
 
-- Up selects the visible node whose visual row is immediately above the active
-  node.
-- Down selects the visible node whose visual row is immediately below it.
-- Candidate order shall primarily use the vertical center of each rendered
-  node. Stable layout order breaks ties.
-- Navigation first remains on the active node's root side. If no candidate
-  exists in that direction on that side, the root may be selected; navigation
-  shall not unexpectedly jump to the opposite side.
-- Thus, Up from the top sibling in one group can move to the visually adjacent
-  node in the branch above, rather than stopping at the sibling boundary.
+- Up selects the visible sibling immediately above the active node; Down selects
+  the visible sibling immediately below it. Root children consider only siblings
+  on their own side.
+- If there is no sibling in the requested direction, continue to the nearest
+  visible node at the **same depth** in an adjacent branch on the same root side.
+  Skip ancestors and deeper descendants, even if their visual rows are closer.
+- Eligible candidates must have a strictly higher/lower rendered vertical center.
+  Within the sibling or cross-branch candidate group, vertical distance orders
+  candidates; stable layout order breaks ties.
+- At a non-root edge with no eligible destination, selection remains unchanged.
+  Do not fall back to an ancestor/root or cross to the opposite root side.
+- At the root, retain the entry behavior: Up/Down selects the nearest visible row
+  in that direction across either side, with stable layout order breaking ties.
+- Shift+Up/Down follows the same destinations, extending/contracting the selection
+  path. Left/Right navigation and primary-modifier structural movement are unchanged.
+
+Confirmed reference-map examples (product review, 2026-09-07):
+
+| Selected node | Arrow | Next selected node |
+|---|---|---|
+| One | Down | Two |
+| C | Up | B |
+| A | Down | B |
+| Single child | Up | C |
+| Single child | Down | N1 |
+| N2 | Down | N3 |
+| N3 | Up | N2 |
 
 ### 8.2 Left and Right
 
@@ -721,7 +738,8 @@ demonstrate all of the following:
    Shift+Enter inserts a newline, Enter commits and relayouts, and Escape
    restores the prior state.
 5. Escape while editing a newly created node removes it.
-6. Up and Down cross sibling-group boundaries according to visual position.
+6. Up and Down prefer siblings, then cross group boundaries at the same depth
+   and on the same root side according to visual position, skipping other depths.
    Outward navigation chooses the visually central child. Outward navigation
    first expands a collapsed node.
 7. Mouse, modifier-click, sibling range selection, cross-parent range
@@ -775,3 +793,8 @@ The following defaults have been confirmed:
   side for root children. Up/Down wrap the block; inward promotes it immediately
   after its parent or flips root children to the end of the opposite side;
   outward does nothing. Selection and active node are preserved.
+- Navigation correction approved on 2026-09-07: plain Up/Down prefers siblings,
+  then continues at the same depth in adjacent branches on the same root side.
+  Other depths are skipped, and non-root edges stay selected. The corrected
+  reference example is Single child + Down → N1 (not C). Root entry and horizontal
+  navigation retain their existing behavior; see section 8.1.

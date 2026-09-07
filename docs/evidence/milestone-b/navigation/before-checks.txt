@@ -1,0 +1,226 @@
+
+> @mindmap/widget@0.1.0 test /Users/yezo/Scratch/09-26/mr
+> vitest run tests/unit/interaction.test.ts
+
+
+ RUN  v4.0.18 /Users/yezo/Scratch/09-26/mr
+
+ ❯ tests/unit/interaction.test.ts (24 tests | 9 failed) 14ms
+     ✓ interleaved side adjacency, both wraps, order, active node and one-step undo 2ms
+     ✓ promotion adopts parent side, flipping appends and direction follows new side 0ms
+     ✓ left descendants promote immediately after parent and empty side appends 0ms
+     ✓ ineligible/full block "a" is unchanged by Up 0ms
+     ✓ ineligible/full block "a" is unchanged by Up 0ms
+     ✓ ineligible/full block "root" is unchanged by Up 0ms
+     ✓ ineligible/full block "a" is unchanged by Up 0ms
+     ✓ ineligible/full block "a1" is unchanged by Up 0ms
+     ✓ ineligible/full block undefined is unchanged by Up 0ms
+     ✓ ineligible/full block "a" is unchanged by Up 0ms
+     ✓ read-only blocks all movement 0ms
+   ✓ geometry navigation: central child, same-row exclusion, group crossing, both sides and collapsed expansion 1ms
+   ✓ Shift arrow path contracts and root-side sibling ranges use shared child order 0ms
+   ✓ pointer zoom clamps around the same world point; fit and reveal preserve document-independent coordinates 0ms
+   × vertical navigation stays at the same depth across groups; root keeps its entry behavior 5ms
+   × review navigation: 'one' + 'down' → 'two' on either side 1ms
+   ✓ review navigation: 'c' + 'up' → 'b' on either side 0ms
+   × review navigation: 'a' + 'down' → 'b' on either side 0ms
+   × review navigation: 'single' + 'up' → 'c' on either side 0ms
+   × review navigation: 'single' + 'down' → 'n1' on either side 0ms
+   × review navigation: 'n2' + 'down' → 'n3' on either side 0ms
+   × review navigation: 'n3' + 'up' → 'n2' on either side 0ms
+   × siblings take priority over closer same-depth nodes in another group; cross-group ties are stable 0ms
+   × collapsed descendants are excluded and non-root edges never fall back to ancestors or the opposite side 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 9 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/interaction.test.ts > vertical navigation stays at the same depth across groups; root keeps its entry behavior
+AssertionError: expected { id: 'chain' } to deeply equal { id: 'single' }
+
+- Expected
++ Received
+
+  {
+-   "id": "single",
++   "id": "chain",
+  }
+
+ ❯ tests/unit/interaction.test.ts:90:47
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/9]⎯
+
+ FAIL  tests/unit/interaction.test.ts > review navigation: 'one' + 'down' → 'two' on either side
+AssertionError: expected { id: 'b' } to deeply equal { id: 'two' }
+
+- Expected
++ Received
+
+  {
+-   "id": "two",
++   "id": "b",
+  }
+
+ ❯ tests/unit/interaction.test.ts:105:65
+    103|         if (mirrored) for (const child of document.root.children) chil…
+    104|         const s = new Store({ document });
+    105|         expect(navigate(s.model, geometry(s), from, direction)).toEqua…
+       |                                                                 ^
+    106|     }
+    107| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/9]⎯
+
+ FAIL  tests/unit/interaction.test.ts > review navigation: 'a' + 'down' → 'b' on either side
+AssertionError: expected { id: 'one' } to deeply equal { id: 'b' }
+
+- Expected
++ Received
+
+  {
+-   "id": "b",
++   "id": "one",
+  }
+
+ ❯ tests/unit/interaction.test.ts:105:65
+    103|         if (mirrored) for (const child of document.root.children) chil…
+    104|         const s = new Store({ document });
+    105|         expect(navigate(s.model, geometry(s), from, direction)).toEqua…
+       |                                                                 ^
+    106|     }
+    107| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/9]⎯
+
+ FAIL  tests/unit/interaction.test.ts > review navigation: 'single' + 'up' → 'c' on either side
+AssertionError: expected { id: 'chain' } to deeply equal { id: 'c' }
+
+- Expected
++ Received
+
+  {
+-   "id": "c",
++   "id": "chain",
+  }
+
+ ❯ tests/unit/interaction.test.ts:105:65
+    103|         if (mirrored) for (const child of document.root.children) chil…
+    104|         const s = new Store({ document });
+    105|         expect(navigate(s.model, geometry(s), from, direction)).toEqua…
+       |                                                                 ^
+    106|     }
+    107| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/9]⎯
+
+ FAIL  tests/unit/interaction.test.ts > review navigation: 'single' + 'down' → 'n1' on either side
+AssertionError: expected { id: 'two' } to deeply equal { id: 'n1' }
+
+- Expected
++ Received
+
+  {
+-   "id": "n1",
++   "id": "two",
+  }
+
+ ❯ tests/unit/interaction.test.ts:105:65
+    103|         if (mirrored) for (const child of document.root.children) chil…
+    104|         const s = new Store({ document });
+    105|         expect(navigate(s.model, geometry(s), from, direction)).toEqua…
+       |                                                                 ^
+    106|     }
+    107| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/9]⎯
+
+ FAIL  tests/unit/interaction.test.ts > review navigation: 'n2' + 'down' → 'n3' on either side
+AssertionError: expected { id: 'collapsed' } to deeply equal { id: 'n3' }
+
+- Expected
++ Received
+
+  {
+-   "id": "n3",
++   "id": "collapsed",
+  }
+
+ ❯ tests/unit/interaction.test.ts:105:65
+    103|         if (mirrored) for (const child of document.root.children) chil…
+    104|         const s = new Store({ document });
+    105|         expect(navigate(s.model, geometry(s), from, direction)).toEqua…
+       |                                                                 ^
+    106|     }
+    107| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/9]⎯
+
+ FAIL  tests/unit/interaction.test.ts > review navigation: 'n3' + 'up' → 'n2' on either side
+AssertionError: expected { id: 'c1' } to deeply equal { id: 'n2' }
+
+- Expected
++ Received
+
+  {
+-   "id": "n2",
++   "id": "c1",
+  }
+
+ ❯ tests/unit/interaction.test.ts:105:65
+    103|         if (mirrored) for (const child of document.root.children) chil…
+    104|         const s = new Store({ document });
+    105|         expect(navigate(s.model, geometry(s), from, direction)).toEqua…
+       |                                                                 ^
+    106|     }
+    107| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/9]⎯
+
+ FAIL  tests/unit/interaction.test.ts > siblings take priority over closer same-depth nodes in another group; cross-group ties are stable
+AssertionError: expected { id: 'one' } to deeply equal { id: 'b' }
+
+- Expected
++ Received
+
+  {
+-   "id": "b",
++   "id": "one",
+  }
+
+ ❯ tests/unit/interaction.test.ts:112:47
+    110|     const at = (id: string, y: number) => { const n = g.nodes.get(id)!…
+    111|     at('a', -100); at('b', -40); at('c', -20); at('single', -70);
+    112|     expect(navigate(s.model, g, 'a', 'down')).toEqual({ id: 'b' });
+       |                                               ^
+    113|     at('single', 0); at('n1', 0);
+    114|     expect(navigate(s.model, g, 'c', 'down')).toEqual({ id: 'single' }…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/9]⎯
+
+ FAIL  tests/unit/interaction.test.ts > collapsed descendants are excluded and non-root edges never fall back to ancestors or the opposite side
+AssertionError: expected { id: 'chain' } to deeply equal { id: 'c' }
+
+- Expected
++ Received
+
+  {
+-   "id": "c",
++   "id": "chain",
+  }
+
+ ❯ tests/unit/interaction.test.ts:118:60
+    116| test('collapsed descendants are excluded and non-root edges never fall…
+    117|     const s = new Store({ document: referenceMap() });
+    118|     expect(navigate(s.model, geometry(s), 'single', 'up')).toEqual({ i…
+       |                                                            ^
+    119|     s.execute({ type: 'collapse', targetId: 'one' });
+    120|     expect(navigate(s.model, geometry(s), 'single', 'up')).toEqual({});
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/9]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  9 failed | 15 passed (24)
+   Start at  22:55:48
+   Duration  208ms (transform 68ms, setup 0ms, import 82ms, tests 14ms, environment 0ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

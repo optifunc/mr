@@ -70,3 +70,13 @@ written to `docs/evidence/milestone-b/`; tests retain failure traces in ignored
   Transform tests require exact equality of local boxes, paths, ellipse dimensions,
   and browser-rounded screen bounds before/after refresh. They do not use screenshot
   tolerances or assume infinite precision in screen-coordinate arithmetic.
+
+## B navigation correction
+
+- `pnpm test:browser tests/browser/navigation.spec.ts tests/browser/interaction.spec.ts --workers=1`:
+  all confirmed Up/Down examples using actual keys in editable/read-only mounts,
+  sibling/depth navigation, Shift contraction, edges, and existing interaction regressions.
+- `pnpm test:browser tests/browser/checkpoint-b.spec.ts --grep accepted-A --workers=1`:
+  unchanged default screenshots against the approved A images.
+- New navigation evidence and checks are retained under
+  `docs/evidence/milestone-b/navigation/`; earlier B records remain historical.

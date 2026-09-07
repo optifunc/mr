@@ -7,8 +7,7 @@ test('mouse toggle/range/empty selection and keyboard central-child navigation, 
     const selection = () => page.evaluate(() => window.primary.getSelection());
     await page.evaluate(() => window.primary.focus()); await page.keyboard.press('ArrowRight'); expect((await selection()).activeId).toBe('b');
     await page.keyboard.press('Shift+ArrowUp'); expect((await selection()).ids).toEqual(['b', 'a']);
-    await page.keyboard.press('Shift+ArrowDown'); expect((await selection()).ids).toEqual(['b', 'a', 'one']);
-    await page.keyboard.press('Shift+ArrowRight'); expect((await selection()).ids).toEqual(['b']);
+    await page.keyboard.press('Shift+ArrowDown'); expect((await selection()).ids).toEqual(['b']);
     await n('a').click(); await n('c').click({ modifiers: ['Shift'] }); expect((await selection()).ids).toEqual(['a', 'b', 'c']);
     await n('b').click({ modifiers: [primary] }); expect((await selection()).ids).toEqual(['a', 'c']);
     await n('child1').click(); await n('one').click({ modifiers: ['Shift'] }); expect((await selection()).ids).toEqual(['child1', 'child2', 'one']);

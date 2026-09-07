@@ -8,6 +8,8 @@ Appearance defaults/focus revised after product review: 2026-09-07
 
 Keyboard movement requirements added: 2026-09-07
 
+Plain Up/Down navigation corrected after product review: 2026-09-07
+
 Scope: First implementation of [requirements.md](requirements.md)
 
 ## 1. Outcome and agreed decisions
@@ -231,11 +233,20 @@ root children in document order. Cross-parent Shift+click uses the global visibl
 order. Shift+Arrow tracks the navigation path from the anchor; reversing along that
 path contracts the range. Plain navigation establishes a new anchor.
 
-Up/Down considers strictly higher/lower vertical centers on the current branch
-side; equal-height candidates use stable order to break destination ties. At a
-side boundary, select the root only when its center lies in the requested direction;
-otherwise stay put. At the root, Up/Down chooses the nearest row in the requested
-direction across both sides, with stable order breaking ties.
+For a non-root node, Up/Down first considers visible siblings on the same root
+side with strictly higher/lower vertical centers. If none exists in that direction,
+continue to a visible node at the same depth in an adjacent branch on that side.
+Within each candidate group, choose the nearest vertical center, with stable layout
+order breaking ties. Ancestors and deeper descendants are ineligible; at an edge,
+stay put instead of falling back to root or the opposite side. At the root, retain
+nearest-row entry in the requested direction across both sides, with stable order
+breaking ties. Shift+Up/Down uses the same rule and its existing path contraction.
+
+Keep all seven confirmed examples in requirements §8.1 as permanent pure and
+actual-browser regressions, including Single child + Down → N1. Also cover mirrored
+branches, sibling priority over closer cross-group nodes, stable ties, collapsed
+peers, edge no-ops and Shift range reversal. This correction does not change the
+global visible order used by Shift+click, or primary-modifier structural movement.
 
 Inward navigation selects the parent. Outward navigation selects the nearest child
 by vertical center, expands a collapsed node on its first invocation, and is a
@@ -469,7 +480,7 @@ interaction work builds on verified model and geometry rules.
 | 1. Package and contracts | pnpm/Vite/TypeScript setup; public types; mount/destroy skeleton; minimal demo; test harness | Build emits ESM, declarations, and CSS; demo mounts two isolated instances |
 | 2. Model and transactions | Validation, snapshots, indexes, IDs, command registry, history, structural/checkbox/collapse reducers | Atomic failures, root protections, normalization, no-ops, undo/redo, and read-only pass unit tests |
 | 3. Rendering and layout | Measurement cache, visible layout, SVG/HTML scene, theme variables, root/checkbox/collapse visuals | Reference fixture renders correctly; non-overlap, mirroring, determinism, hidden-node exclusion verified |
-| 4. Selection and viewport | Mouse selection, geometry navigation, range selection, keyboard block movement, pan/zoom/fit, resize | Navigation crosses groups correctly; central-child selection, block movement/wrapping/promotion/side flips, and pointer-anchored zoom pass model and browser tests |
+| 4. Selection and viewport | Mouse selection, geometry navigation, range selection, keyboard block movement, pan/zoom/fit, resize | Navigation prefers siblings and crosses groups at the same depth; central-child selection, block movement/wrapping/promotion/side flips, and pointer-anchored zoom pass model and browser tests |
 | 5. Inline editing | Textarea, creation transactions, insertion commands, IME/focus handling | Frozen edit layout, one-entry creation commit, cancellation restoration, and checkbox inheritance pass |
 | 6. Clipboard and links | Codec, browser adapter, pending request guards, completion events, URL opening | Round-trip/invalid-input tests and success/failure/stale clipboard browser scenarios pass |
 | 7. Drag-and-drop | Drag state, normalized group preview, gradients, move reducer integration, autopan | Every drop mode, cycle rejection, same-position no-op, cancellation, and one-step undo pass |
@@ -493,7 +504,7 @@ paths in secure browser contexts.
 | 1. Reference appearance | Two-sided reference fixture; default, edit, and drag screenshots plus visual review |
 | 2–3. Keyboard structure changes | Each insertion binding at root/non-root; contiguous-block movement, wrapping, promotion, root-side append, eligibility/no-ops, selection retention, exact position/side, and one-step history |
 | 4–5. Editing and creation cancellation | Frozen positions during typing, multiline commit, old-label restoration, provisional rollback |
-| 6. Geometry navigation | Unequal subtree heights, same-row ties, group boundaries, central child, collapsed outward behavior |
+| 6. Geometry navigation | Confirmed seven movements, sibling priority, same-depth group boundaries, mirrored branches, stable ties, collapsed peers, edge no-ops, Shift contraction, central child and collapsed outward behavior |
 | 7. Selection | Click/toggle/ranges, root-side sibling ranges, Shift+Arrow contraction, select-all, hidden selection cleanup |
 | 8–9. Checkboxes | Independent state, mixed selections, presence add/remove, inheritance, no unnecessary relayout |
 | 10. URLs | Whole-label detection, partial-text rejection, modifier hit regions, cancellable/protected opening |

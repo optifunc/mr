@@ -45,7 +45,11 @@ editor.destroy();
 - Optional target IDs use the active node by default; optional ID groups use
   selection. `move` takes `destination: { targetId, position, side? }`, with
   `position` of `before`, `after`, or `child`; side applies to root child drops.
-- `navigate` with `direction` and optional `extend`, `selectAll`, `clearSelection`,
+- `navigate` with `direction` and optional `extend`: Up/Down prefers visible
+  siblings, then same-depth nodes in adjacent branches on the same root side.
+  Non-root edges stay selected. Root entry and Left/Right retain their behavior.
+  `extend` follows the same destinations and contracts on reversal.
+  Also available: `selectAll`, `clearSelection`,
   `edit`, `zoomIn`, `zoomOut`, `resetZoom`, and `fit`.
 - `moveSelection` takes a `direction` arrow; it requires the entire selection to
   be a contiguous sibling block on one root side. It wraps, promotes, or flips

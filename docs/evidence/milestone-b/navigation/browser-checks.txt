@@ -1,0 +1,52 @@
+
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test tests/browser/navigation.spec.ts tests/browser/interaction.spec.ts --workers=1
+
+[2m[WebServer] [22m(node:46698) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:46708) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 27 tests using 1 worker
+
+(node:46718) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:46718) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/browser/interaction.spec.ts:5:1 › mouse toggle/range/empty selection and keyboard central-child navigation, contraction and collapse (717ms)
+  ✓   2 [chromium] › tests/browser/interaction.spec.ts:21:1 › actual block keys wrap, promote, flip, preserve selection, emit one event and undo/redo once (243ms)
+  ✓   3 [chromium] › tests/browser/interaction.spec.ts:40:1 › ineligible movement does not navigate or change viewport/history; interleaved siblings use same-side order (213ms)
+  ✓   4 [chromium] › tests/browser/interaction.spec.ts:52:1 › pan, wheel variants, pointer-anchored zoom, keyboard fit/clamps and resize keep document/history intact (487ms)
+  ✓   5 [chromium] › tests/browser/interaction.spec.ts:76:1 › checkbox click and mixed keyboard toggle are independent and do not relayout (282ms)
+  ✓   6 [chromium] › tests/browser/interaction.spec.ts:86:1 › read-only gestures allow navigation/viewport but reject movement/collapse and preserve instance isolation (223ms)
+  ✓   7 [chromium] › tests/browser/navigation.spec.ts:5:5 › reviewed Up/Down examples with actual keys (editable) (552ms)
+  ✓   8 [chromium] › tests/browser/navigation.spec.ts:5:5 › reviewed Up/Down examples with actual keys (read-only) (460ms)
+  ✓   9 [chromium] › tests/browser/navigation.spec.ts:27:1 › Shift+Up/Down extends and contracts across groups at the same depth; edges and collapse skip unavailable peers (524ms)
+(node:46741) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:46741) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  10 [firefox] › tests/browser/interaction.spec.ts:5:1 › mouse toggle/range/empty selection and keyboard central-child navigation, contraction and collapse (2.5s)
+  ✓  11 [firefox] › tests/browser/interaction.spec.ts:21:1 › actual block keys wrap, promote, flip, preserve selection, emit one event and undo/redo once (610ms)
+  ✓  12 [firefox] › tests/browser/interaction.spec.ts:40:1 › ineligible movement does not navigate or change viewport/history; interleaved siblings use same-side order (587ms)
+  ✓  13 [firefox] › tests/browser/interaction.spec.ts:52:1 › pan, wheel variants, pointer-anchored zoom, keyboard fit/clamps and resize keep document/history intact (892ms)
+  ✓  14 [firefox] › tests/browser/interaction.spec.ts:76:1 › checkbox click and mixed keyboard toggle are independent and do not relayout (597ms)
+  ✓  15 [firefox] › tests/browser/interaction.spec.ts:86:1 › read-only gestures allow navigation/viewport but reject movement/collapse and preserve instance isolation (554ms)
+  ✓  16 [firefox] › tests/browser/navigation.spec.ts:5:5 › reviewed Up/Down examples with actual keys (editable) (984ms)
+  ✓  17 [firefox] › tests/browser/navigation.spec.ts:5:5 › reviewed Up/Down examples with actual keys (read-only) (854ms)
+  ✓  18 [firefox] › tests/browser/navigation.spec.ts:27:1 › Shift+Up/Down extends and contracts across groups at the same depth; edges and collapse skip unavailable peers (802ms)
+(node:46775) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:46775) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  19 [webkit] › tests/browser/interaction.spec.ts:5:1 › mouse toggle/range/empty selection and keyboard central-child navigation, contraction and collapse (2.6s)
+  ✓  20 [webkit] › tests/browser/interaction.spec.ts:21:1 › actual block keys wrap, promote, flip, preserve selection, emit one event and undo/redo once (834ms)
+  ✓  21 [webkit] › tests/browser/interaction.spec.ts:40:1 › ineligible movement does not navigate or change viewport/history; interleaved siblings use same-side order (582ms)
+  ✓  22 [webkit] › tests/browser/interaction.spec.ts:52:1 › pan, wheel variants, pointer-anchored zoom, keyboard fit/clamps and resize keep document/history intact (831ms)
+  ✓  23 [webkit] › tests/browser/interaction.spec.ts:76:1 › checkbox click and mixed keyboard toggle are independent and do not relayout (512ms)
+  ✓  24 [webkit] › tests/browser/interaction.spec.ts:86:1 › read-only gestures allow navigation/viewport but reject movement/collapse and preserve instance isolation (454ms)
+  ✓  25 [webkit] › tests/browser/navigation.spec.ts:5:5 › reviewed Up/Down examples with actual keys (editable) (890ms)
+  ✓  26 [webkit] › tests/browser/navigation.spec.ts:5:5 › reviewed Up/Down examples with actual keys (read-only) (705ms)
+  ✓  27 [webkit] › tests/browser/navigation.spec.ts:27:1 › Shift+Up/Down extends and contracts across groups at the same depth; edges and collapse skip unavailable peers (622ms)
+
+  27 passed (28.6s)
