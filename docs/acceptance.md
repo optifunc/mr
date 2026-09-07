@@ -36,6 +36,12 @@ The arrow and red annotation in the drag reference are explanatory, not widget U
 - Show two isolated mounts, package output, and the stage 1–3 automated gates.
 - Run the target workload as an early diagnostic; retain final profiling for D.
 
+**2026-09-07 checkbox-gap follow-up:** the user said the clearance correction
+looks good and requested 1px more horizontal space between checkbox and text.
+The gap is now 4px. [Current report](evidence/milestone-a/checkbox-gap/report.md),
+[checkbox fixture](evidence/milestone-a/checkbox-gap/geometry-chromium.png).
+The updated candidate remains at stage 3 for review; later stages are not authorized.
+
 **2026-09-07 descender-clearance follow-up:** implemented after the user's go-ahead.
 Arial is retained; text moves up 1.5px and root subtree spacing increases separately.
 Two fully clear rows now separate descenders from the line in all three engines,

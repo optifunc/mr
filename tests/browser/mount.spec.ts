@@ -6,7 +6,7 @@ test('two mounts own their DOM, focus, and teardown', async ({ page }, info) => 
     await expect(page.getByRole('tree').first()).toBeFocused();
     await page.keyboard.press('Tab');
     await expect(page.getByRole('tree').nth(1)).toBeFocused();
-    await page.screenshot({ path: `docs/evidence/milestone-a/clearance/mounts-${info.project.name}.png` });
+    await page.screenshot({ path: `docs/evidence/milestone-a/checkbox-gap/mounts-${info.project.name}.png` });
     await page.evaluate(() => { (window as unknown as {
         primary: {
             destroy(): void;

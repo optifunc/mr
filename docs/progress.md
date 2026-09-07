@@ -4,13 +4,13 @@ Last updated: 2026-09-07
 
 ## Current state
 
-**Milestone A remains at the stage-3 checkpoint. The descender-clearance
-correction is technically complete; revised visual acceptance is pending.**
+**Milestone A remains at the stage-3 checkpoint. The requested checkbox-gap
+increase is complete and verified; the updated candidate is ready for review.**
 No later milestone was started.
 
 Run `pnpm dev`, then open http://127.0.0.1:5173. The live reference, independent
 geometry mount, native-size 100% DPI comparison, and `/?workload` diagnostic are
-available. [Current review report](evidence/milestone-a/clearance/report.md),
+available. [Current review report](evidence/milestone-a/checkbox-gap/report.md),
 [API](api.md), [testing](testing.md).
 
 ## Milestones
@@ -29,8 +29,10 @@ available. [Current review report](evidence/milestone-a/clearance/report.md),
 - First appearance corrections: `f59980d`, following the user's reference commit
   `9dfdd7e`. [Retained evidence](evidence/milestone-a/100dpi/report.md).
 - Previous spacing correction: `0f6ab03`; [retained evidence](evidence/milestone-a/spacing/report.md).
-- Current tested working tree is based on `0f6ab03`. The descender-clearance commit
-  contains implementation, contract, tests, and evidence together.
+- Descender-clearance correction: `2742408`; the user said it looks good and
+  requested only a 1px larger checkbox-to-text gap.
+- Current tested working tree is based on `2742408`. The checkbox-gap commit
+  contains the change, verification, and evidence.
 - Passed: strict typecheck, ESM/declarations/CSS build, **56 unit tests**,
   **36 browser cases** across Chromium, Firefox, and WebKit, and diff whitespace check.
 - Actual measurements: root about **98.7×39px**, regular A/B/C row pitch **23px**.
@@ -60,14 +62,17 @@ available. [Current review report](evidence/milestone-a/clearance/report.md),
 - Native pixel checks now include all nonwhite descender pixels: two completely
   clear rows below In-place editing and eleven above N1 in all three engines.
   The earlier dark-only measurement missed faint edges and overstated clearance.
+- Checkbox-to-text gap is now 4px (previously 3px), as requested. The input’s
+  vertical alignment, dimensions, and color remain unchanged. Browser assertions
+  measure the 4px gap beside root, single-line, multiline, and nested labels.
 - The original fixture is preserved. A separate 100% DPI variant matches the new
-  screenshot's labels. New evidence is in `docs/evidence/milestone-a/clearance/`;
+  screenshot's labels. New evidence is in `docs/evidence/milestone-a/checkbox-gap/`;
   earlier evidence is retained for comparison. No baseline has been approved.
 
 ## Next action and known limits
 
-Review the [new comparison](evidence/milestone-a/clearance/comparison-chromium.png)
-and [selection/checkbox fixture](evidence/milestone-a/clearance/selection-lines-chromium.png).
+Review the [checkbox spacing](evidence/milestone-a/checkbox-gap/geometry-chromium.png)
+and [comparison](evidence/milestone-a/checkbox-gap/comparison-chromium.png).
 Windows/macOS font rasterization and small branch-position differences remain.
 Ordinary letters have slightly more line clearance than the reference, preserving
 a consistent baseline and sufficient space below descenders. No unresolved stage-3 behavior failure is known.

@@ -20,7 +20,7 @@
   --mindmap-marker-radius: 2.5px;
   --mindmap-chain-rise: 1.5px;
   --mindmap-checkbox-size: 11px;
-  --mindmap-checkbox-gap: 3px;
+  --mindmap-checkbox-gap: 4px;
   --mindmap-checkbox-color: #339933;
   --mindmap-checkbox-raise: 1px;
   position: relative; overflow: hidden; width: 100%; height: 100%;
