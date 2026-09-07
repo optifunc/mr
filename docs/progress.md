@@ -140,9 +140,11 @@ then final B regression, review demo and editing comparisons. B acceptance pendi
 
 ## B stage-5 handover (2026-09-07)
 
-Stage 4 is `a5f97bc`. Stage 5 is the implementation/evidence commit containing this
-entry; the subsequent documentation handover records its hash. Tested state:
-task-only working tree based on `a5f97bc`; no unrelated starting changes existed.
+Stage 4 is `a5f97bc`; tested stage-5 implementation and evidence are `8e2e3bf`.
+The subsequent handover commit changes documentation/evidence only. The tested tree
+contained only task-related changes; no unrelated starting changes existed.
+Live handover demo: http://127.0.0.1:5174/ (5173 was already occupied).
+For a fresh run, `pnpm dev` prints the available local port.
 
 - **Passed:** strict typecheck, ESM/CSS/declaration build, **101 unit tests**,
   **150 browser cases** across Chromium/Firefox/WebKit using

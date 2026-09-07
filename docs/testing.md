@@ -3,7 +3,8 @@
 Use Node 22.12+ (verified with Node 24.2.0) and pnpm 10.28.1.
 
 - `pnpm install --frozen-lockfile`: install pinned tools.
-- `pnpm dev`: open http://127.0.0.1:5173 for the demo.
+- `pnpm dev`: open the local URL printed by Vite, normally http://127.0.0.1:5173.
+  The B handover server uses http://127.0.0.1:5174 because 5173 was occupied.
 - `pnpm typecheck`: strict TypeScript checks for source, demo, and tests.
 - `pnpm build`: ESM, declarations, and explicitly exported CSS in `dist/`.
 - `pnpm test`: pure Vitest tests.

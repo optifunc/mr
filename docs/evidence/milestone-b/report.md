@@ -1,13 +1,15 @@
 # Milestone B — stage-5 product checkpoint
 
-Date: 2026-09-07. Stage 4 commit: `a5f97bc`. Stage 5 is the implementation/evidence
-commit containing this report; its hash is recorded in [progress](../../progress.md).
-The handover commit updates documentation only. User acceptance of B is **pending**.
+Date: 2026-09-07. Stage 4 commit: `a5f97bc`. Tested stage-5 implementation/evidence: `8e2e3bf`; also recorded in
+[progress](../../progress.md). The subsequent handover commit changes documentation
+and a live-demo capture only. User acceptance of B is **pending**.
 Stages 6–9 have not been started.
 
 ## Run and review
 
-Run `pnpm dev`, open <http://127.0.0.1:5173>, and use the live reference map.
+The handover demo is running at <http://127.0.0.1:5174/> (5173 was occupied).
+[Live demo capture](live-demo.png). For a fresh run, use `pnpm dev` and open the
+local URL printed by Vite (normally <http://127.0.0.1:5173>). Use the live reference map.
 The demo includes keyboard instructions, selected/active IDs, undo/redo availability,
 zoom, recent events, reset, an interleaved-root-side fixture, independent checkbox
 geometry, and a live editing/reference comparison. `/?readonly` runs a read-only
