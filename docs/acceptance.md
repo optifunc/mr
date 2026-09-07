@@ -134,9 +134,26 @@ Use the reference map for a short repeatable exercise:
 5. Cancel creation under a collapsed parent and cancel insert-parent creation;
    verify structure, collapse state, selection, and history are restored.
 6. Commit by clicking another node and verify the resulting selection and focus.
+7. Use Primary-modifier+Up/Down on a contiguous sibling block; move one position
+   and wrap the whole block at both edges without reversing its order. Selecting
+   all applicable siblings is a no-op.
+8. Move inward on both branches to promote a block immediately after its parent.
+   Promote into the root and verify inherited side. Move existing root children
+   inward to flip sides and append after the destination side's last child,
+   including an empty destination. Verify direction after a flip follows the new
+   side. Interleaved root child arrays use same-side adjacency and wrapping.
+9. Verify selections with holes, mixed parents, mixed root sides, the root, or
+   ancestor/descendant pairs cannot move. Outward arrows do nothing. No-op keys
+   preserve document, selection, viewport, and history without plain navigation.
+10. Verify each effective move retains selected IDs and the active node, reveals
+    the moved selection, emits one document change, and undoes/redoes in one step.
+    Check read-only rejection and normal textarea behavior for these shortcuts.
 
 Include editing screenshot comparison and regression against accepted default
 appearance. Exercise gestures in the browser as well as command/model tests.
+Keyboard movement extends requirement acceptance criterion 3 and stage 4; use
+Command on macOS and Ctrl elsewhere. Its requirements were approved on 2026-09-07;
+implementation and browser evidence remain pending.
 
 Evidence: not run. User decision: pending.
 

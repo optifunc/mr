@@ -244,10 +244,15 @@ When a command acts on selected subtrees and both an ancestor and its
 descendant are selected, it shall act only on the selected ancestor. This
 prevents duplicate copies, deletes, and moves.
 
+Keyboard movement in section 9.1 first checks the entire selection for a
+contiguous sibling block. Ancestor/descendant selections are ineligible; they
+shall not become eligible through normalization.
+
 ## 8. Visual keyboard navigation
 
-Arrow navigation shall follow rendered geometry rather than raw child-array
-order.
+Plain arrow navigation shall follow rendered geometry rather than raw child-array
+order. Primary-modifier+arrow movement follows sibling order as specified in
+section 9.1.
 
 ### 8.1 Up and Down
 
@@ -300,6 +305,9 @@ commands immediately open the new node's inline editor.
 | Delete | Delete selected subtrees |
 | Space | Expand or collapse the active node |
 | Primary modifier+Space | Toggle checked state of selected checkbox nodes |
+| Primary modifier+Up / Down | Move the selected sibling block up / down one position, wrapping at the edge |
+| Primary modifier+inward arrow | Move the selected block immediately after its parent; root children flip sides |
+| Primary modifier+outward arrow | No action |
 | Primary modifier+X | Cut selected subtrees |
 | Primary modifier+C | Copy selected subtrees |
 | Primary modifier+V | Paste as children of active node |
@@ -333,6 +341,45 @@ Additional requirements:
 - While the inline editor is open, normal platform text-editing shortcuts take
   precedence. Enter, Shift+Enter, and Escape retain the behavior in section
   5.2.
+
+### 9.1 Keyboard movement of selected nodes
+
+- These shortcuts use Command on macOS and Ctrl elsewhere, outside inline
+  editing. They move complete subtrees and shall be disabled in read-only mode.
+- Movement is eligible only when the nonempty selection consists entirely of
+  children of one parent, selected contiguously in sibling order without holes.
+  A single non-root node is eligible. A selection containing the root, different
+  parents, or both an ancestor and a descendant is ineligible.
+- For root children, all selected nodes must also be on the same side.
+  Contiguity, Up/Down movement, and wrapping use the root's child array filtered
+  to that side, preserving its order. Opposite-side children do not count as
+  holes; a selection spanning both sides is ineligible.
+- Up and Down move the selected block one sibling position in the requested
+  direction, preserving the block's internal order. Up at the first position
+  wraps the entire block to the end; Down at the last position wraps it to the
+  beginning. Selecting all siblings in the applicable collection makes Up/Down
+  a no-op.
+- For example, brackets denote the selected block: `[B C] A D` + Up becomes
+  `A D [B C]`; `A D [B C]` + Down becomes `[B C] A D`.
+- The inward arrow is Left on right branches and Right on left branches. For
+  nodes below root-child level, it moves the block into the grandparent's child
+  array immediately after the parent (parent index + 1), preserving block order
+  and subtree contents. If this creates root children, they inherit the former
+  parent's root side.
+- For existing root children, the inward arrow flips the block to the opposite
+  root side and appends it after that side's last child, preserving block order.
+  If the destination side is empty, append the block to the root child array.
+  Descendants inherit the new side. Other nodes retain their relative order.
+- The outward arrow does nothing. Ineligible selections and other no-ops shall
+  leave document, selection, viewport, and history unchanged; these shortcuts
+  shall not fall through to ordinary arrow navigation.
+- Each effective movement is one undoable transaction and emits one document
+  change through the shared command path. It preserves node IDs, the selected
+  block, and the active node, and pans as needed to reveal the moved selection
+  without changing zoom. Undo/redo restores the structural change, including
+  any side change; viewport adjustments remain outside history.
+- Inside the textarea, these key combinations retain normal platform text-editing
+  behavior and shall not move nodes.
 
 ## 10. URL nodes
 
@@ -491,6 +538,7 @@ from application UI.
   - insert-parent;
   - cut and paste mutations;
   - drag-and-drop moves and reordering;
+  - keyboard sibling moves, wrapping, promotion, and root-side flips;
   - expand and collapse;
   - checkbox presence changes;
   - checkbox checked-state changes.
@@ -665,6 +713,10 @@ demonstrate all of the following:
    creates and edits a left branch.
 3. Enter, Shift+Enter, Tab, and Shift+Tab perform their context-dependent
    structural operations and produce one history entry each after commit.
+   Primary-modifier+arrows move only contiguous sibling selections as specified
+   in section 9.1, including block wrapping, promotion, and root-side flipping.
+   Each effective move preserves the selection and active node and undoes/redoes
+   in one step; ineligible selections and outward arrows do nothing.
 4. F2 and clicking the sole selected node show a thin-bordered inline editor.
    Shift+Enter inserts a newline, Enter commits and relayouts, and Escape
    restores the prior state.
@@ -719,3 +771,7 @@ The following defaults have been confirmed:
   reporting asynchronous clipboard completion or failure.
 - Read-only mode also disables expand/collapse, because collapse state is part
   of the document.
+- Primary-modifier+arrows move only contiguous sibling blocks, restricted to one
+  side for root children. Up/Down wrap the block; inward promotes it immediately
+  after its parent or flips root children to the end of the opposite side;
+  outward does nothing. Selection and active node are preserved.

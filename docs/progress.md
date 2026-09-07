@@ -9,6 +9,11 @@ The user authorized Milestone B (stages 4–5) on 2026-09-07. Navigation,
 viewport controls, inline editing, and provisional creation are now in progress.
 Stop at B's product checkpoint after verification and fixes.
 
+The 2026-09-07 requirements update adds keyboard movement to stage 4/Milestone B.
+This update changes documentation only; movement implementation and verification
+remain pending. [Behavior](requirements.md#91-keyboard-movement-of-selected-nodes),
+[plan](impl-plan.md#keyboard-movement), [review coverage](acceptance.md#milestone-b-stages-45).
+
 Run `pnpm dev`, then open http://127.0.0.1:5173.
 [Accepted A baseline](evidence/milestone-a/checkbox-size/report.md),
 [API](api.md), [testing](testing.md).
@@ -47,6 +52,19 @@ Run `pnpm dev`, then open http://127.0.0.1:5173.
 
 ## Product decisions and corrections
 
+- Keyboard movement approved on 2026-09-07: Command+Arrow on macOS, Ctrl+Arrow
+  elsewhere. Require a contiguous selection of siblings, restricted to one root
+  side for root children. Up/Down moves the block one position and wraps it at
+  edges; inward promotes it immediately after the parent, or flips root children
+  and appends them on the opposite side. Outward is a no-op. Preserve block order,
+  subtrees, selection, and active node; reveal moved nodes and record one undoable
+  transaction per effective move. Read-only disables it and textarea shortcuts
+  retain platform behavior. Full-selection eligibility precedes normalization.
+- Documentation verification for this update: requirements, plan, and B acceptance
+  coverage reviewed for consistency; `git diff --check` passed. No implementation
+  or runtime tests were run for this documentation-only change. Working-tree
+  changes are limited to these four documents; previously recorded test counts are
+  historical evidence and do not verify keyboard movement.
 - User authorized the five appearance changes on 2026-09-07 after reviewing the
   proposal. The new Windows screenshot anchors native-size proportions and root
   selection; the previous three references remain unchanged and applicable.
@@ -88,8 +106,9 @@ Run `pnpm dev`, then open http://127.0.0.1:5173.
 
 ## Next action and known limits
 
-Implement stages 4–5 under the existing plan, preserve accepted A screenshots,
-and produce B interaction tests and editing comparisons. Windows/macOS font
+Implement stages 4–5 under the updated plan, including keyboard block movement,
+preserve accepted A screenshots, and produce B interaction tests and editing
+comparisons. Windows/macOS font
 rasterization differences remain accepted A limitations. Clipboard, links, and
 dragging remain C; menu, packaged consumer, actual stable browsers, assistive
 technology, and release performance checks remain D. No release gate is waived.

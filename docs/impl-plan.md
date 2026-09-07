@@ -6,6 +6,8 @@ Date: 2026-09-05
 
 Appearance defaults/focus revised after product review: 2026-09-07
 
+Keyboard movement requirements added: 2026-09-07
+
 Scope: First implementation of [requirements.md](requirements.md)
 
 ## 1. Outcome and agreed decisions
@@ -245,6 +247,42 @@ Root selection disables delete, cut, and moving the selected group whenever the
 group contains the root. Copy may serialize the root and its descendants. Collapse
 removes hidden descendants from selection and activates the collapsed node.
 
+### Keyboard movement
+
+Implement requirements section 9.1 in stage 4 through shared typed commands and
+the structural transaction path, with the same applicability for API and gestures.
+Use Command+Arrow on macOS and Ctrl+Arrow elsewhere. Validate the entire selected
+set before subtree normalization: it must be a nonempty contiguous block of one
+parent's children, excluding the root. Root children must share one side; filter
+the root array to that side for adjacency and Up/Down positions. Reject holes,
+mixed parents, ancestor/descendant selections, and mixed root sides as no-ops.
+
+Resolve Up/Down against sibling order, not geometry or global visual order. Swap
+the block past the immediately preceding/following sibling; wrap the entire block
+at an edge while retaining internal order. Up/Down with the whole applicable sibling
+collection selected is a no-op. Preserve the relative order of all other nodes, including
+opposite-side root children when reinserting into the shared root array.
+
+Inward (Left on right branches, Right on left branches) promotes the block into
+the grandparent immediately after its parent. Newly promoted root children adopt
+the former parent's side. Existing root children instead adopt the opposite side
+and append after its last child; append to the root array if that side is empty.
+Outward does nothing. Resolve direction from the current side on every command.
+
+Prepare and validate the complete move before installation. Keep IDs, subtrees,
+selected IDs, and active ID; relayout once and reveal the moved selection without
+changing zoom. Each effective move produces one history entry and one document
+event, with normal origin/event ordering. Undo/redo includes parent, order, and
+side changes. Ineligible/outward/no-op commands leave state and viewport intact
+and do not fall through to plain navigation. Disable movement in read-only mode;
+inside the textarea leave these shortcuts to platform text editing.
+
+Test pure eligibility/destination/transaction rules and actual browser key input,
+including block order, both edge wraps, interleaved root sides, promotion on both
+sides, destination-side append, repeated flips, unchanged active selection,
+viewport reveal, undo/redo, and no-op/read-only/editor routing. Keyboard movement
+does not require drag-and-drop interaction to be implemented first.
+
 ## 6. Editing commands and input coordination
 
 Implement the complete shortcut table in requirements section 9 and the viewport
@@ -431,7 +469,7 @@ interaction work builds on verified model and geometry rules.
 | 1. Package and contracts | pnpm/Vite/TypeScript setup; public types; mount/destroy skeleton; minimal demo; test harness | Build emits ESM, declarations, and CSS; demo mounts two isolated instances |
 | 2. Model and transactions | Validation, snapshots, indexes, IDs, command registry, history, structural/checkbox/collapse reducers | Atomic failures, root protections, normalization, no-ops, undo/redo, and read-only pass unit tests |
 | 3. Rendering and layout | Measurement cache, visible layout, SVG/HTML scene, theme variables, root/checkbox/collapse visuals | Reference fixture renders correctly; non-overlap, mirroring, determinism, hidden-node exclusion verified |
-| 4. Selection and viewport | Mouse selection, geometry navigation, range selection, pan/zoom/fit, resize | Navigation crosses groups correctly; central-child selection and pointer-anchored zoom pass browser tests |
+| 4. Selection and viewport | Mouse selection, geometry navigation, range selection, keyboard block movement, pan/zoom/fit, resize | Navigation crosses groups correctly; central-child selection, block movement/wrapping/promotion/side flips, and pointer-anchored zoom pass model and browser tests |
 | 5. Inline editing | Textarea, creation transactions, insertion commands, IME/focus handling | Frozen edit layout, one-entry creation commit, cancellation restoration, and checkbox inheritance pass |
 | 6. Clipboard and links | Codec, browser adapter, pending request guards, completion events, URL opening | Round-trip/invalid-input tests and success/failure/stale clipboard browser scenarios pass |
 | 7. Drag-and-drop | Drag state, normalized group preview, gradients, move reducer integration, autopan | Every drop mode, cycle rejection, same-position no-op, cancellation, and one-step undo pass |
@@ -453,7 +491,7 @@ paths in secure browser contexts.
 | Requirement acceptance criterion | Evidence |
 |---|---|
 | 1. Reference appearance | Two-sided reference fixture; default, edit, and drag screenshots plus visual review |
-| 2–3. Root and structural insertion | Each binding at root/non-root; exact position, side, and one history entry |
+| 2–3. Keyboard structure changes | Each insertion binding at root/non-root; contiguous-block movement, wrapping, promotion, root-side append, eligibility/no-ops, selection retention, exact position/side, and one-step history |
 | 4–5. Editing and creation cancellation | Frozen positions during typing, multiline commit, old-label restoration, provisional rollback |
 | 6. Geometry navigation | Unequal subtree heights, same-row ties, group boundaries, central child, collapsed outward behavior |
 | 7. Selection | Click/toggle/ranges, root-side sibling ranges, Shift+Arrow contraction, select-all, hidden selection cleanup |
