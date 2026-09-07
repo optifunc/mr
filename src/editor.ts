@@ -2,6 +2,7 @@ import { MindMapError } from './types';
 import type { MindMapCommand, MindMapDocument, MindMapEditorEvents, MindMapEditorOptions, Origin, Selection } from './types';
 import { Store } from './model/store';
 import { Scene } from './render/scene';
+import { validateCommand } from './commands/validate';
 export class MindMapEditor {
     private readonly element: HTMLDivElement;
     private readonly store: Store;
@@ -99,7 +100,15 @@ export class MindMapEditor {
     getSelection(): Selection { return { ...this.store.selection, ids: [...this.store.selection.ids] }; }
     setSelection(ids: string[], activeId?: string): void { const copy = [...ids]; this.run(() => { const before = this.getSelection(); this.store.setSelection(copy, activeId); this.render(false); this.selectionEvent(before, 'api'); return true; }); }
     execute(command: MindMapCommand): boolean {
-        const copy = structuredClone(command);
+        let copy: MindMapCommand;
+        try {
+            validateCommand(command);
+            copy = structuredClone(command);
+        } catch (error) {
+            this.run(() => { this.report(error instanceof MindMapError ? error :
+                new MindMapError('INVALID_DOCUMENT', 'Command must be cloneable data')); return false; });
+            return false;
+        }
         return this.run(() => { const before = this.getSelection(); if (!this.store.execute(copy))
             return false; this.render(this.store.lastGeometry); const origin: Origin = copy.type === 'undo' || copy.type === 'redo' ? copy.type : 'api'; this.emit('documentchange', () => ({ document: this.getDocument(), origin, reason: 'command', command: copy.type })); this.selectionEvent(before, origin); return true; });
     }

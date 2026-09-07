@@ -4,6 +4,7 @@ import { generateId, normalizeSelection, snapshot, validateDocument } from './do
 import type { Model } from './document';
 import { History, applyPatches } from '../history/history';
 import { contentCommands, prepare } from '../commands/reducer';
+import { validateCommand } from '../commands/validate';
 export class Store {
     model: Model;
     selection: Selection;
@@ -21,6 +22,7 @@ export class Store {
         this.selection = normalizeSelection(this.model, { ids, ...(activeId !== undefined ? { activeId } : {}) });
     }
     canExecute(command: MindMapCommand): boolean {
+        try { validateCommand(command); } catch { return false; }
         if (this.readonly)
             return false;
         if (command.type === 'undo')
@@ -42,6 +44,7 @@ export class Store {
         }
     }
     execute(command: MindMapCommand): boolean {
+        validateCommand(command);
         this.lastGeometry = false;
         if (!contentCommands.has(command.type) && command.type !== 'undo' && command.type !== 'redo')
             return false;

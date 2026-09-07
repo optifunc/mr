@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test';
 import type { MindMapEditor } from '../../src';
+import { invalidCommands } from '../fixtures/invalid-commands';
+import type { MindMapCommand } from '../../src';
 declare global {
     interface Window {
         primary: MindMapEditor;
@@ -7,6 +9,39 @@ declare global {
         comparison: MindMapEditor;
     }
 }
+test('malformed JavaScript commands reject atomically with stable errors', async ({ page }) => {
+    await page.goto('/');
+    await page.evaluate(() => document.fonts.ready);
+    const results = await page.evaluate(cases => {
+        const a = window.primary, original = a.getDocument();
+        return cases.map(({ value }) => {
+            a.setDocument(original);
+            a.execute({ type: 'setText', targetId: 'one', text: 'first' });
+            a.execute({ type: 'setText', targetId: 'one', text: 'second' });
+            a.undo();
+            a.setSelection(['two', 'three'], 'three');
+            const state = () => ({ document: a.getDocument(), selection: a.getSelection(),
+                dom: document.querySelector('#primary')!.innerHTML, undo: a.canUndo(), redo: a.canRedo() });
+            const before = state(), events: string[] = [];
+            const off = [a.on('documentchange', () => events.push('documentchange')),
+                a.on('selectionchange', () => events.push('selectionchange')), a.on('error', e => events.push(e.code))];
+            const applicable = a.canExecute(value as MindMapCommand), returned = a.execute(value as MindMapCommand);
+            const after = state();
+            off.forEach(unsubscribe => unsubscribe());
+            const oneText = () => a.getDocument().root.children.find(n => n.id === 'one')!.text;
+            a.redo(); const redone = oneText(); a.undo(); a.undo(); const undone = oneText();
+            return { applicable, returned, before, after, events, redone, undone };
+        });
+    }, invalidCommands);
+    results.forEach((result, index) => {
+        expect(result.applicable, invalidCommands[index]!.name).toBe(false);
+        expect(result.returned).toBe(false);
+        expect(result.after).toEqual(result.before);
+        expect(result.events).toEqual([invalidCommands[index]!.code]);
+        expect(result.redone).toBe('second');
+        expect(result.undone).toBe('One');
+    });
+});
 test('model commands, event isolation, replacement, and independent histories', async ({ page }) => {
     await page.goto('/');
     const result = await page.evaluate(() => {

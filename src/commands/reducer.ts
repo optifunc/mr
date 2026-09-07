@@ -4,6 +4,7 @@ import type { Model, NodeRecord } from '../model/document';
 import { normalizeRoots, normalizeSelection } from '../model/document';
 import { patchesBetween } from '../history/history';
 import type { Transaction } from '../history/history';
+import { validateCommand } from './validate';
 export const contentCommands = new Set<MindMapCommand['type']>(['insertChild', 'insertBefore', 'insertAfter', 'insertParent', 'setText', 'delete', 'toggleChecked', 'addCheckbox', 'removeCheckbox', 'toggleCollapse', 'collapse', 'expand', 'move']);
 export interface Prepared {
     model: Model;
@@ -11,10 +12,9 @@ export interface Prepared {
 }
 /** Prepares immutable records in isolation. ID/cycle/destination failures cannot install partial work. */
 export function prepare(model: Model, selection: Selection, command: MindMapCommand, createId: () => string, order?: readonly string[]): Prepared | undefined {
+    validateCommand(command);
     if (!contentCommands.has(command.type))
         return;
-    if ('text' in command && command.text !== undefined && typeof command.text !== 'string')
-        throw new MindMapError('INVALID_DOCUMENT', 'Node text must be a string');
     const nodes = new Map(model.nodes);
     let nextSelection = selection;
     const get = (id: string | undefined): NodeRecord => { const n = id === undefined ? undefined : nodes.get(id); if (!n)

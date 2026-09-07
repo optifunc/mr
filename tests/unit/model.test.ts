@@ -3,6 +3,7 @@ import { Store } from '../../src/model/store';
 import { snapshot, validateDocument, visibleIds } from '../../src/model/document';
 import type { MindMapDocument, MindMapCommand } from '../../src/types';
 import { referenceMap, node } from '../fixtures/maps';
+import { invalidCommands } from '../fixtures/invalid-commands';
 const store = (extra = {}) => { let id = 0; return new Store({ document: referenceMap(), createNodeId: () => `new-${id++}`, ...extra }); };
 const children = (s: Store, id: string) => s.model.nodes.get(id)!.children;
 describe('validation and ownership', () => {
@@ -36,3 +37,32 @@ describe('history, checkbox, collapse, and read-only', () => {
 });
 test('collapse retains selected nodes outside the hidden subtree', () => { const s = store(); s.setSelection(['a', 'two'], 'a'); s.execute({ type: 'collapse', targetId: 'one' }); expect(s.selection).toEqual({ ids: ['two', 'one'], activeId: 'one' }); s.execute({ type: 'undo' }); expect(s.selection).toEqual({ ids: ['a', 'two'], activeId: 'a' }); });
 test('invalid runtime label values cannot corrupt the model', () => { const s = store(); const before = s.getDocument(); expect(() => s.execute({ type: 'setText', text: 42, targetId: 'root' } as unknown as MindMapCommand)).toThrow(); expect(s.getDocument()).toEqual(before); expect(s.history.canUndo).toBe(false); });
+
+test.each(invalidCommands)('rejects $name without altering document, selection, or either history stack', ({ value, code }) => {
+    const createNodeId = vi.fn(() => 'unused');
+    const s = store({ createNodeId });
+    s.execute({ type: 'setText', targetId: 'one', text: 'first' });
+    s.execute({ type: 'setText', targetId: 'one', text: 'second' });
+    s.execute({ type: 'undo' });
+    s.setSelection(['two', 'three'], 'three');
+    const model = s.model, selection = s.selection, history = structuredClone(s.history);
+    expect(s.canExecute(value as MindMapCommand)).toBe(false);
+    expect(() => s.execute(value as MindMapCommand)).toThrow(expect.objectContaining({ code }));
+    expect(s.model).toBe(model);
+    expect(s.selection).toBe(selection);
+    expect(structuredClone(s.history)).toEqual(history);
+    expect(createNodeId).not.toHaveBeenCalled();
+    s.execute({ type: 'redo' });
+    expect(s.model.nodes.get('one')!.text).toBe('second');
+    s.execute({ type: 'undo' });
+    s.execute({ type: 'undo' });
+    expect(s.model.nodes.get('one')!.text).toBe('One');
+});
+
+test('optional insertion text and move side retain their defaults', () => {
+    const s = store();
+    expect(s.execute({ type: 'insertChild', targetId: 'one', text: undefined } as unknown as MindMapCommand)).toBe(true);
+    expect(s.model.nodes.get('new-0')!.text).toBe('');
+    expect(s.execute({ type: 'move', ids: ['new-0'], destination: { targetId: 'root', position: 'child', side: undefined } } as unknown as MindMapCommand)).toBe(true);
+    expect(s.model.nodes.get('new-0')!.side).toBe('right');
+});

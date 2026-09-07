@@ -4,9 +4,14 @@ Last updated: 2026-09-07
 
 ## Current state
 
-**Milestone A remains at the stage-3 checkpoint. The requested checkbox-gap
-increase is complete and verified; the updated candidate is ready for review.**
-No later milestone was started.
+**Stage-3 correctness review fixes are in progress.** The user authorized fixes
+for malformed-command atomicity, reentrant FIFO ordering, trailing newline rows,
+and host-transform-independent measurement. No later milestone was started.
+
+- Item 1: runtime validation and atomic rejection regression coverage implemented;
+  typecheck, 79 unit tests, and 9 API browser cases passed.
+- Items 2–4: pending implementation. Full milestone gates and refreshed evidence
+  follow all four fixes. The previously recorded checks below predate this review.
 
 Run `pnpm dev`, then open http://127.0.0.1:5173. The live reference, independent
 geometry mount, native-size 100% DPI comparison, and `/?workload` diagnostic are
