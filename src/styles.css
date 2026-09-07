@@ -37,6 +37,9 @@
    Clamp the offset so themes with smaller padding cannot create negative padding. */
 .mindmap .mindmap-node { position: absolute; display: flex; align-items: center; width: max-content; box-sizing: border-box; padding: var(--mindmap-label-padding-y) var(--mindmap-label-padding-x); padding-top: calc(var(--mindmap-label-padding-y) + clamp(0px, var(--mindmap-label-offset-y), var(--mindmap-label-padding-y))); padding-bottom: calc(var(--mindmap-label-padding-y) - clamp(0px, var(--mindmap-label-offset-y), var(--mindmap-label-padding-y))); gap: var(--mindmap-checkbox-gap); border: 0; margin: 0; font: inherit; color: inherit; }
 .mindmap .mindmap-label { display: block; white-space: pre; min-width: 1px; min-height: var(--mindmap-line-height); font: inherit; }
+/* An empty inline box gives a trailing newline its final line box. It adds
+   neither width nor text to the label, its accessible name, or copied data. */
+.mindmap .mindmap-label::after { content: ""; display: inline-block; width: 0; height: 0; }
 .mindmap .mindmap-root-node { padding: var(--mindmap-root-padding-y) var(--mindmap-root-padding-x); justify-content: center; }
 .mindmap .mindmap-selected { background: var(--mindmap-selection-color); }
 .mindmap .mindmap-root-node.mindmap-selected { border-radius: 50%; }
