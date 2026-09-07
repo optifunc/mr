@@ -1,6 +1,18 @@
 import type { Model, NodeRecord } from '../model/document';
 import { visibleIds } from '../model/document';
 import type { LayoutStyle, Size } from '../layout/layout';
+
+function localSize(element: Element): Size {
+    const css = getComputedStyle(element);
+    const pixels = (value: string): number => Number.parseFloat(value) || 0;
+    // Resolved CSS sizes retain fractions and are independent of ancestor
+    // transforms. DOMRects are screen-space; offsetWidth/Height round to integers.
+    const borderBox = css.boxSizing === 'border-box';
+    return {
+        width: pixels(css.width) + (borderBox ? 0 : pixels(css.paddingLeft) + pixels(css.paddingRight) + pixels(css.borderLeftWidth) + pixels(css.borderRightWidth)),
+        height: pixels(css.height) + (borderBox ? 0 : pixels(css.paddingTop) + pixels(css.paddingBottom) + pixels(css.borderTopWidth) + pixels(css.borderBottomWidth)),
+    };
+}
 export function labelElement(doc: Document, n: NodeRecord, root: boolean): HTMLDivElement {
     const element = doc.createElement('div');
     element.className = `mindmap-node${root ? ' mindmap-root-node' : ''}`;
@@ -41,12 +53,16 @@ export class Measurements {
         }
         // All DOM writes above; measure every new unique label before scene writes.
         for (const [key, element] of pending) {
-            const box = element.getBoundingClientRect();
+            const box = localSize(element);
             let width = Math.max(1, box.width), height = Math.max(1, box.height);
             if (element.classList.contains('mindmap-root-node')) {
-                const children = [...element.children].map(child => child.getBoundingClientRect());
-                const contentWidth = Math.max(...children.map(child => child.right)) - Math.min(...children.map(child => child.left));
-                const contentHeight = Math.max(...children.map(child => child.height));
+                const children = [...element.children].map(child => ({ ...localSize(child),
+                    offsetY: Number.parseFloat(getComputedStyle(child).top) || 0 }));
+                const gap = Number.parseFloat(getComputedStyle(element).columnGap) || 0;
+                const contentWidth = children.reduce((sum, child) => sum + child.width, 0) + Math.max(0, children.length - 1) * gap;
+                // Content is centered in the root; include optical checkbox lift
+                // when finding the furthest vertical corner of the content.
+                const contentHeight = Math.max(...children.map(child => child.height + 2 * Math.abs(child.offsetY)));
                 // A padded rectangle alone does not guarantee its corners lie inside
                 // an ellipse. Preserve the ordinary reference size, but grow for long
                 // multiline labels and keep an empty root horizontally proportioned.

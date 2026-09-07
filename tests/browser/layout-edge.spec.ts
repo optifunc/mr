@@ -43,3 +43,72 @@ test('explicit newlines retain every empty row in measurement, rendering, and se
     await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
     await page.locator('#secondary').screenshot({ path: `docs/evidence/milestone-a/correctness/newlines-${info.project.name}.png` });
 });
+
+test('ancestor transforms do not enter local measurements at mount or refresh', async ({ page }, info) => {
+    await page.goto('/');
+    await page.evaluate(() => document.fonts.ready);
+    const results = await page.evaluate(() => {
+        const host = document.querySelector('#secondary') as HTMLElement;
+        const ancestor = host.parentElement!;
+        const Editor = window.secondary.constructor as typeof import('../../src').MindMapEditor;
+        const snapshotDocument = window.secondary.getDocument();
+        snapshotDocument.root.text = 'Wide multiline root\nSecond line\n';
+        window.secondary.setDocument(snapshotDocument);
+        const snapshot = () => {
+            const elements = [...host.querySelectorAll<HTMLElement>('.mindmap-nodes .mindmap-node')];
+            return {
+                local: elements.map(node => ({ id: node.dataset.nodeId, x: parseFloat(node.style.left), y: parseFloat(node.style.top),
+                    width: parseFloat(node.style.width), height: parseFloat(node.style.height) })),
+                paths: [...host.querySelectorAll('path')].map(path => path.getAttribute('d')),
+                ellipse: [host.querySelector('ellipse')!.getAttribute('rx'), host.querySelector('ellipse')!.getAttribute('ry')],
+                displayed: elements.map(node => ({ width: node.getBoundingClientRect().width, height: node.getBoundingClientRect().height })),
+                multilineLabelHeight: host.querySelector('[data-node-id="multi"] .mindmap-label')!.getBoundingClientRect().height,
+            };
+        };
+        const baseline = snapshot();
+        const cases = [
+            { host: 'scale(.5)', ancestor: 'none' },
+            { host: 'scale(1.5)', ancestor: 'none' },
+            { host: 'scale(.5, 1.5)', ancestor: 'scale(1.25, .75)' },
+            { host: 'rotate(15deg)', ancestor: 'scale(.75)' },
+        ];
+        const rows = cases.map(transforms => {
+            host.style.transform = transforms.host;
+            ancestor.style.transform = transforms.ancestor;
+            const transformedBaseline = snapshot();
+            window.secondary.refreshLayout();
+            const refreshed = snapshot();
+            window.secondary.destroy();
+            window.secondary = new Editor(host, { document: snapshotDocument });
+            const mounted = snapshot();
+            host.style.transform = 'none'; ancestor.style.transform = 'none';
+            window.secondary.refreshLayout();
+            const restored = snapshot();
+            return { transforms, transformedBaseline, refreshed, mounted, restored };
+        });
+        host.style.transform = 'scale(.5)';
+        window.secondary.refreshLayout();
+        return { baseline, rows };
+    });
+    for (const row of results.rows) {
+        for (const state of [row.refreshed, row.mounted, row.restored]) {
+            expect(state.local, JSON.stringify(row.transforms)).toEqual(results.baseline.local);
+            expect(state.paths).toEqual(results.baseline.paths);
+            expect(state.ellipse).toEqual(results.baseline.ellipse);
+        }
+        for (const state of [row.refreshed, row.mounted]) {
+            // The browser supplies the expected transformed bounds before refresh.
+            // This retains its own edge rounding (Firefox uses fractional app units)
+            // and catches any second scaling during measurement with exact equality.
+            expect(state.displayed).toEqual(row.transformedBaseline.displayed);
+        }
+    }
+    const half = results.rows[0]!.refreshed;
+    const multiIndex = half.local.findIndex(node => node.id === 'multi');
+    expect(half.displayed[multiIndex]!.height).toBe(17.5);
+    expect(half.multilineLabelHeight).toBe(15);
+    writeFileSync(`docs/evidence/milestone-a/correctness/scaling-${info.project.name}.json`, JSON.stringify(results, null, 2) + '\n');
+    await page.locator('#secondary').scrollIntoViewIfNeeded();
+    await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+    await page.locator('#secondary').screenshot({ path: `docs/evidence/milestone-a/correctness/scaling-${info.project.name}.png` });
+});

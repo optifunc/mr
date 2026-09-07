@@ -14,7 +14,10 @@ and host-transform-independent measurement. No later milestone was started.
   cases passed, including branching, errors, destruction, and a 3,000-operation chain.
 - Item 3: shared zero-width inline box preserves trailing rows without changing
   text; typecheck and all 3 newline browser cases passed. Screenshots inspected.
-- Item 4: transform-independent measurement in progress. Full milestone gates and refreshed evidence
+- Item 4: fractional local CSS measurements implemented, including root content.
+  Typecheck and all 6 edge-case browser tests passed; scaled screenshots inspected.
+  The initial Firefox screen-bounds formula failed by 0.008px due to edge rounding;
+  the final test compares actual pre-refresh bounds exactly. Full gates remain pending. Full milestone gates and refreshed evidence
   follow all four fixes. The previously recorded checks below predate this review.
 
 Run `pnpm dev`, then open http://127.0.0.1:5173. The live reference, independent
