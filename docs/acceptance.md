@@ -125,6 +125,13 @@ regression baseline exists. Stop at this product checkpoint as requested.
 
 **Product review:** fluent keyboard creation, selection, navigation, and editing.
 
+**2026-09-07 shallower fallback:** the approved priority is siblings, same depth,
+then nearest shallower node outside the ancestor chain, always on the same side.
+All ten reference examples pass. Typecheck/build, 114 unit tests, 30 focused browser
+cases and 3 exact approved-default regressions passed.
+[Latest report and evidence](evidence/milestone-b/navigation-fallback/report.md).
+Product acceptance remains pending; previous results below are retained history.
+
 **2026-09-07 navigation correction:** updated to the user's confirmed sibling-first,
 same-depth rule, including Single child + Down → N1. Build/typecheck, 110 unit tests,
 27 interaction/navigation browser cases and 3 exact approved-default regressions
@@ -135,10 +142,12 @@ Use the reference map for a short repeatable exercise:
 
 1. Create and label root branches on both sides and nested children.
 2. Navigate siblings, continue across groups at the same depth, and enter the
-   visually central child on each side. Verify all seven movements in requirements
-   §8.1, especially Single child + Up → C and + Down → N1. Other depths must be
-   skipped; non-root edges stay selected. Extend and reverse with Shift to check
-   contraction, including across groups.
+   visually central child on each side. Verify all ten movements in requirements
+   §8.1, including C2 + Down → N4, Child of a single child + Up → C, and C2.1 + Up
+   → Child 1. These shallower fallbacks apply only when no sibling/same-depth node
+   exists in that direction. Ancestors/deeper nodes are skipped; exhausted edges
+   stay selected. Use Shift to extend through a fallback and retrace same-depth
+   ranges to check contraction.
 3. Extend and contract selection, then pan and zoom around the pointer.
 4. Edit a multiline label; verify geometry stays frozen until commit.
 5. Cancel creation under a collapsed parent and cancel insert-parent creation;

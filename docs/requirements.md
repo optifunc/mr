@@ -261,10 +261,14 @@ sibling order as specified in section 9.1.
   on their own side.
 - If there is no sibling in the requested direction, continue to the nearest
   visible node at the **same depth** in an adjacent branch on the same root side.
-  Skip ancestors and deeper descendants, even if their visual rows are closer.
+- If neither a sibling nor a same-depth candidate exists in that direction,
+  choose the nearest visible **shallower node** on the same root side, excluding
+  every ancestor of the selected node. Vertical distance decides among shallower
+  nodes, not how many levels shallower they are.
+- Ancestors and deeper nodes are never eligible for non-root Up/Down navigation.
 - Eligible candidates must have a strictly higher/lower rendered vertical center.
-  Within the sibling or cross-branch candidate group, vertical distance orders
-  candidates; stable layout order breaks ties.
+  Within each priority group (siblings, same depth, then shallower), vertical
+  distance orders candidates; stable layout order breaks ties.
 - At a non-root edge with no eligible destination, selection remains unchanged.
   Do not fall back to an ancestor/root or cross to the opposite root side.
 - At the root, retain the entry behavior: Up/Down selects the nearest visible row
@@ -283,6 +287,9 @@ Confirmed reference-map examples (product review, 2026-09-07):
 | Single child | Down | N1 |
 | N2 | Down | N3 |
 | N3 | Up | N2 |
+| C2 | Down | N4 |
+| Child of a single child | Up | C |
+| C2.1 | Up | Child 1 |
 
 ### 8.2 Left and Right
 
@@ -739,7 +746,8 @@ demonstrate all of the following:
    restores the prior state.
 5. Escape while editing a newly created node removes it.
 6. Up and Down prefer siblings, then cross group boundaries at the same depth
-   and on the same root side according to visual position, skipping other depths.
+   and on the same root side. If no peer exists in that direction, use the nearest
+   shallower non-ancestor; ancestors and deeper nodes remain ineligible.
    Outward navigation chooses the visually central child. Outward navigation
    first expands a collapsed node.
 7. Mouse, modifier-click, sibling range selection, cross-parent range
@@ -795,6 +803,7 @@ The following defaults have been confirmed:
   outward does nothing. Selection and active node are preserved.
 - Navigation correction approved on 2026-09-07: plain Up/Down prefers siblings,
   then continues at the same depth in adjacent branches on the same root side.
-  Other depths are skipped, and non-root edges stay selected. The corrected
-  reference example is Single child + Down → N1 (not C). Root entry and horizontal
+  The approved follow-up falls back to the nearest shallower node outside the
+  ancestor chain when no peer exists. Deeper nodes remain excluded; exhausted edges
+  stay selected. The corrected reference example is Single child + Down → N1 (not C). Root entry and horizontal
   navigation retain their existing behavior; see section 8.1.

@@ -7,4 +7,7 @@ export const navigationExamples = [
     { from: 'single', direction: 'down', to: 'n1' },
     { from: 'n2', direction: 'down', to: 'n3' },
     { from: 'n3', direction: 'up', to: 'n2' },
+    { from: 'c2', direction: 'down', to: 'n4' },
+    { from: 'chain', direction: 'up', to: 'c' },
+    { from: 'c21', direction: 'up', to: 'child1' },
 ] as const;

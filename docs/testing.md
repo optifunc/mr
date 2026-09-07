@@ -71,12 +71,14 @@ written to `docs/evidence/milestone-b/`; tests retain failure traces in ignored
   and browser-rounded screen bounds before/after refresh. They do not use screenshot
   tolerances or assume infinite precision in screen-coordinate arithmetic.
 
-## B navigation correction
+## B navigation corrections
 
 - `pnpm test:browser tests/browser/navigation.spec.ts tests/browser/interaction.spec.ts --workers=1`:
   all confirmed Up/Down examples using actual keys in editable/read-only mounts,
-  sibling/depth navigation, Shift contraction, edges, and existing interaction regressions.
+  sibling/depth navigation, shallower non-ancestor fallback, Shift selection,
+  edges, and existing interaction regressions.
 - `pnpm test:browser tests/browser/checkpoint-b.spec.ts --grep accepted-A --workers=1`:
   unchanged default screenshots against the approved A images.
 - New navigation evidence and checks are retained under
-  `docs/evidence/milestone-b/navigation/`; earlier B records remain historical.
+  `docs/evidence/milestone-b/navigation-fallback/`; the first correction is retained
+  in `docs/evidence/milestone-b/navigation/`. Earlier B records remain historical.

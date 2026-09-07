@@ -19,8 +19,8 @@ for (const readonly of [false, true]) {
         expect(await page.evaluate(() => ({ document: window.primary.getDocument(), layouts: document.querySelector('#primary .mindmap')!.getAttribute('data-layout-count') }))).toEqual(before);
         expect(await page.evaluate(() => window.primary.canUndo() || window.primary.canRedo())).toBe(false);
         if (!readonly) {
-            writeFileSync(`docs/evidence/milestone-b/navigation/results-${info.project.name}.json`, JSON.stringify({ browser: browser.version(), results }, null, 2) + '\n');
-            await page.locator('#primary').screenshot({ path: `docs/evidence/milestone-b/navigation/selection-${info.project.name}.png` });
+            writeFileSync(`docs/evidence/milestone-b/navigation-fallback/results-${info.project.name}.json`, JSON.stringify({ browser: browser.version(), results }, null, 2) + '\n');
+            await page.locator('#primary').screenshot({ path: `docs/evidence/milestone-b/navigation-fallback/selection-${info.project.name}.png` });
         }
     });
 }
@@ -35,9 +35,20 @@ test('Shift+Up/Down extends and contracts across groups at the same depth; edges
     await page.keyboard.press('Shift+ArrowUp'); expect(await page.evaluate(() => window.primary.getSelection())).toEqual({ ids: ['c'], activeId: 'c' });
     await page.evaluate(() => { window.primary.execute({ type: 'collapse', targetId: 'one' }); window.primary.setSelection(['single']); });
     const state = () => page.evaluate(() => ({ document: window.primary.getDocument(), selection: window.primary.getSelection(), viewport: window.primary.getViewport(), undo: window.primary.canUndo(), redo: window.primary.canRedo() }));
-    const before = await state(); await page.keyboard.press('ArrowUp'); expect(await state()).toEqual(before);
-    for (const [id, key] of [['c21', 'ArrowUp'], ['c23', 'ArrowDown'], ['three', 'ArrowDown']]) {
+    const before = await state(); await page.keyboard.press('ArrowUp');
+    expect(await state()).toEqual({ ...before, selection: { ids: ['one'], activeId: 'one' } });
+    for (const [id, key] of [['child1', 'ArrowUp'], ['c23', 'ArrowDown'], ['three', 'ArrowDown']]) {
         await page.evaluate(id => window.primary.setSelection([id!]), id);
         const before = await state(); await page.keyboard.press(key!); expect(await state()).toEqual(before);
     }
+});
+
+test('Shift+Arrow includes shallower fallback destinations without selecting skipped ancestors', async ({ page }) => {
+    await page.goto('/'); await page.evaluate(() => document.fonts.ready);
+    for (const example of navigationExamples.slice(-3)) {
+        await page.evaluate(id => { window.primary.setSelection([id]); window.primary.focus(); }, example.from);
+        await page.keyboard.press(example.direction === 'up' ? 'Shift+ArrowUp' : 'Shift+ArrowDown');
+        expect(await page.evaluate(() => window.primary.getSelection())).toEqual({ ids: [example.from, example.to], activeId: example.to });
+    }
+    expect(await page.evaluate(() => window.primary.canUndo() || window.primary.canRedo())).toBe(false);
 });

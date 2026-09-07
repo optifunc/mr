@@ -23,8 +23,16 @@ export function navigate(model: Model, layout: Layout, active: string | undefine
             const siblingPriority = Number(b.parent === g.parent) - Number(a.parent === g.parent);
             return siblingPriority || sign * (center(a) - center(b)) || a.order - b.order;
         });
-    return candidates.length ? { id: candidates[0]!.id } : {};
-
+    if (candidates.length) return { id: candidates[0]!.id };
+    if (g.side === null) return {};
+    // Only after exhausting peers may navigation enter a shallower branch.
+    // Exclude every ancestor, including root, rather than just the parent.
+    const ancestors = new Set<string>();
+    for (let id = n.parent; id; id = model.nodes.get(id)!.parent) ancestors.add(id);
+    const fallback = [...layout.nodes.values()].filter(c => c.side === g.side &&
+        c.depth < g.depth && !ancestors.has(c.id) && sign * (center(c) - center(g)) > 0)
+        .sort((a, b) => sign * (center(a) - center(b)) || a.order - b.order);
+    return fallback.length ? { id: fallback[0]!.id } : {};
 }
 export class SelectionPath {
     anchor: string | undefined;

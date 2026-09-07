@@ -90,7 +90,7 @@ test('vertical navigation stays at the same depth across groups; root keeps its 
     expect(navigate(s.model, g, 'c', 'down')).toEqual({ id: 'single' });
     expect(navigate(s.model, g, 'two', 'up')).toEqual({ id: 'one' });
     expect(navigate(s.model, g, 'a', 'up')).toEqual({});
-    expect(navigate(s.model, g, 'c21', 'up')).toEqual({});
+    expect(navigate(s.model, g, 'c21', 'up')).toEqual({ id: 'child1' });
     expect(navigate(s.model, g, 'root', 'up')).toEqual({ id: 'c21' });
     expect(navigate(s.model, g, 'root', 'down')).toEqual({ id: 'chain' });
     for (const n of g.nodes.values()) if (n.side === 'left') n.box.y -= 100;
@@ -117,8 +117,25 @@ test('collapsed descendants are excluded and non-root edges never fall back to a
     const s = new Store({ document: referenceMap() });
     expect(navigate(s.model, geometry(s), 'single', 'up')).toEqual({ id: 'c' });
     s.execute({ type: 'collapse', targetId: 'one' });
-    expect(navigate(s.model, geometry(s), 'single', 'up')).toEqual({});
-    expect(navigate(s.model, geometry(s), 'collapsed', 'up')).toEqual({});
+    expect(navigate(s.model, geometry(s), 'single', 'up')).toEqual({ id: 'one' });
+    expect(navigate(s.model, geometry(s), 'collapsed', 'up')).toEqual({ id: 'n2' });
     expect(navigate(s.model, geometry(s), 'c23', 'down')).toEqual({});
     expect(navigate(s.model, geometry(s), 'three', 'down')).toEqual({});
+});
+
+test('shallower fallback excludes the full ancestor chain, deeper nodes and opposite side; distance beats depth', () => {
+    const s = new Store({ document: referenceMap() }), g = geometry(s);
+    const at = (id: string, y: number) => { const n = g.nodes.get(id)!; n.box.y = y - n.box.height / 2; };
+    for (const id of g.nodes.keys()) at(id, 100);
+    at('chain', 0); at('single', -1); at('two', -2); at('root', -3);
+    at('child1', -.5); at('collapsed', -.25);
+    expect(navigate(s.model, g, 'chain', 'up')).toEqual({});
+    at('one', -10); at('c', -20);
+    expect(navigate(s.model, g, 'chain', 'up')).toEqual({ id: 'one' });
+    at('c', -5);
+    expect(navigate(s.model, g, 'chain', 'up')).toEqual({ id: 'c' });
+    at('c', -10);
+    expect(navigate(s.model, g, 'chain', 'up')).toEqual({ id: 'one' });
+    at('c1', -80);
+    expect(navigate(s.model, g, 'chain', 'up')).toEqual({ id: 'c1' });
 });

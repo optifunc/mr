@@ -7,8 +7,9 @@ Last updated: 2026-09-07
 **Milestone B is technically complete and stopped at the stage-5 product checkpoint.**
 User acceptance of B's navigation/editing experience and editing screenshots is
 pending. Milestone A's default baseline at `253b99d` remains accepted and unchanged.
-The user requested a same-depth Up/Down correction after review; it is verified
-and ready for further product feedback. [Correction evidence](evidence/milestone-b/navigation/report.md).
+The approved Up/Down corrections now prefer siblings, then same-depth nodes, then
+the nearest shallower node outside the ancestor chain. All ten examples are verified.
+[Latest evidence](evidence/milestone-b/navigation-fallback/report.md).
 Stages 6–9 have not been started.
 
 Stages 4–5 include mouse/range selection, geometry navigation, keyboard sibling-block
@@ -199,3 +200,26 @@ Updated old assertions now enforce the approved rule; none were relaxed. The ful
 B browser suite, workload and manual/release checks were not rerun for this small
 navigation-only correction; their prior evidence and remaining gaps still apply.
 Next: user review of the correction and any further B feedback. Remain at stage 5.
+
+## B shallower navigation fallback (2026-09-07)
+
+Approved follow-up: when no sibling or same-depth destination exists in the requested
+direction, use the nearest visible shallower node on the same root side, excluding
+all ancestors. Vertical distance takes priority over depth difference; stable layout
+order breaks ties. Deeper nodes are excluded; exhausted edges stay selected.
+
+Verified examples: C2 + Down → N4; Child of a single child + Up → C; C2.1 + Up →
+Child 1. All prior seven cases still pass, including on mirrored trees. Requirements,
+plan, API, acceptance and testing docs now describe this priority sequence.
+
+Tested tree: task-only changes based on `5208bde`, in the commit containing this
+entry and [report](evidence/milestone-b/navigation-fallback/report.md). Passed:
+typecheck/build, **114 unit tests**, **30 navigation/interaction browser cases**,
+**3 exact approved-A regressions**, and `git diff --check`. Browser keys verify
+editable/read-only behavior and Shift extension through the fallback. Final
+selection screenshots were inspected in all three engines. The pre-fix focused
+run failed six cases; corrected assertions enforce the newly approved behavior.
+
+Earlier evidence is preserved. Full B/browser workload and manual/release checks
+were not rerun for this focused change; previous release gaps remain. Next action:
+user review and any further B feedback. Remain at the stage-5 checkpoint.

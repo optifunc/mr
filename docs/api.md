@@ -47,7 +47,9 @@ editor.destroy();
   `position` of `before`, `after`, or `child`; side applies to root child drops.
 - `navigate` with `direction` and optional `extend`: Up/Down prefers visible
   siblings, then same-depth nodes in adjacent branches on the same root side.
-  Non-root edges stay selected. Root entry and Left/Right retain their behavior.
+  If those are absent in the requested direction, it falls back to the nearest
+  shallower node on that side, excluding ancestors. Deeper nodes are ineligible;
+  exhausted edges stay selected. Root entry and Left/Right retain their behavior.
   `extend` follows the same destinations and contracts on reversal.
   Also available: `selectAll`, `clearSelection`,
   `edit`, `zoomIn`, `zoomOut`, `resetZoom`, and `fit`.
