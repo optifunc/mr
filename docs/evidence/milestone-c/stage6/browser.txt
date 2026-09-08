@@ -2,10 +2,10 @@
 > @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
 > playwright test tests/browser/clipboard.spec.ts tests/browser/editing.spec.ts tests/browser/interaction.spec.ts --workers=1
 
-[2m[WebServer] [22m(node:61773) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
-[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
-[2m[WebServer] [22m(node:61783) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
-[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:61773) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:61783) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
 
 Running 114 tests using 1 worker
 

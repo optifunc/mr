@@ -2,10 +2,10 @@
 > @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
 > playwright test tests/browser/drag.spec.ts tests/browser/clipboard.spec.ts --workers=1
 
-[2m[WebServer] [22m(node:62419) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
-[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
-[2m[WebServer] [22m(node:62429) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
-[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:62419) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:62429) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
 
 Running 126 tests using 1 worker
 
@@ -157,20 +157,20 @@ Running 126 tests using 1 worker
   ✓  126 [webkit] › tests/browser/drag.spec.ts:127:1 › real pointer capture release and outside-widget release cancel drops (295ms)
 
 
-  1) [chromium] › tests/browser/drag.spec.ts:118:1 › stationary pointer gradient is re-evaluated as autopan moves its target away 
+  1) [chromium] › tests/browser/drag.spec.ts:118:1 › stationary pointer gradient is re-evaluated as autopan moves its target away
 
-    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveAttribute[2m([22m[32mexpected[39m[2m)[22m failed
+    Error: expect(locator).toHaveAttribute(expected) failed
 
     Locator:  locator('#primary .mindmap-nodes [data-node-id="n1"]')
-    Expected: [32m"right"[39m
-    Received: [31m""[39m
+    Expected: "right"
+    Received: ""
     Timeout:  5000ms
 
     Call log:
-    [2m  - Expect "toHaveAttribute" with timeout 5000ms[22m
-    [2m  - waiting for locator('#primary .mindmap-nodes [data-node-id="n1"]')[22m
-    [2m    9 × locator resolved to <div aria-level="3" role="treeitem" aria-label="N1" aria-setsize="4" data-node-id="n1" aria-posinset="1" class="mindmap-node" aria-selected="false" id="mindmap-1-node-14">…</div>[22m
-    [2m      - unexpected value "null"[22m
+      - Expect "toHaveAttribute" with timeout 5000ms
+      - waiting for locator('#primary .mindmap-nodes [data-node-id="n1"]')
+        9 × locator resolved to <div aria-level="3" role="treeitem" aria-label="N1" aria-setsize="4" data-node-id="n1" aria-posinset="1" class="mindmap-node" aria-selected="false" id="mindmap-1-node-14">…</div>
+          - unexpected value "null"
 
 
       121 |     await page.evaluate(dx => { const v = window.primary.getViewport(); window.primary.panTo(v.x + dx, v.y); }, host.x + host.width - 12 - target.x);
@@ -192,20 +192,20 @@ Running 126 tests using 1 worker
 
     ────────────────────────────────────────────────────────────────────────────────────────────────
 
-  2) [firefox] › tests/browser/drag.spec.ts:118:1 › stationary pointer gradient is re-evaluated as autopan moves its target away 
+  2) [firefox] › tests/browser/drag.spec.ts:118:1 › stationary pointer gradient is re-evaluated as autopan moves its target away
 
-    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveAttribute[2m([22m[32mexpected[39m[2m)[22m failed
+    Error: expect(locator).toHaveAttribute(expected) failed
 
     Locator:  locator('#primary .mindmap-nodes [data-node-id="n1"]')
-    Expected: [32m"right"[39m
-    Received: [31m""[39m
+    Expected: "right"
+    Received: ""
     Timeout:  5000ms
 
     Call log:
-    [2m  - Expect "toHaveAttribute" with timeout 5000ms[22m
-    [2m  - waiting for locator('#primary .mindmap-nodes [data-node-id="n1"]')[22m
-    [2m    9 × locator resolved to <div aria-level="3" role="treeitem" aria-label="N1" aria-setsize="4" data-node-id="n1" aria-posinset="1" class="mindmap-node" aria-selected="false" id="mindmap-1-node-14">…</div>[22m
-    [2m      - unexpected value "null"[22m
+      - Expect "toHaveAttribute" with timeout 5000ms
+      - waiting for locator('#primary .mindmap-nodes [data-node-id="n1"]')
+        9 × locator resolved to <div aria-level="3" role="treeitem" aria-label="N1" aria-setsize="4" data-node-id="n1" aria-posinset="1" class="mindmap-node" aria-selected="false" id="mindmap-1-node-14">…</div>
+          - unexpected value "null"
 
 
       121 |     await page.evaluate(dx => { const v = window.primary.getViewport(); window.primary.panTo(v.x + dx, v.y); }, host.x + host.width - 12 - target.x);
@@ -228,8 +228,8 @@ Running 126 tests using 1 worker
     ────────────────────────────────────────────────────────────────────────────────────────────────
 
   2 failed
-    [chromium] › tests/browser/drag.spec.ts:118:1 › stationary pointer gradient is re-evaluated as autopan moves its target away 
-    [firefox] › tests/browser/drag.spec.ts:118:1 › stationary pointer gradient is re-evaluated as autopan moves its target away 
+    [chromium] › tests/browser/drag.spec.ts:118:1 › stationary pointer gradient is re-evaluated as autopan moves its target away
+    [firefox] › tests/browser/drag.spec.ts:118:1 › stationary pointer gradient is re-evaluated as autopan moves its target away
   2 skipped
   122 passed (55.9s)
  ELIFECYCLE  Command failed with exit code 1.

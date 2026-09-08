@@ -275,8 +275,8 @@ available real clipboard paths alongside deterministic failure/staleness stubs.
 
 **Technical status: complete (2026-09-08). User decision: pending stage-7 review.**
 
-Stage 6 is `3b2f7f8`; the stage-7 tested implementation revision and handover state
-are recorded in [progress](progress.md#c-stage-7-handover--2026-09-08).
+Stage 6 is `3b2f7f8`; the final stage-7 tested implementation is `9ade849`.
+The documentation-only handover state is recorded in [progress](progress.md#c-stage-7-handover--2026-09-08).
 Passed: strict typecheck, ESM/CSS/declaration build, **145 unit tests**, **346 browser
 cases** across Chromium/Firefox/WebKit, exact accepted-A PNG comparisons in every
 engine, workload diagnostic and whitespace checks. Two Chromium-only async

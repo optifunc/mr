@@ -2,10 +2,10 @@
 > @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
 > playwright test tests/browser/drag.spec.ts --grep 'stationary pointer gradient' --workers=1
 
-[2m[WebServer] [22m(node:62703) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
-[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
-[2m[WebServer] [22m(node:62713) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
-[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:62703) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:62713) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
 
 Running 3 tests using 1 worker
 

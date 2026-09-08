@@ -2,10 +2,10 @@
 > @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
 > playwright test --workers=1
 
-[2m[WebServer] [22m(node:62828) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
-[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
-[2m[WebServer] [22m(node:62838) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
-[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:62828) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:62838) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
 
 Running 345 tests using 1 worker
 
@@ -382,18 +382,18 @@ Running 345 tests using 1 worker
 
   1) [chromium] › tests/browser/mount.spec.ts:2:1 › two mounts own their DOM, focus, and teardown ──
 
-    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveCount[2m([22m[32mexpected[39m[2m)[22m failed
+    Error: expect(locator).toHaveCount(expected) failed
 
     Locator:  getByRole('tree')
-    Expected: [32m4[39m
-    Received: [31m5[39m
+    Expected: 4
+    Received: 5
     Timeout:  5000ms
 
     Call log:
-    [2m  - Expect "toHaveCount" with timeout 5000ms[22m
-    [2m  - waiting for getByRole('tree')[22m
-    [2m    9 × locator resolved to 5 elements[22m
-    [2m      - unexpected value "5"[22m
+      - Expect "toHaveCount" with timeout 5000ms
+      - waiting for getByRole('tree')
+        9 × locator resolved to 5 elements
+          - unexpected value "5"
 
 
       2 | test('two mounts own their DOM, focus, and teardown', async ({ page }, info) => {
@@ -417,18 +417,18 @@ Running 345 tests using 1 worker
 
   2) [firefox] › tests/browser/mount.spec.ts:2:1 › two mounts own their DOM, focus, and teardown ───
 
-    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveCount[2m([22m[32mexpected[39m[2m)[22m failed
+    Error: expect(locator).toHaveCount(expected) failed
 
     Locator:  getByRole('tree')
-    Expected: [32m4[39m
-    Received: [31m5[39m
+    Expected: 4
+    Received: 5
     Timeout:  5000ms
 
     Call log:
-    [2m  - Expect "toHaveCount" with timeout 5000ms[22m
-    [2m  - waiting for getByRole('tree')[22m
-    [2m    9 × locator resolved to 5 elements[22m
-    [2m      - unexpected value "5"[22m
+      - Expect "toHaveCount" with timeout 5000ms
+      - waiting for getByRole('tree')
+        9 × locator resolved to 5 elements
+          - unexpected value "5"
 
 
       2 | test('two mounts own their DOM, focus, and teardown', async ({ page }, info) => {
@@ -452,18 +452,18 @@ Running 345 tests using 1 worker
 
   3) [webkit] › tests/browser/mount.spec.ts:2:1 › two mounts own their DOM, focus, and teardown ────
 
-    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveCount[2m([22m[32mexpected[39m[2m)[22m failed
+    Error: expect(locator).toHaveCount(expected) failed
 
     Locator:  getByRole('tree')
-    Expected: [32m4[39m
-    Received: [31m5[39m
+    Expected: 4
+    Received: 5
     Timeout:  5000ms
 
     Call log:
-    [2m  - Expect "toHaveCount" with timeout 5000ms[22m
-    [2m  - waiting for getByRole('tree')[22m
-    [2m    9 × locator resolved to 5 elements[22m
-    [2m      - unexpected value "5"[22m
+      - Expect "toHaveCount" with timeout 5000ms
+      - waiting for getByRole('tree')
+        9 × locator resolved to 5 elements
+          - unexpected value "5"
 
 
       2 | test('two mounts own their DOM, focus, and teardown', async ({ page }, info) => {

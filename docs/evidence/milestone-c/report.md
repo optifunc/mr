@@ -3,8 +3,9 @@
 **Technical status: complete (2026-09-08). Product acceptance: pending user review.**
 Stages 6–7 cover clipboard, URL links and mouse restructuring. Stages 8–9 remain
 outside this checkpoint. Started with a clean tree at `b80bb9f`; stage 6 is
-`3b2f7f8`. The stage-7 implementation/evidence commit and final tested state will be
-recorded in progress at handover. All changes are task-related.
+`3b2f7f8`. The final tested stage-7 implementation and evidence are **`9ade849`**. The
+subsequent handover commit changes documentation/log formatting only. All changes
+are task-related.
 
 ## Run and review
 
@@ -57,6 +58,11 @@ clipboard/link fixture, drag-reference comparison and links to these checks.
 | Accepted-A exact default regression | Passed in all three engines, exact PNG bytes; original baselines unchanged |
 | 1,000-total / 500-visible workload diagnostic | Passed in all three engines; release profiling remains D |
 | Product acceptance | Pending user stage-7 review; these C captures are candidates |
+
+Raw tool-log ANSI styling and trailing whitespace were normalized, and tabs are
+shown as `\t` for readable committed evidence; no test result or failure content was removed. The staged
+whitespace audit found those log-format issues, which were corrected before final
+handover. `git diff b80bb9f --check` verifies the complete milestone change.
 
 Commands: `pnpm typecheck`, `pnpm build`, `pnpm test`,
 `pnpm test:browser --workers=1`, `git diff --check`.

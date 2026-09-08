@@ -2,10 +2,10 @@
 > @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
 > playwright test tests/browser/clipboard.spec.ts --workers=1
 
-[2m[WebServer] [22m(node:61552) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
-[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
-[2m[WebServer] [22m(node:61562) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
-[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:61552) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:61562) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
 
 Running 42 tests using 1 worker
 
@@ -77,21 +77,21 @@ Running 42 tests using 1 worker
   ✓  42 [webkit] › tests/browser/clipboard.spec.ts:91:1 › URL modifier label clicks open protected tabs; branch selection, cancellation, callback failure and reclassification (394ms)
 
 
-  1) [chromium] › tests/browser/clipboard.spec.ts:19:1 › API paste/cut/copy settle once, retain IDs on redo and expose completion after document/selection 
+  1) [chromium] › tests/browser/clipboard.spec.ts:19:1 › API paste/cut/copy settle once, retain IDs on redo and expose completion after document/selection
 
-    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+    Error: expect(received).toBe(expected) // Object.is equality
 
-    [32m- Expected  - 2[39m
-    [31m+ Received  + 2[39m
+    - Expected  - 2
+    + Received  + 2
 
-    [32m- Child 1[39m
-    [2m  One[22m
-    [2m  	A[22m
-    [2m  	B[22m
-    [32m- 	C[39m
-    [31m+ 	C[39m
-    [31m+ Child 1[39m
-    [2m  ↵[22m
+    - Child 1
+      One
+      \tA
+      \tB
+    - \tC
+    + \tC
+    + Child 1
+      ↵
 
     Call Log:
     - Timeout 5000ms exceeded while waiting on the predicate
@@ -115,21 +115,21 @@ Running 42 tests using 1 worker
 
     ────────────────────────────────────────────────────────────────────────────────────────────────
 
-  2) [firefox] › tests/browser/clipboard.spec.ts:19:1 › API paste/cut/copy settle once, retain IDs on redo and expose completion after document/selection 
+  2) [firefox] › tests/browser/clipboard.spec.ts:19:1 › API paste/cut/copy settle once, retain IDs on redo and expose completion after document/selection
 
-    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+    Error: expect(received).toBe(expected) // Object.is equality
 
-    [32m- Expected  - 2[39m
-    [31m+ Received  + 2[39m
+    - Expected  - 2
+    + Received  + 2
 
-    [32m- Child 1[39m
-    [2m  One[22m
-    [2m  	A[22m
-    [2m  	B[22m
-    [32m- 	C[39m
-    [31m+ 	C[39m
-    [31m+ Child 1[39m
-    [2m  ↵[22m
+    - Child 1
+      One
+      \tA
+      \tB
+    - \tC
+    + \tC
+    + Child 1
+      ↵
 
     Call Log:
     - Timeout 5000ms exceeded while waiting on the predicate
@@ -153,21 +153,21 @@ Running 42 tests using 1 worker
 
     ────────────────────────────────────────────────────────────────────────────────────────────────
 
-  3) [webkit] › tests/browser/clipboard.spec.ts:19:1 › API paste/cut/copy settle once, retain IDs on redo and expose completion after document/selection 
+  3) [webkit] › tests/browser/clipboard.spec.ts:19:1 › API paste/cut/copy settle once, retain IDs on redo and expose completion after document/selection
 
-    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+    Error: expect(received).toBe(expected) // Object.is equality
 
-    [32m- Expected  - 2[39m
-    [31m+ Received  + 2[39m
+    - Expected  - 2
+    + Received  + 2
 
-    [32m- Child 1[39m
-    [2m  One[22m
-    [2m  	A[22m
-    [2m  	B[22m
-    [32m- 	C[39m
-    [31m+ 	C[39m
-    [31m+ Child 1[39m
-    [2m  ↵[22m
+    - Child 1
+      One
+      \tA
+      \tB
+    - \tC
+    + \tC
+    + Child 1
+      ↵
 
     Call Log:
     - Timeout 5000ms exceeded while waiting on the predicate
@@ -192,8 +192,8 @@ Running 42 tests using 1 worker
     ────────────────────────────────────────────────────────────────────────────────────────────────
 
   3 failed
-    [chromium] › tests/browser/clipboard.spec.ts:19:1 › API paste/cut/copy settle once, retain IDs on redo and expose completion after document/selection 
-    [firefox] › tests/browser/clipboard.spec.ts:19:1 › API paste/cut/copy settle once, retain IDs on redo and expose completion after document/selection 
-    [webkit] › tests/browser/clipboard.spec.ts:19:1 › API paste/cut/copy settle once, retain IDs on redo and expose completion after document/selection 
+    [chromium] › tests/browser/clipboard.spec.ts:19:1 › API paste/cut/copy settle once, retain IDs on redo and expose completion after document/selection
+    [firefox] › tests/browser/clipboard.spec.ts:19:1 › API paste/cut/copy settle once, retain IDs on redo and expose completion after document/selection
+    [webkit] › tests/browser/clipboard.spec.ts:19:1 › API paste/cut/copy settle once, retain IDs on redo and expose completion after document/selection
   39 passed (33.4s)
  ELIFECYCLE  Command failed with exit code 1.

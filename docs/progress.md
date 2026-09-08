@@ -429,9 +429,11 @@ screenshot tolerance. The documentation/evidence handover follows that result.
 
 ## C stage-7 handover — 2026-09-08
 
-Final stage-7 source, demo and tests were verified as task-only working-tree changes
-based on stage-6 commit `3b2f7f8`; the implementation/evidence commit contains this
-record. The next documentation-only commit records its exact revision.
+Final stage-7 source, demo, tests and evidence are committed at **`9ade849`**,
+following stage-6 commit `3b2f7f8`. The subsequent handover commit changes only
+documentation/log formatting and records this tested revision. A staged whitespace
+audit exposed raw tool-log trailing whitespace; normalized log formatting without
+changing results and verified the complete milestone diff against `b80bb9f`.
 
 - Passed: strict typecheck, ESM/CSS/declaration build, **145 unit tests** and
   **346 browser cases** across Chromium/Firefox/WebKit, with **2 explicit skips**

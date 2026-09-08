@@ -34,4 +34,3 @@ dist/mindmap.js   70.96 kB │ gzip: 18.82 kB
       Tests  145 passed (145)
    Start at  18:58:27
    Duration  4.43s (transform 2.61s, setup 0ms, import 3.63s, tests 3.49s, environment 2ms)
-
