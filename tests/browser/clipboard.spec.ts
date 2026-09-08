@@ -79,8 +79,11 @@ test('native keyboard clipboard round trip works without duplicate API request a
     await expect.poll(() => page.evaluate(() => window.clip.events)).toEqual(['copy', 'paste']);
     expect(await page.evaluate(() => window.primary.getDocument().root.children[0]!.children[0]!.text)).toBe('One');
     await page.keyboard.press('Meta+z'); expect(await page.evaluate(() => window.primary.getDocument())).toEqual(referenceMap());
+    await page.evaluate(() => window.primary.setSelection(['one'])); await page.keyboard.press('Meta+x');
+    await expect.poll(() => page.evaluate(() => window.clip.events)).toEqual(['copy', 'paste', 'cut']);
+    await page.keyboard.press('Meta+z'); expect(await page.evaluate(() => window.primary.getDocument())).toEqual(referenceMap());
     await page.keyboard.press('F2'); await page.locator('#primary textarea').fill('Text clipboard'); await page.keyboard.press('Meta+a'); await page.keyboard.press('Meta+c'); await page.keyboard.press('Meta+v');
-    expect(await page.evaluate(() => window.clip.events)).toEqual(['copy', 'paste']); await expect(page.locator('#primary textarea')).toHaveValue('Text clipboard');
+    expect(await page.evaluate(() => window.clip.events)).toEqual(['copy', 'paste', 'cut']); await expect(page.locator('#primary textarea')).toHaveValue('Text clipboard');
 });
 test('read-only permits copy/links but rejects cut/paste; root cannot be cut', async ({ page }) => {
     await page.goto('/?readonly'); await setup(page);
@@ -109,4 +112,60 @@ test('real asynchronous Clipboard API in a granted secure Chromium context', asy
     await expect.poll(() => page.evaluate(() => window.primary.getDocument().root.children.at(-1)!.text)).toBe('Real API\nsecond line');
     await page.evaluate(() => window.primary.execute({ type: 'copy' }));
     await expect.poll(() => page.evaluate(() => navigator.clipboard.readText())).toBe('[x] Real API\\nsecond line\n');
+});
+
+test('empty clipboard no-op, empty physical label and literal HTML are preserved', async ({ page }) => {
+    await setup(page, 'success', ''); await page.evaluate(() => window.primary.execute({ type: 'paste' }));
+    await expect.poll(() => page.evaluate(() => window.clip.events)).toEqual(['complete:paste:api']); expect(await page.evaluate(() => window.primary.canUndo())).toBe(false);
+    const count = await page.locator('#primary .mindmap-nodes .mindmap-node').count();
+    await setup(page, 'success', '<img src=x onerror=alert(1)>\n\n'); await page.evaluate(() => window.primary.execute({ type: 'paste' }));
+    await expect.poll(() => page.locator('#primary .mindmap-nodes .mindmap-node').count()).toBe(count + 2);
+    const added = await page.evaluate(() => window.primary.getDocument().root.children.find(n => n.id === 'one')!.children.slice(-2));
+    expect(added.map(n => n.text)).toEqual(['<img src=x onerror=alert(1)>', '']); await expect(page.locator('#primary img')).toHaveCount(0);
+});
+test('deferred cut deletes its captured sources after selection change and leaves clipboard errors isolated between mounts', async ({ page }) => {
+    await setup(page, 'deferred'); await page.evaluate(() => { window.primary.execute({ type: 'cut', ids: ['one', 'a'] }); window.primary.setSelection(['child1']); window.secondary.execute({ type: 'setText', targetId: 'multi', text: 'Other instance' }); window.clip.resolve(''); });
+    await expect.poll(() => page.evaluate(() => window.clip.events.at(-1))).toBe('complete:cut:api');
+    expect(await page.evaluate(() => window.primary.getDocument().root.children.map(n => n.id))).toEqual(['child1', 'child2', 'two', 'three']);
+    expect(await page.evaluate(() => window.clip.writes)).toEqual(['One\n\tA\n\tB\n\tC\n']);
+    await page.keyboard.press('Meta+z'); expect(await page.evaluate(() => window.primary.getDocument())).toEqual(referenceMap());
+});
+test('URL press cancellation and read-only replacement/paste reclassification', async ({ page }) => {
+    await setup(page, 'success', 'https://example.com/new\n'); await page.evaluate(() => window.primary.execute({ type: 'paste' }));
+    const link = page.locator('#primary .mindmap-link'); await expect(link).toHaveCount(1);
+    const box = (await link.boundingBox())!; await page.keyboard.down('Meta'); await page.mouse.move(box.x + 4, box.y + 4); await page.mouse.down(); await page.mouse.move(box.x + 14, box.y + 4); await page.mouse.up(); await page.keyboard.up('Meta'); expect(await page.evaluate(() => window.clip.opens)).toEqual([]);
+    await page.goto('/?readonly'); await setup(page); await page.evaluate(() => { const doc = window.primary.getDocument(); doc.root.children[0]!.text = 'https://example.com/readonly'; window.primary.setDocument(doc); });
+    await page.locator('#primary .mindmap-link').click({ modifiers: ['Meta'] }); expect(await page.evaluate(() => window.clip.opens)).toEqual([['https://example.com/readonly', '_blank', 'noopener,noreferrer']]); expect(await page.evaluate(() => window.primary.canUndo())).toBe(false);
+});
+
+test('review fixture real clipboard, multiline/checkbox paste, undo/redo and denial evidence', async ({ page }, info) => {
+    const { writeFileSync } = await import('node:fs');
+    await page.getByRole('button', { name: 'Load clipboard + links fixture' }).click();
+    await page.keyboard.press('Meta+c');
+    await page.locator('#primary [data-node-id="destination"] .mindmap-label').click(); await page.keyboard.press('Meta+v');
+    await expect.poll(() => page.evaluate(() => window.primary.getDocument().root.children[1]!.children.length)).toBe(1);
+    const doc = await page.evaluate(() => window.primary.getDocument());
+    const pasted = doc.root.children[1]!.children[0]!;
+    expect(pasted.text).toBe('Release\nSecond line'); expect(pasted.checked).toBe(false); expect(pasted.collapsed).toBeUndefined();
+    expect(pasted.children.map(n => n.text)).toEqual(['Code complete', '[x] literal marker\nBackslash \\ and tab\tend', '']); expect(pasted.children[0]!.checked).toBe(true);
+    await page.locator('#primary').screenshot({ path: `docs/evidence/milestone-c/stage7/clipboard-${info.project.name}.png` });
+    await page.keyboard.press('Meta+z'); expect(await page.evaluate(() => window.primary.canUndo())).toBe(false);
+    await page.keyboard.press('Meta+Shift+z'); expect(await page.evaluate(() => window.primary.getDocument())).toEqual(doc);
+    writeFileSync(`docs/evidence/milestone-c/stage7/clipboard-${info.project.name}.json`, JSON.stringify({ document: doc, selection: await page.evaluate(() => window.primary.getSelection()), clipboardPath: 'native Meta+C / Meta+V', undoRedo: 'exact document equality' }, null, 2) + '\n');
+    await setup(page, 'denied'); await page.evaluate(() => window.primary.execute({ type: 'cut' }));
+    await expect.poll(() => page.evaluate(() => window.clip.events)).toEqual(['CLIPBOARD_DENIED']);
+    expect(await page.evaluate(() => window.primary.getDocument())).toEqual(doc);
+    await page.locator('#primary').locator('..').locator('details').evaluate(el => (el as HTMLDetailsElement).open = true);
+    await page.locator('#primary').locator('..').screenshot({ path: `docs/evidence/milestone-c/stage7/clipboard-denied-${info.project.name}.png` });
+});
+
+test('explicit hidden paste target keeps selection visible and completion identifies inserted roots', async ({ page }) => {
+    await setup(page, 'success', 'Inserted');
+    await page.evaluate(() => window.primary.execute({ type: 'paste', targetId: 'hidden' }));
+    await expect.poll(() => page.evaluate(() => window.clip.events.at(-1))).toBe('complete:paste:api');
+    expect(await page.evaluate(() => window.primary.getSelection())).toEqual({ ids: ['collapsed'], activeId: 'collapsed' });
+    const completion = await page.evaluate(() => window.clip.completions[0]) as { ids: string[] };
+    expect(completion.ids).toHaveLength(1); expect(completion.ids[0]).not.toBe('collapsed');
+    await page.keyboard.press('Space'); await expect(page.locator(`#primary [data-node-id="${completion.ids[0]}"]`)).toBeVisible();
+    await page.keyboard.press('Meta+z'); await page.keyboard.press('Meta+z'); expect(await page.evaluate(() => window.primary.getDocument())).toEqual(referenceMap()); expect(await page.evaluate(() => window.primary.canUndo())).toBe(false);
 });

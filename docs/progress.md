@@ -4,6 +4,13 @@ Last updated: 2026-09-08
 
 ## Current state
 
+**Milestone C (stages 6–7) is technically complete; product acceptance is pending.**
+Final gates passed: typecheck/build, 145 unit tests, 346 browser cases with 2
+explicit engine-specific permission skips, exact accepted-default comparisons and
+workload diagnostics. [C report](evidence/milestone-c/report.md),
+[acceptance](acceptance.md#milestone-c-stages-67). Demo: http://127.0.0.1:5175/.
+Stop at stage 7 for user review; stages 8–9 remain unstarted.
+
 **Milestone B is technically complete and accepted at `4209b2a` on 2026-09-08.**
 The user accepted the stage-5 product checkpoint, including the final reviewed
 behavior and appearance. [Acceptance record](acceptance.md#milestone-b-stages-45).
@@ -20,7 +27,7 @@ parents, with the bottom border on the branch line and stable text position.
 The latest approved controls remove the focused-widget frame, use Ctrl+Space on
 all platforms, and expand collapsed nodes by clicking their circles without
 changing selection. [Latest evidence](evidence/milestone-b/focus-controls/report.md).
-Milestone C is authorized and stage 6 is being verified; stages 7–9 are not yet complete.
+Milestone C is now complete as recorded above; the next action is user stage-7 review.
 
 Stages 4–5 include mouse/range selection, geometry navigation, keyboard sibling-block
 movement, viewport controls, checkbox/structural gestures, native textarea editing,
@@ -120,13 +127,13 @@ Run `pnpm dev`, then open http://127.0.0.1:5173.
 
 ## Next action and known limits
 
-Milestone B product review is complete. Milestone C is authorized and underway;
-continue through stage 7, then stop for product review.
+Milestone C technical work is complete. Stop for user stage-7 product review;
+do not begin stages 8–9.
 The runnable demo exposes all B behaviors,
 reference/editing comparisons, event/selection/history state, read-only mode and
 an interleaved-side fixture. See the [B report](evidence/milestone-b/report.md).
 
-Clipboard, links and dragging remain C; menu, packaged consumer, actual stable
+Clipboard, links and dragging are implemented in C; menu, packaged consumer, actual stable
 browsers, assistive technology and release performance checks remain D. Real OS
 IME composition is not manually verified; synthetic composition-event guards are
 covered. Default font/rasterization differences from the supplied Windows/older
@@ -375,3 +382,74 @@ Firefox/WebKit native real keyboard clipboard paths passed, while granted async
 Clipboard API access was exercised in Chromium. Logs: `evidence/milestone-c/stage6/`.
 Next: stage 7 drag preview, zones/gradients, cancellation, autopan, browser evidence
 and the final C review demo. No stage-6 product pause is required by this task.
+
+## C stage-7 implementation and visual refinement — 2026-09-08
+
+Stage 6 is committed at `3b2f7f8`. Stage 7 adds mouse capture/threshold dragging,
+normalized label overlay, pure mirrored drop zones, shared move preview/commit,
+edge-aligned gradients, prohibited invalid/no-op targets, and animation-frame
+edge autopan. Completion/cancellation/replacement/edit/destroy remove feedback.
+Collapsed child targets stay collapsed and select the visible target. Root-side
+append uses same-side adjacency; changes only to opposite-side array interleaving
+are effective no-ops, preserving the original document/history.
+
+Initial stage-7 gates: typecheck and 144 unit tests passed; all 66 browser cases
+passed across Chromium/Firefox/WebKit (`stage7/initial-browser.txt`). Inspected the
+Chromium reference comparison, top/bottom gradients and mirrored 200% scaled-host
+capture. Softened the gradient dark edge from #aaa to #bdbdbd against the supplied
+drag reference; `stage7/before-gradient-chromium.png` retains the earlier candidate.
+The compact ghost is widget UI; the supplied red annotation is not reproduced.
+Accepted A/B images are preserved. Existing regression tests now write new captures
+to `evidence/milestone-c/regression/` instead of overwriting B evidence.
+
+The demo exposes a mixed checkbox/multiline/empty/escaped-label fixture, URL and
+prose labels, clipboard API buttons, native shortcuts, completion/error event log,
+and a separate deterministic drag-reference fixture with B/C selected. Broader
+C and final regression checks are next; product review remains pending at stage 7.
+
+## C final verification corrections — 2026-09-08
+
+The first full gate passed 340 browser cases and skipped the 2 documented
+Chromium-only permission counterparts. Its 3 failures were mount-count assertions
+because the demo now has five widgets including the new drag comparison. Corrected
+the exact counts to five before / four after primary destruction. The initial log
+is preserved as `evidence/milestone-c/initial-full-browser.txt`.
+
+Actual clipboard screenshot inspection found the fixture's initial Fit zoom was
+330%, hiding pasted descendants beyond the viewport. Cap this demo fixture's initial
+zoom at 100%; widget Fit semantics stay unchanged. Preserve the old capture as
+`stage7/before-clipboard-zoom-chromium.png`; final captures show all pasted labels.
+Also corrected explicit paste into hidden API targets: retain hidden ancestor
+collapse, select the nearest visible ancestor, and report the newly inserted IDs
+in command completion. Added pure/browser coverage for this selection invariant.
+
+Final typecheck/build and 145 unit tests passed. The full 348-case browser gate
+is running on the final source/demo/tests, with the same assertions and no changed
+screenshot tolerance. The documentation/evidence handover follows that result.
+
+## C stage-7 handover — 2026-09-08
+
+Final stage-7 source, demo and tests were verified as task-only working-tree changes
+based on stage-6 commit `3b2f7f8`; the implementation/evidence commit contains this
+record. The next documentation-only commit records its exact revision.
+
+- Passed: strict typecheck, ESM/CSS/declaration build, **145 unit tests** and
+  **346 browser cases** across Chromium/Firefox/WebKit, with **2 explicit skips**
+  for the Chromium-only async clipboard permission-grant counterparts. Native
+  real clipboard C/X/V and textarea routing passed in all engines.
+- Passed: all three exact accepted-A default PNG comparisons, complete A/B
+  regressions, the 1,000-total/500-visible diagnostic, live-demo HTTP smoke, local
+  evidence-link checks and `git diff --check`. Required actual-browser, manual
+  screen-reader, packaged-consumer and final performance release gates remain D.
+- Inspected: supplied references, all three drag and editing comparisons, default
+  root/branch/checkbox geometry, directional/zoomed gradients, clipboard paste and
+  error-event screenshots. No known C functional defect remains; C visual/product
+  acceptance remains pending. Accepted A/B and supplied images are unchanged.
+- Runnable handover: **http://127.0.0.1:5175/** (`pnpm dev --port 5174` selected
+  5175 because 5174 was occupied). A fresh `pnpm dev` prints its available URL.
+  The demo has all C fixtures, native/API actions, state/events and evidence links.
+
+[Report and known gaps](evidence/milestone-c/report.md),
+[checks](evidence/milestone-c/checks.txt), [browser log](evidence/milestone-c/browser.txt),
+[product review](acceptance.md#milestone-c-stages-67). Next: user's stage-7 review.
+No milestone-D implementation was started and no release gate is waived.

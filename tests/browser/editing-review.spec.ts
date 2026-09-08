@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { writeFileSync } from 'node:fs';
 import { referenceMap } from '../fixtures/maps';
-const evidence = 'docs/evidence/milestone-b/editor-sizing';
+const evidence = 'docs/evidence/milestone-c/regression/editor-sizing';
 const phase = process.env.EDIT_REVIEW_BEFORE ? 'before' : 'after';
 test.beforeEach(async ({ page }) => { await page.goto('/'); await page.evaluate(() => document.fonts.ready); });
 

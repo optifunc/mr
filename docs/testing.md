@@ -4,15 +4,15 @@ Use Node 22.12+ (verified with Node 24.2.0) and pnpm 10.28.1.
 
 - `pnpm install --frozen-lockfile`: install pinned tools.
 - `pnpm dev`: open the local URL printed by Vite, normally http://127.0.0.1:5173.
-  The B handover server uses http://127.0.0.1:5174 because 5173 was occupied.
+  The current C handover server URL is recorded in the C report and progress.
 - `pnpm typecheck`: strict TypeScript checks for source, demo, and tests.
 - `pnpm build`: ESM, declarations, and explicitly exported CSS in `dist/`.
 - `pnpm test`: pure Vitest tests.
 - `pnpm exec playwright install`: install Chromium, Firefox, and WebKit if absent.
-- `pnpm test:browser --workers=1`: recorded final B gate; limits contention without
+- `pnpm test:browser --workers=1`: milestone C full gate; limits contention without
   changing coverage, assertions or timeouts.
 - `pnpm test:browser`: run all three Playwright engines, start Vite automatically,
-  capture current screenshots under `docs/evidence/milestone-b/`, retain failure traces in
+  capture current screenshots under `docs/evidence/milestone-c/`, retain failure traces in
   ignored `test-results/`.
 
 Stage 1 verified all commands above except browser installation (matching browser
@@ -119,3 +119,37 @@ written to `docs/evidence/milestone-b/`; tests retain failure traces in ignored
 - Current evidence: `docs/evidence/milestone-b/focus-controls/`. Focused images are
   part of the accepted B appearance at `4209b2a`; accepted default baselines and
   prior evidence are retained.
+
+## Milestone C — stages 6–7
+
+Run `pnpm dev` for the stage-7 review demo. “Load clipboard + links fixture” loads
+mixed checkbox/multiline/empty/escaped nodes and URL/prose labels. Native clipboard
+shortcuts and API buttons are both available. The recent-event panel shows
+completion, errors, selection and history. The separate drag-reference mount starts
+with B/C selected. Reset buttons restore each deterministic fixture. See the
+[C report](evidence/milestone-c/report.md) for repeatable user exercises and limits.
+
+- `pnpm typecheck`, `pnpm build`, `pnpm test`: strict source/demo/test types,
+  ESM/CSS/declarations, and all pure model/codec/history/layout/navigation/drop rules.
+- `pnpm test:browser --workers=1`: complete suite in Chromium/Firefox/WebKit,
+  including exact accepted-default PNG comparison and the 1,000/500 diagnostic.
+- `pnpm test:browser tests/browser/clipboard.spec.ts tests/browser/drag.spec.ts --workers=1`:
+  native/async clipboard, denial/unavailability, invalid input and IDs, stale/busy
+  completion, captured destinations, hidden targets, teardown, URL hit regions,
+  protected/cancelled opening, all drag zones, root sides, overlapping selection,
+  cycles/no-ops, collapsed targets, zoom/host scale, capture loss and autopan.
+- `pnpm test:browser tests/browser/checkpoint-b.spec.ts --grep accepted-A --workers=1`:
+  unchanged accepted default images; no new baseline is approved by this test.
+
+Current captures go to `docs/evidence/milestone-c/stage7/` and C `regression/`
+subdirectories. Historical test captures under A/B remain unchanged. C drag and
+clipboard screenshots are review candidates. Failure logs, corrections, final
+results and per-engine environment JSON are linked from the C report.
+
+Native clipboard C/X/V paths run in all three engines. Chromium also tests a
+granted asynchronous Clipboard API context. The Firefox/WebKit counterparts of
+that permission-grant test are explicitly skipped because the grant is engine
+specific; their native paths and deterministic async failure/staleness tests run.
+This does not establish actual stable-browser or OS-level manual verification.
+Stage-8 menu/host completion and every stage-9 packaged-consumer, actual stable
+browser, screen-reader and performance release gate remain required.

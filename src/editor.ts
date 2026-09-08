@@ -5,6 +5,7 @@ import { Scene } from './render/scene';
 import { validateCommand } from './commands/validate';
 import { TextEditor } from './interaction/editing';
 import { contentCommands } from './commands/reducer';
+import { Drag } from './interaction/drag';
 import { Input } from './interaction/input';
 import { navigate, SelectionPath } from './interaction/navigation';
 import { BrowserClipboard } from './clipboard/browser';
@@ -22,6 +23,7 @@ export class MindMapEditor {
     private readonly fontListener = (): void => { this.refreshLayout(); };
     private readonly input: Input;
     private readonly clipboard: BrowserClipboard;
+    private readonly drag: Drag;
     private generation = 0;
     private textEditor: TextEditor | undefined;
     private editOrigin: Origin = 'api';
@@ -52,12 +54,19 @@ export class MindMapEditor {
         this.render(true);
         this.selectionPath.reset(this.store.selection);
         this.clipboard = new BrowserClipboard(this.element, (type, data) => { this.run(() => this.clipboardRequest({ type }, 'user', data)); });
+        this.drag = new Drag(this.element, {
+            context: () => ({ model: this.store.model, selection: this.getSelection(), layout: this.scene.geometry!, readonly: this.store.readonly, generation: this.generation }),
+            local: (x, y) => this.localPoint(x, y), viewport: () => this.getViewport(), pan: (x, y) => this.panTo(x, y),
+            canMove: command => this.store.canExecute(command), move: command => this.run(() => this.dispatch(command, 'user')),
+            node: id => this.scene.nodeElement(id),
+        });
         this.input = new Input(this.element, {
             command: (command, replacementText) => this.run(() => this.canExecute(command) ? this.dispatch(command, 'user', replacementText) : false),
             select: (id, toggle, range, release) => this.pointerSelect(id, toggle, range, release),
             selected: id => this.store.selection.ids.includes(id),
             viewport: () => this.getViewport(), pan: (x, y) => this.applyViewport({ ...this.viewport, x, y }),
             zoom: (scale, x, y) => { const p = this.localPoint(x, y); this.applyViewport(zoomAt(this.viewport, scale, p.x, p.y)); },
+            startDrag: (id, x, y) => this.drag.start(id, x, y), drag: (x, y) => this.drag.update(x, y), drop: (x, y) => this.drag.finish(x, y), cancelDrag: () => this.drag.cancel(),
             hit: (x, y) => this.hit(x, y), marker: (x, y) => this.hit(x, y, true),
         });
         this.resize = new ResizeObserver(() => {
@@ -75,7 +84,7 @@ export class MindMapEditor {
     private render(geometry: boolean): void { this.store.visualOrder = this.scene.render(this.store.model, this.store.selection, geometry).visualOrder; }
     refreshLayout(): void { this.run(() => { if (this.textEditor) { this.deferredLayout = true; return true; } this.scene.refresh(); this.render(true); return true; }); }
     private emit<K extends keyof MindMapEditorEvents>(type: K, payload: () => MindMapEditorEvents[K]): void {
-        if (type === 'documentchange') this.generation++;
+        if (type === 'documentchange') { this.generation++; this.input?.reset(); }
         for (const listener of [...this.listeners.get(type) ?? []]) {
             if (this.destroyed)
                 return;
@@ -233,7 +242,7 @@ export class MindMapEditor {
         const originalViewport = this.getViewport();
         if (creation) { if (!this.store.beginCreation(command)) return false; this.render(true); }
         else { this.store.beginEdit(target); this.store.setSelection([target], target); this.render(false); }
-        this.generation++;
+        this.generation++; this.input.reset();
         const edit = this.store.edit!; this.editOrigin = origin; this.editViewport = creation ? originalViewport : undefined;
         this.selectionPath.reset(this.store.selection); this.revealIds([edit.id]);
         this.textEditor = new TextEditor(this.scene.scene, this.scene.nodeElement(edit.id)!, replacementText ?? this.store.model.nodes.get(edit.id)!.text,
@@ -291,8 +300,9 @@ export class MindMapEditor {
         return this.clipboard.request(type, text, data, value => { this.run(() => {
             if (type !== 'copy' && this.generation !== generation) throw new MindMapError('CLIPBOARD_STALE', 'Document or editing interaction changed during clipboard access');
             const before = this.getSelection();
+            const modelBefore = this.store.model;
             const changed = type === 'cut' ? this.store.execute({ type: 'delete', ids }) : type === 'paste' ? this.store.paste(target!, parse(value)) : false;
-            const affected = type === 'paste' ? changed ? [...this.store.selection.ids] : [] : ids;
+            const affected = type === 'paste' ? changed ? this.store.model.nodes.get(target!)!.children.filter(id => !modelBefore.nodes.has(id)) : [] : ids;
             if (changed) {
                 this.selectionPath.reset(this.store.selection); this.render(true); this.revealIds(this.store.selection.ids);
                 this.emit('documentchange', () => ({ document: this.getDocument(), origin, reason: 'command', command: type }));

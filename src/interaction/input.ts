@@ -8,8 +8,12 @@ export interface InputActions {
     zoom(scale: number, x: number, y: number): void;
     hit(x: number, y: number): string | undefined;
     marker(x: number, y: number): string | undefined;
+    startDrag(id: string, x: number, y: number): boolean;
+    drag(x: number, y: number): void;
+    drop(x: number, y: number): void;
+    cancelDrag(): void;
 }
-type Press = { kind: 'node' | 'canvas' | 'marker' | 'link'; pointerId: number; x: number; y: number; view: Viewport; id?: string; moved: boolean; toggle: boolean; range: boolean };
+type Press = { kind: 'node' | 'canvas' | 'marker' | 'link'; pointerId: number; x: number; y: number; view: Viewport; id?: string; moved: boolean; dragging?: boolean; toggle: boolean; range: boolean };
 export class Input {
     private press: Press | undefined;
     private readonly abort = new AbortController();
@@ -30,6 +34,7 @@ export class Input {
     private key = (e: KeyboardEvent): void => {
         if ((e.target as HTMLElement).closest('textarea') || e.isComposing || e.keyCode === 229) return;
         const primary = this.primary(e), key = e.key.toLowerCase();
+        if (this.press?.moved) { if (key === 'escape') this.cancel(); e.preventDefault(); return; }
         let command: MindMapCommand | undefined;
         if (key === ' ') {
             if (e.ctrlKey && !e.metaKey) command = { type: 'toggleChecked' };
@@ -67,13 +72,18 @@ export class Input {
         if (!marker && !link && id && (!this.actions.selected(id) || toggle || range)) {
             this.actions.select(id, toggle, range, false);
             // This press established a selection; editing requires a subsequent click.
+            if (!this.press) return; // A host selection listener may replace/destroy the map.
             this.press.toggle = true;
         }
         this.element.setPointerCapture(e.pointerId);
     };
     private move = (e: PointerEvent): void => {
         const p = this.press; if (!p || p.pointerId !== e.pointerId) return;
-        if (Math.hypot(e.clientX - p.x, e.clientY - p.y) > 4) p.moved = true;
+        if (!p.moved && Math.hypot(e.clientX - p.x, e.clientY - p.y) > 4) {
+            p.moved = true;
+            if (p.kind === 'node') p.dragging = this.actions.startDrag(p.id!, e.clientX, e.clientY);
+        }
+        if (p.dragging) this.actions.drag(e.clientX, e.clientY);
         if (p.kind === 'canvas' && p.moved) {
             const rect = this.element.getBoundingClientRect();
             this.actions.pan(p.view.x + (e.clientX - p.x) * this.element.clientWidth / rect.width, p.view.y + (e.clientY - p.y) * this.element.clientHeight / rect.height);
@@ -81,6 +91,7 @@ export class Input {
     };
     private up = (e: PointerEvent): void => {
         const p = this.press; if (!p || p.pointerId !== e.pointerId) return;
+        if (p.dragging) this.actions.drop(e.clientX, e.clientY);
         this.cancel();
         if (p.kind === 'link') {
             if (!p.moved && this.actions.hit(e.clientX, e.clientY) === p.id && this.element.ownerDocument.elementFromPoint(e.clientX, e.clientY)?.closest('.mindmap-link')) this.actions.command({ type: 'openLink', targetId: p.id! });
@@ -93,7 +104,7 @@ export class Input {
         if (!p.moved && !p.toggle && !p.range) this.actions.select(p.id, false, false, !!p.id);
     };
     private cancel = (): void => {
-        const p = this.press; this.press = undefined;
+        const p = this.press; this.press = undefined; this.actions.cancelDrag();
         if (p && this.element.hasPointerCapture(p.pointerId)) this.element.releasePointerCapture(p.pointerId);
     };
     private wheel = (e: WheelEvent): void => {

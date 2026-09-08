@@ -136,8 +136,8 @@ in earlier handover reports are superseded by this acceptance; superseded candid
 images remain historical. Milestone A's accepted default baselines remain unchanged.
 
 This records product acceptance, not new test execution or completion of later
-release gates. Milestone C (stages 6–7) is next, awaiting implementation authorization;
-stages 6–9 remain unstarted and their documented checks remain outstanding.
+release gates. Milestone C (stages 6–7) was subsequently authorized and implemented; its current
+review/evidence record follows below. Stages 8–9 and their release checks remain outstanding.
 
 **Product review:** fluent keyboard creation, selection, navigation, and editing.
 
@@ -273,7 +273,38 @@ Include drag-reference comparison and browser evidence for clipboard denial,
 invalid text, and delayed completion after edits or document replacement. Test
 available real clipboard paths alongside deterministic failure/staleness stubs.
 
-Evidence: not run. User decision: pending.
+**Technical status: complete (2026-09-08). User decision: pending stage-7 review.**
+
+Stage 6 is `3b2f7f8`; the stage-7 tested implementation revision and handover state
+are recorded in [progress](progress.md#c-stage-7-handover--2026-09-08).
+Passed: strict typecheck, ESM/CSS/declaration build, **145 unit tests**, **346 browser
+cases** across Chromium/Firefox/WebKit, exact accepted-A PNG comparisons in every
+engine, workload diagnostic and whitespace checks. Two Chromium-only async
+permission-grant counterparts are explicitly skipped; native clipboard C/X/V works
+in all three engines. No required release check is represented as completed.
+
+- [Full report, commands, environment, review exercises, corrections and known gaps](evidence/milestone-c/report.md)
+- [Drag reference comparison](evidence/milestone-c/stage7/comparison-chromium.png),
+  [before](evidence/milestone-c/stage7/before-chromium.png),
+  [after](evidence/milestone-c/stage7/after-chromium.png),
+  [child](evidence/milestone-c/stage7/child-chromium.png),
+  [mirrored/zoomed drag](evidence/milestone-c/stage7/left-zoom-chromium.png)
+- [Mixed clipboard paste](evidence/milestone-c/stage7/clipboard-chromium.png),
+  [denial/events](evidence/milestone-c/stage7/clipboard-denied-chromium.png),
+  [build/type/unit results](evidence/milestone-c/checks.txt),
+  [full browser results](evidence/milestone-c/browser.txt)
+
+All supplied images and current default/edit/drag comparisons were inspected.
+Softened the drag gradient against the reference and corrected the demo clipboard
+fixture's initial zoom so the pasted descendants are visible. Before/after images
+and failure corrections are retained in the report. Accepted A/B artifacts were
+preserved; C images are candidates awaiting visual acceptance.
+
+Demo: http://127.0.0.1:5175/; fresh start: `pnpm dev`. Use the reference selection,
+clipboard/link fixture, API buttons/event log and separate drag comparison.
+No known C functional defect remains after verification. Menus, final host
+integration, packaged consumer, actual stable browsers, screen readers and final
+performance validation remain stages 8–9. Stop here for the requested review.
 
 ## Milestone D: stages 8–9
 

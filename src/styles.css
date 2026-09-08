@@ -56,3 +56,12 @@
 .mindmap .mindmap-editor { position: absolute; z-index: 3; box-sizing: border-box; margin: 0; padding: 2px; border: 1px solid #999; border-radius: 0; outline: none; background: #fff; color: var(--mindmap-text-color); font: inherit; line-height: var(--mindmap-line-height); resize: none; overflow-x: hidden; overflow-y: auto; white-space: pre; user-select: text; }
 .mindmap .mindmap-editing { background: transparent; }
 .mindmap .mindmap-link { text-decoration: underline; text-decoration-color: #999; text-underline-offset: 1px; cursor: pointer; }
+.mindmap.mindmap-dragging, .mindmap.mindmap-dragging * { cursor: grabbing; }
+.mindmap.mindmap-drop-invalid, .mindmap.mindmap-drop-invalid * { cursor: not-allowed; }
+.mindmap [data-drop-edge="top"] { background-image: linear-gradient(to bottom, #bdbdbd, transparent); }
+.mindmap [data-drop-edge="bottom"] { background-image: linear-gradient(to top, #bdbdbd, transparent); }
+.mindmap [data-drop-edge="left"] { background-image: linear-gradient(to right, #bdbdbd, transparent); }
+.mindmap [data-drop-edge="right"] { background-image: linear-gradient(to left, #bdbdbd, transparent); }
+.mindmap .mindmap-root-node[data-drop-edge] { border-radius: 50%; }
+.mindmap .mindmap-drag-image { position: absolute; z-index: 4; pointer-events: none; max-width: 200px; max-height: 120px; overflow: hidden; padding: 3px 6px; border: 1px solid #aaa; background: #fffffff0; box-shadow: 1px 2px 3px #0002; font: inherit; }
+.mindmap .mindmap-drag-image > div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

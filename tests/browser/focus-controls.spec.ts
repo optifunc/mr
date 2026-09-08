@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { writeFileSync } from 'node:fs';
 import { referenceMap, geometryMap } from '../fixtures/maps';
-const evidence = 'docs/evidence/milestone-b/focus-controls';
+const evidence = 'docs/evidence/milestone-c/regression/focus-controls';
 const phase = process.env.FOCUS_CONTROLS_BEFORE ? 'before' : 'after';
 
 test('keyboard focus has no frame and retains selection, navigation and active-descendant semantics', async ({ page }, info) => {

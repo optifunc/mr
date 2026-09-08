@@ -1,6 +1,7 @@
 import { MindMapError } from '../types';
 import type { Selection } from '../types';
 import type { Model, NodeRecord } from '../model/document';
+import { normalizeSelection, visibleIds } from '../model/document';
 import type { ClipboardNode } from './codec';
 import { patchesBetween } from '../history/history';
 import type { Prepared } from '../commands/reducer';
@@ -25,5 +26,12 @@ export function preparePaste(model: Model, selection: Selection, targetId: strin
         for (let i = node.children.length - 1; i >= 0; i--) work.push({ node: node.children[i]!, parent: id, top: false });
     }
     const candidate = { rootId: model.rootId, nodes };
-    return { model: candidate, transaction: { patches: patchesBetween(model, candidate), before: { ...selection, ids: [...selection.ids] }, after: { ids: inserted, activeId: inserted[0]! }, geometry: true } };
+    let after = normalizeSelection(candidate, { ids: inserted, activeId: inserted[0]! });
+    if (!after.ids.length) {
+        const visible = new Set(visibleIds(candidate));
+        let fallback = targetId;
+        while (!visible.has(fallback)) fallback = nodes.get(fallback)!.parent!;
+        after = { ids: [fallback], activeId: fallback };
+    }
+    return { model: candidate, transaction: { patches: patchesBetween(model, candidate), before: { ...selection, ids: [...selection.ids] }, after, geometry: true } };
 }

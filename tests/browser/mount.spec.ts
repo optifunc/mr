@@ -1,17 +1,17 @@
 import { expect, test } from '@playwright/test';
 test('two mounts own their DOM, focus, and teardown', async ({ page }, info) => {
     await page.goto('/');
-    await expect(page.getByRole('tree')).toHaveCount(4);
+    await expect(page.getByRole('tree')).toHaveCount(5);
     await page.getByRole('button', { name: 'Select One', exact: true }).click();
     await expect(page.getByRole('tree').first()).toBeFocused();
     // Tab is now the specified insert-child binding. Enter the other mount by pointer.
     await page.locator('#secondary [data-node-id="multi"]').click();
     await expect(page.getByRole('tree').nth(1)).toBeFocused();
-    await page.screenshot({ path: `docs/evidence/milestone-b/mounts-${info.project.name}.png` });
+    await page.screenshot({ path: `docs/evidence/milestone-c/regression/mounts-${info.project.name}.png` });
     await page.evaluate(() => { (window as unknown as {
         primary: {
             destroy(): void;
         };
     }).primary.destroy(); });
-    await expect(page.getByRole('tree')).toHaveCount(3);
+    await expect(page.getByRole('tree')).toHaveCount(4);
 });

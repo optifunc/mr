@@ -1,0 +1,65 @@
+{
+  "browser": "146.0.1",
+  "results": [
+    {
+      "from": "one",
+      "direction": "down",
+      "to": "two",
+      "actual": "two"
+    },
+    {
+      "from": "c",
+      "direction": "up",
+      "to": "b",
+      "actual": "b"
+    },
+    {
+      "from": "a",
+      "direction": "down",
+      "to": "b",
+      "actual": "b"
+    },
+    {
+      "from": "single",
+      "direction": "up",
+      "to": "c",
+      "actual": "c"
+    },
+    {
+      "from": "single",
+      "direction": "down",
+      "to": "n1",
+      "actual": "n1"
+    },
+    {
+      "from": "n2",
+      "direction": "down",
+      "to": "n3",
+      "actual": "n3"
+    },
+    {
+      "from": "n3",
+      "direction": "up",
+      "to": "n2",
+      "actual": "n2"
+    },
+    {
+      "from": "c2",
+      "direction": "down",
+      "to": "n4",
+      "actual": "n4"
+    },
+    {
+      "from": "chain",
+      "direction": "up",
+      "to": "c",
+      "actual": "c"
+    },
+    {
+      "from": "c21",
+      "direction": "up",
+      "to": "child1",
+      "actual": "child1"
+    }
+  ]
+}

@@ -13,3 +13,6 @@ main { display: grid; gap: 24px; } section { min-width: 0; } #primary { height: 
 #editing-map { width: 605px; height: 324px; }
 .edit-comparison { display: flex; gap: 16px; width: max-content; }
 .edit-comparison img { width: 624px; height: 304px; }
+.drag-comparison { display: flex; flex-wrap: wrap; gap: 16px; }
+.drag-comparison figure { margin: 0; }
+#drag-map { width: 620px; height: 300px; max-width: 100%; }

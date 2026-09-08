@@ -63,3 +63,16 @@ describe('whole label URLs', () => {
     it.each(['See https://example.com', 'https://example.com more', 'javascript:alert(1)', '//example.com', '/relative', 'https://', 'https://example.com\nline'])('rejects %j', text => expect(labelUrl(text)).toBeUndefined());
     it.each([' https://example.com/a?q=b#c ', 'http://localhost:8080', 'HTTPS://example.com'])('recognizes %j', text => expect(labelUrl(text)).toBe(new URL(text.trim()).href));
 });
+
+it('explicit visual order determines copied forest order without reordering subtree siblings', () => {
+    expect(serialize(validateDocument(referenceMap()), ['child1', 'one', 'a'], ['one', 'a', 'b', 'c', 'child1'])).toBe('One\n\tA\n\tB\n\tC\nChild 1\n');
+});
+
+it('an explicit hidden paste target preserves hidden-ancestor collapse and a visible selection', () => {
+    let i = 0; const store = new Store({ document: referenceMap(), createNodeId: () => `hidden-paste-${i++}` });
+    store.paste('hidden', parse('Inserted'));
+    expect(store.model.nodes.get('hidden')!.children).toEqual(['hidden-paste-0']);
+    expect(store.model.nodes.get('collapsed')!.collapsed).toBe(true);
+    expect(store.selection).toEqual({ ids: ['collapsed'], activeId: 'collapsed' });
+    store.execute({ type: 'undo' }); expect(store.getDocument()).toEqual(referenceMap());
+});

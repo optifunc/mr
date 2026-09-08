@@ -1,6 +1,6 @@
 # Milestone C API checkpoint
 
-Stages 1–6 are implemented; dragging is in progress and menus remain stage 8. The complete contract
+Stages 1–7 are implemented; this checkpoint stops before menus and release validation. The complete contract
 remains in [requirements](requirements.md). See [acceptance](acceptance.md) for
 verified behavior and pending interaction stages.
 
@@ -217,6 +217,8 @@ clipboard UI or fallback document mutation is used.
 
 The entire paste parses and allocates IDs before one transaction. Pasting expands
 the destination to reveal the inserted children; pasted subtrees start expanded.
+An explicit target hidden by an ancestor remains hidden; selection stays on its
+nearest visible ancestor and completion still reports the newly inserted roots.
 Root pastes use the right side. Copy includes collapsed descendants, normalizes
 selected ancestors, and preserves visual order. Tabs encode indentation; leading
 spaces remain label text. LF/CRLF, checkbox prefixes, backslash/newline/tab/bracket
@@ -235,3 +237,24 @@ text. Primary-modifier label clicks and the API emit cancellable `linkopen` befo
 opening `_blank` with `noopener,noreferrer`. Branch/padding clicks still toggle
 selection. A policy listener exception prevents opening and emits `HOST_CALLBACK`.
 Copy and links are available in read-only mode and create no document history.
+
+## Mouse restructuring
+
+Drag a selected non-root node by more than four screen pixels to move the normalized
+selection in rendered visual order. An unselected press selects one source first.
+A compact label overlay follows the pointer. Top/bottom quarters insert before/after
+and take precedence at corners. The outward half of the middle makes children;
+the inward half is invalid. Root halves append on that side. The darkest gradient
+edge marks the receiving edge. No-op/cyclic targets have no gradient and use a
+prohibited cursor. Gradient colors do not change document or layout.
+
+Preview and commit share `move` applicability. Every effective release creates one
+transaction, retaining IDs and subtrees. Root-side interleaving alone is not an
+effective move. Child drops preserve a collapsed target; hidden moved nodes select
+the visible target until expansion. Root moves and read-only dragging are disabled.
+
+Escape, pointer cancellation, capture loss, document replacement/mutation, a new
+edit and destruction cancel the gesture and remove feedback. Edge autopan runs on
+animation frames and re-tests the stationary pointer after each viewport change;
+it stops immediately on completion/cancellation. Pan is view state, so cancelling
+a drag retains the resulting viewport and never adds history.

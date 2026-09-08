@@ -1,0 +1,8 @@
+{
+  "url": "http://127.0.0.1:5175/",
+  "status": 200,
+  "demoSourceStatus": 200,
+  "stage7": true,
+  "dragFixture": true,
+  "clipboardFixture": true
+}

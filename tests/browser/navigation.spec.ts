@@ -19,8 +19,8 @@ for (const readonly of [false, true]) {
         expect(await page.evaluate(() => ({ document: window.primary.getDocument(), layouts: document.querySelector('#primary .mindmap')!.getAttribute('data-layout-count') }))).toEqual(before);
         expect(await page.evaluate(() => window.primary.canUndo() || window.primary.canRedo())).toBe(false);
         if (!readonly) {
-            writeFileSync(`docs/evidence/milestone-b/navigation-root/results-${info.project.name}.json`, JSON.stringify({ browser: browser.version(), results }, null, 2) + '\n');
-            await page.locator('#primary').screenshot({ path: `docs/evidence/milestone-b/navigation-root/selection-${info.project.name}.png` });
+            writeFileSync(`docs/evidence/milestone-c/regression/navigation-root/results-${info.project.name}.json`, JSON.stringify({ browser: browser.version(), results }, null, 2) + '\n');
+            await page.locator('#primary').screenshot({ path: `docs/evidence/milestone-c/regression/navigation-root/selection-${info.project.name}.png` });
         }
     });
 }
@@ -80,7 +80,7 @@ for (const readonly of [false, true]) {
                 }, { direction, extend })).toEqual([false, false]);
                 expect(await state()).toEqual(before);
             }
-            if (!readonly && ids.length === 1) await page.locator('#primary').screenshot({ path: `docs/evidence/milestone-b/navigation-root/root-${info.project.name}.png` });
+            if (!readonly && ids.length === 1) await page.locator('#primary').screenshot({ path: `docs/evidence/milestone-c/regression/navigation-root/root-${info.project.name}.png` });
         }
     });
 }

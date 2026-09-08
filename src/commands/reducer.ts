@@ -168,7 +168,7 @@ export function prepare(model: Model, selection: Selection, command: MindMapComm
                 const n = get(id);
                 splice(n.parent!, get(n.parent!).children.indexOf(id), 1);
             }
-            const index = position === 'child' ? get(parent).children.length : get(parent).children.indexOf(target.id) + (position === 'after' ? 1 : 0);
+            const index = position === 'child' ? parent === model.rootId ? rootInsertIndex(side!, false) : get(parent).children.length : get(parent).children.indexOf(target.id) + (position === 'after' ? 1 : 0);
             splice(parent, index, 0, ...roots);
             for (const id of roots) {
                 const { side: _side, ...rest } = get(id);
@@ -188,6 +188,16 @@ export function prepare(model: Model, selection: Selection, command: MindMapComm
         default: return;
     }
     const candidate: Model = { rootId: model.rootId, nodes };
+    // Opposite-side interleaving is not a visible sibling position. Retain the
+    // original root array when both side sequences are unchanged by a move.
+    if (command.type === 'move') {
+        const before = model.nodes.get(model.rootId)!, after = nodes.get(model.rootId)!;
+        if (['left', 'right'].every(side => {
+            const a = before.children.filter(id => model.nodes.get(id)!.side === side);
+            const b = after.children.filter(id => nodes.get(id)!.side === side);
+            return a.length === b.length && a.every((id, index) => id === b[index]);
+        })) nodes.set(model.rootId, { ...after, children: before.children });
+    }
     const patches = patchesBetween(model, candidate);
     if (!patches.length)
         return;

@@ -1,0 +1,235 @@
+
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test tests/browser/drag.spec.ts tests/browser/clipboard.spec.ts --workers=1
+
+[2m[WebServer] [22m(node:62419) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:62429) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 126 tests using 1 worker
+
+(node:62438) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:62438) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓    1 [chromium] › tests/browser/clipboard.spec.ts:19:1 › API paste/cut/copy settle once, retain IDs on redo and expose completion after document/selection (371ms)
+  ✓    2 [chromium] › tests/browser/clipboard.spec.ts:35:56 › denied clipboard leaves document and history intact (112ms)
+  ✓    3 [chromium] › tests/browser/clipboard.spec.ts:35:56 › unavailable clipboard leaves document and history intact (114ms)
+  ✓    4 [chromium] › tests/browser/clipboard.spec.ts:43:1 › invalid indentation and generated-ID collision reject whole paste (120ms)
+  ✓    5 [chromium] › tests/browser/clipboard.spec.ts:53:113 › cut rejects deferred completion after edit (117ms)
+  ✓    6 [chromium] › tests/browser/clipboard.spec.ts:53:113 › cut rejects deferred completion after replace (117ms)
+  ✓    7 [chromium] › tests/browser/clipboard.spec.ts:53:113 › cut rejects deferred completion after interaction (115ms)
+  ✓    8 [chromium] › tests/browser/clipboard.spec.ts:53:113 › paste rejects deferred completion after edit (109ms)
+  ✓    9 [chromium] › tests/browser/clipboard.spec.ts:53:113 › paste rejects deferred completion after replace (110ms)
+  ✓   10 [chromium] › tests/browser/clipboard.spec.ts:53:113 › paste rejects deferred completion after interaction (112ms)
+  ✓   11 [chromium] › tests/browser/clipboard.spec.ts:66:1 › pending requests keep captured selection/target; copy survives edits; destroy suppresses completion (142ms)
+  ✓   12 [chromium] › tests/browser/clipboard.spec.ts:74:1 › native keyboard clipboard round trip works without duplicate API request and textarea keeps native routing (168ms)
+  ✓   13 [chromium] › tests/browser/clipboard.spec.ts:88:1 › read-only permits copy/links but rejects cut/paste; root cannot be cut (163ms)
+  ✓   14 [chromium] › tests/browser/clipboard.spec.ts:94:1 › URL modifier label clicks open protected tabs; branch selection, cancellation, callback failure and reclassification (272ms)
+  ✓   15 [chromium] › tests/browser/clipboard.spec.ts:108:1 › real asynchronous Clipboard API in a granted secure Chromium context (102ms)
+  ✓   16 [chromium] › tests/browser/clipboard.spec.ts:117:1 › empty clipboard no-op, empty physical label and literal HTML are preserved (116ms)
+  ✓   17 [chromium] › tests/browser/clipboard.spec.ts:126:1 › deferred cut deletes its captured sources after selection change and leaves clipboard errors isolated between mounts (104ms)
+  ✓   18 [chromium] › tests/browser/clipboard.spec.ts:133:1 › URL press cancellation and read-only replacement/paste reclassification (261ms)
+  ✓   19 [chromium] › tests/browser/drag.spec.ts:18:129 › actual group drag before previews gradient, freezes layout and commits one undoable move (348ms)
+  ✓   20 [chromium] › tests/browser/drag.spec.ts:18:129 › actual group drag after previews gradient, freezes layout and commits one undoable move (326ms)
+  ✓   21 [chromium] › tests/browser/drag.spec.ts:18:129 › actual group drag child previews gradient, freezes layout and commits one undoable move (327ms)
+  ✓   22 [chromium] › tests/browser/drag.spec.ts:32:48 › root left drop assigns side and append order; before/after root siblings adopts their side (337ms)
+  ✓   23 [chromium] › tests/browser/drag.spec.ts:32:48 › root right drop assigns side and append order; before/after root siblings adopts their side (328ms)
+  ✓   24 [chromium] › tests/browser/drag.spec.ts:40:1 › left outward zones mirror at 200% zoom and host scale; inward middle rejects (377ms)
+  ✓   25 [chromium] › tests/browser/drag.spec.ts:50:1 › multi-parent and ancestor selections normalize to one visual forest without duplicate descendants (252ms)
+  ✓   26 [chromium] › tests/browser/drag.spec.ts:57:1 › collapsed child drop stays collapsed, selects visible target and reveals preserved subtrees on expansion (276ms)
+  ✓   27 [chromium] › tests/browser/drag.spec.ts:65:91 › invalid cycle has prohibited cursor, no gradient, no history (246ms)
+  ✓   28 [chromium] › tests/browser/drag.spec.ts:65:91 › invalid selected has prohibited cursor, no gradient, no history (244ms)
+  ✓   29 [chromium] › tests/browser/drag.spec.ts:65:91 › invalid same-position has prohibited cursor, no gradient, no history (245ms)
+  ✓   30 [chromium] › tests/browser/drag.spec.ts:65:91 › invalid root has prohibited cursor, no gradient, no history (244ms)
+  ✓   31 [chromium] › tests/browser/drag.spec.ts:65:91 › invalid inward has prohibited cursor, no gradient, no history (247ms)
+  ✓   32 [chromium] › tests/browser/drag.spec.ts:75:116 › Escape clears drag feedback and cancels mutation (249ms)
+  ✓   33 [chromium] › tests/browser/drag.spec.ts:75:116 › pointercancel clears drag feedback and cancels mutation (242ms)
+  ✓   34 [chromium] › tests/browser/drag.spec.ts:75:116 › capture-loss clears drag feedback and cancels mutation (245ms)
+  ✓   35 [chromium] › tests/browser/drag.spec.ts:75:116 › replacement clears drag feedback and cancels mutation (264ms)
+  ✓   36 [chromium] › tests/browser/drag.spec.ts:75:116 › edit clears drag feedback and cancels mutation (245ms)
+  ✓   37 [chromium] › tests/browser/drag.spec.ts:75:116 › destroy clears drag feedback and cancels mutation (242ms)
+  ✓   38 [chromium] › tests/browser/drag.spec.ts:90:1 › stationary edge pointer autopans across frames, re-hits the target and stops on cancel without relayout (494ms)
+  ✓   39 [chromium] › tests/browser/drag.spec.ts:101:1 › unselected press selects one source; read-only and non-mouse input never drag (381ms)
+  ✓   40 [chromium] › tests/browser/drag.spec.ts:108:1 › reference drag comparison and environment evidence (412ms)
+  ✘   41 [chromium] › tests/browser/drag.spec.ts:118:1 › stationary pointer gradient is re-evaluated as autopan moves its target away (5.3s)
+(node:62501) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:62501) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   42 [chromium] › tests/browser/drag.spec.ts:127:1 › real pointer capture release and outside-widget release cancel drops (370ms)
+(node:62509) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:62509) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   43 [firefox] › tests/browser/clipboard.spec.ts:19:1 › API paste/cut/copy settle once, retain IDs on redo and expose completion after document/selection (893ms)
+  ✓   44 [firefox] › tests/browser/clipboard.spec.ts:35:56 › denied clipboard leaves document and history intact (294ms)
+  ✓   45 [firefox] › tests/browser/clipboard.spec.ts:35:56 › unavailable clipboard leaves document and history intact (291ms)
+  ✓   46 [firefox] › tests/browser/clipboard.spec.ts:43:1 › invalid indentation and generated-ID collision reject whole paste (243ms)
+  ✓   47 [firefox] › tests/browser/clipboard.spec.ts:53:113 › cut rejects deferred completion after edit (248ms)
+  ✓   48 [firefox] › tests/browser/clipboard.spec.ts:53:113 › cut rejects deferred completion after replace (249ms)
+  ✓   49 [firefox] › tests/browser/clipboard.spec.ts:53:113 › cut rejects deferred completion after interaction (249ms)
+  ✓   50 [firefox] › tests/browser/clipboard.spec.ts:53:113 › paste rejects deferred completion after edit (246ms)
+  ✓   51 [firefox] › tests/browser/clipboard.spec.ts:53:113 › paste rejects deferred completion after replace (247ms)
+  ✓   52 [firefox] › tests/browser/clipboard.spec.ts:53:113 › paste rejects deferred completion after interaction (252ms)
+  ✓   53 [firefox] › tests/browser/clipboard.spec.ts:66:1 › pending requests keep captured selection/target; copy survives edits; destroy suppresses completion (290ms)
+  ✓   54 [firefox] › tests/browser/clipboard.spec.ts:74:1 › native keyboard clipboard round trip works without duplicate API request and textarea keeps native routing (310ms)
+  ✓   55 [firefox] › tests/browser/clipboard.spec.ts:88:1 › read-only permits copy/links but rejects cut/paste; root cannot be cut (446ms)
+  ✓   56 [firefox] › tests/browser/clipboard.spec.ts:94:1 › URL modifier label clicks open protected tabs; branch selection, cancellation, callback failure and reclassification (446ms)
+  -   57 [firefox] › tests/browser/clipboard.spec.ts:108:1 › real asynchronous Clipboard API in a granted secure Chromium context
+  ✓   58 [firefox] › tests/browser/clipboard.spec.ts:117:1 › empty clipboard no-op, empty physical label and literal HTML are preserved (252ms)
+  ✓   59 [firefox] › tests/browser/clipboard.spec.ts:126:1 › deferred cut deletes its captured sources after selection change and leaves clipboard errors isolated between mounts (237ms)
+  ✓   60 [firefox] › tests/browser/clipboard.spec.ts:133:1 › URL press cancellation and read-only replacement/paste reclassification (426ms)
+  ✓   61 [firefox] › tests/browser/drag.spec.ts:18:129 › actual group drag before previews gradient, freezes layout and commits one undoable move (443ms)
+  ✓   62 [firefox] › tests/browser/drag.spec.ts:18:129 › actual group drag after previews gradient, freezes layout and commits one undoable move (438ms)
+  ✓   63 [firefox] › tests/browser/drag.spec.ts:18:129 › actual group drag child previews gradient, freezes layout and commits one undoable move (429ms)
+  ✓   64 [firefox] › tests/browser/drag.spec.ts:32:48 › root left drop assigns side and append order; before/after root siblings adopts their side (465ms)
+  ✓   65 [firefox] › tests/browser/drag.spec.ts:32:48 › root right drop assigns side and append order; before/after root siblings adopts their side (557ms)
+  ✓   66 [firefox] › tests/browser/drag.spec.ts:40:1 › left outward zones mirror at 200% zoom and host scale; inward middle rejects (596ms)
+  ✓   67 [firefox] › tests/browser/drag.spec.ts:50:1 › multi-parent and ancestor selections normalize to one visual forest without duplicate descendants (356ms)
+  ✓   68 [firefox] › tests/browser/drag.spec.ts:57:1 › collapsed child drop stays collapsed, selects visible target and reveals preserved subtrees on expansion (363ms)
+  ✓   69 [firefox] › tests/browser/drag.spec.ts:65:91 › invalid cycle has prohibited cursor, no gradient, no history (343ms)
+  ✓   70 [firefox] › tests/browser/drag.spec.ts:65:91 › invalid selected has prohibited cursor, no gradient, no history (362ms)
+  ✓   71 [firefox] › tests/browser/drag.spec.ts:65:91 › invalid same-position has prohibited cursor, no gradient, no history (361ms)
+  ✓   72 [firefox] › tests/browser/drag.spec.ts:65:91 › invalid root has prohibited cursor, no gradient, no history (375ms)
+  ✓   73 [firefox] › tests/browser/drag.spec.ts:65:91 › invalid inward has prohibited cursor, no gradient, no history (365ms)
+  ✓   74 [firefox] › tests/browser/drag.spec.ts:75:116 › Escape clears drag feedback and cancels mutation (348ms)
+  ✓   75 [firefox] › tests/browser/drag.spec.ts:75:116 › pointercancel clears drag feedback and cancels mutation (343ms)
+  ✓   76 [firefox] › tests/browser/drag.spec.ts:75:116 › capture-loss clears drag feedback and cancels mutation (344ms)
+  ✓   77 [firefox] › tests/browser/drag.spec.ts:75:116 › replacement clears drag feedback and cancels mutation (365ms)
+  ✓   78 [firefox] › tests/browser/drag.spec.ts:75:116 › edit clears drag feedback and cancels mutation (494ms)
+  ✓   79 [firefox] › tests/browser/drag.spec.ts:75:116 › destroy clears drag feedback and cancels mutation (343ms)
+  ✓   80 [firefox] › tests/browser/drag.spec.ts:90:1 › stationary edge pointer autopans across frames, re-hits the target and stops on cancel without relayout (600ms)
+  ✓   81 [firefox] › tests/browser/drag.spec.ts:101:1 › unselected press selects one source; read-only and non-mouse input never drag (538ms)
+  ✓   82 [firefox] › tests/browser/drag.spec.ts:108:1 › reference drag comparison and environment evidence (498ms)
+  ✘   83 [firefox] › tests/browser/drag.spec.ts:118:1 › stationary pointer gradient is re-evaluated as autopan moves its target away (5.5s)
+(node:62568) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:62568) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   84 [firefox] › tests/browser/drag.spec.ts:127:1 › real pointer capture release and outside-widget release cancel drops (1.0s)
+(node:62584) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:62584) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   85 [webkit] › tests/browser/clipboard.spec.ts:19:1 › API paste/cut/copy settle once, retain IDs on redo and expose completion after document/selection (623ms)
+  ✓   86 [webkit] › tests/browser/clipboard.spec.ts:35:56 › denied clipboard leaves document and history intact (224ms)
+  ✓   87 [webkit] › tests/browser/clipboard.spec.ts:35:56 › unavailable clipboard leaves document and history intact (196ms)
+  ✓   88 [webkit] › tests/browser/clipboard.spec.ts:43:1 › invalid indentation and generated-ID collision reject whole paste (209ms)
+  ✓   89 [webkit] › tests/browser/clipboard.spec.ts:53:113 › cut rejects deferred completion after edit (200ms)
+  ✓   90 [webkit] › tests/browser/clipboard.spec.ts:53:113 › cut rejects deferred completion after replace (211ms)
+  ✓   91 [webkit] › tests/browser/clipboard.spec.ts:53:113 › cut rejects deferred completion after interaction (216ms)
+  ✓   92 [webkit] › tests/browser/clipboard.spec.ts:53:113 › paste rejects deferred completion after edit (207ms)
+  ✓   93 [webkit] › tests/browser/clipboard.spec.ts:53:113 › paste rejects deferred completion after replace (196ms)
+  ✓   94 [webkit] › tests/browser/clipboard.spec.ts:53:113 › paste rejects deferred completion after interaction (195ms)
+  ✓   95 [webkit] › tests/browser/clipboard.spec.ts:66:1 › pending requests keep captured selection/target; copy survives edits; destroy suppresses completion (242ms)
+  ✓   96 [webkit] › tests/browser/clipboard.spec.ts:74:1 › native keyboard clipboard round trip works without duplicate API request and textarea keeps native routing (293ms)
+  ✓   97 [webkit] › tests/browser/clipboard.spec.ts:88:1 › read-only permits copy/links but rejects cut/paste; root cannot be cut (277ms)
+  ✓   98 [webkit] › tests/browser/clipboard.spec.ts:94:1 › URL modifier label clicks open protected tabs; branch selection, cancellation, callback failure and reclassification (394ms)
+  -   99 [webkit] › tests/browser/clipboard.spec.ts:108:1 › real asynchronous Clipboard API in a granted secure Chromium context
+  ✓  100 [webkit] › tests/browser/clipboard.spec.ts:117:1 › empty clipboard no-op, empty physical label and literal HTML are preserved (216ms)
+  ✓  101 [webkit] › tests/browser/clipboard.spec.ts:126:1 › deferred cut deletes its captured sources after selection change and leaves clipboard errors isolated between mounts (188ms)
+  ✓  102 [webkit] › tests/browser/clipboard.spec.ts:133:1 › URL press cancellation and read-only replacement/paste reclassification (334ms)
+  ✓  103 [webkit] › tests/browser/drag.spec.ts:18:129 › actual group drag before previews gradient, freezes layout and commits one undoable move (367ms)
+  ✓  104 [webkit] › tests/browser/drag.spec.ts:18:129 › actual group drag after previews gradient, freezes layout and commits one undoable move (341ms)
+  ✓  105 [webkit] › tests/browser/drag.spec.ts:18:129 › actual group drag child previews gradient, freezes layout and commits one undoable move (342ms)
+  ✓  106 [webkit] › tests/browser/drag.spec.ts:32:48 › root left drop assigns side and append order; before/after root siblings adopts their side (332ms)
+  ✓  107 [webkit] › tests/browser/drag.spec.ts:32:48 › root right drop assigns side and append order; before/after root siblings adopts their side (326ms)
+  ✓  108 [webkit] › tests/browser/drag.spec.ts:40:1 › left outward zones mirror at 200% zoom and host scale; inward middle rejects (333ms)
+  ✓  109 [webkit] › tests/browser/drag.spec.ts:50:1 › multi-parent and ancestor selections normalize to one visual forest without duplicate descendants (302ms)
+  ✓  110 [webkit] › tests/browser/drag.spec.ts:57:1 › collapsed child drop stays collapsed, selects visible target and reveals preserved subtrees on expansion (314ms)
+  ✓  111 [webkit] › tests/browser/drag.spec.ts:65:91 › invalid cycle has prohibited cursor, no gradient, no history (274ms)
+  ✓  112 [webkit] › tests/browser/drag.spec.ts:65:91 › invalid selected has prohibited cursor, no gradient, no history (273ms)
+  ✓  113 [webkit] › tests/browser/drag.spec.ts:65:91 › invalid same-position has prohibited cursor, no gradient, no history (248ms)
+  ✓  114 [webkit] › tests/browser/drag.spec.ts:65:91 › invalid root has prohibited cursor, no gradient, no history (275ms)
+  ✓  115 [webkit] › tests/browser/drag.spec.ts:65:91 › invalid inward has prohibited cursor, no gradient, no history (281ms)
+  ✓  116 [webkit] › tests/browser/drag.spec.ts:75:116 › Escape clears drag feedback and cancels mutation (267ms)
+  ✓  117 [webkit] › tests/browser/drag.spec.ts:75:116 › pointercancel clears drag feedback and cancels mutation (273ms)
+  ✓  118 [webkit] › tests/browser/drag.spec.ts:75:116 › capture-loss clears drag feedback and cancels mutation (276ms)
+  ✓  119 [webkit] › tests/browser/drag.spec.ts:75:116 › replacement clears drag feedback and cancels mutation (280ms)
+  ✓  120 [webkit] › tests/browser/drag.spec.ts:75:116 › edit clears drag feedback and cancels mutation (284ms)
+  ✓  121 [webkit] › tests/browser/drag.spec.ts:75:116 › destroy clears drag feedback and cancels mutation (271ms)
+  ✓  122 [webkit] › tests/browser/drag.spec.ts:90:1 › stationary edge pointer autopans across frames, re-hits the target and stops on cancel without relayout (514ms)
+  ✓  123 [webkit] › tests/browser/drag.spec.ts:101:1 › unselected press selects one source; read-only and non-mouse input never drag (386ms)
+  ✓  124 [webkit] › tests/browser/drag.spec.ts:108:1 › reference drag comparison and environment evidence (388ms)
+  ✓  125 [webkit] › tests/browser/drag.spec.ts:118:1 › stationary pointer gradient is re-evaluated as autopan moves its target away (396ms)
+  ✓  126 [webkit] › tests/browser/drag.spec.ts:127:1 › real pointer capture release and outside-widget release cancel drops (295ms)
+
+
+  1) [chromium] › tests/browser/drag.spec.ts:118:1 › stationary pointer gradient is re-evaluated as autopan moves its target away 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveAttribute[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator:  locator('#primary .mindmap-nodes [data-node-id="n1"]')
+    Expected: [32m"right"[39m
+    Received: [31m""[39m
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toHaveAttribute" with timeout 5000ms[22m
+    [2m  - waiting for locator('#primary .mindmap-nodes [data-node-id="n1"]')[22m
+    [2m    9 × locator resolved to <div aria-level="3" role="treeitem" aria-label="N1" aria-setsize="4" data-node-id="n1" aria-posinset="1" class="mindmap-node" aria-selected="false" id="mindmap-1-node-14">…</div>[22m
+    [2m      - unexpected value "null"[22m
+
+
+      121 |     await page.evaluate(dx => { const v = window.primary.getViewport(); window.primary.panTo(v.x + dx, v.y); }, host.x + host.width - 12 - target.x);
+      122 |     await begin(page, 'n2'); await over(page, 'n1', .9, .5);
+    > 123 |     await expect(node(page, 'n1')).toHaveAttribute('data-drop-edge', 'right');
+          |                                    ^
+      124 |     await expect.poll(() => page.locator('#primary [data-drop-edge]').count()).toBe(0);
+      125 |     await page.mouse.up(); expect((await state(page)).doc).toEqual(referenceMap()); expect((await state(page)).undo).toBe(false);
+      126 | });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/drag.spec.ts:123:36
+
+    Error Context: test-results/drag-stationary-pointer-gr-ad0dc-topan-moves-its-target-away-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/drag-stationary-pointer-gr-ad0dc-topan-moves-its-target-away-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/drag-stationary-pointer-gr-ad0dc-topan-moves-its-target-away-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [firefox] › tests/browser/drag.spec.ts:118:1 › stationary pointer gradient is re-evaluated as autopan moves its target away 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveAttribute[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator:  locator('#primary .mindmap-nodes [data-node-id="n1"]')
+    Expected: [32m"right"[39m
+    Received: [31m""[39m
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toHaveAttribute" with timeout 5000ms[22m
+    [2m  - waiting for locator('#primary .mindmap-nodes [data-node-id="n1"]')[22m
+    [2m    9 × locator resolved to <div aria-level="3" role="treeitem" aria-label="N1" aria-setsize="4" data-node-id="n1" aria-posinset="1" class="mindmap-node" aria-selected="false" id="mindmap-1-node-14">…</div>[22m
+    [2m      - unexpected value "null"[22m
+
+
+      121 |     await page.evaluate(dx => { const v = window.primary.getViewport(); window.primary.panTo(v.x + dx, v.y); }, host.x + host.width - 12 - target.x);
+      122 |     await begin(page, 'n2'); await over(page, 'n1', .9, .5);
+    > 123 |     await expect(node(page, 'n1')).toHaveAttribute('data-drop-edge', 'right');
+          |                                    ^
+      124 |     await expect.poll(() => page.locator('#primary [data-drop-edge]').count()).toBe(0);
+      125 |     await page.mouse.up(); expect((await state(page)).doc).toEqual(referenceMap()); expect((await state(page)).undo).toBe(false);
+      126 | });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/drag.spec.ts:123:36
+
+    Error Context: test-results/drag-stationary-pointer-gr-ad0dc-topan-moves-its-target-away-firefox/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/drag-stationary-pointer-gr-ad0dc-topan-moves-its-target-away-firefox/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/drag-stationary-pointer-gr-ad0dc-topan-moves-its-target-away-firefox/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [chromium] › tests/browser/drag.spec.ts:118:1 › stationary pointer gradient is re-evaluated as autopan moves its target away 
+    [firefox] › tests/browser/drag.spec.ts:118:1 › stationary pointer gradient is re-evaluated as autopan moves its target away 
+  2 skipped
+  122 passed (55.9s)
+ ELIFECYCLE  Command failed with exit code 1.
