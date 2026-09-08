@@ -51,7 +51,9 @@ fractional page coordinates. These baselines are specific to the recorded macOS,
 Arial and pinned Playwright browser environment; do not approve replacements merely
 because another platform rasterizes differently.
 
-B editing screenshots are candidates pending user review. The supplied editing
+Milestone B's final behavior and appearance were accepted at `4209b2a` on
+2026-09-08; see the [acceptance record](acceptance.md#milestone-b-stages-45).
+Earlier superseded editing captures remain historical. The supplied editing
 reference is displayed at 50% of its raster dimensions beside the 100% 12px widget.
 Textarea alignment is also checked beside root and checkbox labels at 150% zoom.
 Never overwrite supplied references or the accepted A evidence. New captures are
@@ -115,4 +117,5 @@ written to `docs/evidence/milestone-b/`; tests retain failure traces in ignored
 - `pnpm test:browser tests/browser/checkpoint-b.spec.ts --grep accepted-A --workers=1`:
   exact accepted-default comparisons across all engines.
 - Current evidence: `docs/evidence/milestone-b/focus-controls/`. Focused images are
-  new review candidates; accepted default baselines and prior evidence are retained.
+  part of the accepted B appearance at `4209b2a`; accepted default baselines and
+  prior evidence are retained.

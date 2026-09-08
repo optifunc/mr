@@ -4,9 +4,10 @@ Last updated: 2026-09-08
 
 ## Current state
 
-**Milestone B is technically complete and stopped at the stage-5 product checkpoint.**
-User acceptance of B's navigation/editing experience and editing screenshots is
-pending. Milestone A's default baseline at `253b99d` remains accepted and unchanged.
+**Milestone B is technically complete and accepted at `4209b2a` on 2026-09-08.**
+The user accepted the stage-5 product checkpoint, including the final reviewed
+behavior and appearance. [Acceptance record](acceptance.md#milestone-b-stages-45).
+Milestone A's default baseline at `253b99d` remains accepted and unchanged.
 The approved Up/Down corrections now prefer siblings, then same-depth nodes, then
 the nearest shallower node outside the ancestor chain. All ten examples are verified.
 Root Up/Down, including Shift, now does nothing as requested on 2026-09-08.
@@ -36,7 +37,7 @@ Run `pnpm dev`, then open http://127.0.0.1:5173.
 | Milestone | Stages | Technical status | User acceptance | Evidence |
 |---|---|---|---|---|
 | A: Foundation and appearance | 1–3 | Complete | Accepted at `253b99d`, including default visuals | [A](acceptance.md#milestone-a-stages-13) |
-| B: Navigation and editing | 4–5 | Complete | Pending | [B](acceptance.md#milestone-b-stages-45) |
+| B: Navigation and editing | 4–5 | Complete | Accepted at `4209b2a` on 2026-09-08 | [B](acceptance.md#milestone-b-stages-45) |
 | C: Clipboard and dragging | 6–7 | Not started | Pending | [C](acceptance.md#milestone-c-stages-67) |
 | D: Integration and release | 8–9 | Not started | Pending | [D](acceptance.md#milestone-d-stages-89) |
 
@@ -119,8 +120,9 @@ Run `pnpm dev`, then open http://127.0.0.1:5173.
 
 ## Next action and known limits
 
-User stage-5 product review, followed by any requested corrections. Do not begin
-milestone C without authorization. The runnable demo exposes all B behaviors,
+Milestone B product review is complete. Next is milestone C (stages 6–7: clipboard,
+links and dragging), awaiting user authorization. Do not begin implementation yet.
+The runnable demo exposes all B behaviors,
 reference/editing comparisons, event/selection/history state, read-only mode and
 an interleaved-side fixture. See the [B report](evidence/milestone-b/report.md).
 
@@ -333,3 +335,18 @@ testing and acceptance are updated. Previous images/default baselines are preser
 Next: user stage-5 review. Full suite/workload, actual stable-browser, real OS IME,
 screen-reader and packaged-consumer release checks were not rerun; prior C/D gaps
 remain. The demo still runs with `pnpm dev` or the existing 5174 server.
+
+## B product acceptance — 2026-09-08
+
+The user explicitly accepted Milestone B at `4209b2a`, including the final reviewed
+behavior and appearance after the navigation, editing and direct-control corrections.
+[Acceptance record](acceptance.md#milestone-b-stages-45). Historical pending-review
+notes above are superseded. Superseded screenshots remain historical; accepted A
+baselines and all existing evidence are preserved.
+
+This update changes acceptance/progress/testing documentation only. `git diff --check`
+passed; implementation tests were not rerun. The last implementation checks remain
+114 unit tests, 90 browser interaction/editing cases and 3 exact default comparisons
+as recorded in the final controls report. No new test pass is claimed here.
+Next: await authorization for milestone C. Stages 6–9 and their release checks
+remain unstarted/unverified as previously recorded.

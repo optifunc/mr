@@ -123,6 +123,22 @@ regression baseline exists. Stop at this product checkpoint as requested.
 
 ## Milestone B: stages 4–5
 
+**Accepted 2026-09-08 at `4209b2a`.** The user explicitly stated:
+“Milestone B is accepted, record that acceptance”. This accepts the completed
+stage-4/5 navigation, selection, movement, viewport, editing and creation experience,
+including the reviewed navigation, editor sizing/alignment, focus, shortcut and
+collapsed-circle corrections and their final appearance.
+
+The [final controls evidence](evidence/milestone-b/focus-controls/report.md) and
+[editor sizing evidence](evidence/milestone-b/editor-sizing/report.md) identify the
+reviewed implementation and screenshots. Historical pending decisions below and
+in earlier handover reports are superseded by this acceptance; superseded candidate
+images remain historical. Milestone A's accepted default baselines remain unchanged.
+
+This records product acceptance, not new test execution or completion of later
+release gates. Milestone C (stages 6–7) is next, awaiting implementation authorization;
+stages 6–9 remain unstarted and their documented checks remain outstanding.
+
 **Product review:** fluent keyboard creation, selection, navigation, and editing.
 
 **2026-09-08 focus and controls:** focused widgets have no frame, Ctrl+Space toggles
