@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { writeFileSync } from 'node:fs';
 import { referenceMap } from '../fixtures/maps';
-const evidence = 'docs/evidence/milestone-b/editing-adjustments';
+const evidence = 'docs/evidence/milestone-b/editor-sizing';
 const phase = process.env.EDIT_REVIEW_BEFORE ? 'before' : 'after';
 test.beforeEach(async ({ page }) => { await page.goto('/'); await page.evaluate(() => document.fonts.ready); });
 
@@ -72,7 +72,7 @@ test('overflow has no horizontal scrollbar and the caret can reach both ends wit
     await page.keyboard.press('Escape'); expect(await page.evaluate(() => window.primary.getDocument())).toEqual(referenceMap());
 });
 
-for (const zoom of [1, 2]) test(`empty creation is 100px wide and grows away from root at ${zoom * 100}%`, async ({ page }, info) => {
+for (const zoom of [1, 2]) test(`empty creation fits eight Ms and grows away from root at ${zoom * 100}%`, async ({ page }, info) => {
     const measurements = [];
     for (const target of ['child1', 'c21', 'one']) for (const key of ['Enter', 'Shift+Enter', 'Tab', 'Shift+Tab']) {
         await page.evaluate(({ target, zoom }) => { window.primary.setZoom(zoom); window.primary.setSelection([target]); window.primary.focus(); }, { target, zoom });
@@ -83,14 +83,17 @@ for (const zoom of [1, 2]) test(`empty creation is 100px wide and grows away fro
             const id = window.primary.getSelection().activeId!;
             const label = host.querySelector(`[data-node-id="${id}"] .mindmap-label`)!.getBoundingClientRect();
             const area = host.querySelector('textarea')!.getBoundingClientRect();
-            return { label: label.toJSON(), area: area.toJSON() };
+            const probe = host.querySelector(`[data-node-id="${id}"] .mindmap-label`)!.cloneNode(false) as HTMLElement;
+            probe.textContent = 'MMMMMMMM'; probe.style.position = 'absolute'; probe.style.width = 'max-content'; host.querySelector('.mindmap-scene')!.append(probe);
+            const eightM = parseFloat(getComputedStyle(probe).width); probe.remove();
+            return { label: label.toJSON(), area: area.toJSON(), eightM };
         });
         if (target === 'child1' && key === 'Enter') await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-left-new-${zoom}x-${info.project.name}.png` });
         // Border + padding is 3 local px on each edge. Left branches anchor the
         // content's right edge; right branches anchor its left edge.
         const dx = target === 'one' ? measured.area.x + 3 * zoom - measured.label.x : measured.area.right - 3 * zoom - measured.label.right;
         expect(Math.abs(dx)).toBeLessThan(.76);
-        expect(measured.area.width).toBe(100 * zoom);
+        expect(measured.area.width).toBe((Math.ceil(measured.eightM) + 6) * zoom);
         expect(Math.abs(measured.area.y + 3 * zoom - measured.label.y)).toBeLessThan(.76);
         measurements.push({ target, key, zoom, ...measured, dx });
         const frozen = await page.locator('#primary .mindmap-nodes').innerHTML();

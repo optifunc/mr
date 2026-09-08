@@ -125,12 +125,20 @@ regression baseline exists. Stop at this product checkpoint as requested.
 
 **Product review:** fluent keyboard creation, selection, navigation, and editing.
 
-**2026-09-08 editing adjustments:** the four approved changes are implemented:
+**2026-09-08 editor sizing/baseline:** new nodes and existing leaves/collapsed nodes
+now fit eight Ms; existing expanded parents match the selection width. Bottom borders
+meet branch lines and text keeps its position on F2. Typecheck/build, 114 unit tests,
+105 distinct browser cases and exact accepted-default comparisons passed. Inspected
+before/after images and measured zero vertical text-origin movement across engines.
+[Latest report, screenshots, measurements and checks](evidence/milestone-b/editor-sizing/report.md).
+These editing images await user acceptance; the checkpoint remains stage 5.
+
+**2026-09-08 editing adjustments (superseded sizing):** the four approved changes are implemented:
 typing replaces the active label, horizontal scrollbars stay hidden, empty creation
 editors are 100px wide, and left-side editors expand outward from the label's right
 edge. Typecheck/build, 114 unit tests and 129 distinct browser cases passed across
 Chromium/Firefox/WebKit, including the three exact accepted-A comparisons.
-[Latest report, before/after screenshots and checks](evidence/milestone-b/editing-adjustments/report.md).
+[Previous report, before/after screenshots and checks](evidence/milestone-b/editing-adjustments/report.md).
 The revised editing images are review candidates; B product acceptance is pending.
 
 **2026-09-08 root navigation:** Up/Down and Shift+Up/Down now do nothing when
@@ -170,8 +178,11 @@ Use the reference map for a short repeatable exercise:
    selects the existing text. Type a long line: no horizontal scrollbar appears,
    and the caret remains reachable at both ends. Edit a multiline label and verify
    geometry stays frozen until commit. Select Child 1 and press Enter: the empty
-   editor is 100px wide and grows leftward from the new label's right edge.
-   Repeat on a right branch and at 200% zoom; Escape restores the creation state.
+   editor fits eight Ms and grows leftward from the new label's right edge.
+   F2 on One/Child2 matches the gray selection width; F2 on a leaf or collapsed
+   node uses eight-M width. Watch the text as F2 opens: it must not jump. The lower
+   border must join the branch line with no step. Repeat on both sides and at
+   150%/200% zoom; Escape restores the creation state.
 5. Cancel creation under a collapsed parent and cancel insert-parent creation;
    verify structure, collapse state, selection, and history are restored.
 6. Commit by clicking another node and verify the resulting selection and focus.

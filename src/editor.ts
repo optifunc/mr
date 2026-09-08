@@ -223,7 +223,7 @@ export class MindMapEditor {
         const edit = this.store.edit!; this.editOrigin = origin; this.editViewport = creation ? originalViewport : undefined;
         this.selectionPath.reset(this.store.selection); this.revealIds([edit.id]);
         this.textEditor = new TextEditor(this.scene.scene, this.scene.nodeElement(edit.id)!, replacementText ?? this.store.model.nodes.get(edit.id)!.text,
-            { side: this.scene.geometry!.nodes.get(edit.id)!.side, minimumWidth: creation && !this.store.model.nodes.get(edit.id)!.text ? 100 : 50,
+            { geometry: this.scene.geometry!.nodes.get(edit.id)!, creation, compact: creation || !this.store.model.nodes.get(edit.id)!.children.some(id => this.scene.geometry!.nodes.has(id)),
                 width: Math.max(20, (this.element.clientWidth - 32) / this.viewport.zoom), height: Math.max(21, Math.min(186, (this.element.clientHeight - 32) / this.viewport.zoom)) },
             (commit, focus) => { this.run(() => { this.finishEdit(commit, focus); return true; }); });
         if (replacementText !== undefined) this.textEditor.textarea.setSelectionRange(replacementText.length, replacementText.length);

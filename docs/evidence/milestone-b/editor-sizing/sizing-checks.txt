@@ -1,0 +1,37 @@
+
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test tests/browser/editor-sizing.spec.ts --workers=1
+
+[2m[WebServer] [22m(node:59198) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:59210) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 12 tests using 1 worker
+
+(node:59219) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:59219) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/browser/editor-sizing.spec.ts:7:33 › F2 width follows visible children and text/bottom alignment at 1 (1.1s)
+  ✓   2 [chromium] › tests/browser/editor-sizing.spec.ts:7:33 › F2 width follows visible children and text/bottom alignment at 1.5 (1.0s)
+  ✓   3 [chromium] › tests/browser/editor-sizing.spec.ts:7:33 › F2 width follows visible children and text/bottom alignment at 2 (1.8s)
+  ✓   4 [chromium] › tests/browser/editor-sizing.spec.ts:39:1 › eight-M width fits eight letters, follows the font, and creation wrapping follows visible children (677ms)
+(node:59240) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:59240) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   5 [firefox] › tests/browser/editor-sizing.spec.ts:7:33 › F2 width follows visible children and text/bottom alignment at 1 (4.3s)
+  ✓   6 [firefox] › tests/browser/editor-sizing.spec.ts:7:33 › F2 width follows visible children and text/bottom alignment at 1.5 (2.2s)
+  ✓   7 [firefox] › tests/browser/editor-sizing.spec.ts:7:33 › F2 width follows visible children and text/bottom alignment at 2 (2.9s)
+  ✓   8 [firefox] › tests/browser/editor-sizing.spec.ts:39:1 › eight-M width fits eight letters, follows the font, and creation wrapping follows visible children (1.4s)
+(node:59264) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:59264) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   9 [webkit] › tests/browser/editor-sizing.spec.ts:7:33 › F2 width follows visible children and text/bottom alignment at 1 (3.3s)
+  ✓  10 [webkit] › tests/browser/editor-sizing.spec.ts:7:33 › F2 width follows visible children and text/bottom alignment at 1.5 (2.6s)
+  ✓  11 [webkit] › tests/browser/editor-sizing.spec.ts:7:33 › F2 width follows visible children and text/bottom alignment at 2 (2.5s)
+  ✓  12 [webkit] › tests/browser/editor-sizing.spec.ts:39:1 › eight-M width fits eight letters, follows the font, and creation wrapping follows visible children (1.2s)
+
+  12 passed (34.7s)

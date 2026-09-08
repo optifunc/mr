@@ -101,10 +101,13 @@ pointer actions commit before hit testing the new layout. Focus leaving the text
 also commits; it does not steal focus back from the destination. IME composition
 Enter is guarded. Normal text shortcuts, including Command/Ctrl+arrows, stay inside
 the textarea. The editor is bounded to the available viewport and scrolls long text
-without a horizontal scrollbar. Empty creation editors start at 100 local CSS pixels
-wide, capped by the viewport. Left-side editors anchor at the label's right edge
-and expand leftward; right/root editors anchor at the label's left edge.
-Scene geometry remains frozen until commit. Explicit refresh/font invalidation is
+without a horizontal scrollbar. New nodes (including wrapped parents) and existing
+leaves/collapsed nodes fit eight Ms plus padding/borders; expanded existing parents
+match the selection-box width. Sizing uses the current font and is capped by the
+viewport. Compact left editors expand outward while preserving the existing text
+position on entry. Bottom border centers meet the branch baseline without moving
+the text; root retains its label-aligned vertical frame. Editor and scene geometry
+stay frozen while typing; multiline overflow scrolls inside the textarea. Explicit refresh/font invalidation is
 deferred until the edit finishes.
 
 Creation selection is observable immediately (`selectionchange`, then `editstart`).

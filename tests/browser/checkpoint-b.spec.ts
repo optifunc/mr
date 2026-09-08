@@ -8,28 +8,28 @@ test('editing reference, multiline, checkbox/root alignment and frozen geometry 
     await page.keyboard.press('ArrowRight');
     await page.setViewportSize({ width: 1440, height: 1200 });
     await page.locator('.edit-comparison').scrollIntoViewIfNeeded();
-    await page.locator('.edit-comparison').screenshot({ path: `docs/evidence/milestone-b/editing-adjustments/editing-comparison-${info.project.name}.png` });
-    await page.locator('#editing-map').screenshot({ path: `docs/evidence/milestone-b/editing-adjustments/editing-${info.project.name}.png` });
+    await page.locator('.edit-comparison').screenshot({ path: `docs/evidence/milestone-b/editor-sizing/editing-comparison-${info.project.name}.png` });
+    await page.locator('#editing-map').screenshot({ path: `docs/evidence/milestone-b/editor-sizing/editing-${info.project.name}.png` });
     const before = await page.locator('#editing-map .mindmap-nodes').innerHTML();
     await editor.fill('First line\nSecond line\nThird line');
     expect(await page.locator('#editing-map .mindmap-nodes').innerHTML()).toBe(before);
-    await page.locator('#editing-map').screenshot({ path: `docs/evidence/milestone-b/editing-adjustments/editing-multiline-${info.project.name}.png` });
+    await page.locator('#editing-map').screenshot({ path: `docs/evidence/milestone-b/editor-sizing/editing-multiline-${info.project.name}.png` });
     await page.keyboard.press('Enter');
-    await page.locator('#editing-map').screenshot({ path: `docs/evidence/milestone-b/editing-adjustments/committed-multiline-${info.project.name}.png` });
+    await page.locator('#editing-map').screenshot({ path: `docs/evidence/milestone-b/editor-sizing/committed-multiline-${info.project.name}.png` });
     const measurements = [];
     for (const id of ['root', 'multi', 'checked']) {
         await page.evaluate(id => { window.secondary.setZoom(1.5); window.secondary.editNode(id); }, id);
         const measured = await page.locator('#secondary').evaluate((host, id) => {
             const label = host.querySelector(`[data-node-id="${id}"] .mindmap-label`)!.getBoundingClientRect();
-            const area = host.querySelector('textarea')!.getBoundingClientRect();
-            return { id, label: label.toJSON(), area: area.toJSON(), dx: area.x + 4.5 - label.x, dy: area.y + 4.5 - label.y };
+            const textarea = host.querySelector('textarea')!, area = textarea.getBoundingClientRect(), style = getComputedStyle(textarea);
+            return { id, label: label.toJSON(), area: area.toJSON(), dx: area.x + (1 + parseFloat(style.paddingLeft)) * 1.5 - label.x, dy: area.y + (1 + parseFloat(style.paddingTop)) * 1.5 - label.y };
         }, id);
         expect(Math.abs(measured.dx)).toBeLessThan(.76); expect(Math.abs(measured.dy)).toBeLessThan(.76);
         measurements.push(measured);
-        await page.locator('#secondary').screenshot({ path: `docs/evidence/milestone-b/editing-adjustments/editor-${id}-${info.project.name}.png` });
+        await page.locator('#secondary').screenshot({ path: `docs/evidence/milestone-b/editor-sizing/editor-${id}-${info.project.name}.png` });
         await page.keyboard.press('Escape');
     }
-    writeFileSync(`docs/evidence/milestone-b/editing-adjustments/editing-${info.project.name}.json`, JSON.stringify({ browser: browser.version(), platform: process.platform, viewport: page.viewportSize(), deviceScaleFactor: 1, measurements }, null, 2) + '\n');
+    writeFileSync(`docs/evidence/milestone-b/editor-sizing/editing-${info.project.name}.json`, JSON.stringify({ browser: browser.version(), platform: process.platform, viewport: page.viewportSize(), deviceScaleFactor: 1, measurements }, null, 2) + '\n');
 });
 test('Ctrl routing on simulated non-Mac platform, all movement no-op classes, left promotion, empty destination and reveal', async ({ page }) => {
     await page.addInitScript(() => Object.defineProperty(navigator, 'platform', { get: () => 'Win32' }));
@@ -96,7 +96,7 @@ test('accepted-A rendering regression in its original page geometry', async ({ p
     await page.setViewportSize({ width: 1440, height: 1200 });
     await page.locator('.comparison').scrollIntoViewIfNeeded();
     await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
-    const capture = await page.locator('#comparison-map').screenshot({ path: `docs/evidence/milestone-b/editing-adjustments/regression-reference-${info.project.name}.png` });
+    const capture = await page.locator('#comparison-map').screenshot({ path: `docs/evidence/milestone-b/editor-sizing/regression-reference-${info.project.name}.png` });
     expect(capture.equals(readFileSync(`docs/evidence/milestone-a/checkbox-size/reference-${info.project.name}.png`)), 'Approved A image, pinned macOS browser/font environment, exact PNG comparison').toBe(true);
 });
 

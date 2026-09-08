@@ -12,8 +12,10 @@ the nearest shallower node outside the ancestor chain. All ten examples are veri
 Root Up/Down, including Shift, now does nothing as requested on 2026-09-08.
 [Navigation evidence](evidence/milestone-b/navigation-root/report.md).
 The approved editing adjustments now support typing replacement, hide horizontal
-scrollbars, double empty creation width, and anchor left editors outward.
-[Latest evidence](evidence/milestone-b/editing-adjustments/report.md).
+scrollbars, and anchor left editors outward. The latest sizing correction uses
+an eight-M width for new/leaf/collapsed nodes and selection width for expanded
+parents, with the bottom border on the branch line and stable text position.
+[Latest evidence](evidence/milestone-b/editor-sizing/report.md).
 Stages 6–9 have not been started.
 
 Stages 4–5 include mouse/range selection, geometry navigation, keyboard sibling-block
@@ -271,3 +273,35 @@ baselines. [Report, logs, geometry and screenshots](evidence/milestone-b/editing
 Next: user stage-5 product review. Run `pnpm dev` and follow the report's four
 exercises. Full release/browser workload and real OS IME/manual assistive technology
 checks were not rerun; existing milestone C/D gaps remain unchanged.
+
+## B editor sizing and baseline — 2026-09-08
+
+Implemented the approved follow-up: measure eight Ms in the current font, plus
+padding/borders (86px at default 12px Arial), for new nodes and existing nodes with
+no visible children. Existing expanded parents use the selection rectangle's width.
+Every new node, including an inserted parent, uses the new-node width. Both sizing
+paths are viewport-bounded and shared by F2, click, typing and API editing.
+
+The lower 1px border is centered on the branch line, retaining the measured text
+origin. The default single-line frame is now 20.5px high. Existing short left-side
+labels retain their text position using adjustable padding; multiline rows remain
+left aligned. Expanded-parent padding keeps checkbox space visible. Root retains
+its label-aligned height because it has an ellipse rather than a bottom branch line.
+The frame stays fixed during typing, scrolling multiline/long text internally.
+
+Based on `13a5f88`; tested task changes are in the commit containing this entry and
+[report](evidence/milestone-b/editor-sizing/report.md). Passed: typecheck/build,
+114 unit tests, 105 distinct sizing/editing/checkpoint browser cases across three
+engines, including 3 exact accepted-A PNG comparisons, and whitespace checks.
+The browser run passed 104/105; one WebKit case lost `window.primary` during a demo
+source update, consistent with Vite reloading the page. It passed the isolated
+rerun with stable source files. No assertion/tolerance was relaxed. Pre-fix sizing
+coverage failed all four Chromium cases; the focused sizing run then passed all 12.
+
+Measured zero vertical text-origin difference at 100%/150%/200% in every engine.
+Inspected before/after parent width/baseline, leaf/collapsed, new-node, editing
+reference, multiline scrolling, root and checkbox screenshots. Previous images and
+accepted baselines remain unchanged; new images are product-review candidates.
+Requirements, plan, API, demo evidence link, testing and acceptance are current.
+Next: continue user review at stage 5. Full suite/workload, OS IME and later release
+checks were not rerun; the previously documented milestone C/D gaps remain.

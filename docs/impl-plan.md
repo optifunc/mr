@@ -348,13 +348,29 @@ transaction. Preserve case; do not reinterpret Space, modifier shortcuts, or
 composition keys. Use the active node for multiple selection and the existing
 read-only/visible-target guards.
 
-Size empty creation editors to 100 local CSS pixels (previously 50), capped by
-viewport bounds. Left-side editors anchor their content's right edge at the
-label's right edge; right/root editors retain their left content anchor. Keep the
-3px border-plus-padding inset and frozen scene geometry. Use hidden horizontal
-overflow with native caret scrolling and automatic vertical overflow. Verify
-left root/nested insertion bindings at 100%/200%, mirrored right-side placement,
-cancellation restoration, overflow caret visibility, and accepted-default images.
+Measure `MMMMMMMM` using the editor's inherited font in local CSS coordinates,
+round up to a whole local pixel and add 6px for padding/borders (86px with default
+12px Arial). Use this for every new node, including inserted parents, and for
+existing nodes without visible children. Existing expanded parents use the full
+selection-box width and horizontal bounds. Cap every editor by viewport bounds.
+
+Keep the textarea text origin at the measured label origin. Derive local label
+insets from node padding, checkbox prefix, root centering and label dimensions
+rather than rounded offsets or transformed screen coordinates. Compact left-side
+editors expand outward; for existing labels, adjust left padding to preserve their
+text-block position, retaining left alignment within multiline labels. As the buffer
+grows, release this extra padding before native scrolling takes over. New empty
+editors start at their normal left padding. Expanded-parent frames include checkbox
+space, whose background remains transparent so the existing control stays visible.
+
+Center the lower 1px border on the branch baseline while retaining the existing
+3px top border-plus-padding inset. Derive height and bottom padding from this
+constraint (20.5px high with default single-line styling). Root uses its existing
+label-height frame because it has no bottom branch line. Freeze the frame during
+typing and scroll overflow internally; hide horizontal scrollbars. Oversized labels
+remain bounded to the viewport. Verify font-derived width, expanded/collapsed rules,
+no text movement and border alignment at 100%/150%/200%, root/checkbox insets,
+all insertion bindings, cancellation restoration and exact accepted-default images.
 
 The textarea owns platform text shortcuts. Respect composition events so Enter
 used by an IME does not prematurely commit. Shift+Enter inserts a newline and
@@ -523,7 +539,7 @@ paths in secure browser contexts.
 |---|---|
 | 1. Reference appearance | Two-sided reference fixture; default, edit, and drag screenshots plus visual review |
 | 2–3. Keyboard structure changes | Each insertion binding at root/non-root; contiguous-block movement, wrapping, promotion, root-side append, eligibility/no-ops, selection retention, exact position/side, and one-step history |
-| 4–5. Editing and creation cancellation | Typing replacement/first character, outward editor anchoring and 100px empty creation width, hidden horizontal scrollbar with caret reveal, frozen positions, multiline commit, old-label restoration, provisional rollback |
+| 4–5. Editing and creation cancellation | Typing replacement/first character, eight-M/selection-box widths, stable text origin and aligned lower border, hidden horizontal scrollbar with caret reveal, frozen positions, multiline commit, old-label restoration, provisional rollback |
 | 6. Geometry navigation | Confirmed ten movements, sibling/same-depth priority, shallower fallback, full ancestor exclusion, mirrored branches, stable ties, collapsed peers, edge/root vertical no-ops, Shift extension/contraction, central child and collapsed outward behavior |
 | 7. Selection | Click/toggle/ranges, root-side sibling ranges, Shift+Arrow contraction, select-all, hidden selection cleanup |
 | 8–9. Checkboxes | Independent state, mixed selections, presence add/remove, inheritance, no unnecessary relayout |

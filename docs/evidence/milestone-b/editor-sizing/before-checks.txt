@@ -1,0 +1,1307 @@
+
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test tests/browser/editor-sizing.spec.ts --project=chromium --workers=1
+
+[2m[WebServer] [22m(node:59002) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:59012) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 4 tests using 1 worker
+
+(node:59030) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:59030) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [chromium] › tests/browser/editor-sizing.spec.ts:7:33 › F2 width follows visible children and text/bottom alignment at 1 (793ms)
+(node:59042) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:59042) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 [chromium] › tests/browser/editor-sizing.spec.ts:7:33 › F2 width follows visible children and text/bottom alignment at 1.5 (482ms)
+(node:59052) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:59052) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  3 [chromium] › tests/browser/editor-sizing.spec.ts:7:33 › F2 width follows visible children and text/bottom alignment at 2 (725ms)
+(node:59065) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:59065) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  4 [chromium] › tests/browser/editor-sizing.spec.ts:39:1 › eight-M width fits eight letters, follows the font, and creation wrapping follows visible children (339ms)
+
+
+  1) [chromium] › tests/browser/editor-sizing.spec.ts:7:33 › F2 width follows visible children and text/bottom alignment at 1 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m15.3125[39m
+
+      23 |         });
+      24 |         if (zoom === 2 && ['one', 'child1', 'collapsed'].includes(id)) await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${info.project.name}.png` });
+    > 25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+         |                                                                                                                                 ^
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+      27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:25:129
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m0.5[39m
+
+      25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+    > 27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+         |                                                                                   ^
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+      29 |         if (before.expanded || id !== 'chain') expect.soft(Math.abs(actual.box.x + (1 + actual.paddingLeft - actual.scrollLeft) * zoom - before.label.x)).toBeLessThan(.8);
+      30 |         results.push({ id, zoom, before, actual });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:27:83
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 1[39m
+
+    [2m  Object {[22m
+    [32m-   "height": 21,[39m
+    [31m+   "height": 36,[39m
+    [2m    "width": 50,[22m
+    [2m    "x": 772.34375,[22m
+    [2m    "y": 530.09375,[22m
+    [2m  }[22m
+
+      31 |         const frame = await editor.boundingBox();
+      32 |         await page.keyboard.type('MMMMMMMM'); await page.keyboard.press('Shift+Enter'); await page.keyboard.type('Second line');
+    > 33 |         expect.soft(await editor.boundingBox()).toEqual(frame);
+         |                                                 ^
+      34 |         await page.keyboard.press('Escape');
+      35 |     }
+      36 |     writeFileSync(`${evidence}/${phase}-geometry-${zoom}-${info.project.name}.json`, JSON.stringify(results, null, 2) + '\n');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:33:49
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m16[39m
+
+      23 |         });
+      24 |         if (zoom === 2 && ['one', 'child1', 'collapsed'].includes(id)) await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${info.project.name}.png` });
+    > 25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+         |                                                                                                                                 ^
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+      27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:25:129
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m0.5[39m
+
+      25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+    > 27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+         |                                                                                   ^
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+      29 |         if (before.expanded || id !== 'chain') expect.soft(Math.abs(actual.box.x + (1 + actual.paddingLeft - actual.scrollLeft) * zoom - before.label.x)).toBeLessThan(.8);
+      30 |         results.push({ id, zoom, before, actual });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:27:83
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 1[39m
+
+    [2m  Object {[22m
+    [32m-   "height": 21,[39m
+    [31m+   "height": 36,[39m
+    [2m    "width": 50,[22m
+    [2m    "x": 772.34375,[22m
+    [2m    "y": 580.59375,[22m
+    [2m  }[22m
+
+      31 |         const frame = await editor.boundingBox();
+      32 |         await page.keyboard.type('MMMMMMMM'); await page.keyboard.press('Shift+Enter'); await page.keyboard.type('Second line');
+    > 33 |         expect.soft(await editor.boundingBox()).toEqual(frame);
+         |                                                 ^
+      34 |         await page.keyboard.press('Escape');
+      35 |     }
+      36 |     writeFileSync(`${evidence}/${phase}-geometry-${zoom}-${info.project.name}.json`, JSON.stringify(results, null, 2) + '\n');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:33:49
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m3.984375[39m
+
+      23 |         });
+      24 |         if (zoom === 2 && ['one', 'child1', 'collapsed'].includes(id)) await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${info.project.name}.png` });
+    > 25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+         |                                                                                                                                 ^
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+      27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:25:129
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m0.5[39m
+
+      25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+    > 27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+         |                                                                                   ^
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+      29 |         if (before.expanded || id !== 'chain') expect.soft(Math.abs(actual.box.x + (1 + actual.paddingLeft - actual.scrollLeft) * zoom - before.label.x)).toBeLessThan(.8);
+      30 |         results.push({ id, zoom, before, actual });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:27:83
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.8[39m
+    Received:   [31m9.984375[39m
+
+      27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+    > 29 |         if (before.expanded || id !== 'chain') expect.soft(Math.abs(actual.box.x + (1 + actual.paddingLeft - actual.scrollLeft) * zoom - before.label.x)).toBeLessThan(.8);
+         |                                                                                                                                                           ^
+      30 |         results.push({ id, zoom, before, actual });
+      31 |         const frame = await editor.boundingBox();
+      32 |         await page.keyboard.type('MMMMMMMM'); await page.keyboard.press('Shift+Enter'); await page.keyboard.type('Second line');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:29:155
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 1[39m
+
+    [2m  Object {[22m
+    [32m-   "height": 21,[39m
+    [31m+   "height": 36,[39m
+    [2m    "width": 50,[22m
+    [2m    "x": 577.640625,[22m
+    [2m    "y": 615.59375,[22m
+    [2m  }[22m
+
+      31 |         const frame = await editor.boundingBox();
+      32 |         await page.keyboard.type('MMMMMMMM'); await page.keyboard.press('Shift+Enter'); await page.keyboard.type('Second line');
+    > 33 |         expect.soft(await editor.boundingBox()).toEqual(frame);
+         |                                                 ^
+      34 |         await page.keyboard.press('Escape');
+      35 |     }
+      36 |     writeFileSync(`${evidence}/${phase}-geometry-${zoom}-${info.project.name}.json`, JSON.stringify(results, null, 2) + '\n');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:33:49
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m36[39m
+
+      23 |         });
+      24 |         if (zoom === 2 && ['one', 'child1', 'collapsed'].includes(id)) await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${info.project.name}.png` });
+    > 25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+         |                                                                                                                                 ^
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+      27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:25:129
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m0.5[39m
+
+      25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+    > 27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+         |                                                                                   ^
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+      29 |         if (before.expanded || id !== 'chain') expect.soft(Math.abs(actual.box.x + (1 + actual.paddingLeft - actual.scrollLeft) * zoom - before.label.x)).toBeLessThan(.8);
+      30 |         results.push({ id, zoom, before, actual });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:27:83
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 1[39m
+
+    [2m  Object {[22m
+    [32m-   "height": 21,[39m
+    [31m+   "height": 36,[39m
+    [2m    "width": 50,[22m
+    [2m    "x": 827.03125,[22m
+    [2m    "y": 507.09375,[22m
+    [2m  }[22m
+
+      31 |         const frame = await editor.boundingBox();
+      32 |         await page.keyboard.type('MMMMMMMM'); await page.keyboard.press('Shift+Enter'); await page.keyboard.type('Second line');
+    > 33 |         expect.soft(await editor.boundingBox()).toEqual(frame);
+         |                                                 ^
+      34 |         await page.keyboard.press('Escape');
+      35 |     }
+      36 |     writeFileSync(`${evidence}/${phase}-geometry-${zoom}-${info.project.name}.json`, JSON.stringify(results, null, 2) + '\n');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:33:49
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m36[39m
+
+      23 |         });
+      24 |         if (zoom === 2 && ['one', 'child1', 'collapsed'].includes(id)) await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${info.project.name}.png` });
+    > 25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+         |                                                                                                                                 ^
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+      27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:25:129
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m0.5[39m
+
+      25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+    > 27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+         |                                                                                   ^
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+      29 |         if (before.expanded || id !== 'chain') expect.soft(Math.abs(actual.box.x + (1 + actual.paddingLeft - actual.scrollLeft) * zoom - before.label.x)).toBeLessThan(.8);
+      30 |         results.push({ id, zoom, before, actual });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:27:83
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.8[39m
+    Received:   [31m6.640625[39m
+
+      27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+    > 29 |         if (before.expanded || id !== 'chain') expect.soft(Math.abs(actual.box.x + (1 + actual.paddingLeft - actual.scrollLeft) * zoom - before.label.x)).toBeLessThan(.8);
+         |                                                                                                                                                           ^
+      30 |         results.push({ id, zoom, before, actual });
+      31 |         const frame = await editor.boundingBox();
+      32 |         await page.keyboard.type('MMMMMMMM'); await page.keyboard.press('Shift+Enter'); await page.keyboard.type('Second line');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:29:155
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 1[39m
+
+    [2m  Object {[22m
+    [32m-   "height": 21,[39m
+    [31m+   "height": 36,[39m
+    [2m    "width": 50,[22m
+    [2m    "x": 577.65625,[22m
+    [2m    "y": 568.09375,[22m
+    [2m  }[22m
+
+      31 |         const frame = await editor.boundingBox();
+      32 |         await page.keyboard.type('MMMMMMMM'); await page.keyboard.press('Shift+Enter'); await page.keyboard.type('Second line');
+    > 33 |         expect.soft(await editor.boundingBox()).toEqual(frame);
+         |                                                 ^
+      34 |         await page.keyboard.press('Escape');
+      35 |     }
+      36 |     writeFileSync(`${evidence}/${phase}-geometry-${zoom}-${info.project.name}.json`, JSON.stringify(results, null, 2) + '\n');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:33:49
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m3.375[39m
+
+      23 |         });
+      24 |         if (zoom === 2 && ['one', 'child1', 'collapsed'].includes(id)) await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${info.project.name}.png` });
+    > 25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+         |                                                                                                                                 ^
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+      27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:25:129
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m0.5[39m
+
+      25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+    > 27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+         |                                                                                   ^
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+      29 |         if (before.expanded || id !== 'chain') expect.soft(Math.abs(actual.box.x + (1 + actual.paddingLeft - actual.scrollLeft) * zoom - before.label.x)).toBeLessThan(.8);
+      30 |         results.push({ id, zoom, before, actual });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:27:83
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 1[39m
+
+    [2m  Object {[22m
+    [32m-   "height": 21,[39m
+    [31m+   "height": 36,[39m
+    [2m    "width": 89.375,[22m
+    [2m    "x": 930.390625,[22m
+    [2m    "y": 651.09375,[22m
+    [2m  }[22m
+
+      31 |         const frame = await editor.boundingBox();
+      32 |         await page.keyboard.type('MMMMMMMM'); await page.keyboard.press('Shift+Enter'); await page.keyboard.type('Second line');
+    > 33 |         expect.soft(await editor.boundingBox()).toEqual(frame);
+         |                                                 ^
+      34 |         await page.keyboard.press('Escape');
+      35 |     }
+      36 |     writeFileSync(`${evidence}/${phase}-geometry-${zoom}-${info.project.name}.json`, JSON.stringify(results, null, 2) + '\n');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:33:49
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m33.390625[39m
+
+      23 |         });
+      24 |         if (zoom === 2 && ['one', 'child1', 'collapsed'].includes(id)) await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${info.project.name}.png` });
+    > 25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+         |                                                                                                                                 ^
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+      27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:25:129
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m0.5[39m
+
+      25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+    > 27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+         |                                                                                   ^
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+      29 |         if (before.expanded || id !== 'chain') expect.soft(Math.abs(actual.box.x + (1 + actual.paddingLeft - actual.scrollLeft) * zoom - before.label.x)).toBeLessThan(.8);
+      30 |         results.push({ id, zoom, before, actual });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:27:83
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 1[39m
+
+    [2m  Object {[22m
+    [32m-   "height": 21,[39m
+    [31m+   "height": 36,[39m
+    [2m    "width": 119.390625,[22m
+    [2m    "x": 919.734375,[22m
+    [2m    "y": 577.59375,[22m
+    [2m  }[22m
+
+      31 |         const frame = await editor.boundingBox();
+      32 |         await page.keyboard.type('MMMMMMMM'); await page.keyboard.press('Shift+Enter'); await page.keyboard.type('Second line');
+    > 33 |         expect.soft(await editor.boundingBox()).toEqual(frame);
+         |                                                 ^
+      34 |         await page.keyboard.press('Escape');
+      35 |     }
+      36 |     writeFileSync(`${evidence}/${phase}-geometry-${zoom}-${info.project.name}.json`, JSON.stringify(results, null, 2) + '\n');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:33:49
+
+    Error Context: test-results/editor-sizing-F2-width-fol-4d82f--text-bottom-alignment-at-1-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/editor-sizing-F2-width-fol-4d82f--text-bottom-alignment-at-1-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/editor-sizing-F2-width-fol-4d82f--text-bottom-alignment-at-1-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › tests/browser/editor-sizing.spec.ts:7:33 › F2 width follows visible children and text/bottom alignment at 1.5 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m22.96875[39m
+
+      23 |         });
+      24 |         if (zoom === 2 && ['one', 'child1', 'collapsed'].includes(id)) await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${info.project.name}.png` });
+    > 25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+         |                                                                                                                                 ^
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+      27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:25:129
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m0.75[39m
+
+      25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+    > 27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+         |                                                                                   ^
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+      29 |         if (before.expanded || id !== 'chain') expect.soft(Math.abs(actual.box.x + (1 + actual.paddingLeft - actual.scrollLeft) * zoom - before.label.x)).toBeLessThan(.8);
+      30 |         results.push({ id, zoom, before, actual });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:27:83
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 1[39m
+
+    [2m  Object {[22m
+    [32m-   "height": 31.5,[39m
+    [31m+   "height": 54,[39m
+    [2m    "width": 75,[22m
+    [2m    "x": 808.515625,[22m
+    [2m    "y": 488.46875,[22m
+    [2m  }[22m
+
+      31 |         const frame = await editor.boundingBox();
+      32 |         await page.keyboard.type('MMMMMMMM'); await page.keyboard.press('Shift+Enter'); await page.keyboard.type('Second line');
+    > 33 |         expect.soft(await editor.boundingBox()).toEqual(frame);
+         |                                                 ^
+      34 |         await page.keyboard.press('Escape');
+      35 |     }
+      36 |     writeFileSync(`${evidence}/${phase}-geometry-${zoom}-${info.project.name}.json`, JSON.stringify(results, null, 2) + '\n');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:33:49
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m24[39m
+
+      23 |         });
+      24 |         if (zoom === 2 && ['one', 'child1', 'collapsed'].includes(id)) await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${info.project.name}.png` });
+    > 25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+         |                                                                                                                                 ^
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+      27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:25:129
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m0.75[39m
+
+      25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+    > 27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+         |                                                                                   ^
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+      29 |         if (before.expanded || id !== 'chain') expect.soft(Math.abs(actual.box.x + (1 + actual.paddingLeft - actual.scrollLeft) * zoom - before.label.x)).toBeLessThan(.8);
+      30 |         results.push({ id, zoom, before, actual });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:27:83
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 1[39m
+
+    [2m  Object {[22m
+    [32m-   "height": 31.5,[39m
+    [31m+   "height": 54,[39m
+    [2m    "width": 75,[22m
+    [2m    "x": 808.515625,[22m
+    [2m    "y": 564.21875,[22m
+    [2m  }[22m
+
+      31 |         const frame = await editor.boundingBox();
+      32 |         await page.keyboard.type('MMMMMMMM'); await page.keyboard.press('Shift+Enter'); await page.keyboard.type('Second line');
+    > 33 |         expect.soft(await editor.boundingBox()).toEqual(frame);
+         |                                                 ^
+      34 |         await page.keyboard.press('Escape');
+      35 |     }
+      36 |     writeFileSync(`${evidence}/${phase}-geometry-${zoom}-${info.project.name}.json`, JSON.stringify(results, null, 2) + '\n');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:33:49
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m5.9765625[39m
+
+      23 |         });
+      24 |         if (zoom === 2 && ['one', 'child1', 'collapsed'].includes(id)) await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${info.project.name}.png` });
+    > 25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+         |                                                                                                                                 ^
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+      27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:25:129
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m0.75[39m
+
+      25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+    > 27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+         |                                                                                   ^
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+      29 |         if (before.expanded || id !== 'chain') expect.soft(Math.abs(actual.box.x + (1 + actual.paddingLeft - actual.scrollLeft) * zoom - before.label.x)).toBeLessThan(.8);
+      30 |         results.push({ id, zoom, before, actual });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:27:83
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.8[39m
+    Received:   [31m14.9765625[39m
+
+      27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+    > 29 |         if (before.expanded || id !== 'chain') expect.soft(Math.abs(actual.box.x + (1 + actual.paddingLeft - actual.scrollLeft) * zoom - before.label.x)).toBeLessThan(.8);
+         |                                                                                                                                                           ^
+      30 |         results.push({ id, zoom, before, actual });
+      31 |         const frame = await editor.boundingBox();
+      32 |         await page.keyboard.type('MMMMMMMM'); await page.keyboard.press('Shift+Enter'); await page.keyboard.type('Second line');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:29:155
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 1[39m
+
+    [2m  Object {[22m
+    [32m-   "height": 31.5,[39m
+    [31m+   "height": 54,[39m
+    [2m    "width": 75,[22m
+    [2m    "x": 516.4609375,[22m
+    [2m    "y": 616.71875,[22m
+    [2m  }[22m
+
+      31 |         const frame = await editor.boundingBox();
+      32 |         await page.keyboard.type('MMMMMMMM'); await page.keyboard.press('Shift+Enter'); await page.keyboard.type('Second line');
+    > 33 |         expect.soft(await editor.boundingBox()).toEqual(frame);
+         |                                                 ^
+      34 |         await page.keyboard.press('Escape');
+      35 |     }
+      36 |     writeFileSync(`${evidence}/${phase}-geometry-${zoom}-${info.project.name}.json`, JSON.stringify(results, null, 2) + '\n');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:33:49
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m54[39m
+
+      23 |         });
+      24 |         if (zoom === 2 && ['one', 'child1', 'collapsed'].includes(id)) await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${info.project.name}.png` });
+    > 25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+         |                                                                                                                                 ^
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+      27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:25:129
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m0.75[39m
+
+      25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+    > 27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+         |                                                                                   ^
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+      29 |         if (before.expanded || id !== 'chain') expect.soft(Math.abs(actual.box.x + (1 + actual.paddingLeft - actual.scrollLeft) * zoom - before.label.x)).toBeLessThan(.8);
+      30 |         results.push({ id, zoom, before, actual });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:27:83
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 1[39m
+
+    [2m  Object {[22m
+    [32m-   "height": 31.5,[39m
+    [31m+   "height": 54,[39m
+    [2m    "width": 75,[22m
+    [2m    "x": 890.546875,[22m
+    [2m    "y": 453.96875,[22m
+    [2m  }[22m
+
+      31 |         const frame = await editor.boundingBox();
+      32 |         await page.keyboard.type('MMMMMMMM'); await page.keyboard.press('Shift+Enter'); await page.keyboard.type('Second line');
+    > 33 |         expect.soft(await editor.boundingBox()).toEqual(frame);
+         |                                                 ^
+      34 |         await page.keyboard.press('Escape');
+      35 |     }
+      36 |     writeFileSync(`${evidence}/${phase}-geometry-${zoom}-${info.project.name}.json`, JSON.stringify(results, null, 2) + '\n');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:33:49
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m54[39m
+
+      23 |         });
+      24 |         if (zoom === 2 && ['one', 'child1', 'collapsed'].includes(id)) await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${info.project.name}.png` });
+    > 25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+         |                                                                                                                                 ^
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+      27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:25:129
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m0.75[39m
+
+      25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+    > 27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+         |                                                                                   ^
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+      29 |         if (before.expanded || id !== 'chain') expect.soft(Math.abs(actual.box.x + (1 + actual.paddingLeft - actual.scrollLeft) * zoom - before.label.x)).toBeLessThan(.8);
+      30 |         results.push({ id, zoom, before, actual });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:27:83
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.8[39m
+    Received:   [31m9.9609375[39m
+
+      27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+    > 29 |         if (before.expanded || id !== 'chain') expect.soft(Math.abs(actual.box.x + (1 + actual.paddingLeft - actual.scrollLeft) * zoom - before.label.x)).toBeLessThan(.8);
+         |                                                                                                                                                           ^
+      30 |         results.push({ id, zoom, before, actual });
+      31 |         const frame = await editor.boundingBox();
+      32 |         await page.keyboard.type('MMMMMMMM'); await page.keyboard.press('Shift+Enter'); await page.keyboard.type('Second line');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:29:155
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 1[39m
+
+    [2m  Object {[22m
+    [32m-   "height": 31.5,[39m
+    [31m+   "height": 54,[39m
+    [2m    "width": 75,[22m
+    [2m    "x": 516.484375,[22m
+    [2m    "y": 545.46875,[22m
+    [2m  }[22m
+
+      31 |         const frame = await editor.boundingBox();
+      32 |         await page.keyboard.type('MMMMMMMM'); await page.keyboard.press('Shift+Enter'); await page.keyboard.type('Second line');
+    > 33 |         expect.soft(await editor.boundingBox()).toEqual(frame);
+         |                                                 ^
+      34 |         await page.keyboard.press('Escape');
+      35 |     }
+      36 |     writeFileSync(`${evidence}/${phase}-geometry-${zoom}-${info.project.name}.json`, JSON.stringify(results, null, 2) + '\n');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:33:49
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m5.0625[39m
+
+      23 |         });
+      24 |         if (zoom === 2 && ['one', 'child1', 'collapsed'].includes(id)) await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${info.project.name}.png` });
+    > 25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+         |                                                                                                                                 ^
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+      27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:25:129
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m0.75[39m
+
+      25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+    > 27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+         |                                                                                   ^
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+      29 |         if (before.expanded || id !== 'chain') expect.soft(Math.abs(actual.box.x + (1 + actual.paddingLeft - actual.scrollLeft) * zoom - before.label.x)).toBeLessThan(.8);
+      30 |         results.push({ id, zoom, before, actual });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:27:83
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 1[39m
+
+    [2m  Object {[22m
+    [32m-   "height": 31.5,[39m
+    [31m+   "height": 54,[39m
+    [2m    "width": 134.0625,[22m
+    [2m    "x": 1045.5859375,[22m
+    [2m    "y": 669.96875,[22m
+    [2m  }[22m
+
+      31 |         const frame = await editor.boundingBox();
+      32 |         await page.keyboard.type('MMMMMMMM'); await page.keyboard.press('Shift+Enter'); await page.keyboard.type('Second line');
+    > 33 |         expect.soft(await editor.boundingBox()).toEqual(frame);
+         |                                                 ^
+      34 |         await page.keyboard.press('Escape');
+      35 |     }
+      36 |     writeFileSync(`${evidence}/${phase}-geometry-${zoom}-${info.project.name}.json`, JSON.stringify(results, null, 2) + '\n');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:33:49
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m50.0859375[39m
+
+      23 |         });
+      24 |         if (zoom === 2 && ['one', 'child1', 'collapsed'].includes(id)) await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${info.project.name}.png` });
+    > 25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+         |                                                                                                                                 ^
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+      27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:25:129
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m0.75[39m
+
+      25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+    > 27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+         |                                                                                   ^
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+      29 |         if (before.expanded || id !== 'chain') expect.soft(Math.abs(actual.box.x + (1 + actual.paddingLeft - actual.scrollLeft) * zoom - before.label.x)).toBeLessThan(.8);
+      30 |         results.push({ id, zoom, before, actual });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:27:83
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 1[39m
+
+    [2m  Object {[22m
+    [32m-   "height": 31.5,[39m
+    [31m+   "height": 54,[39m
+    [2m    "width": 179.0859375,[22m
+    [2m    "x": 1029.6015625,[22m
+    [2m    "y": 559.71875,[22m
+    [2m  }[22m
+
+      31 |         const frame = await editor.boundingBox();
+      32 |         await page.keyboard.type('MMMMMMMM'); await page.keyboard.press('Shift+Enter'); await page.keyboard.type('Second line');
+    > 33 |         expect.soft(await editor.boundingBox()).toEqual(frame);
+         |                                                 ^
+      34 |         await page.keyboard.press('Escape');
+      35 |     }
+      36 |     writeFileSync(`${evidence}/${phase}-geometry-${zoom}-${info.project.name}.json`, JSON.stringify(results, null, 2) + '\n');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:33:49
+
+    Error Context: test-results/editor-sizing-F2-width-fol-62d2e-ext-bottom-alignment-at-1-5-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/editor-sizing-F2-width-fol-62d2e-ext-bottom-alignment-at-1-5-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/editor-sizing-F2-width-fol-62d2e-ext-bottom-alignment-at-1-5-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chromium] › tests/browser/editor-sizing.spec.ts:7:33 › F2 width follows visible children and text/bottom alignment at 2 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m30.625[39m
+
+      23 |         });
+      24 |         if (zoom === 2 && ['one', 'child1', 'collapsed'].includes(id)) await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${info.project.name}.png` });
+    > 25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+         |                                                                                                                                 ^
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+      27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:25:129
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m1[39m
+
+      25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+    > 27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+         |                                                                                   ^
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+      29 |         if (before.expanded || id !== 'chain') expect.soft(Math.abs(actual.box.x + (1 + actual.paddingLeft - actual.scrollLeft) * zoom - before.label.x)).toBeLessThan(.8);
+      30 |         results.push({ id, zoom, before, actual });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:27:83
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 1[39m
+
+    [2m  Object {[22m
+    [32m-   "height": 42,[39m
+    [31m+   "height": 72,[39m
+    [2m    "width": 100,[22m
+    [2m    "x": 844.6875,[22m
+    [2m    "y": 446.84375,[22m
+    [2m  }[22m
+
+      31 |         const frame = await editor.boundingBox();
+      32 |         await page.keyboard.type('MMMMMMMM'); await page.keyboard.press('Shift+Enter'); await page.keyboard.type('Second line');
+    > 33 |         expect.soft(await editor.boundingBox()).toEqual(frame);
+         |                                                 ^
+      34 |         await page.keyboard.press('Escape');
+      35 |     }
+      36 |     writeFileSync(`${evidence}/${phase}-geometry-${zoom}-${info.project.name}.json`, JSON.stringify(results, null, 2) + '\n');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:33:49
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m32[39m
+
+      23 |         });
+      24 |         if (zoom === 2 && ['one', 'child1', 'collapsed'].includes(id)) await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${info.project.name}.png` });
+    > 25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+         |                                                                                                                                 ^
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+      27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:25:129
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m1[39m
+
+      25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+    > 27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+         |                                                                                   ^
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+      29 |         if (before.expanded || id !== 'chain') expect.soft(Math.abs(actual.box.x + (1 + actual.paddingLeft - actual.scrollLeft) * zoom - before.label.x)).toBeLessThan(.8);
+      30 |         results.push({ id, zoom, before, actual });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:27:83
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 1[39m
+
+    [2m  Object {[22m
+    [32m-   "height": 42,[39m
+    [31m+   "height": 72,[39m
+    [2m    "width": 100,[22m
+    [2m    "x": 844.6875,[22m
+    [2m    "y": 547.84375,[22m
+    [2m  }[22m
+
+      31 |         const frame = await editor.boundingBox();
+      32 |         await page.keyboard.type('MMMMMMMM'); await page.keyboard.press('Shift+Enter'); await page.keyboard.type('Second line');
+    > 33 |         expect.soft(await editor.boundingBox()).toEqual(frame);
+         |                                                 ^
+      34 |         await page.keyboard.press('Escape');
+      35 |     }
+      36 |     writeFileSync(`${evidence}/${phase}-geometry-${zoom}-${info.project.name}.json`, JSON.stringify(results, null, 2) + '\n');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:33:49
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m7.96875[39m
+
+      23 |         });
+      24 |         if (zoom === 2 && ['one', 'child1', 'collapsed'].includes(id)) await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${info.project.name}.png` });
+    > 25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+         |                                                                                                                                 ^
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+      27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:25:129
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m1[39m
+
+      25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+    > 27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+         |                                                                                   ^
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+      29 |         if (before.expanded || id !== 'chain') expect.soft(Math.abs(actual.box.x + (1 + actual.paddingLeft - actual.scrollLeft) * zoom - before.label.x)).toBeLessThan(.8);
+      30 |         results.push({ id, zoom, before, actual });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:27:83
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.8[39m
+    Received:   [31m19.96875[39m
+
+      27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+    > 29 |         if (before.expanded || id !== 'chain') expect.soft(Math.abs(actual.box.x + (1 + actual.paddingLeft - actual.scrollLeft) * zoom - before.label.x)).toBeLessThan(.8);
+         |                                                                                                                                                           ^
+      30 |         results.push({ id, zoom, before, actual });
+      31 |         const frame = await editor.boundingBox();
+      32 |         await page.keyboard.type('MMMMMMMM'); await page.keyboard.press('Shift+Enter'); await page.keyboard.type('Second line');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:29:155
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 1[39m
+
+    [2m  Object {[22m
+    [32m-   "height": 42,[39m
+    [31m+   "height": 72,[39m
+    [2m    "width": 100,[22m
+    [2m    "x": 455.28125,[22m
+    [2m    "y": 617.84375,[22m
+    [2m  }[22m
+
+      31 |         const frame = await editor.boundingBox();
+      32 |         await page.keyboard.type('MMMMMMMM'); await page.keyboard.press('Shift+Enter'); await page.keyboard.type('Second line');
+    > 33 |         expect.soft(await editor.boundingBox()).toEqual(frame);
+         |                                                 ^
+      34 |         await page.keyboard.press('Escape');
+      35 |     }
+      36 |     writeFileSync(`${evidence}/${phase}-geometry-${zoom}-${info.project.name}.json`, JSON.stringify(results, null, 2) + '\n');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:33:49
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m72[39m
+
+      23 |         });
+      24 |         if (zoom === 2 && ['one', 'child1', 'collapsed'].includes(id)) await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${info.project.name}.png` });
+    > 25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+         |                                                                                                                                 ^
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+      27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:25:129
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m1[39m
+
+      25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+    > 27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+         |                                                                                   ^
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+      29 |         if (before.expanded || id !== 'chain') expect.soft(Math.abs(actual.box.x + (1 + actual.paddingLeft - actual.scrollLeft) * zoom - before.label.x)).toBeLessThan(.8);
+      30 |         results.push({ id, zoom, before, actual });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:27:83
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 1[39m
+
+    [2m  Object {[22m
+    [32m-   "height": 42,[39m
+    [31m+   "height": 72,[39m
+    [2m    "width": 100,[22m
+    [2m    "x": 954.0625,[22m
+    [2m    "y": 409.34375,[22m
+    [2m  }[22m
+
+      31 |         const frame = await editor.boundingBox();
+      32 |         await page.keyboard.type('MMMMMMMM'); await page.keyboard.press('Shift+Enter'); await page.keyboard.type('Second line');
+    > 33 |         expect.soft(await editor.boundingBox()).toEqual(frame);
+         |                                                 ^
+      34 |         await page.keyboard.press('Escape');
+      35 |     }
+      36 |     writeFileSync(`${evidence}/${phase}-geometry-${zoom}-${info.project.name}.json`, JSON.stringify(results, null, 2) + '\n');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:33:49
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m72[39m
+
+      23 |         });
+      24 |         if (zoom === 2 && ['one', 'child1', 'collapsed'].includes(id)) await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${info.project.name}.png` });
+    > 25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+         |                                                                                                                                 ^
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+      27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:25:129
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m1[39m
+
+      25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+    > 27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+         |                                                                                   ^
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+      29 |         if (before.expanded || id !== 'chain') expect.soft(Math.abs(actual.box.x + (1 + actual.paddingLeft - actual.scrollLeft) * zoom - before.label.x)).toBeLessThan(.8);
+      30 |         results.push({ id, zoom, before, actual });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:27:83
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.8[39m
+    Received:   [31m13.28125[39m
+
+      27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+    > 29 |         if (before.expanded || id !== 'chain') expect.soft(Math.abs(actual.box.x + (1 + actual.paddingLeft - actual.scrollLeft) * zoom - before.label.x)).toBeLessThan(.8);
+         |                                                                                                                                                           ^
+      30 |         results.push({ id, zoom, before, actual });
+      31 |         const frame = await editor.boundingBox();
+      32 |         await page.keyboard.type('MMMMMMMM'); await page.keyboard.press('Shift+Enter'); await page.keyboard.type('Second line');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:29:155
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 1[39m
+
+    [2m  Object {[22m
+    [32m-   "height": 42,[39m
+    [31m+   "height": 72,[39m
+    [2m    "width": 100,[22m
+    [2m    "x": 455.3125,[22m
+    [2m    "y": 531.34375,[22m
+    [2m  }[22m
+
+      31 |         const frame = await editor.boundingBox();
+      32 |         await page.keyboard.type('MMMMMMMM'); await page.keyboard.press('Shift+Enter'); await page.keyboard.type('Second line');
+    > 33 |         expect.soft(await editor.boundingBox()).toEqual(frame);
+         |                                                 ^
+      34 |         await page.keyboard.press('Escape');
+      35 |     }
+      36 |     writeFileSync(`${evidence}/${phase}-geometry-${zoom}-${info.project.name}.json`, JSON.stringify(results, null, 2) + '\n');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:33:49
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m6.75[39m
+
+      23 |         });
+      24 |         if (zoom === 2 && ['one', 'child1', 'collapsed'].includes(id)) await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${info.project.name}.png` });
+    > 25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+         |                                                                                                                                 ^
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+      27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:25:129
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m1[39m
+
+      25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+    > 27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+         |                                                                                   ^
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+      29 |         if (before.expanded || id !== 'chain') expect.soft(Math.abs(actual.box.x + (1 + actual.paddingLeft - actual.scrollLeft) * zoom - before.label.x)).toBeLessThan(.8);
+      30 |         results.push({ id, zoom, before, actual });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:27:83
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 1[39m
+
+    [2m  Object {[22m
+    [32m-   "height": 42,[39m
+    [31m+   "height": 72,[39m
+    [2m    "width": 178.75,[22m
+    [2m    "x": 1160.78125,[22m
+    [2m    "y": 697.34375,[22m
+    [2m  }[22m
+
+      31 |         const frame = await editor.boundingBox();
+      32 |         await page.keyboard.type('MMMMMMMM'); await page.keyboard.press('Shift+Enter'); await page.keyboard.type('Second line');
+    > 33 |         expect.soft(await editor.boundingBox()).toEqual(frame);
+         |                                                 ^
+      34 |         await page.keyboard.press('Escape');
+      35 |     }
+      36 |     writeFileSync(`${evidence}/${phase}-geometry-${zoom}-${info.project.name}.json`, JSON.stringify(results, null, 2) + '\n');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:33:49
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m66.78125[39m
+
+      23 |         });
+      24 |         if (zoom === 2 && ['one', 'child1', 'collapsed'].includes(id)) await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${info.project.name}.png` });
+    > 25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+         |                                                                                                                                 ^
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+      27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:25:129
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.1[39m
+    Received:   [31m1[39m
+
+      25 |         expect.soft(Math.abs(actual.box.width - (before.expanded ? before.node.width : (Math.ceil(before.eightM) + 6) * zoom))).toBeLessThan(.1);
+      26 |         // The middle of the 1px border must meet the SVG branch stroke center.
+    > 27 |         expect.soft(Math.abs(actual.box.bottom - .5 * zoom - before.node.bottom)).toBeLessThan(.1);
+         |                                                                                   ^
+      28 |         expect.soft(Math.abs(actual.box.y + (1 + actual.paddingTop - actual.scrollTop) * zoom - before.label.y)).toBeLessThan(.1);
+      29 |         if (before.expanded || id !== 'chain') expect.soft(Math.abs(actual.box.x + (1 + actual.paddingLeft - actual.scrollLeft) * zoom - before.label.x)).toBeLessThan(.8);
+      30 |         results.push({ id, zoom, before, actual });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:27:83
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 1[39m
+
+    [2m  Object {[22m
+    [32m-   "height": 42,[39m
+    [31m+   "height": 72,[39m
+    [2m    "width": 238.78125,[22m
+    [2m    "x": 1115.17236328125,[22m
+    [2m    "y": 550.34375,[22m
+    [2m  }[22m
+
+      31 |         const frame = await editor.boundingBox();
+      32 |         await page.keyboard.type('MMMMMMMM'); await page.keyboard.press('Shift+Enter'); await page.keyboard.type('Second line');
+    > 33 |         expect.soft(await editor.boundingBox()).toEqual(frame);
+         |                                                 ^
+      34 |         await page.keyboard.press('Escape');
+      35 |     }
+      36 |     writeFileSync(`${evidence}/${phase}-geometry-${zoom}-${info.project.name}.json`, JSON.stringify(results, null, 2) + '\n');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:33:49
+
+    Error Context: test-results/editor-sizing-F2-width-fol-b7569--text-bottom-alignment-at-2-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/editor-sizing-F2-width-fol-b7569--text-bottom-alignment-at-2-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/editor-sizing-F2-width-fol-b7569--text-bottom-alignment-at-2-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [chromium] › tests/browser/editor-sizing.spec.ts:39:1 › eight-M width fits eight letters, follows the font, and creation wrapping follows visible children 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeCloseTo[2m([22m[32mexpected[39m[2m, [22mprecision[2m)[22m
+
+    Expected: [32m86[39m
+    Received: [31m100[39m
+
+    Expected precision:    2
+    Expected difference: < [32m0.005[39m
+    Received difference:   [31m14[39m
+
+      51 |         });
+      52 |         widths.push({ fontSize, key, ...measured });
+    > 53 |         expect.soft(measured.width).toBeCloseTo(measured.expected, 2);
+         |                                     ^
+      54 |         if (key === 'Enter') {
+      55 |             await page.keyboard.type('MMMMMMMM');
+      56 |             expect.soft(await editor.evaluate(e => e.scrollWidth - e.clientWidth)).toBeLessThanOrEqual(1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:53:37
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeCloseTo[2m([22m[32mexpected[39m[2m, [22mprecision[2m)[22m
+
+    Expected: [32m13[39m
+    Received: [31m100[39m
+
+    Expected precision:    2
+    Expected difference: < [32m0.005[39m
+    Received difference:   [31m87[39m
+
+      51 |         });
+      52 |         widths.push({ fontSize, key, ...measured });
+    > 53 |         expect.soft(measured.width).toBeCloseTo(measured.expected, 2);
+         |                                     ^
+      54 |         if (key === 'Enter') {
+      55 |             await page.keyboard.type('MMMMMMMM');
+      56 |             expect.soft(await editor.evaluate(e => e.scrollWidth - e.clientWidth)).toBeLessThanOrEqual(1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:53:37
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeCloseTo[2m([22m[32mexpected[39m[2m, [22mprecision[2m)[22m
+
+    Expected: [32m126[39m
+    Received: [31m100[39m
+
+    Expected precision:    2
+    Expected difference: < [32m0.005[39m
+    Received difference:   [31m26[39m
+
+      51 |         });
+      52 |         widths.push({ fontSize, key, ...measured });
+    > 53 |         expect.soft(measured.width).toBeCloseTo(measured.expected, 2);
+         |                                     ^
+      54 |         if (key === 'Enter') {
+      55 |             await page.keyboard.type('MMMMMMMM');
+      56 |             expect.soft(await editor.evaluate(e => e.scrollWidth - e.clientWidth)).toBeLessThanOrEqual(1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:53:37
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThanOrEqual[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: <= [32m1[39m
+    Received:    [31m24[39m
+
+      54 |         if (key === 'Enter') {
+      55 |             await page.keyboard.type('MMMMMMMM');
+    > 56 |             expect.soft(await editor.evaluate(e => e.scrollWidth - e.clientWidth)).toBeLessThanOrEqual(1);
+         |                                                                                    ^
+      57 |             if (fontSize === 12) await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-eight-M-${info.project.name}.png` });
+      58 |         }
+      59 |         await page.keyboard.press('Escape');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:56:84
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeCloseTo[2m([22m[32mexpected[39m[2m, [22mprecision[2m)[22m
+
+    Expected: [32m13[39m
+    Received: [31m100[39m
+
+    Expected precision:    2
+    Expected difference: < [32m0.005[39m
+    Received difference:   [31m87[39m
+
+      51 |         });
+      52 |         widths.push({ fontSize, key, ...measured });
+    > 53 |         expect.soft(measured.width).toBeCloseTo(measured.expected, 2);
+         |                                     ^
+      54 |         if (key === 'Enter') {
+      55 |             await page.keyboard.type('MMMMMMMM');
+      56 |             expect.soft(await editor.evaluate(e => e.scrollWidth - e.clientWidth)).toBeLessThanOrEqual(1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editor-sizing.spec.ts:53:37
+
+    Error Context: test-results/editor-sizing-eight-M-widt-893d1-ng-follows-visible-children-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/editor-sizing-eight-M-widt-893d1-ng-follows-visible-children-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/editor-sizing-eight-M-widt-893d1-ng-follows-visible-children-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    [chromium] › tests/browser/editor-sizing.spec.ts:7:33 › F2 width follows visible children and text/bottom alignment at 1 
+    [chromium] › tests/browser/editor-sizing.spec.ts:7:33 › F2 width follows visible children and text/bottom alignment at 1.5 
+    [chromium] › tests/browser/editor-sizing.spec.ts:7:33 › F2 width follows visible children and text/bottom alignment at 2 
+    [chromium] › tests/browser/editor-sizing.spec.ts:39:1 › eight-M width fits eight letters, follows the font, and creation wrapping follows visible children 
+ ELIFECYCLE  Command failed with exit code 1.

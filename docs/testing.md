@@ -89,11 +89,18 @@ written to `docs/evidence/milestone-b/`; tests retain failure traces in ignored
 
 - `pnpm test:browser tests/browser/editing-review.spec.ts tests/browser/checkpoint-b.spec.ts --workers=1`:
   typing replacement/undo/cancel, modifier and read-only guards, horizontal overflow
-  and native caret visibility, 100px empty editor and outward alignment at 100%/200%,
+  and native caret visibility, eight-M creation editor and outward alignment at 100%/200%,
   all four insertion bindings on left root/nested and right branches, lifecycle
   regressions, reference editing comparisons and exact accepted-A images.
 - `pnpm test:browser tests/browser/editing.spec.ts tests/browser/navigation.spec.ts tests/browser/interaction.spec.ts --workers=1`:
   existing editing/navigation/interaction regressions.
-- Current editing captures and logs: `docs/evidence/milestone-b/editing-adjustments/`.
+- Current editing captures and logs: `docs/evidence/milestone-b/editor-sizing/`.
+  Prior editing adjustments remain in `docs/evidence/milestone-b/editing-adjustments/`.
   The checkpoint capture test now writes here to preserve prior stage-5 evidence.
   Before images and the pre-fix failure log are retained alongside final candidates.
+
+- `pnpm test:browser tests/browser/editor-sizing.spec.ts tests/browser/editing-review.spec.ts tests/browser/editing.spec.ts tests/browser/checkpoint-b.spec.ts --workers=1`:
+  current sizing/alignment and editing gate across all engines. Measures unchanged
+  text origin and branch-aligned bottom border at 100%/150%/200%, eight-M width in
+  12px/18px fonts, leaf/collapsed/expanded behavior, all creation bindings, frozen
+  frame during multiline typing, checkbox/root positioning and accepted-default PNGs.

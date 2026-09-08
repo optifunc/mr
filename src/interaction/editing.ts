@@ -1,23 +1,49 @@
+import type { NodeGeometry } from '../layout/layout';
 /** A native text buffer over frozen scene geometry. It never writes document text. */
 export class TextEditor {
     readonly textarea: HTMLTextAreaElement;
     private readonly label: HTMLElement;
     private readonly abort = new AbortController();
     private composing = false;
-    constructor(scene: HTMLElement, node: HTMLElement, text: string, limits: { width: number; height: number; side: 'left' | 'right' | null; minimumWidth: number }, finish: (commit: boolean, focus: boolean) => void) {
+    constructor(scene: HTMLElement, node: HTMLElement, text: string, limits: { width: number; height: number; geometry: NodeGeometry; compact: boolean; creation: boolean }, finish: (commit: boolean, focus: boolean) => void) {
         const doc = scene.ownerDocument;
         this.label = node.querySelector<HTMLElement>('.mindmap-label')!;
         const area = doc.createElement('textarea'); this.textarea = area;
         area.className = 'mindmap-editor'; area.value = text; area.wrap = 'off'; area.spellcheck = false;
         area.setAttribute('aria-label', 'Edit node label');
-        const labelWidth = parseFloat(getComputedStyle(this.label).width);
-        const width = Math.min(limits.width, Math.max(limits.minimumWidth, labelWidth + 6));
-        const labelLeft = parseFloat(node.style.left) + this.label.offsetLeft;
-        // Widen toward the outside of a branch, retaining the label's inward edge.
-        const left = limits.side === 'left' ? labelLeft + labelWidth + 3 - width : labelLeft - 3;
+        const labelStyle = getComputedStyle(this.label), nodeStyle = getComputedStyle(node);
+        const labelWidth = parseFloat(labelStyle.width), labelHeight = parseFloat(labelStyle.height);
+        const measureText = (value: string): number => {
+            const probe = this.label.cloneNode(false) as HTMLElement;
+            probe.textContent = value;
+            Object.assign(probe.style, { position: 'absolute', width: 'max-content', visibility: 'hidden' });
+            scene.append(probe);
+            const width = parseFloat(getComputedStyle(probe).width); probe.remove();
+            return width;
+        };
+        const g = limits.geometry;
+        const width = Math.min(limits.width, limits.compact ? Math.ceil(measureText('MMMMMMMM')) + 6 : g.box.width);
+        const checkbox = node.querySelector('input');
+        const prefix = checkbox ? parseFloat(getComputedStyle(checkbox).width) + parseFloat(nodeStyle.columnGap) : 0;
+        const inset = g.side === null ? (g.box.width - labelWidth - prefix) / 2 : parseFloat(nodeStyle.paddingLeft);
+        const labelLeft = g.box.x + inset + prefix;
+        const labelTop = g.box.y + parseFloat(nodeStyle.paddingTop) +
+            (g.box.height - parseFloat(nodeStyle.paddingTop) - parseFloat(nodeStyle.paddingBottom) - labelHeight) / 2;
+        const top = labelTop - 3;
+        // Center the lower 1px border on the branch stroke. Root has an ellipse,
+        // so its editor keeps the label-sized vertical frame instead.
+        const height = Math.min(limits.height, g.side === null ? labelHeight + 6 : g.baseline + .5 - top);
+        const left = !limits.compact ? g.box.x : g.side === 'left' ? labelLeft + labelWidth + 3 - width : labelLeft - 3;
+        const paddingLeft = !limits.compact ? labelLeft - left - 1 :
+            g.side === 'left' && !limits.creation ? Math.max(2, width - labelWidth - 4) : 2;
         Object.assign(area.style, {
-            left: `${left}px`, top: `${parseFloat(node.style.top) + this.label.offsetTop - 3}px`,
-            width: `${width}px`, height: `${Math.min(limits.height, Math.max(21, parseFloat(getComputedStyle(this.label).height) + 6))}px`,
+            left: `${left}px`, top: `${top}px`, width: `${width}px`, height: `${height}px`,
+            paddingLeft: `${paddingLeft}px`,
+            paddingRight: `${!limits.compact ? Math.max(2, g.box.x + g.box.width - labelLeft - labelWidth - 1) : 2}px`,
+            paddingBottom: `${Math.max(0, height - labelHeight - 4)}px`,
+            // A full-node frame includes the checkbox prefix. Let the existing
+            // checkbox show through its padding while the text area stays opaque.
+            ...(checkbox && !limits.compact ? { backgroundClip: 'content-box' } : {}),
         });
         this.label.style.visibility = 'hidden'; node.classList.add('mindmap-editing'); scene.append(area);
         const options = { signal: this.abort.signal };
@@ -30,7 +56,10 @@ export class TextEditor {
             // Shift+Enter and all platform text shortcuts stay native.
         }, options);
         area.addEventListener('input', () => {
-            area.style.height = '0px'; area.style.height = `${Math.min(limits.height, Math.max(21, area.scrollHeight + 2))}px`;
+            // Preserve the inward text edge on short left-side labels, including
+            // multiline labels whose rows stay left-aligned. As text grows, use
+            // the available width before native overflow scrolling takes over.
+            if (limits.compact && !limits.creation && g.side === 'left') area.style.paddingLeft = `${Math.max(2, width - measureText(area.value) - 4)}px`;
         }, options);
         doc.addEventListener('pointerdown', e => { if (!area.contains(e.target as Node)) finish(true, false); }, { ...options, capture: true });
         area.addEventListener('blur', () => finish(true, false), options);

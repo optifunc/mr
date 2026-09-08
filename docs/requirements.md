@@ -150,9 +150,15 @@ Requirements:
 
 ### 5.2 Inline editor
 
-- The inline editor shall occupy the label's location. On left branches its
-  content's right edge anchors to the label's right edge, expanding outward to
-  the left. Right branches anchor at the label's left edge.
+- The inline editor shall occupy the label's location. Existing nodes with visible
+  children use the gray selection rectangle's width and horizontal bounds. New
+  nodes and existing nodes with no visible children (leaves/collapsed) use a width
+  that fits eight `M` letters in the current font, plus padding and borders.
+  Width is capped by the viewport and scales with zoom. New nodes use this width
+  even when insertion wraps an existing child.
+- Compact editors on left branches grow outward from the label's right edge;
+  preserve the existing text position when opening F2. Root/right compact editors
+  anchor at the label's left edge. Long text may require internal scrolling.
 - It shall be a rectangular text-editing control with a thin border.
 - It shall contain the node's current plain text and select it when editing
   starts, unless editing starts from a direct text-placement gesture supported
@@ -167,12 +173,14 @@ Requirements:
 - Escape shall cancel.
 - Clicking outside the editor shall commit before processing the click.
 - The map layout shall not change while text is being edited.
-- The editor may grow vertically or scroll so all text remains editable, but
-  surrounding nodes and connectors shall retain their pre-edit positions. Never
-  show a horizontal scrollbar; horizontal scrolling shall still reveal the caret.
-- An empty editor opened for a newly created node shall be 100 local CSS pixels
-  wide (twice the previous 50px), bounded by the available viewport. This width
-  scales with widget zoom; it does not change the provisional node's geometry.
+- The editor frame shall remain fixed during typing, with text scrolling internally.
+  Surrounding nodes and connectors retain their pre-edit positions. Never show a
+  horizontal scrollbar; horizontal scrolling shall still reveal the caret.
+- The editor's bottom border shall align with the node's bottom branch line, with
+  no step. Preserve the text position when F2 opens by adjusting height and padding,
+  not moving the text. The root has an ellipse rather than a bottom branch line;
+  its editor stays vertically aligned to its text. Viewport bounds take priority
+  for labels too tall to fit on screen.
 - On commit, the widget shall measure the final label and perform one automatic
   relayout.
 - On cancellation, the old text and layout shall be restored.
@@ -755,7 +763,8 @@ demonstrate all of the following:
    in one step; ineligible selections and outward arrows do nothing.
 4. F2 and clicking the sole selected node show a thin-bordered inline editor.
    Typing replaces the active label, preserving the first character. Empty creation
-   editors are 100px wide, align outward on each side, and hide horizontal scrollbars.
+   editors fit eight Ms; existing expanded parents match the selection width.
+   Bottom borders meet branch lines without text jumping; horizontal scrollbars stay hidden.
    Shift+Enter inserts a newline, Enter commits and relayouts, and Escape
    restores the prior state.
 5. Escape while editing a newly created node removes it.
@@ -828,3 +837,8 @@ The following defaults have been confirmed:
 - Editing adjustments approved on 2026-09-08: type-to-replace the active label,
   hide horizontal editor scrollbars while preserving caret scrolling, double empty
   creation editor width to 100px, and anchor left-side editors at their right edge.
+
+- Editor sizing follow-up approved on 2026-09-08: use eight-M width for new nodes
+  and existing leaves/collapsed nodes, selection width for expanded parents, and
+  align the lower border to the branch stroke while preserving the text origin.
+  This supersedes the earlier 100px creation-editor width.
