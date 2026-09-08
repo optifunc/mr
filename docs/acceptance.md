@@ -125,12 +125,20 @@ regression baseline exists. Stop at this product checkpoint as requested.
 
 **Product review:** fluent keyboard creation, selection, navigation, and editing.
 
+**2026-09-08 focus and controls:** focused widgets have no frame, Ctrl+Space toggles
+checkboxes on macOS and other platforms, and clicking a collapsed circle expands
+its node without changing selection. Typecheck/build, 114 unit tests, 90 browser
+interaction/editing cases and 3 exact accepted-default comparisons passed.
+[Latest report, before/after screenshots and results](evidence/milestone-b/focus-controls/report.md).
+Focused/expanded screenshots were inspected in all engines; product review remains
+at stage 5.
+
 **2026-09-08 editor sizing/baseline:** new nodes and existing leaves/collapsed nodes
 now fit eight Ms; existing expanded parents match the selection width. Bottom borders
 meet branch lines and text keeps its position on F2. Typecheck/build, 114 unit tests,
 105 distinct browser cases and exact accepted-default comparisons passed. Inspected
 before/after images and measured zero vertical text-origin movement across engines.
-[Latest report, screenshots, measurements and checks](evidence/milestone-b/editor-sizing/report.md).
+[Editor sizing report, screenshots, measurements and checks](evidence/milestone-b/editor-sizing/report.md).
 These editing images await user acceptance; the checkpoint remains stage 5.
 
 **2026-09-08 editing adjustments (superseded sizing):** the four approved changes are implemented:
@@ -200,6 +208,11 @@ Use the reference map for a short repeatable exercise:
 10. Verify each effective move retains selected IDs and the active node, reveals
     the moved selection, emits one document change, and undoes/redoes in one step.
     Check read-only rejection and normal textarea behavior for these shortcuts.
+11. Focus the map with the keyboard: no widget frame appears, but arrows and F2
+    work. In the checkbox fixture press Ctrl+Space (also on macOS): only selected
+    existing checkboxes toggle. Select a different node/group, then click the
+    collapsed circle: its children appear while selection stays unchanged. Undo
+    once restores collapse. Repeat on the left, at zoom, and in read-only mode.
 
 Include editing screenshot comparison and regression against accepted default
 appearance. Exercise gestures in the browser as well as command/model tests.

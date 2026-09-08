@@ -1,0 +1,273 @@
+
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test tests/browser/focus-controls.spec.ts --project=chromium --workers=1
+
+[2m[WebServer] [22m(node:60180) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:60190) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 7 tests using 1 worker
+
+(node:60207) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:60207) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [chromium] › tests/browser/focus-controls.spec.ts:7:1 › keyboard focus has no frame and retains selection, navigation and active-descendant semantics (5.6s)
+(node:60223) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:60223) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 [chromium] › tests/browser/focus-controls.spec.ts:20:47 › Control+Space toggles existing checkbox selection on MacIntel (5.2s)
+(node:60233) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:60233) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  3 [chromium] › tests/browser/focus-controls.spec.ts:20:47 › Control+Space toggles existing checkbox selection on Win32 (362ms)
+  ✘  4 [chromium] › tests/browser/focus-controls.spec.ts:43:56 › clicking the right collapsed circle expands on release, retains selection and undoes once (334ms)
+(node:60242) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:60242) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  5 [chromium] › tests/browser/focus-controls.spec.ts:43:56 › clicking the left collapsed circle expands on release, retains selection and undoes once (338ms)
+(node:60250) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:60250) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  6 [chromium] › tests/browser/focus-controls.spec.ts:43:56 › clicking the root collapsed circle expands on release, retains selection and undoes once (5.4s)
+(node:60262) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:60262) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  7 [chromium] › tests/browser/focus-controls.spec.ts:70:1 › marker drag/cancel and read-only marker/checkbox gestures do not mutate or select (305ms)
+
+
+  1) [chromium] › tests/browser/focus-controls.spec.ts:7:1 › keyboard focus has no frame and retains selection, navigation and active-descendant semantics 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveCSS[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator:  locator('#primary .mindmap')
+    Expected: [32m"none"[39m
+    Received: [31m"solid"[39m
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toHaveCSS" with timeout 5000ms[22m
+    [2m  - waiting for locator('#primary .mindmap')[22m
+    [2m    9 × locator resolved to <div role="tree" tabindex="0" class="mindmap" aria-label="Mind map" data-layout-count="2" aria-activedescendant="mindmap-1-node-8">…</div>[22m
+    [2m      - unexpected value "solid"[22m
+
+
+      13 |     expect(await widget.getAttribute('aria-activedescendant')).toBe(await page.locator('#primary [data-node-id="b"]').getAttribute('id'));
+      14 |     await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-focus-${info.project.name}.png` });
+    > 15 |     await expect(widget).toHaveCSS('outline-style', 'none');
+         |                          ^
+      16 |     await page.keyboard.press('F2'); await expect(page.locator('#primary textarea')).toBeFocused();
+      17 |     await page.keyboard.press('Escape'); await expect(widget).toBeFocused(); await expect(widget).toHaveCSS('outline-style', 'none');
+      18 | });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/focus-controls.spec.ts:15:26
+
+    Error Context: test-results/focus-controls-keyboard-fo-540e7-active-descendant-semantics-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/focus-controls-keyboard-fo-540e7-active-descendant-semantics-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/focus-controls-keyboard-fo-540e7-active-descendant-semantics-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › tests/browser/focus-controls.spec.ts:20:47 › Control+Space toggles existing checkbox selection on MacIntel 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeChecked[2m([22m[2m)[22m failed
+
+    Locator:  locator('#secondary [data-node-id="multi"] input')
+    Expected: checked
+    Received: unchecked
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toBeChecked" with timeout 5000ms[22m
+    [2m  - waiting for locator('#secondary [data-node-id="multi"] input')[22m
+    [2m    9 × locator resolved to <input tabindex="-1" type="checkbox" aria-hidden="true" class="mindmap-checkbox"/>[22m
+    [2m      - unexpected value "unchecked"[22m
+
+
+      24 |     const before = await page.evaluate(() => ({ document: window.secondary.getDocument(), selection: window.secondary.getSelection(), viewport: window.secondary.getViewport(), layouts: document.querySelector('#secondary .mindmap')!.getAttribute('data-layout-count') }));
+      25 |     await page.keyboard.press('Control+Space');
+    > 26 |     await expect(page.locator('#secondary [data-node-id="multi"] input')).toBeChecked();
+         |                                                                           ^
+      27 |     await expect(page.locator('#secondary [data-node-id="checked"] input')).toBeChecked();
+      28 |     await expect(page.locator('#secondary [data-node-id="multi"]')).toHaveAttribute('aria-expanded', 'true');
+      29 |     await expect(page.locator('#secondary [data-node-id="html"] input')).toHaveCount(0);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/focus-controls.spec.ts:26:75
+
+    Error Context: test-results/focus-controls-Control-Spa-214d4-ckbox-selection-on-MacIntel-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/focus-controls-Control-Spa-214d4-ckbox-selection-on-MacIntel-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/focus-controls-Control-Spa-214d4-ckbox-selection-on-MacIntel-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chromium] › tests/browser/focus-controls.spec.ts:43:56 › clicking the right collapsed circle expands on release, retains selection and undoes once 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 3[39m
+    [31m+ Received  + 2[39m
+
+    [2m  Object {[22m
+    [32m-   "activeId": "a",[39m
+    [31m+   "activeId": "collapsed",[39m
+    [2m    "ids": Array [[22m
+    [32m-     "a",[39m
+    [32m-     "b",[39m
+    [31m+     "collapsed",[39m
+    [2m    ],[22m
+    [2m  }[22m
+
+      54 |     await page.mouse.move(x, y); await page.mouse.down();
+      55 |     expect(await page.evaluate(() => window.primary.getDocument())).toEqual(doc);
+    > 56 |     expect(await page.evaluate(() => window.primary.getSelection())).toEqual(selection);
+         |                                                                      ^
+      57 |     await page.mouse.up();
+      58 |     await expect(page.locator(`#primary [data-node-id="${id}"]`)).toHaveAttribute('aria-expanded', 'true');
+      59 |     await expect(page.locator(`#primary [data-node-id="${side === 'root' ? 'one' : 'hidden'}"]`)).toBeVisible();
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/focus-controls.spec.ts:56:70
+
+    Error Context: test-results/focus-controls-clicking-th-53bd0-s-selection-and-undoes-once-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/focus-controls-clicking-th-53bd0-s-selection-and-undoes-once-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/focus-controls-clicking-th-53bd0-s-selection-and-undoes-once-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [chromium] › tests/browser/focus-controls.spec.ts:43:56 › clicking the left collapsed circle expands on release, retains selection and undoes once 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 3[39m
+    [31m+ Received  + 2[39m
+
+    [2m  Object {[22m
+    [32m-   "activeId": "a",[39m
+    [31m+   "activeId": "collapsed",[39m
+    [2m    "ids": Array [[22m
+    [32m-     "a",[39m
+    [32m-     "b",[39m
+    [31m+     "collapsed",[39m
+    [2m    ],[22m
+    [2m  }[22m
+
+      54 |     await page.mouse.move(x, y); await page.mouse.down();
+      55 |     expect(await page.evaluate(() => window.primary.getDocument())).toEqual(doc);
+    > 56 |     expect(await page.evaluate(() => window.primary.getSelection())).toEqual(selection);
+         |                                                                      ^
+      57 |     await page.mouse.up();
+      58 |     await expect(page.locator(`#primary [data-node-id="${id}"]`)).toHaveAttribute('aria-expanded', 'true');
+      59 |     await expect(page.locator(`#primary [data-node-id="${side === 'root' ? 'one' : 'hidden'}"]`)).toBeVisible();
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/focus-controls.spec.ts:56:70
+
+    Error Context: test-results/focus-controls-clicking-th-faef2-s-selection-and-undoes-once-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/focus-controls-clicking-th-faef2-s-selection-and-undoes-once-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/focus-controls-clicking-th-faef2-s-selection-and-undoes-once-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [chromium] › tests/browser/focus-controls.spec.ts:43:56 › clicking the root collapsed circle expands on release, retains selection and undoes once 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveAttribute[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator:  locator('#primary [data-node-id="root"]')
+    Expected: [32m"[7mtru[27me"[39m
+    Received: [31m"[7mfals[27me"[39m
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toHaveAttribute" with timeout 5000ms[22m
+    [2m  - waiting for locator('#primary [data-node-id="root"]')[22m
+    [2m    9 × locator resolved to <div aria-level="1" role="treeitem" aria-setsize="1" aria-posinset="1" data-node-id="root" id="mindmap-1-node-0" aria-selected="false" aria-expanded="false" aria-label="New Mindmap" class="mindmap-node mindmap-root-node">…</div>[22m
+    [2m      - unexpected value "false"[22m
+
+
+      56 |     expect(await page.evaluate(() => window.primary.getSelection())).toEqual(selection);
+      57 |     await page.mouse.up();
+    > 58 |     await expect(page.locator(`#primary [data-node-id="${id}"]`)).toHaveAttribute('aria-expanded', 'true');
+         |                                                                   ^
+      59 |     await expect(page.locator(`#primary [data-node-id="${side === 'root' ? 'one' : 'hidden'}"]`)).toBeVisible();
+      60 |     await expect(page.locator('#primary textarea')).toHaveCount(0);
+      61 |     expect(await page.evaluate(() => window.primary.getSelection())).toEqual(selection);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/focus-controls.spec.ts:58:67
+
+    Error Context: test-results/focus-controls-clicking-th-daecf-s-selection-and-undoes-once-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/focus-controls-clicking-th-daecf-s-selection-and-undoes-once-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/focus-controls-clicking-th-daecf-s-selection-and-undoes-once-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) [chromium] › tests/browser/focus-controls.spec.ts:70:1 › marker drag/cancel and read-only marker/checkbox gestures do not mutate or select 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 2[39m
+    [31m+ Received  + 2[39m
+
+    [33m@@ -125,13 +125,13 @@[39m
+    [2m        "id": "root",[22m
+    [2m        "text": "New Mindmap",[22m
+    [2m      },[22m
+    [2m    },[22m
+    [2m    "selection": Object {[22m
+    [32m-     "activeId": "one",[39m
+    [31m+     "activeId": "collapsed",[39m
+    [2m      "ids": Array [[22m
+    [32m-       "one",[39m
+    [31m+       "collapsed",[39m
+    [2m      ],[22m
+    [2m    },[22m
+    [2m    "undo": false,[22m
+    [2m    "viewport": Object {[22m
+    [2m      "x": 676,[22m
+
+      75 |     const x = box.x + box.width / 2, y = box.y + box.height / 2;
+      76 |     await page.mouse.move(x, y); await page.mouse.down(); await page.mouse.move(x + 15, y + 15); await page.mouse.up();
+    > 77 |     expect(await snapshot()).toEqual(before);
+         |                              ^
+      78 |     await page.mouse.move(x, y); await page.mouse.down();
+      79 |     await page.locator('#primary .mindmap').dispatchEvent('pointercancel', { pointerId: 1, pointerType: 'mouse' }); await page.mouse.up();
+      80 |     expect(await snapshot()).toEqual(before);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/focus-controls.spec.ts:77:30
+
+    Error Context: test-results/focus-controls-marker-drag-e8e2c-res-do-not-mutate-or-select-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/focus-controls-marker-drag-e8e2c-res-do-not-mutate-or-select-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/focus-controls-marker-drag-e8e2c-res-do-not-mutate-or-select-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6 failed
+    [chromium] › tests/browser/focus-controls.spec.ts:7:1 › keyboard focus has no frame and retains selection, navigation and active-descendant semantics 
+    [chromium] › tests/browser/focus-controls.spec.ts:20:47 › Control+Space toggles existing checkbox selection on MacIntel 
+    [chromium] › tests/browser/focus-controls.spec.ts:43:56 › clicking the right collapsed circle expands on release, retains selection and undoes once 
+    [chromium] › tests/browser/focus-controls.spec.ts:43:56 › clicking the left collapsed circle expands on release, retains selection and undoes once 
+    [chromium] › tests/browser/focus-controls.spec.ts:43:56 › clicking the root collapsed circle expands on release, retains selection and undoes once 
+    [chromium] › tests/browser/focus-controls.spec.ts:70:1 › marker drag/cancel and read-only marker/checkbox gestures do not mutate or select 
+  1 passed (26.1s)
+ ELIFECYCLE  Command failed with exit code 1.

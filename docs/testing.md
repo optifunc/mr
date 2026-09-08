@@ -104,3 +104,15 @@ written to `docs/evidence/milestone-b/`; tests retain failure traces in ignored
   text origin and branch-aligned bottom border at 100%/150%/200%, eight-M width in
   12px/18px fonts, leaf/collapsed/expanded behavior, all creation bindings, frozen
   frame during multiline typing, checkbox/root positioning and accepted-default PNGs.
+
+## Focus frame, checkbox shortcut and collapsed circles
+
+- `pnpm test:browser tests/browser/focus-controls.spec.ts tests/browser/interaction.spec.ts tests/browser/editing.spec.ts --workers=1`:
+  focused-frame removal and accessibility semantics, Ctrl+Space in simulated Mac
+  and Windows platform routing, Cmd+Space no-op, native textarea routing, circle
+  pointer down/release on root/left/right branches at 200%, preserved selection,
+  one-step undo, drag/cancel/read-only rejection, and existing editing/interaction.
+- `pnpm test:browser tests/browser/checkpoint-b.spec.ts --grep accepted-A --workers=1`:
+  exact accepted-default comparisons across all engines.
+- Current evidence: `docs/evidence/milestone-b/focus-controls/`. Focused images are
+  new review candidates; accepted default baselines and prior evidence are retained.

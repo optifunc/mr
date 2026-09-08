@@ -7,8 +7,9 @@ export interface InputActions {
     pan(x: number, y: number): void;
     zoom(scale: number, x: number, y: number): void;
     hit(x: number, y: number): string | undefined;
+    marker(x: number, y: number): string | undefined;
 }
-type Press = { kind: 'node' | 'canvas'; pointerId: number; x: number; y: number; view: Viewport; id?: string; moved: boolean; toggle: boolean; range: boolean };
+type Press = { kind: 'node' | 'canvas' | 'marker'; pointerId: number; x: number; y: number; view: Viewport; id?: string; moved: boolean; toggle: boolean; range: boolean };
 export class Input {
     private press: Press | undefined;
     private readonly abort = new AbortController();
@@ -30,12 +31,14 @@ export class Input {
         if ((e.target as HTMLElement).closest('textarea') || e.isComposing || e.keyCode === 229) return;
         const primary = this.primary(e), key = e.key.toLowerCase();
         let command: MindMapCommand | undefined;
-        if (key.startsWith('arrow')) command = { type: primary ? 'moveSelection' : 'navigate', direction: key.slice(5) as 'left' | 'right' | 'up' | 'down', ...(!primary ? { extend: e.shiftKey } : {}) };
+        if (key === ' ') {
+            if (e.ctrlKey && !e.metaKey) command = { type: 'toggleChecked' };
+            else if (!e.ctrlKey && !e.metaKey) command = { type: 'toggleCollapse' };
+        } else if (key.startsWith('arrow')) command = { type: primary ? 'moveSelection' : 'navigate', direction: key.slice(5) as 'left' | 'right' | 'up' | 'down', ...(!primary ? { extend: e.shiftKey } : {}) };
         else if (primary) {
             if (key === 'a') command = { type: 'selectAll' };
             if (key === 'z') command = { type: e.shiftKey ? 'redo' : 'undo' };
             if (key === 'y') command = { type: 'redo' };
-            if (key === ' ') command = { type: 'toggleChecked' };
             if (key === '+' || key === '=') command = { type: 'zoomIn' };
             if (key === '-') command = { type: 'zoomOut' };
             if (key === '0') command = { type: e.shiftKey ? 'fit' : 'resetZoom' };
@@ -44,7 +47,6 @@ export class Input {
             if (key === 'enter') command = { type: e.shiftKey ? 'insertBefore' : 'insertAfter' };
             if (key === 'tab') command = { type: e.shiftKey ? 'insertParent' : 'insertChild' };
             if (key === 'delete') command = { type: 'delete' };
-            if (key === ' ') command = { type: 'toggleCollapse' };
             if (key === 'escape') { this.cancel(); this.actions.select(undefined, false, false, true); e.preventDefault(); return; }
         }
         if (!command && !e.ctrlKey && !e.metaKey && !e.altKey && [...e.key].length === 1) {
@@ -57,10 +59,11 @@ export class Input {
     private down = (e: PointerEvent): void => {
         if (e.pointerType !== 'mouse' || e.button !== 0 || (e.target as HTMLElement).closest('textarea')) return;
         e.preventDefault(); this.element.focus({ preventScroll: true });
-        const id = this.actions.hit(e.clientX, e.clientY), toggle = this.primary(e), range = e.shiftKey;
-        if (id && this.element.ownerDocument.elementFromPoint(e.clientX, e.clientY)?.closest('input')) { this.actions.command({ type: 'toggleChecked', ids: [id] }); return; }
-        this.press = { kind: id ? 'node' : 'canvas', pointerId: e.pointerId, x: e.clientX, y: e.clientY, view: this.actions.viewport(), ...(id ? { id } : {}), moved: false, toggle, range };
-        if (id && (!this.actions.selected(id) || toggle || range)) {
+        const marker = this.actions.marker(e.clientX, e.clientY);
+        const id = marker ?? this.actions.hit(e.clientX, e.clientY), toggle = this.primary(e), range = e.shiftKey;
+        if (!marker && id && this.element.ownerDocument.elementFromPoint(e.clientX, e.clientY)?.closest('input')) { this.actions.command({ type: 'toggleChecked', ids: [id] }); return; }
+        this.press = { kind: marker ? 'marker' : id ? 'node' : 'canvas', pointerId: e.pointerId, x: e.clientX, y: e.clientY, view: this.actions.viewport(), ...(id ? { id } : {}), moved: false, toggle, range };
+        if (!marker && id && (!this.actions.selected(id) || toggle || range)) {
             this.actions.select(id, toggle, range, false);
             // This press established a selection; editing requires a subsequent click.
             this.press.toggle = true;
@@ -78,6 +81,10 @@ export class Input {
     private up = (e: PointerEvent): void => {
         const p = this.press; if (!p || p.pointerId !== e.pointerId) return;
         this.cancel();
+        if (p.kind === 'marker') {
+            if (!p.moved && this.actions.marker(e.clientX, e.clientY) === p.id) this.actions.command({ type: 'expand', targetId: p.id! });
+            return;
+        }
         if (!p.moved && !p.toggle && !p.range) this.actions.select(p.id, false, false, !!p.id);
     };
     private cancel = (): void => {

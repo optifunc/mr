@@ -334,7 +334,19 @@ For deletion, prefer the active removed subtree's surviving parent; otherwise us
 the nearest surviving node in the pre-command visual order. Normalize overlapping
 selected subtrees before every delete, cut, copy, or move.
 
-Use an explicit interaction state machine for idle, pressed node, editing, panning,
+Use Ctrl+Space for checkbox toggling on all platforms, including macOS. Handle
+Space independently from the platform primary-modifier branch: bare Space remains
+collapse, and Cmd+Space is left unhandled. Textarea/composition input keeps native
+routing. Existing selection, mixed-checkbox, history and read-only rules apply.
+
+Resolve collapsed-circle clicks from layout geometry in local/world coordinates,
+including zoom, host scaling and the circle stroke. Keep SVG strokes decorative
+and pointer-transparent. A circle press preserves selection; release over that
+same circle without dragging dispatches the shared expand command. Cancellation,
+release elsewhere, non-left mouse buttons and read-only mode do not expand. Match
+root/left/right marker geometry and re-hit after any outside-editor commit.
+
+Use an explicit interaction state machine for idle, pressed node/marker, editing, panning,
 dragging, and menu. Defer click-to-edit until pointer release confirms a click.
 A press on an unselected node selects it; exceeding a small screen-pixel threshold
 starts dragging. A press on an already selected group preserves the group for a
@@ -469,7 +481,7 @@ nodes as treeitems with hierarchy/group semantics, explicit accessible labels,
 selection, expansion, and checkbox states. Keep node controls out of the normal
 Tab order; keyboard commands provide equivalent actions. Do not draw an additional
 active-node focus outline, per the 2026-09-07 product review. Preserve
-active-descendant semantics and the canvas keyboard-focus indication.
+active-descendant semantics and keyboard focus without a widget focus frame.
 
 Build the menu from command applicability. Keep a consistent menu order and show
 unavailable commands disabled. Support Shift+F10, Context Menu key, arrows,

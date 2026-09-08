@@ -50,7 +50,7 @@ export class MindMapEditor {
             selected: id => this.store.selection.ids.includes(id),
             viewport: () => this.getViewport(), pan: (x, y) => this.applyViewport({ ...this.viewport, x, y }),
             zoom: (scale, x, y) => { const p = this.localPoint(x, y); this.applyViewport(zoomAt(this.viewport, scale, p.x, p.y)); },
-            hit: (x, y) => this.hit(x, y),
+            hit: (x, y) => this.hit(x, y), marker: (x, y) => this.hit(x, y, true),
         });
         this.resize = new ResizeObserver(() => {
             if (this.destroyed || !this.element.clientWidth || !this.element.clientHeight) return;
@@ -256,9 +256,14 @@ export class MindMapEditor {
         const r = this.element.getBoundingClientRect();
         return { x: (x - r.left) * this.element.clientWidth / r.width, y: (y - r.top) * this.element.clientHeight / r.height };
     }
-    private hit(x: number, y: number): string | undefined {
+    private hit(x: number, y: number, markerOnly = false): string | undefined {
         const p = this.localPoint(x, y), v = this.viewport;
         const wx = (p.x - v.x) / v.zoom, wy = (p.y - v.y) / v.zoom;
+        if (markerOnly) {
+            const stroke = parseFloat(getComputedStyle(this.element).getPropertyValue('--mindmap-line-width')) || 1;
+            return [...this.scene.geometry!.nodes.values()].reverse().find(g => g.marker &&
+                Math.hypot(wx - g.marker.x, wy - g.marker.y) <= g.marker.radius + stroke / 2)?.id;
+        }
         return [...this.scene.geometry!.nodes.values()].reverse().find(g => { const b = g.interaction; return wx >= b.x && wx <= b.x + b.width && wy >= b.y && wy <= b.y + b.height + 3; })?.id;
     }
     private applyViewport(view: Viewport): void {

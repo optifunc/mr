@@ -174,8 +174,8 @@ alignment, including beside multiline labels.
 
 The Windows 100% DPI reference calibrates the default size. A selected root fills
 its entire ellipse; non-root selections remain rectangular. SVG strokes render
-above selection fills. Nodes have no additional focus outline; the canvas retains
-its keyboard-focus indication and active-descendant semantics. Checkboxes retain
+above selection fills. Neither the active node nor the focused widget draws an
+additional focus outline. Keyboard focus and active-descendant semantics remain. Checkboxes retain
 native input semantics with an explicit green fill and white tick, avoiding native
 WebKit tinting; forced-color mode uses native appearance.
 
@@ -185,3 +185,17 @@ changes do relayout. DOM IDs are instance-specific and labels are always text.
 The tree entry point, active descendant, levels, ownership, selection, expansion,
 and checkbox states are preliminary accessibility support; screen-reader validation
 and completed keyboard interaction remain milestone D work.
+
+## Focus and direct controls
+
+Ctrl+Space toggles selected checkbox nodes on every platform, including macOS.
+Cmd+Space is not handled by the widget; bare Space still expands/collapses the
+active node. Inside the textarea, native text input owns these shortcuts.
+
+Clicking a collapsed circle expands its node through the shared `expand` command,
+without selecting that node or opening its editor. Expansion occurs on release
+over the same marker after a click; dragging away or cancellation does nothing.
+Read-only mode preserves document and selection. Effective expansion produces one
+user-origin document change and one undo entry. Existing SVG accessibility and
+keyboard equivalents remain unchanged. The historical `focus-color` theme variable
+is retained but no longer paints a widget focus frame.

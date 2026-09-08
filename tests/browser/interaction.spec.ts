@@ -78,7 +78,7 @@ test('checkbox click and mixed keyboard toggle are independent and do not relayo
     await page.locator('#secondary [data-node-id="checked"] input').click();
     await expect(page.locator('#secondary [data-node-id="checked"] input')).not.toBeChecked();
     await page.evaluate(() => { window.secondary.setSelection(['multi', 'nested', 'html'], 'multi'); window.secondary.focus(); });
-    await page.keyboard.press(`${primary}+Space`);
+    await page.keyboard.press('Control+Space');
     await expect(page.locator('#secondary [data-node-id="multi"] input')).toBeChecked();
     await expect(page.locator('#secondary [data-node-id="nested"] input')).toBeChecked();
     expect(await page.locator('#secondary .mindmap').getAttribute('data-layout-count')).toBe(count);

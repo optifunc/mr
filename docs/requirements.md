@@ -133,7 +133,10 @@ Requirements:
 - Children shall fan vertically around their parent, preserving order.
 - Left branches shall mirror right branches.
 - A collapsed node that has children shall show a small outlined circle at the
-  outward end of its branch line, as in the reference.
+  outward end of its branch line, as in the reference. Clicking this circle shall
+  expand that node without changing the current selection or opening an editor.
+  Expand on release over the same circle after a click, not a drag/cancellation.
+  Read-only mode leaves the node and selection unchanged.
 - Checkbox nodes shall show a native-looking square checkbox immediately
   before the label, optically aligned with the text (with the text block for
   multiline labels). Checked labels shall remain readable; no strike-through is
@@ -145,7 +148,7 @@ Requirements:
   selection backgrounds so their strokes remain unobstructed.
 - The active node shall not have a dotted or other additional node focus outline.
   Keyboard focus and active-node accessibility semantics shall remain intact;
-  the canvas may retain its keyboard-focus indication.
+  the widget shall not draw a frame/outline when focused.
 - Rendering shall remain legible at all supported zoom levels.
 
 ### 5.2 Inline editor
@@ -348,7 +351,7 @@ commands immediately open the new node's inline editor.
 | Shift+Tab | Insert a new parent around the active node; on root, insert a left-side root child |
 | Delete | Delete selected subtrees |
 | Space | Expand or collapse the active node |
-| Primary modifier+Space | Toggle checked state of selected checkbox nodes |
+| Ctrl+Space | Toggle checked state of selected checkbox nodes on every platform, including macOS |
 | Primary modifier+Up / Down | Move the selected sibling block up / down one position, wrapping at the edge |
 | Primary modifier+inward arrow | Move the selected block immediately after its parent; root children flip sides |
 | Primary modifier+outward arrow | No action |
@@ -375,7 +378,7 @@ Additional requirements:
 - When deleting, the next active node shall be the nearest surviving node in
   visual order, preferring the deleted block's parent.
 - Space on a leaf shall have no effect.
-- Primary-modifier+Space shall affect every selected node that already has a
+- Ctrl+Space shall affect every selected node that already has a
   checkbox and shall not add a checkbox to nodes without one. If selected
   checkbox nodes have mixed states, the command checks all of them; otherwise
   it toggles all of them.
@@ -447,7 +450,7 @@ Additional requirements:
   and child state shall not derive parent state.
 - Mouse click directly on a checkbox shall toggle it without starting label
   editing.
-- Primary-modifier+Space shall provide the equivalent keyboard operation.
+- Ctrl+Space shall provide the equivalent keyboard operation.
 - Toggling checked state shall be one undoable transaction for all affected
   selected checkbox nodes.
 - Checkbox presence and checked state shall be represented in clipboard text as
@@ -776,7 +779,7 @@ demonstrate all of the following:
    first expands a collapsed node.
 7. Mouse, modifier-click, sibling range selection, cross-parent range
    selection, Shift+Arrow, and select-all behave as specified.
-8. Space collapses/expands; Primary-modifier+Space toggles only existing
+8. Space collapses/expands; Ctrl+Space toggles only existing
    checkboxes; checkbox state remains independent.
 9. New children and siblings of checkbox nodes receive unchecked checkboxes.
 10. URL-only labels open on Primary-modifier+click, while partial URLs do not.
@@ -842,3 +845,8 @@ The following defaults have been confirmed:
   and existing leaves/collapsed nodes, selection width for expanded parents, and
   align the lower border to the branch stroke while preserving the text origin.
   This supersedes the earlier 100px creation-editor width.
+
+- Focus/control follow-up approved on 2026-09-08: remove the widget focus frame,
+  use Ctrl+Space for checkbox toggling on macOS as well as other platforms, and
+  expand a collapsed node by clicking its circle while preserving selection.
+  Cmd+Space is left unhandled for the system; ordinary Space remains collapse.

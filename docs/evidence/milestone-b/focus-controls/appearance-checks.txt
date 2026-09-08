@@ -1,0 +1,28 @@
+
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test tests/browser/checkpoint-b.spec.ts --grep accepted-A --workers=1
+
+[2m[WebServer] [22m(node:60603) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:60613) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:60630) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:60630) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/browser/checkpoint-b.spec.ts:82:1 › accepted-A rendering regression in its original page geometry (637ms)
+(node:60640) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:60640) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  2 [firefox] › tests/browser/checkpoint-b.spec.ts:82:1 › accepted-A rendering regression in its original page geometry (2.8s)
+(node:60654) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:60654) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  3 [webkit] › tests/browser/checkpoint-b.spec.ts:82:1 › accepted-A rendering regression in its original page geometry (1.5s)
+
+  3 passed (13.9s)

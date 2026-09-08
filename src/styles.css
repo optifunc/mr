@@ -28,7 +28,6 @@
   font-family: var(--mindmap-font-family); font-size: var(--mindmap-font-size); line-height: var(--mindmap-line-height);
   user-select: none; touch-action: none; text-align: left; isolation: isolate; outline: none;
 }
-.mindmap:focus-visible { outline: 1px solid var(--mindmap-focus-color); outline-offset: -1px; }
 .mindmap .mindmap-scene { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
 .mindmap .mindmap-lines { position: absolute; z-index: 1; left: 0; top: 0; width: 1px; height: 1px; overflow: visible; pointer-events: none; fill: none; stroke: var(--mindmap-line-color); stroke-width: var(--mindmap-line-width); }
 .mindmap .mindmap-lines circle { fill: var(--mindmap-background); }

@@ -15,7 +15,10 @@ The approved editing adjustments now support typing replacement, hide horizontal
 scrollbars, and anchor left editors outward. The latest sizing correction uses
 an eight-M width for new/leaf/collapsed nodes and selection width for expanded
 parents, with the bottom border on the branch line and stable text position.
-[Latest evidence](evidence/milestone-b/editor-sizing/report.md).
+[Editor sizing evidence](evidence/milestone-b/editor-sizing/report.md).
+The latest approved controls remove the focused-widget frame, use Ctrl+Space on
+all platforms, and expand collapsed nodes by clicking their circles without
+changing selection. [Latest evidence](evidence/milestone-b/focus-controls/report.md).
 Stages 6–9 have not been started.
 
 Stages 4–5 include mouse/range selection, geometry navigation, keyboard sibling-block
@@ -305,3 +308,28 @@ accepted baselines remain unchanged; new images are product-review candidates.
 Requirements, plan, API, demo evidence link, testing and acceptance are current.
 Next: continue user review at stage 5. Full suite/workload, OS IME and later release
 checks were not rerun; the previously documented milestone C/D gaps remain.
+
+## B focus frame and controls — 2026-09-08
+
+Implemented the approved follow-up: remove the focused widget outline while keeping
+keyboard focus/active-descendant semantics; Ctrl+Space toggles checkbox selection
+on every platform, with Cmd+Space unhandled; clicking a collapsed circle expands
+that node on release while preserving selection. Marker geometry is checked through
+the existing local/world pointer path, including root and mirrored branches. A
+marker press has its own state, so dragging away, cancellation and read-only mode
+cannot expand or select the target. Effective expansion uses the shared command
+path, producing one undoable change. Textarea keyboard routing remains native.
+
+Based on `f2fdcfa`; tested task-only changes are in the commit containing this
+record and [report](evidence/milestone-b/focus-controls/report.md). Passed:
+typecheck/build, 114 unit tests, 90 focused interaction/editing browser cases,
+3 exact accepted-A PNG comparisons and whitespace checks. The pre-fix new tests
+failed 6 Chromium cases and passed the existing Windows Ctrl+Space case. Final
+checks passed without changed tolerances or disabled assertions.
+
+Inspected focused-widget and expanded-child images in all engines; prior focus
+image retained for before/after comparison. Requirements, plan, API, demo help,
+testing and acceptance are updated. Previous images/default baselines are preserved.
+Next: user stage-5 review. Full suite/workload, actual stable-browser, real OS IME,
+screen-reader and packaged-consumer release checks were not rerun; prior C/D gaps
+remain. The demo still runs with `pnpm dev` or the existing 5174 server.
