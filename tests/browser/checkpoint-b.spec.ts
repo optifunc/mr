@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+const evidence = process.env.MINDMAP_EVIDENCE ?? 'docs/evidence/milestone-c/regression/editor-sizing';
 import { writeFileSync } from 'node:fs';
 import { referenceMap, node } from '../fixtures/maps';
 test('editing reference, multiline, checkbox/root alignment and frozen geometry evidence', async ({ page, browser }, info) => {
@@ -8,14 +9,14 @@ test('editing reference, multiline, checkbox/root alignment and frozen geometry 
     await page.keyboard.press('ArrowRight');
     await page.setViewportSize({ width: 1440, height: 1200 });
     await page.locator('.edit-comparison').scrollIntoViewIfNeeded();
-    await page.locator('.edit-comparison').screenshot({ path: `docs/evidence/milestone-c/regression/editor-sizing/editing-comparison-${info.project.name}.png` });
-    await page.locator('#editing-map').screenshot({ path: `docs/evidence/milestone-c/regression/editor-sizing/editing-${info.project.name}.png` });
+    await page.locator('.edit-comparison').screenshot({ path: `${evidence}/editing-comparison-${info.project.name}.png` });
+    await page.locator('#editing-map').screenshot({ path: `${evidence}/editing-${info.project.name}.png` });
     const before = await page.locator('#editing-map .mindmap-nodes').innerHTML();
     await editor.fill('First line\nSecond line\nThird line');
     expect(await page.locator('#editing-map .mindmap-nodes').innerHTML()).toBe(before);
-    await page.locator('#editing-map').screenshot({ path: `docs/evidence/milestone-c/regression/editor-sizing/editing-multiline-${info.project.name}.png` });
+    await page.locator('#editing-map').screenshot({ path: `${evidence}/editing-multiline-${info.project.name}.png` });
     await page.keyboard.press('Enter');
-    await page.locator('#editing-map').screenshot({ path: `docs/evidence/milestone-c/regression/editor-sizing/committed-multiline-${info.project.name}.png` });
+    await page.locator('#editing-map').screenshot({ path: `${evidence}/committed-multiline-${info.project.name}.png` });
     const measurements = [];
     for (const id of ['root', 'multi', 'checked']) {
         await page.evaluate(id => { window.secondary.setZoom(1.5); window.secondary.editNode(id); }, id);
@@ -26,10 +27,10 @@ test('editing reference, multiline, checkbox/root alignment and frozen geometry 
         }, id);
         expect(Math.abs(measured.dx)).toBeLessThan(.76); expect(Math.abs(measured.dy)).toBeLessThan(.76);
         measurements.push(measured);
-        await page.locator('#secondary').screenshot({ path: `docs/evidence/milestone-c/regression/editor-sizing/editor-${id}-${info.project.name}.png` });
+        await page.locator('#secondary').screenshot({ path: `${evidence}/editor-${id}-${info.project.name}.png` });
         await page.keyboard.press('Escape');
     }
-    writeFileSync(`docs/evidence/milestone-c/regression/editor-sizing/editing-${info.project.name}.json`, JSON.stringify({ browser: browser.version(), platform: process.platform, viewport: page.viewportSize(), deviceScaleFactor: 1, measurements }, null, 2) + '\n');
+    writeFileSync(`${evidence}/editing-${info.project.name}.json`, JSON.stringify({ browser: browser.version(), platform: process.platform, viewport: page.viewportSize(), deviceScaleFactor: 1, measurements }, null, 2) + '\n');
 });
 test('Ctrl routing on simulated non-Mac platform, all movement no-op classes, left promotion, empty destination and reveal', async ({ page }) => {
     await page.addInitScript(() => Object.defineProperty(navigator, 'platform', { get: () => 'Win32' }));
@@ -96,7 +97,7 @@ test('accepted-A rendering regression in its original page geometry', async ({ p
     await page.setViewportSize({ width: 1440, height: 1200 });
     await page.locator('.comparison').scrollIntoViewIfNeeded();
     await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
-    const capture = await page.locator('#comparison-map').screenshot({ path: `docs/evidence/milestone-c/regression/editor-sizing/regression-reference-${info.project.name}.png` });
+    const capture = await page.locator('#comparison-map').screenshot({ path: `${evidence}/regression-reference-${info.project.name}.png` });
     expect(capture.equals(readFileSync(`docs/evidence/milestone-a/checkbox-size/reference-${info.project.name}.png`)), 'Approved A image, pinned macOS browser/font environment, exact PNG comparison').toBe(true);
 });
 

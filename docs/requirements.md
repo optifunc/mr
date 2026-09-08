@@ -155,10 +155,11 @@ Requirements:
 
 - The inline editor shall occupy the label's location. Existing nodes with visible
   children use the gray selection rectangle's width and horizontal bounds. New
-  nodes and existing nodes with no visible children (leaves/collapsed) use a width
-  that fits eight `M` letters in the current font, plus padding and borders.
-  Width is capped by the viewport and scales with zoom. New nodes use this width
-  even when insertion wraps an existing child.
+  nodes use a default width that fits eight `M` letters in the current font, plus
+  padding and borders. For nodes with no visible children (leaves/collapsed),
+  use the larger of this default and the rendered node width.
+  Width is capped by the viewport and scales with zoom. New parents wrapping a
+  visible child retain the eight-M creation default.
 - Compact editors on left branches grow outward from the label's right edge;
   preserve the existing text position when opening F2. Root/right compact editors
   anchor at the label's left edge. Long text may require internal scrolling.
@@ -434,8 +435,8 @@ Additional requirements:
   "http:" or "https:" URL.
 - Partial URLs embedded in other text shall remain plain text.
 - URL detection shall occur after edit commit and document replacement.
-- The URL label shall have a subtle link affordance while retaining the
-  reference visual style.
+- The URL label shall use standard link blue (#0000EE) without a text underline.
+  Its normal branch line remains unchanged.
 - Primary-modifier+click on the URL label shall open it in a new browser tab or
   window using the platform's default browser behavior.
 - The widget shall use "noopener,noreferrer" protections.
@@ -766,7 +767,8 @@ demonstrate all of the following:
    in one step; ineligible selections and outward arrows do nothing.
 4. F2 and clicking the sole selected node show a thin-bordered inline editor.
    Typing replaces the active label, preserving the first character. Empty creation
-   editors fit eight Ms; existing expanded parents match the selection width.
+   editors fit eight Ms; leaf/collapsed editors use at least the rendered node
+   width; existing expanded parents match the selection width.
    Bottom borders meet branch lines without text jumping; horizontal scrollbars stay hidden.
    Shift+Enter inserts a newline, Enter commits and relayouts, and Escape
    restores the prior state.
@@ -850,3 +852,9 @@ The following defaults have been confirmed:
   use Ctrl+Space for checkbox toggling on macOS as well as other platforms, and
   expand a collapsed node by clicking its circle while preserving selection.
   Cmd+Space is left unhandled for the system; ordinary Space remains collapse.
+
+- Milestone C review follow-up approved on 2026-09-08: URL labels use #0000EE
+  without a text underline; branch lines remain. Editors for nodes without
+  visible children use max(eight-M default, rendered node width), preserving
+  viewport caps, frozen frames and existing alignment. This supersedes fixed
+  eight-M sizing for wider leaves/collapsed nodes.

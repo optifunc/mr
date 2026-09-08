@@ -22,7 +22,12 @@ export class TextEditor {
             return width;
         };
         const g = limits.geometry;
-        const width = Math.min(limits.width, limits.compact ? Math.ceil(measureText('MMMMMMMM')) + 6 : g.box.width);
+        // Leaf/collapsed frames must fit at least the rendered node. Provisional
+        // parents with visible children retain their creation-width default.
+        const width = Math.min(limits.width, limits.compact ? Math.max(
+            Math.ceil(measureText('MMMMMMMM')) + 6,
+            node.getAttribute('aria-expanded') === 'true' ? 0 : g.box.width,
+        ) : g.box.width);
         const checkbox = node.querySelector('input');
         const prefix = checkbox ? parseFloat(getComputedStyle(checkbox).width) + parseFloat(nodeStyle.columnGap) : 0;
         const inset = g.side === null ? (g.box.width - labelWidth - prefix) / 2 : parseFloat(nodeStyle.paddingLeft);
@@ -41,9 +46,9 @@ export class TextEditor {
             paddingLeft: `${paddingLeft}px`,
             paddingRight: `${!limits.compact ? Math.max(2, g.box.x + g.box.width - labelLeft - labelWidth - 1) : 2}px`,
             paddingBottom: `${Math.max(0, height - labelHeight - 4)}px`,
-            // A full-node frame includes the checkbox prefix. Let the existing
-            // checkbox show through its padding while the text area stays opaque.
-            ...(checkbox && !limits.compact ? { backgroundClip: 'content-box' } : {}),
+            // Full-node and outward-growing left frames can include the checkbox
+            // prefix. Keep it visible through padding while text stays opaque.
+            ...(checkbox && (!limits.compact || g.side === 'left') ? { backgroundClip: 'content-box' } : {}),
         });
         this.label.style.visibility = 'hidden'; node.classList.add('mindmap-editing'); scene.append(area);
         const options = { signal: this.abort.signal };

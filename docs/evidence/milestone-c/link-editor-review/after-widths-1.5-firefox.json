@@ -1,0 +1,202 @@
+[
+  {
+    "id": "wide-left",
+    "width": 155.333,
+    "nodeWidth": 155.333,
+    "defaultWidth": 86,
+    "area": {
+      "x": 364.5,
+      "y": 603.566650390625,
+      "width": 233,
+      "height": 30.75,
+      "top": 603.566650390625,
+      "right": 597.5,
+      "bottom": 634.316650390625,
+      "left": 364.5
+    },
+    "label": {
+      "x": 378,
+      "y": 608.066650390625,
+      "width": 215,
+      "height": 22.5,
+      "top": 608.066650390625,
+      "right": 593,
+      "bottom": 630.566650390625,
+      "left": 378
+    },
+    "node": {
+      "x": 369,
+      "y": 603.566650390625,
+      "width": 233,
+      "height": 30,
+      "top": 603.566650390625,
+      "right": 602,
+      "bottom": 633.566650390625,
+      "left": 369
+    },
+    "paddingLeft": 8,
+    "paddingTop": 2,
+    "scrollLeft": 0,
+    "scrollTop": 0
+  },
+  {
+    "id": "collapsed-left",
+    "width": 192.333,
+    "nodeWidth": 192.333,
+    "defaultWidth": 86,
+    "area": {
+      "x": 309,
+      "y": 640.316650390625,
+      "width": 288.5,
+      "height": 30.75,
+      "top": 640.316650390625,
+      "right": 597.5,
+      "bottom": 671.066650390625,
+      "left": 309
+    },
+    "label": {
+      "x": 348,
+      "y": 644.816650390625,
+      "width": 245,
+      "height": 22.5,
+      "top": 644.816650390625,
+      "right": 593,
+      "bottom": 667.316650390625,
+      "left": 348
+    },
+    "node": {
+      "x": 313.5,
+      "y": 640.316650390625,
+      "width": 288.5,
+      "height": 30,
+      "top": 640.316650390625,
+      "right": 602,
+      "bottom": 670.316650390625,
+      "left": 313.5
+    },
+    "paddingLeft": 25,
+    "paddingTop": 2,
+    "scrollLeft": 0,
+    "scrollTop": 0
+  },
+  {
+    "id": "wide-right",
+    "width": 162.667,
+    "nodeWidth": 162.667,
+    "defaultWidth": 86,
+    "area": {
+      "x": 802.5,
+      "y": 573.9500122070312,
+      "width": 244,
+      "height": 30.75,
+      "top": 573.9500122070312,
+      "right": 1046.5,
+      "bottom": 604.7000122070312,
+      "left": 802.5
+    },
+    "label": {
+      "x": 807,
+      "y": 578.4500122070312,
+      "width": 226,
+      "height": 22.5,
+      "top": 578.4500122070312,
+      "right": 1033,
+      "bottom": 600.9500122070312,
+      "left": 807
+    },
+    "node": {
+      "x": 798,
+      "y": 573.9500122070312,
+      "width": 244,
+      "height": 30,
+      "top": 573.9500122070312,
+      "right": 1042,
+      "bottom": 603.9500122070312,
+      "left": 798
+    },
+    "paddingLeft": 2,
+    "paddingTop": 2,
+    "scrollLeft": 0,
+    "scrollTop": 0
+  },
+  {
+    "id": "collapsed-right",
+    "width": 168,
+    "nodeWidth": 168,
+    "defaultWidth": 86,
+    "area": {
+      "x": 802.5,
+      "y": 610.7000122070312,
+      "width": 252,
+      "height": 53.25,
+      "top": 610.7000122070312,
+      "right": 1054.5,
+      "bottom": 663.9500122070312,
+      "left": 802.5
+    },
+    "label": {
+      "x": 807,
+      "y": 615.2000122070312,
+      "width": 234,
+      "height": 45,
+      "top": 615.2000122070312,
+      "right": 1041,
+      "bottom": 660.2000122070312,
+      "left": 807
+    },
+    "node": {
+      "x": 798,
+      "y": 610.7000122070312,
+      "width": 252,
+      "height": 52.5,
+      "top": 610.7000122070312,
+      "right": 1050,
+      "bottom": 663.2000122070312,
+      "left": 798
+    },
+    "paddingLeft": 2,
+    "paddingTop": 2,
+    "scrollLeft": 0,
+    "scrollTop": 0
+  },
+  {
+    "id": "short",
+    "width": 86,
+    "nodeWidth": 20,
+    "defaultWidth": 86,
+    "area": {
+      "x": 802.5,
+      "y": 673.7000122070312,
+      "width": 129,
+      "height": 30.75,
+      "top": 673.7000122070312,
+      "right": 931.5,
+      "bottom": 704.4500122070312,
+      "left": 802.5
+    },
+    "label": {
+      "x": 807,
+      "y": 678.2000122070312,
+      "width": 12,
+      "height": 22.5,
+      "top": 678.2000122070312,
+      "right": 819,
+      "bottom": 700.7000122070312,
+      "left": 807
+    },
+    "node": {
+      "x": 798,
+      "y": 673.7000122070312,
+      "width": 30,
+      "height": 30,
+      "top": 673.7000122070312,
+      "right": 828,
+      "bottom": 703.7000122070312,
+      "left": 798
+    },
+    "paddingLeft": 2,
+    "paddingTop": 2,
+    "scrollLeft": 0,
+    "scrollTop": 0
+  }
+]

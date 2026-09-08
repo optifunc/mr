@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+const evidence = process.env.MINDMAP_EVIDENCE ?? 'docs/evidence/milestone-c/stage7';
 import { referenceMap } from '../fixtures/maps';
 
 declare global { interface Window { clip: { events: string[]; completions: unknown[]; writes: string[]; resolve: (text: string) => void; reject: () => void; opens: unknown[][] } } }
@@ -148,15 +149,15 @@ test('review fixture real clipboard, multiline/checkbox paste, undo/redo and den
     const pasted = doc.root.children[1]!.children[0]!;
     expect(pasted.text).toBe('Release\nSecond line'); expect(pasted.checked).toBe(false); expect(pasted.collapsed).toBeUndefined();
     expect(pasted.children.map(n => n.text)).toEqual(['Code complete', '[x] literal marker\nBackslash \\ and tab\tend', '']); expect(pasted.children[0]!.checked).toBe(true);
-    await page.locator('#primary').screenshot({ path: `docs/evidence/milestone-c/stage7/clipboard-${info.project.name}.png` });
+    await page.locator('#primary').screenshot({ path: `${evidence}/clipboard-${info.project.name}.png` });
     await page.keyboard.press('Meta+z'); expect(await page.evaluate(() => window.primary.canUndo())).toBe(false);
     await page.keyboard.press('Meta+Shift+z'); expect(await page.evaluate(() => window.primary.getDocument())).toEqual(doc);
-    writeFileSync(`docs/evidence/milestone-c/stage7/clipboard-${info.project.name}.json`, JSON.stringify({ document: doc, selection: await page.evaluate(() => window.primary.getSelection()), clipboardPath: 'native Meta+C / Meta+V', undoRedo: 'exact document equality' }, null, 2) + '\n');
+    writeFileSync(`${evidence}/clipboard-${info.project.name}.json`, JSON.stringify({ document: doc, selection: await page.evaluate(() => window.primary.getSelection()), clipboardPath: 'native Meta+C / Meta+V', undoRedo: 'exact document equality' }, null, 2) + '\n');
     await setup(page, 'denied'); await page.evaluate(() => window.primary.execute({ type: 'cut' }));
     await expect.poll(() => page.evaluate(() => window.clip.events)).toEqual(['CLIPBOARD_DENIED']);
     expect(await page.evaluate(() => window.primary.getDocument())).toEqual(doc);
     await page.locator('#primary').locator('..').locator('details').evaluate(el => (el as HTMLDetailsElement).open = true);
-    await page.locator('#primary').locator('..').screenshot({ path: `docs/evidence/milestone-c/stage7/clipboard-denied-${info.project.name}.png` });
+    await page.locator('#primary').locator('..').screenshot({ path: `${evidence}/clipboard-denied-${info.project.name}.png` });
 });
 
 test('explicit hidden paste target keeps selection visible and completion identifies inserted roots', async ({ page }) => {

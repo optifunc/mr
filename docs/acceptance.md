@@ -204,7 +204,8 @@ Use the reference map for a short repeatable exercise:
    geometry stays frozen until commit. Select Child 1 and press Enter: the empty
    editor fits eight Ms and grows leftward from the new label's right edge.
    F2 on One/Child2 matches the gray selection width; F2 on a leaf or collapsed
-   node uses eight-M width. Watch the text as F2 opens: it must not jump. The lower
+   node uses max(eight-M default, node width), following the C review correction.
+   Watch the text as F2 opens: it must not jump. The lower
    border must join the branch line with no step. Repeat on both sides and at
    150%/200% zoom; Escape restores the creation state.
 5. Cancel creation under a collapsed parent and cancel insert-parent creation;
@@ -258,6 +259,15 @@ menu, packaged-consumer, actual stable-browser, screen-reader and final performa
 checks remain unimplemented or unverified as recorded; no release gate is waived.
 
 ## Milestone C: stages 6–7
+
+**2026-09-08 review corrections (technically complete):** the user approved blue
+(#0000EE) URL labels without text underlines, and leaf/collapsed editors at least
+as wide as the rendered node (retaining the eight-M minimum and viewport cap).
+Passed typecheck/build, 145 unit tests and 178 browser cases with 2 documented
+permission skips, including all three exact accepted-default comparisons.
+Screenshots were inspected in all three engines.
+[Report, before/after images and checks](evidence/milestone-c/link-editor-review/report.md).
+Stage-7 product acceptance remains pending.
 
 **Product review:** clipboard and predictable restructuring.
 

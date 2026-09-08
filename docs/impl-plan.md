@@ -362,9 +362,10 @@ read-only/visible-target guards.
 
 Measure `MMMMMMMM` using the editor's inherited font in local CSS coordinates,
 round up to a whole local pixel and add 6px for padding/borders (86px with default
-12px Arial). Use this for every new node, including inserted parents, and for
-existing nodes without visible children. Existing expanded parents use the full
-selection-box width and horizontal bounds. Cap every editor by viewport bounds.
+12px Arial). Use this default for new nodes, including inserted parents. For
+nodes without visible children, take the maximum of this default and the rendered
+node box width before applying the viewport cap. Existing expanded parents use
+the full selection-box width and horizontal bounds. Cap every editor by viewport bounds.
 
 Keep the textarea text origin at the measured label origin. Derive local label
 insets from node padding, checkbox prefix, root centering and label dimensions
@@ -372,8 +373,9 @@ rather than rounded offsets or transformed screen coordinates. Compact left-side
 editors expand outward; for existing labels, adjust left padding to preserve their
 text-block position, retaining left alignment within multiline labels. As the buffer
 grows, release this extra padding before native scrolling takes over. New empty
-editors start at their normal left padding. Expanded-parent frames include checkbox
-space, whose background remains transparent so the existing control stays visible.
+editors start at their normal left padding. Expanded-parent frames and wider left
+compact frames can include checkbox space; keep their padding background
+transparent so the existing control stays visible when opening the editor.
 
 Center the lower 1px border on the branch baseline while retaining the existing
 3px top border-plus-padding inset. Derive height and bottom padding from this
@@ -391,7 +393,8 @@ then re-resolve its target after relayout. Commit on focus leaving the editor as
 well. Public content commands finish the active edit before proceeding; valid
 document replacement and destruction discard unfinished edits.
 
-Checkbox targets toggle without editing. URL labels dispatch cancellable
+Checkbox targets toggle without editing. Render URL labels in #0000EE without
+text-decoration, preserving the normal SVG branch line. URL labels dispatch cancellable
 `linkopen` before opening an absolute HTTP(S) URL with `noopener,noreferrer`.
 Keep label and branch-line hit regions distinct so modifier-click selection remains
 available on URL nodes. URL checks also run for paste, undo/redo, and inserted or
@@ -551,7 +554,7 @@ paths in secure browser contexts.
 |---|---|
 | 1. Reference appearance | Two-sided reference fixture; default, edit, and drag screenshots plus visual review |
 | 2–3. Keyboard structure changes | Each insertion binding at root/non-root; contiguous-block movement, wrapping, promotion, root-side append, eligibility/no-ops, selection retention, exact position/side, and one-step history |
-| 4–5. Editing and creation cancellation | Typing replacement/first character, eight-M/selection-box widths, stable text origin and aligned lower border, hidden horizontal scrollbar with caret reveal, frozen positions, multiline commit, old-label restoration, provisional rollback |
+| 4–5. Editing and creation cancellation | Typing replacement/first character, eight-M/node-width minimum and selection-box widths, stable text origin and aligned lower border, hidden horizontal scrollbar with caret reveal, frozen positions, multiline commit, old-label restoration, provisional rollback |
 | 6. Geometry navigation | Confirmed ten movements, sibling/same-depth priority, shallower fallback, full ancestor exclusion, mirrored branches, stable ties, collapsed peers, edge/root vertical no-ops, Shift extension/contraction, central child and collapsed outward behavior |
 | 7. Selection | Click/toggle/ranges, root-side sibling ranges, Shift+Arrow contraction, select-all, hidden selection cleanup |
 | 8–9. Checkboxes | Independent state, mixed selections, presence add/remove, inheritance, no unnecessary relayout |

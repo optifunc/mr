@@ -5,10 +5,13 @@ Last updated: 2026-09-08
 ## Current state
 
 **Milestone C (stages 6–7) is technically complete; product acceptance is pending.**
-Final gates passed: typecheck/build, 145 unit tests, 346 browser cases with 2
+Original C checkpoint gates passed: typecheck/build, 145 unit tests, 346 browser cases with 2
 explicit engine-specific permission skips, exact accepted-default comparisons and
 workload diagnostics. [C report](evidence/milestone-c/report.md),
 [acceptance](acceptance.md#milestone-c-stages-67). Demo: http://127.0.0.1:5175/.
+Latest follow-up: blue URL labels and editor widths at least as wide as leaf/
+collapsed nodes. Typecheck/build, 145 unit tests and 178 focused browser cases
+passed (2 documented permission skips). [Follow-up evidence](evidence/milestone-c/link-editor-review/report.md).
 Stop at stage 7 for user review; stages 8–9 remain unstarted.
 
 **Milestone B is technically complete and accepted at `4209b2a` on 2026-09-08.**
@@ -21,8 +24,9 @@ Root Up/Down, including Shift, now does nothing as requested on 2026-09-08.
 [Navigation evidence](evidence/milestone-b/navigation-root/report.md).
 The approved editing adjustments now support typing replacement, hide horizontal
 scrollbars, and anchor left editors outward. The latest sizing correction uses
-an eight-M width for new/leaf/collapsed nodes and selection width for expanded
-parents, with the bottom border on the branch line and stable text position.
+an eight-M default for new nodes, a maximum of that default and node width for
+leaves/collapsed nodes (C follow-up), and selection width for expanded parents,
+with the bottom border on the branch line and stable text position.
 [Editor sizing evidence](evidence/milestone-b/editor-sizing/report.md).
 The latest approved controls remove the focused-widget frame, use Ctrl+Space on
 all platforms, and expand collapsed nodes by clicking their circles without
@@ -45,7 +49,7 @@ Run `pnpm dev`, then open http://127.0.0.1:5173.
 |---|---|---|---|---|
 | A: Foundation and appearance | 1–3 | Complete | Accepted at `253b99d`, including default visuals | [A](acceptance.md#milestone-a-stages-13) |
 | B: Navigation and editing | 4–5 | Complete | Accepted at `4209b2a` on 2026-09-08 | [B](acceptance.md#milestone-b-stages-45) |
-| C: Clipboard and dragging | 6–7 | Not started | Pending | [C](acceptance.md#milestone-c-stages-67) |
+| C: Clipboard and dragging | 6–7 | Complete | Pending | [C](acceptance.md#milestone-c-stages-67) |
 | D: Integration and release | 8–9 | Not started | Pending | [D](acceptance.md#milestone-d-stages-89) |
 
 ## Verification and revisions
@@ -455,3 +459,33 @@ changing results and verified the complete milestone diff against `b80bb9f`.
 [checks](evidence/milestone-c/checks.txt), [browser log](evidence/milestone-c/browser.txt),
 [product review](acceptance.md#milestone-c-stages-67). Next: user's stage-7 review.
 No milestone-D implementation was started and no release gate is waived.
+
+## C link color and editor minimum width — 2026-09-08
+
+The user authorized both stage-7 review corrections: URL text becomes #0000EE
+without a text underline, retaining its branch line; nodes without visible children
+use max(rendered node width, eight-M default) for the editor, subject to the existing
+viewport cap. Alignment, frozen typing frame and expanded-parent sizing remain.
+Creation wrapping a visible child retains its previous creation default.
+
+Started with clean `a7e4224`. Requirements, plan and API are updated. Five new
+Chromium browser cases reproduced the old styling/sizing before the fix; before
+screenshots and failures are retained in `evidence/milestone-c/link-editor-review/`.
+Build/typecheck and 145 unit tests passed. Relevant browser regression and visual
+inspection are complete; stage-7 product acceptance remains pending.
+
+Final follow-up checks passed on task-only changes based on `a7e4224`, in the commit
+containing this entry: typecheck/build, 145 unit tests, **178 browser cases**,
+2 existing engine-specific permission skips, exact accepted-A images in all three
+engines, whitespace and evidence-link checks. Inspected before/after link styling,
+leaf/collapsed/multiline/checkbox editors and mirrored 100%/150%/200% screenshots.
+A wider left frame initially covered its checkbox; transparent padding corrected
+that visual discrepancy. The old 200% test compared against a pre-pan label X;
+corrected it to compare within the current viewport, without relaxing tolerance.
+Initial regression: 175 passed / 3 failed / 2 skipped; final: 178 / 0 / 2.
+
+[Current report, screenshots, measurements and commands](evidence/milestone-c/link-editor-review/report.md).
+Requirements, implementation plan, API, testing, acceptance and progress are current.
+Previous evidence/baselines remain unchanged. Full milestone/workload and later
+release/manual gates were not rerun for this focused correction; existing gaps
+remain recorded. Demo remains http://127.0.0.1:5175/. Next: user stage-7 review.

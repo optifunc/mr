@@ -1,0 +1,457 @@
+
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test tests/browser/link-editor-review.spec.ts --project=chromium --workers=1
+
+[WebServer] (node:64848) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:64858) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 5 tests using 1 worker
+
+(node:64875) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:64875) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [chromium] › tests/browser/link-editor-review.spec.ts:7:1 › URL labels use standard blue without underline, retain their branch and protected click behavior (616ms)
+(node:64888) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:64888) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 [chromium] › tests/browser/link-editor-review.spec.ts:23:33 › compact editor uses the larger node/eight-M width and preserves alignment at 1 (527ms)
+(node:64898) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:64898) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  3 [chromium] › tests/browser/link-editor-review.spec.ts:23:33 › compact editor uses the larger node/eight-M width and preserves alignment at 1.5 (527ms)
+(node:64912) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:64912) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  4 [chromium] › tests/browser/link-editor-review.spec.ts:23:33 › compact editor uses the larger node/eight-M width and preserves alignment at 2 (526ms)
+(node:64922) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:64922) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  5 [chromium] › tests/browser/link-editor-review.spec.ts:56:1 › wide root leaf still uses node width, while oversized compact frames respect the viewport (198ms)
+
+
+  1) [chromium] › tests/browser/link-editor-review.spec.ts:7:1 › URL labels use standard blue without underline, retain their branch and protected click behavior
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 2
+    + Received  + 2
+
+      Object {
+    -   "color": "rgb(0, 0, 238)",
+    -   "decoration": "none",
+    +   "color": "rgb(17, 17, 17)",
+    +   "decoration": "underline",
+      }
+
+      11 |     const measured = await link.evaluate(el => ({ color: getComputedStyle(el).color, decoration: getComputedStyle(el).textDecorationLine }));
+      12 |     await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-links-${info.project.name}.png` });
+    > 13 |     expect.soft(measured).toEqual({ color: 'rgb(0, 0, 238)', decoration: 'none' });
+         |                           ^
+      14 |     await expect(page.locator('#primary [data-node-id="prose"] .mindmap-label')).not.toHaveClass(/mindmap-link/);
+      15 |     const before = await page.locator('#primary .mindmap-lines').innerHTML();
+      16 |     await page.evaluate(() => { window.clip = { events: [], completions: [], writes: [], resolve: () => {}, reject: () => {}, opens: [] }; window.open = (...args: unknown[]) => { window.clip.opens.push(args); return null; }; });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/link-editor-review.spec.ts:13:27
+
+    Error Context: test-results/link-editor-review-URL-lab-39bc4-nd-protected-click-behavior-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/link-editor-review-URL-lab-39bc4-nd-protected-click-behavior-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/link-editor-review-URL-lab-39bc4-nd-protected-click-behavior-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › tests/browser/link-editor-review.spec.ts:23:33 › compact editor uses the larger node/eight-M width and preserves alignment at 1
+
+    Error: expect(received).toBeCloseTo(expected, precision)
+
+    Expected: 154.75
+    Received: 86
+
+    Expected precision:    2
+    Expected difference: < 0.005
+    Received difference:   68.75
+
+      43 |         }, id);
+      44 |         if (id === 'wide-left' || id === 'collapsed-right') await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${zoom}-${info.project.name}.png` });
+    > 45 |         expect.soft(measured.width).toBeCloseTo(Math.max(measured.nodeWidth, measured.defaultWidth), 2);
+         |                                     ^
+      46 |         expect.soft(Math.abs(measured.area.x + (1 + measured.paddingLeft - measured.scrollLeft) * zoom - measured.label.x)).toBeLessThan(.8);
+      47 |         expect.soft(Math.abs(measured.area.y + (1 + measured.paddingTop - measured.scrollTop) * zoom - measured.label.y)).toBeLessThan(.1);
+      48 |         expect.soft(Math.abs(measured.area.bottom - .5 * zoom - measured.node.bottom)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/link-editor-review.spec.ts:45:37
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 0.8
+    Received:   62.75
+
+      44 |         if (id === 'wide-left' || id === 'collapsed-right') await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${zoom}-${info.project.name}.png` });
+      45 |         expect.soft(measured.width).toBeCloseTo(Math.max(measured.nodeWidth, measured.defaultWidth), 2);
+    > 46 |         expect.soft(Math.abs(measured.area.x + (1 + measured.paddingLeft - measured.scrollLeft) * zoom - measured.label.x)).toBeLessThan(.8);
+         |                                                                                                                             ^
+      47 |         expect.soft(Math.abs(measured.area.y + (1 + measured.paddingTop - measured.scrollTop) * zoom - measured.label.y)).toBeLessThan(.1);
+      48 |         expect.soft(Math.abs(measured.area.bottom - .5 * zoom - measured.node.bottom)).toBeLessThan(.1);
+      49 |         const frame = await editor.boundingBox(); await editor.fill('Changed\nMany more lines\nMore text'); expect(await editor.boundingBox()).toEqual(frame);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/link-editor-review.spec.ts:46:125
+
+    Error: expect(received).toBeCloseTo(expected, precision)
+
+    Expected: 192.438
+    Received: 86
+
+    Expected precision:    2
+    Expected difference: < 0.005
+    Received difference:   106.43799999999999
+
+      43 |         }, id);
+      44 |         if (id === 'wide-left' || id === 'collapsed-right') await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${zoom}-${info.project.name}.png` });
+    > 45 |         expect.soft(measured.width).toBeCloseTo(Math.max(measured.nodeWidth, measured.defaultWidth), 2);
+         |                                     ^
+      46 |         expect.soft(Math.abs(measured.area.x + (1 + measured.paddingLeft - measured.scrollLeft) * zoom - measured.label.x)).toBeLessThan(.8);
+      47 |         expect.soft(Math.abs(measured.area.y + (1 + measured.paddingTop - measured.scrollTop) * zoom - measured.label.y)).toBeLessThan(.1);
+      48 |         expect.soft(Math.abs(measured.area.bottom - .5 * zoom - measured.node.bottom)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/link-editor-review.spec.ts:45:37
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 0.8
+    Received:   83.4375
+
+      44 |         if (id === 'wide-left' || id === 'collapsed-right') await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${zoom}-${info.project.name}.png` });
+      45 |         expect.soft(measured.width).toBeCloseTo(Math.max(measured.nodeWidth, measured.defaultWidth), 2);
+    > 46 |         expect.soft(Math.abs(measured.area.x + (1 + measured.paddingLeft - measured.scrollLeft) * zoom - measured.label.x)).toBeLessThan(.8);
+         |                                                                                                                             ^
+      47 |         expect.soft(Math.abs(measured.area.y + (1 + measured.paddingTop - measured.scrollTop) * zoom - measured.label.y)).toBeLessThan(.1);
+      48 |         expect.soft(Math.abs(measured.area.bottom - .5 * zoom - measured.node.bottom)).toBeLessThan(.1);
+      49 |         const frame = await editor.boundingBox(); await editor.fill('Changed\nMany more lines\nMore text'); expect(await editor.boundingBox()).toEqual(frame);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/link-editor-review.spec.ts:46:125
+
+    Error: expect(received).toBeCloseTo(expected, precision)
+
+    Expected: 162.062
+    Received: 86
+
+    Expected precision:    2
+    Expected difference: < 0.005
+    Received difference:   76.06200000000001
+
+      43 |         }, id);
+      44 |         if (id === 'wide-left' || id === 'collapsed-right') await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${zoom}-${info.project.name}.png` });
+    > 45 |         expect.soft(measured.width).toBeCloseTo(Math.max(measured.nodeWidth, measured.defaultWidth), 2);
+         |                                     ^
+      46 |         expect.soft(Math.abs(measured.area.x + (1 + measured.paddingLeft - measured.scrollLeft) * zoom - measured.label.x)).toBeLessThan(.8);
+      47 |         expect.soft(Math.abs(measured.area.y + (1 + measured.paddingTop - measured.scrollTop) * zoom - measured.label.y)).toBeLessThan(.1);
+      48 |         expect.soft(Math.abs(measured.area.bottom - .5 * zoom - measured.node.bottom)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/link-editor-review.spec.ts:45:37
+
+    Error: expect(received).toBeCloseTo(expected, precision)
+
+    Expected: 168.094
+    Received: 86
+
+    Expected precision:    2
+    Expected difference: < 0.005
+    Received difference:   82.094
+
+      43 |         }, id);
+      44 |         if (id === 'wide-left' || id === 'collapsed-right') await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${zoom}-${info.project.name}.png` });
+    > 45 |         expect.soft(measured.width).toBeCloseTo(Math.max(measured.nodeWidth, measured.defaultWidth), 2);
+         |                                     ^
+      46 |         expect.soft(Math.abs(measured.area.x + (1 + measured.paddingLeft - measured.scrollLeft) * zoom - measured.label.x)).toBeLessThan(.8);
+      47 |         expect.soft(Math.abs(measured.area.y + (1 + measured.paddingTop - measured.scrollTop) * zoom - measured.label.y)).toBeLessThan(.1);
+      48 |         expect.soft(Math.abs(measured.area.bottom - .5 * zoom - measured.node.bottom)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/link-editor-review.spec.ts:45:37
+
+    Error Context: test-results/link-editor-review-compact-672c0-nd-preserves-alignment-at-1-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/link-editor-review-compact-672c0-nd-preserves-alignment-at-1-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/link-editor-review-compact-672c0-nd-preserves-alignment-at-1-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chromium] › tests/browser/link-editor-review.spec.ts:23:33 › compact editor uses the larger node/eight-M width and preserves alignment at 1.5
+
+    Error: expect(received).toBeCloseTo(expected, precision)
+
+    Expected: 154.75
+    Received: 86
+
+    Expected precision:    2
+    Expected difference: < 0.005
+    Received difference:   68.75
+
+      43 |         }, id);
+      44 |         if (id === 'wide-left' || id === 'collapsed-right') await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${zoom}-${info.project.name}.png` });
+    > 45 |         expect.soft(measured.width).toBeCloseTo(Math.max(measured.nodeWidth, measured.defaultWidth), 2);
+         |                                     ^
+      46 |         expect.soft(Math.abs(measured.area.x + (1 + measured.paddingLeft - measured.scrollLeft) * zoom - measured.label.x)).toBeLessThan(.8);
+      47 |         expect.soft(Math.abs(measured.area.y + (1 + measured.paddingTop - measured.scrollTop) * zoom - measured.label.y)).toBeLessThan(.1);
+      48 |         expect.soft(Math.abs(measured.area.bottom - .5 * zoom - measured.node.bottom)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/link-editor-review.spec.ts:45:37
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 0.8
+    Received:   94.125
+
+      44 |         if (id === 'wide-left' || id === 'collapsed-right') await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${zoom}-${info.project.name}.png` });
+      45 |         expect.soft(measured.width).toBeCloseTo(Math.max(measured.nodeWidth, measured.defaultWidth), 2);
+    > 46 |         expect.soft(Math.abs(measured.area.x + (1 + measured.paddingLeft - measured.scrollLeft) * zoom - measured.label.x)).toBeLessThan(.8);
+         |                                                                                                                             ^
+      47 |         expect.soft(Math.abs(measured.area.y + (1 + measured.paddingTop - measured.scrollTop) * zoom - measured.label.y)).toBeLessThan(.1);
+      48 |         expect.soft(Math.abs(measured.area.bottom - .5 * zoom - measured.node.bottom)).toBeLessThan(.1);
+      49 |         const frame = await editor.boundingBox(); await editor.fill('Changed\nMany more lines\nMore text'); expect(await editor.boundingBox()).toEqual(frame);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/link-editor-review.spec.ts:46:125
+
+    Error: expect(received).toBeCloseTo(expected, precision)
+
+    Expected: 192.438
+    Received: 86
+
+    Expected precision:    2
+    Expected difference: < 0.005
+    Received difference:   106.43799999999999
+
+      43 |         }, id);
+      44 |         if (id === 'wide-left' || id === 'collapsed-right') await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${zoom}-${info.project.name}.png` });
+    > 45 |         expect.soft(measured.width).toBeCloseTo(Math.max(measured.nodeWidth, measured.defaultWidth), 2);
+         |                                     ^
+      46 |         expect.soft(Math.abs(measured.area.x + (1 + measured.paddingLeft - measured.scrollLeft) * zoom - measured.label.x)).toBeLessThan(.8);
+      47 |         expect.soft(Math.abs(measured.area.y + (1 + measured.paddingTop - measured.scrollTop) * zoom - measured.label.y)).toBeLessThan(.1);
+      48 |         expect.soft(Math.abs(measured.area.bottom - .5 * zoom - measured.node.bottom)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/link-editor-review.spec.ts:45:37
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 0.8
+    Received:   125.15625
+
+      44 |         if (id === 'wide-left' || id === 'collapsed-right') await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${zoom}-${info.project.name}.png` });
+      45 |         expect.soft(measured.width).toBeCloseTo(Math.max(measured.nodeWidth, measured.defaultWidth), 2);
+    > 46 |         expect.soft(Math.abs(measured.area.x + (1 + measured.paddingLeft - measured.scrollLeft) * zoom - measured.label.x)).toBeLessThan(.8);
+         |                                                                                                                             ^
+      47 |         expect.soft(Math.abs(measured.area.y + (1 + measured.paddingTop - measured.scrollTop) * zoom - measured.label.y)).toBeLessThan(.1);
+      48 |         expect.soft(Math.abs(measured.area.bottom - .5 * zoom - measured.node.bottom)).toBeLessThan(.1);
+      49 |         const frame = await editor.boundingBox(); await editor.fill('Changed\nMany more lines\nMore text'); expect(await editor.boundingBox()).toEqual(frame);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/link-editor-review.spec.ts:46:125
+
+    Error: expect(received).toBeCloseTo(expected, precision)
+
+    Expected: 162.062
+    Received: 86
+
+    Expected precision:    2
+    Expected difference: < 0.005
+    Received difference:   76.06200000000001
+
+      43 |         }, id);
+      44 |         if (id === 'wide-left' || id === 'collapsed-right') await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${zoom}-${info.project.name}.png` });
+    > 45 |         expect.soft(measured.width).toBeCloseTo(Math.max(measured.nodeWidth, measured.defaultWidth), 2);
+         |                                     ^
+      46 |         expect.soft(Math.abs(measured.area.x + (1 + measured.paddingLeft - measured.scrollLeft) * zoom - measured.label.x)).toBeLessThan(.8);
+      47 |         expect.soft(Math.abs(measured.area.y + (1 + measured.paddingTop - measured.scrollTop) * zoom - measured.label.y)).toBeLessThan(.1);
+      48 |         expect.soft(Math.abs(measured.area.bottom - .5 * zoom - measured.node.bottom)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/link-editor-review.spec.ts:45:37
+
+    Error: expect(received).toBeCloseTo(expected, precision)
+
+    Expected: 168.094
+    Received: 86
+
+    Expected precision:    2
+    Expected difference: < 0.005
+    Received difference:   82.094
+
+      43 |         }, id);
+      44 |         if (id === 'wide-left' || id === 'collapsed-right') await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${zoom}-${info.project.name}.png` });
+    > 45 |         expect.soft(measured.width).toBeCloseTo(Math.max(measured.nodeWidth, measured.defaultWidth), 2);
+         |                                     ^
+      46 |         expect.soft(Math.abs(measured.area.x + (1 + measured.paddingLeft - measured.scrollLeft) * zoom - measured.label.x)).toBeLessThan(.8);
+      47 |         expect.soft(Math.abs(measured.area.y + (1 + measured.paddingTop - measured.scrollTop) * zoom - measured.label.y)).toBeLessThan(.1);
+      48 |         expect.soft(Math.abs(measured.area.bottom - .5 * zoom - measured.node.bottom)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/link-editor-review.spec.ts:45:37
+
+    Error Context: test-results/link-editor-review-compact-03d61--preserves-alignment-at-1-5-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/link-editor-review-compact-03d61--preserves-alignment-at-1-5-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/link-editor-review-compact-03d61--preserves-alignment-at-1-5-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [chromium] › tests/browser/link-editor-review.spec.ts:23:33 › compact editor uses the larger node/eight-M width and preserves alignment at 2
+
+    Error: expect(received).toBeCloseTo(expected, precision)
+
+    Expected: 154.75
+    Received: 86
+
+    Expected precision:    2
+    Expected difference: < 0.005
+    Received difference:   68.75
+
+      43 |         }, id);
+      44 |         if (id === 'wide-left' || id === 'collapsed-right') await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${zoom}-${info.project.name}.png` });
+    > 45 |         expect.soft(measured.width).toBeCloseTo(Math.max(measured.nodeWidth, measured.defaultWidth), 2);
+         |                                     ^
+      46 |         expect.soft(Math.abs(measured.area.x + (1 + measured.paddingLeft - measured.scrollLeft) * zoom - measured.label.x)).toBeLessThan(.8);
+      47 |         expect.soft(Math.abs(measured.area.y + (1 + measured.paddingTop - measured.scrollTop) * zoom - measured.label.y)).toBeLessThan(.1);
+      48 |         expect.soft(Math.abs(measured.area.bottom - .5 * zoom - measured.node.bottom)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/link-editor-review.spec.ts:45:37
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 0.8
+    Received:   125.5
+
+      44 |         if (id === 'wide-left' || id === 'collapsed-right') await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${zoom}-${info.project.name}.png` });
+      45 |         expect.soft(measured.width).toBeCloseTo(Math.max(measured.nodeWidth, measured.defaultWidth), 2);
+    > 46 |         expect.soft(Math.abs(measured.area.x + (1 + measured.paddingLeft - measured.scrollLeft) * zoom - measured.label.x)).toBeLessThan(.8);
+         |                                                                                                                             ^
+      47 |         expect.soft(Math.abs(measured.area.y + (1 + measured.paddingTop - measured.scrollTop) * zoom - measured.label.y)).toBeLessThan(.1);
+      48 |         expect.soft(Math.abs(measured.area.bottom - .5 * zoom - measured.node.bottom)).toBeLessThan(.1);
+      49 |         const frame = await editor.boundingBox(); await editor.fill('Changed\nMany more lines\nMore text'); expect(await editor.boundingBox()).toEqual(frame);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/link-editor-review.spec.ts:46:125
+
+    Error: expect(received).toBeCloseTo(expected, precision)
+
+    Expected: 192.438
+    Received: 86
+
+    Expected precision:    2
+    Expected difference: < 0.005
+    Received difference:   106.43799999999999
+
+      43 |         }, id);
+      44 |         if (id === 'wide-left' || id === 'collapsed-right') await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${zoom}-${info.project.name}.png` });
+    > 45 |         expect.soft(measured.width).toBeCloseTo(Math.max(measured.nodeWidth, measured.defaultWidth), 2);
+         |                                     ^
+      46 |         expect.soft(Math.abs(measured.area.x + (1 + measured.paddingLeft - measured.scrollLeft) * zoom - measured.label.x)).toBeLessThan(.8);
+      47 |         expect.soft(Math.abs(measured.area.y + (1 + measured.paddingTop - measured.scrollTop) * zoom - measured.label.y)).toBeLessThan(.1);
+      48 |         expect.soft(Math.abs(measured.area.bottom - .5 * zoom - measured.node.bottom)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/link-editor-review.spec.ts:45:37
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 0.8
+    Received:   166.875
+
+      44 |         if (id === 'wide-left' || id === 'collapsed-right') await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${zoom}-${info.project.name}.png` });
+      45 |         expect.soft(measured.width).toBeCloseTo(Math.max(measured.nodeWidth, measured.defaultWidth), 2);
+    > 46 |         expect.soft(Math.abs(measured.area.x + (1 + measured.paddingLeft - measured.scrollLeft) * zoom - measured.label.x)).toBeLessThan(.8);
+         |                                                                                                                             ^
+      47 |         expect.soft(Math.abs(measured.area.y + (1 + measured.paddingTop - measured.scrollTop) * zoom - measured.label.y)).toBeLessThan(.1);
+      48 |         expect.soft(Math.abs(measured.area.bottom - .5 * zoom - measured.node.bottom)).toBeLessThan(.1);
+      49 |         const frame = await editor.boundingBox(); await editor.fill('Changed\nMany more lines\nMore text'); expect(await editor.boundingBox()).toEqual(frame);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/link-editor-review.spec.ts:46:125
+
+    Error: expect(received).toBeCloseTo(expected, precision)
+
+    Expected: 162.062
+    Received: 86
+
+    Expected precision:    2
+    Expected difference: < 0.005
+    Received difference:   76.06200000000001
+
+      43 |         }, id);
+      44 |         if (id === 'wide-left' || id === 'collapsed-right') await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${zoom}-${info.project.name}.png` });
+    > 45 |         expect.soft(measured.width).toBeCloseTo(Math.max(measured.nodeWidth, measured.defaultWidth), 2);
+         |                                     ^
+      46 |         expect.soft(Math.abs(measured.area.x + (1 + measured.paddingLeft - measured.scrollLeft) * zoom - measured.label.x)).toBeLessThan(.8);
+      47 |         expect.soft(Math.abs(measured.area.y + (1 + measured.paddingTop - measured.scrollTop) * zoom - measured.label.y)).toBeLessThan(.1);
+      48 |         expect.soft(Math.abs(measured.area.bottom - .5 * zoom - measured.node.bottom)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/link-editor-review.spec.ts:45:37
+
+    Error: expect(received).toBeCloseTo(expected, precision)
+
+    Expected: 168.094
+    Received: 86
+
+    Expected precision:    2
+    Expected difference: < 0.005
+    Received difference:   82.094
+
+      43 |         }, id);
+      44 |         if (id === 'wide-left' || id === 'collapsed-right') await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${zoom}-${info.project.name}.png` });
+    > 45 |         expect.soft(measured.width).toBeCloseTo(Math.max(measured.nodeWidth, measured.defaultWidth), 2);
+         |                                     ^
+      46 |         expect.soft(Math.abs(measured.area.x + (1 + measured.paddingLeft - measured.scrollLeft) * zoom - measured.label.x)).toBeLessThan(.8);
+      47 |         expect.soft(Math.abs(measured.area.y + (1 + measured.paddingTop - measured.scrollTop) * zoom - measured.label.y)).toBeLessThan(.1);
+      48 |         expect.soft(Math.abs(measured.area.bottom - .5 * zoom - measured.node.bottom)).toBeLessThan(.1);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/link-editor-review.spec.ts:45:37
+
+    Error Context: test-results/link-editor-review-compact-76b97-nd-preserves-alignment-at-2-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/link-editor-review-compact-76b97-nd-preserves-alignment-at-2-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/link-editor-review-compact-76b97-nd-preserves-alignment-at-2-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [chromium] › tests/browser/link-editor-review.spec.ts:56:1 › wide root leaf still uses node width, while oversized compact frames respect the viewport
+
+    Error: expect(received).toBeCloseTo(expected, precision)
+
+    Expected: 196.75
+    Received: 86
+
+    Expected precision:    2
+    Expected difference: < 0.005
+    Received difference:   110.75
+
+      58 |     await page.evaluate(doc => { window.primary.setDocument(doc); window.primary.focus(); }, { root: node('root', 'Wide root without visible children') });
+      59 |     const width = await page.locator('#primary .mindmap-root-node').evaluate(n => parseFloat(getComputedStyle(n).width));
+    > 60 |     await page.keyboard.press('F2'); expect.soft(await page.locator('#primary textarea').evaluate(n => parseFloat(getComputedStyle(n).width))).toBeCloseTo(width, 2);
+         |                                                                                                                                                ^
+      61 |     await page.keyboard.press('Escape');
+      62 |     await page.evaluate(() => { document.querySelector<HTMLElement>('#primary')!.style.width = '320px'; window.primary.execute({ type: 'setText', targetId: 'root', text: 'Wide label '.repeat(40) }); window.primary.focus(); });
+      63 |     await page.keyboard.press('F2');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/link-editor-review.spec.ts:60:144
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 288
+    Received: 86
+
+      63 |     await page.keyboard.press('F2');
+      64 |     const host = (await page.locator('#primary').boundingBox())!, area = (await page.locator('#primary textarea').boundingBox())!;
+    > 65 |     expect(area.width).toBe(288); expect(area.x).toBeGreaterThanOrEqual(host.x); expect(area.x + area.width).toBeLessThanOrEqual(host.x + host.width);
+         |                        ^
+      66 | });
+      67 |
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/link-editor-review.spec.ts:65:24
+
+    Error Context: test-results/link-editor-review-wide-ro-1350b-frames-respect-the-viewport-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/link-editor-review-wide-ro-1350b-frames-respect-the-viewport-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/link-editor-review-wide-ro-1350b-frames-respect-the-viewport-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5 failed
+    [chromium] › tests/browser/link-editor-review.spec.ts:7:1 › URL labels use standard blue without underline, retain their branch and protected click behavior
+    [chromium] › tests/browser/link-editor-review.spec.ts:23:33 › compact editor uses the larger node/eight-M width and preserves alignment at 1
+    [chromium] › tests/browser/link-editor-review.spec.ts:23:33 › compact editor uses the larger node/eight-M width and preserves alignment at 1.5
+    [chromium] › tests/browser/link-editor-review.spec.ts:23:33 › compact editor uses the larger node/eight-M width and preserves alignment at 2
+    [chromium] › tests/browser/link-editor-review.spec.ts:56:1 › wide root leaf still uses node width, while oversized compact frames respect the viewport
+ ELIFECYCLE  Command failed with exit code 1.

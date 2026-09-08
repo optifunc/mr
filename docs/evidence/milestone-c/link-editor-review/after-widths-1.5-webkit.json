@@ -1,0 +1,202 @@
+[
+  {
+    "id": "wide-left",
+    "width": 154.75,
+    "nodeWidth": 154.75,
+    "defaultWidth": 86,
+    "area": {
+      "x": 365.359375,
+      "y": 597.75,
+      "width": 232.125,
+      "height": 30.75,
+      "top": 597.75,
+      "right": 597.484375,
+      "bottom": 628.5,
+      "left": 365.359375
+    },
+    "label": {
+      "x": 378.859375,
+      "y": 602.25,
+      "width": 214.125,
+      "height": 22.5,
+      "top": 602.25,
+      "right": 592.984375,
+      "bottom": 624.75,
+      "left": 378.859375
+    },
+    "node": {
+      "x": 369.859375,
+      "y": 597.75,
+      "width": 232.125,
+      "height": 30,
+      "top": 597.75,
+      "right": 601.984375,
+      "bottom": 627.75,
+      "left": 369.859375
+    },
+    "paddingLeft": 8,
+    "paddingTop": 2,
+    "scrollLeft": 0,
+    "scrollTop": 0
+  },
+  {
+    "id": "collapsed-left",
+    "width": 192.4375,
+    "nodeWidth": 192.4375,
+    "defaultWidth": 86,
+    "area": {
+      "x": 308.828125,
+      "y": 634.5,
+      "width": 288.65625,
+      "height": 30.75,
+      "top": 634.5,
+      "right": 597.484375,
+      "bottom": 665.25,
+      "left": 308.828125
+    },
+    "label": {
+      "x": 347.828125,
+      "y": 639,
+      "width": 245.15625,
+      "height": 22.5,
+      "top": 639,
+      "right": 592.984375,
+      "bottom": 661.5,
+      "left": 347.828125
+    },
+    "node": {
+      "x": 313.328125,
+      "y": 634.5,
+      "width": 288.65625,
+      "height": 30,
+      "top": 634.5,
+      "right": 601.984375,
+      "bottom": 664.5,
+      "left": 313.328125
+    },
+    "paddingLeft": 25,
+    "paddingTop": 2,
+    "scrollLeft": 0,
+    "scrollTop": 0
+  },
+  {
+    "id": "wide-right",
+    "width": 162.078125,
+    "nodeWidth": 162.078125,
+    "defaultWidth": 86,
+    "area": {
+      "x": 802.515625,
+      "y": 568.125,
+      "width": 243.1171875,
+      "height": 30.75,
+      "top": 568.125,
+      "right": 1045.6328125,
+      "bottom": 598.875,
+      "left": 802.515625
+    },
+    "label": {
+      "x": 807.015625,
+      "y": 572.625,
+      "width": 225.1171875,
+      "height": 22.5,
+      "top": 572.625,
+      "right": 1032.1328125,
+      "bottom": 595.125,
+      "left": 807.015625
+    },
+    "node": {
+      "x": 798.015625,
+      "y": 568.125,
+      "width": 243.1171875,
+      "height": 30,
+      "top": 568.125,
+      "right": 1041.1328125,
+      "bottom": 598.125,
+      "left": 798.015625
+    },
+    "paddingLeft": 2,
+    "paddingTop": 2,
+    "scrollLeft": 0,
+    "scrollTop": 0
+  },
+  {
+    "id": "collapsed-right",
+    "width": 168.09375,
+    "nodeWidth": 168.09375,
+    "defaultWidth": 86,
+    "area": {
+      "x": 802.515625,
+      "y": 604.875,
+      "width": 252.140625,
+      "height": 53.25,
+      "top": 604.875,
+      "right": 1054.65625,
+      "bottom": 658.125,
+      "left": 802.515625
+    },
+    "label": {
+      "x": 807.015625,
+      "y": 609.375,
+      "width": 234.140625,
+      "height": 45,
+      "top": 609.375,
+      "right": 1041.15625,
+      "bottom": 654.375,
+      "left": 807.015625
+    },
+    "node": {
+      "x": 798.015625,
+      "y": 604.875,
+      "width": 252.140625,
+      "height": 52.5,
+      "top": 604.875,
+      "right": 1050.15625,
+      "bottom": 657.375,
+      "left": 798.015625
+    },
+    "paddingLeft": 2,
+    "paddingTop": 2,
+    "scrollLeft": 0,
+    "scrollTop": 0
+  },
+  {
+    "id": "short",
+    "width": 86,
+    "nodeWidth": 20.015625,
+    "defaultWidth": 86,
+    "area": {
+      "x": 802.515625,
+      "y": 667.875,
+      "width": 129,
+      "height": 30.75,
+      "top": 667.875,
+      "right": 931.515625,
+      "bottom": 698.625,
+      "left": 802.515625
+    },
+    "label": {
+      "x": 807.015625,
+      "y": 672.375,
+      "width": 12.0234375,
+      "height": 22.5,
+      "top": 672.375,
+      "right": 819.0390625,
+      "bottom": 694.875,
+      "left": 807.015625
+    },
+    "node": {
+      "x": 798.015625,
+      "y": 667.875,
+      "width": 30.0234375,
+      "height": 30,
+      "top": 667.875,
+      "right": 828.0390625,
+      "bottom": 697.875,
+      "left": 798.015625
+    },
+    "paddingLeft": 2,
+    "paddingTop": 2,
+    "scrollLeft": 0,
+    "scrollTop": 0
+  }
+]

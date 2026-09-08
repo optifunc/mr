@@ -1,6 +1,10 @@
 # Milestone C — stage-7 product checkpoint
 
 **Technical status: complete (2026-09-08). Product acceptance: pending user review.**
+**Latest follow-up:** [blue links and minimum editor width](link-editor-review/report.md)
+records the subsequent approved corrections and their own checks/visual candidates.
+The milestone-wide results below describe the original C checkpoint.
+
 Stages 6–7 cover clipboard, URL links and mouse restructuring. Stages 8–9 remain
 outside this checkpoint. Started with a clean tree at `b80bb9f`; stage 6 is
 `3b2f7f8`. The final tested stage-7 implementation and evidence are **`9ade849`**. The

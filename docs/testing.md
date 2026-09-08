@@ -153,3 +153,18 @@ specific; their native paths and deterministic async failure/staleness tests run
 This does not establish actual stable-browser or OS-level manual verification.
 Stage-8 menu/host completion and every stage-9 packaged-consumer, actual stable
 browser, screen-reader and performance release gate remain required.
+
+## C link and editor-width review corrections
+
+`pnpm test:browser tests/browser/link-editor-review.spec.ts --workers=1` verifies
+blue links without text underlines, unchanged protected link/branch behavior,
+short/wide leaf and collapsed editor sizing on both sides at 100%/150%/200%,
+checkbox/multiline alignment, frozen typing frames, root leaves and viewport caps.
+Review in the demo: load the clipboard/link fixture to inspect URL color; reset the
+reference map and press F2 on Child of a single child or Collapsed node, then A.
+Wide nodes use their node width and short nodes retain the eight-M default.
+
+For the related regression run without overwriting prior evidence:
+`MINDMAP_EVIDENCE=docs/evidence/milestone-c/link-editor-review pnpm test:browser tests/browser/link-editor-review.spec.ts tests/browser/editor-sizing.spec.ts tests/browser/editing-review.spec.ts tests/browser/editing.spec.ts tests/browser/clipboard.spec.ts tests/browser/checkpoint-b.spec.ts --workers=1`.
+The directory includes before/after candidates, measured widths and exact
+accepted-default comparisons. The report records actual checks and remaining gaps.

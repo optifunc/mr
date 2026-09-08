@@ -101,8 +101,10 @@ pointer actions commit before hit testing the new layout. Focus leaving the text
 also commits; it does not steal focus back from the destination. IME composition
 Enter is guarded. Normal text shortcuts, including Command/Ctrl+arrows, stay inside
 the textarea. The editor is bounded to the available viewport and scrolls long text
-without a horizontal scrollbar. New nodes (including wrapped parents) and existing
-leaves/collapsed nodes fit eight Ms plus padding/borders; expanded existing parents
+without a horizontal scrollbar. New nodes, including wrapped parents, use the
+eight-M default plus padding/borders.
+For nodes without visible children, use the larger of this default and their
+rendered node width; expanded existing parents
 match the selection-box width. Sizing uses the current font and is capped by the
 viewport. Compact left editors expand outward while preserving the existing text
 position on entry. Bottom border centers meet the branch baseline without moving
@@ -231,8 +233,9 @@ roots. Cut/paste emit their one `documentchange` and any selection change before
 completion. Errors emit no completion. Public clipboard requests finish an active
 edit before capture; native textarea clipboard events never enter this path.
 
-`openLink` accepts an optional target ID. Whole trimmed HTTP(S) labels receive a
-subtle underline; embedded URLs and labels containing internal whitespace are plain
+`openLink` accepts an optional target ID. Whole trimmed HTTP(S) labels use
+standard blue (#0000EE) without a text underline; their branch lines stay unchanged.
+Embedded URLs and labels containing internal whitespace are plain
 text. Primary-modifier label clicks and the API emit cancellable `linkopen` before
 opening `_blank` with `noopener,noreferrer`. Branch/padding clicks still toggle
 selection. A policy listener exception prevents opening and emits `HOST_CALLBACK`.
