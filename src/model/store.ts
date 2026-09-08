@@ -5,6 +5,8 @@ import type { Model } from './document';
 import { History, applyPatches, patchesBetween } from '../history/history';
 import { contentCommands, prepare } from '../commands/reducer';
 import { validateCommand } from '../commands/validate';
+import { preparePaste } from '../clipboard/paste';
+import type { ClipboardNode } from '../clipboard/codec';
 export class Store {
     model: Model;
     selection: Selection;
@@ -51,6 +53,14 @@ export class Store {
         const edit = this.edit; if (!edit) return;
         if (edit.provisional) { this.model = edit.base; this.selection = edit.selection; }
         this.edit = undefined; this.lastGeometry = edit.provisional;
+    }
+    paste(targetId: string, roots: ClipboardNode[]): boolean {
+        if (this.readonly) throw new MindMapError('READ_ONLY', 'Paste is disabled in read-only mode');
+        const result = preparePaste(this.model, this.selection, targetId, roots, this.createId);
+        if (!result) return false;
+        this.model = result.model; this.selection = result.transaction.after;
+        this.history.push(result.transaction); this.lastGeometry = true;
+        return true;
     }
     canExecute(command: MindMapCommand): boolean {
         try { validateCommand(command); } catch { return false; }

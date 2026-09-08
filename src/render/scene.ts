@@ -3,6 +3,7 @@ import type { Selection } from '../types';
 import type { Layout } from '../layout/layout';
 import { layout } from '../layout/layout';
 import { Measurements, labelElement } from './measure';
+import { labelUrl } from '../interaction/links';
 const NS = 'http://www.w3.org/2000/svg';
 let instance = 0;
 export class Scene {
@@ -62,6 +63,7 @@ export class Scene {
                 if ((oldCheckbox !== null) !== (n.checked !== undefined))
                     element.replaceChildren(...labelElement(this.widget.ownerDocument, n, g.id === model.rootId).childNodes);
                 element.querySelector('.mindmap-label')!.textContent = n.text;
+                element.querySelector('.mindmap-label')!.classList.toggle('mindmap-link', !!labelUrl(n.text));
                 Object.assign(element.style, { left: `${g.box.x}px`, top: `${g.box.y}px`, width: `${g.box.width}px`, height: `${g.box.height}px` });
                 element.setAttribute('aria-selected', String(selection.ids.includes(n.id)));
                 element.setAttribute('role', 'treeitem');

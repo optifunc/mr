@@ -7,6 +7,11 @@ import { TextEditor } from './interaction/editing';
 import { contentCommands } from './commands/reducer';
 import { Input } from './interaction/input';
 import { navigate, SelectionPath } from './interaction/navigation';
+import { BrowserClipboard } from './clipboard/browser';
+import type { ClipboardCommand } from './clipboard/browser';
+import { parse, serialize } from './clipboard/codec';
+import { normalizeRoots } from './model/document';
+import { labelUrl } from './interaction/links';
 import { fitBounds, reveal, zoomAt } from './interaction/viewport';
 export class MindMapEditor {
     private readonly element: HTMLDivElement;
@@ -16,6 +21,8 @@ export class MindMapEditor {
     private readonly fonts: FontFaceSet;
     private readonly fontListener = (): void => { this.refreshLayout(); };
     private readonly input: Input;
+    private readonly clipboard: BrowserClipboard;
+    private generation = 0;
     private textEditor: TextEditor | undefined;
     private editOrigin: Origin = 'api';
     private editViewport: Viewport | undefined;
@@ -44,6 +51,7 @@ export class MindMapEditor {
         this.applyViewport(this.viewport);
         this.render(true);
         this.selectionPath.reset(this.store.selection);
+        this.clipboard = new BrowserClipboard(this.element, (type, data) => { this.run(() => this.clipboardRequest({ type }, 'user', data)); });
         this.input = new Input(this.element, {
             command: (command, replacementText) => this.run(() => this.canExecute(command) ? this.dispatch(command, 'user', replacementText) : false),
             select: (id, toggle, range, release) => this.pointerSelect(id, toggle, range, release),
@@ -67,6 +75,7 @@ export class MindMapEditor {
     private render(geometry: boolean): void { this.store.visualOrder = this.scene.render(this.store.model, this.store.selection, geometry).visualOrder; }
     refreshLayout(): void { this.run(() => { if (this.textEditor) { this.deferredLayout = true; return true; } this.scene.refresh(); this.render(true); return true; }); }
     private emit<K extends keyof MindMapEditorEvents>(type: K, payload: () => MindMapEditorEvents[K]): void {
+        if (type === 'documentchange') this.generation++;
         for (const listener of [...this.listeners.get(type) ?? []]) {
             if (this.destroyed)
                 return;
@@ -145,8 +154,10 @@ export class MindMapEditor {
         return this.run(() => this.dispatch(copy, 'api'));
     }
     private dispatch(command: MindMapCommand, source: Origin, replacementText?: string): boolean {
-        if (this.textEditor && (contentCommands.has(command.type) || ['undo', 'redo', 'edit'].includes(command.type))) this.finishEdit(true, false);
+        if (['copy', 'cut', 'paste'].includes(command.type)) return this.clipboardRequest(command, source);
+        if (this.textEditor && (contentCommands.has(command.type) || ['undo', 'redo', 'edit', 'openLink'].includes(command.type))) this.finishEdit(true, false);
         if (this.destroyed) return false;
+        if (command.type === 'openLink') return this.openLink(command.targetId ?? this.store.selection.activeId);
         if (['insertChild', 'insertBefore', 'insertAfter', 'insertParent'].includes(command.type)) return this.startEdit(command, source);
         if (command.type === 'edit') return this.startEdit(command, source, replacementText);
         const before = this.getSelection();
@@ -179,6 +190,8 @@ export class MindMapEditor {
     canExecute(command: MindMapCommand): boolean {
         if (this.destroyed) return false;
         try { validateCommand(command); } catch { return false; }
+        if (command.type === 'openLink') return !!labelUrl(this.store.model.nodes.get(command.targetId ?? this.store.selection.activeId ?? '')?.text ?? '');
+        if (['copy', 'cut', 'paste'].includes(command.type)) return !this.clipboard.busy && this.clipboardApplicable(command);
         if (['zoomIn', 'zoomOut', 'resetZoom'].includes(command.type)) {
             const zoom = command.type === 'resetZoom' ? 1 : this.viewport.zoom * (command.type === 'zoomIn' ? 1.2 : 1 / 1.2);
             return zoomAt(this.viewport, zoom, 0, 0).zoom !== this.viewport.zoom;
@@ -220,6 +233,7 @@ export class MindMapEditor {
         const originalViewport = this.getViewport();
         if (creation) { if (!this.store.beginCreation(command)) return false; this.render(true); }
         else { this.store.beginEdit(target); this.store.setSelection([target], target); this.render(false); }
+        this.generation++;
         const edit = this.store.edit!; this.editOrigin = origin; this.editViewport = creation ? originalViewport : undefined;
         this.selectionPath.reset(this.store.selection); this.revealIds([edit.id]);
         this.textEditor = new TextEditor(this.scene.scene, this.scene.nodeElement(edit.id)!, replacementText ?? this.store.model.nodes.get(edit.id)!.text,
@@ -251,6 +265,54 @@ export class MindMapEditor {
     private discardEdit(): void {
         this.textEditor?.destroy(); this.textEditor = undefined; this.editViewport = undefined; this.store.cancelEdit();
         if (this.deferredLayout) { this.scene.refresh(); this.deferredLayout = false; }
+    }
+    private clipboardApplicable(command: MindMapCommand): boolean {
+        if (command.type !== 'copy' && this.store.readonly) return false;
+        if (command.type === 'paste') return this.store.model.nodes.has(command.targetId ?? this.store.selection.activeId ?? '');
+        const ids = 'ids' in command ? command.ids ?? this.store.selection.ids : this.store.selection.ids;
+        return !!ids.length && ids.every(id => this.store.model.nodes.has(id)) && (command.type !== 'cut' || !ids.includes(this.store.model.rootId));
+    }
+    private clipboardRequest(command: MindMapCommand, origin: Origin, data?: DataTransfer): boolean {
+        if (this.clipboard.busy) throw new MindMapError('CLIPBOARD_BUSY', 'A clipboard request is already pending');
+        if (command.type !== 'copy' && this.store.readonly) {
+            if (origin === 'api') throw new MindMapError('READ_ONLY', 'Clipboard mutation is disabled in read-only mode');
+            return false;
+        }
+        if (!this.clipboardApplicable(command)) {
+            if (('targetId' in command && command.targetId !== undefined) || ('ids' in command && command.ids?.some(id => !this.store.model.nodes.has(id)))) throw new MindMapError('INVALID_TARGET', 'Unknown clipboard target');
+            return false;
+        }
+        if (this.textEditor) this.finishEdit(true, false);
+        if (this.destroyed || !this.clipboardApplicable(command)) return false;
+        const type = command.type as ClipboardCommand, generation = this.generation;
+        const target = 'targetId' in command ? command.targetId ?? this.store.selection.activeId : this.store.selection.activeId;
+        const ids = normalizeRoots(this.store.model, 'ids' in command ? command.ids ?? this.store.selection.ids : this.store.selection.ids, this.store.visualOrder);
+        const text = type === 'paste' ? '' : serialize(this.store.model, ids, this.store.visualOrder);
+        return this.clipboard.request(type, text, data, value => { this.run(() => {
+            if (type !== 'copy' && this.generation !== generation) throw new MindMapError('CLIPBOARD_STALE', 'Document or editing interaction changed during clipboard access');
+            const before = this.getSelection();
+            const changed = type === 'cut' ? this.store.execute({ type: 'delete', ids }) : type === 'paste' ? this.store.paste(target!, parse(value)) : false;
+            const affected = type === 'paste' ? changed ? [...this.store.selection.ids] : [] : ids;
+            if (changed) {
+                this.selectionPath.reset(this.store.selection); this.render(true); this.revealIds(this.store.selection.ids);
+                this.emit('documentchange', () => ({ document: this.getDocument(), origin, reason: 'command', command: type }));
+                this.selectionEvent(before, origin);
+            }
+            this.emit('commandcomplete', () => ({ command: type, origin, ids: [...affected] }));
+            return true;
+        }); }, error => { this.run(() => { this.report(error); return false; }); });
+    }
+    private openLink(id: string | undefined): boolean {
+        const url = labelUrl(this.store.model.nodes.get(id ?? '')?.text ?? '');
+        if (!id || !url) return false;
+        let prevented = false;
+        const event = { id, url, preventDefault: (): void => { prevented = true; } };
+        for (const listener of [...this.listeners.get('linkopen') ?? []]) {
+            if (this.destroyed) return false;
+            try { listener(event as never); } catch { prevented = true; this.report(new MindMapError('HOST_CALLBACK', 'linkopen listener threw')); }
+        }
+        if (!prevented && !this.destroyed) this.element.ownerDocument.defaultView!.open(url, '_blank', 'noopener,noreferrer');
+        return true;
     }
     private localPoint(x: number, y: number): { x: number; y: number } {
         const r = this.element.getBoundingClientRect();
@@ -310,5 +372,5 @@ export class MindMapEditor {
         return () => { set.delete(listener as (event: never) => void); };
     }
     destroy(): void { if (this.destroyed)
-        return; this.discardEdit(); this.destroyed = true; this.queue = []; this.listeners.clear(); this.input.destroy(); cancelAnimationFrame(this.viewportFrame); this.resize.disconnect(); this.fonts.removeEventListener('loadingdone', this.fontListener); this.scene.destroy(); this.element.remove(); }
+        return; this.discardEdit(); this.destroyed = true; this.queue = []; this.listeners.clear(); this.clipboard.destroy(); this.input.destroy(); cancelAnimationFrame(this.viewportFrame); this.resize.disconnect(); this.fonts.removeEventListener('loadingdone', this.fontListener); this.scene.destroy(); this.element.remove(); }
 }

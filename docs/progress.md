@@ -20,7 +20,7 @@ parents, with the bottom border on the branch line and stable text position.
 The latest approved controls remove the focused-widget frame, use Ctrl+Space on
 all platforms, and expand collapsed nodes by clicking their circles without
 changing selection. [Latest evidence](evidence/milestone-b/focus-controls/report.md).
-Stages 6–9 have not been started.
+Milestone C is authorized and stage 6 is being verified; stages 7–9 are not yet complete.
 
 Stages 4–5 include mouse/range selection, geometry navigation, keyboard sibling-block
 movement, viewport controls, checkbox/structural gestures, native textarea editing,
@@ -120,8 +120,8 @@ Run `pnpm dev`, then open http://127.0.0.1:5173.
 
 ## Next action and known limits
 
-Milestone B product review is complete. Next is milestone C (stages 6–7: clipboard,
-links and dragging), awaiting user authorization. Do not begin implementation yet.
+Milestone B product review is complete. Milestone C is authorized and underway;
+continue through stage 7, then stop for product review.
 The runnable demo exposes all B behaviors,
 reference/editing comparisons, event/selection/history state, read-only mode and
 an interleaved-side fixture. See the [B report](evidence/milestone-b/report.md).
@@ -350,3 +350,28 @@ passed; implementation tests were not rerun. The last implementation checks rema
 as recorded in the final controls report. No new test pass is claimed here.
 Next: await authorization for milestone C. Stages 6–9 and their release checks
 remain unstarted/unverified as previously recorded.
+
+## C stage-6 implementation — 2026-09-08
+
+The user authorized all of milestone C, including coherent commits and continuing
+through stage 7 before product review. Started from clean `b80bb9f`. All four
+supplied reference images were opened and inspected. Stage 6 implements the pure
+clipboard codec, atomic forest insertion, native/async browser adapter, captured
+request targets, busy/stale/destroy guards, completion events, and protected URL
+opening with cancellable policy callbacks. Paste expands its destination to reveal
+new children; pasted nodes start expanded. Native textarea clipboard remains native.
+
+Interim checks: 135 unit tests and typecheck passed. Initial browser run: 39 passed,
+3 failed because the new copy test assumed left-first tree order instead of the
+shared rendered visual order (One is above Child 1). Corrected the exact expected
+sequence; no tolerance/assertion was weakened. The initial log is preserved in
+`evidence/milestone-c/stage6/initial-browser.txt`. Broader browser/build gates are
+running; stage 7 has not started yet. Product acceptance remains pending.
+
+Stage-6 gate passed: typecheck, ESM/CSS/declaration build, 135 unit tests, and
+112 browser cases (clipboard plus existing editing/interaction) across all three
+engines. Two engine-specific async-permission cases are explicitly skipped:
+Firefox/WebKit native real keyboard clipboard paths passed, while granted async
+Clipboard API access was exercised in Chromium. Logs: `evidence/milestone-c/stage6/`.
+Next: stage 7 drag preview, zones/gradients, cancellation, autopan, browser evidence
+and the final C review demo. No stage-6 product pause is required by this task.

@@ -1,0 +1,199 @@
+
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test tests/browser/clipboard.spec.ts --workers=1
+
+[2m[WebServer] [22m(node:61552) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:61562) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 42 tests using 1 worker
+
+(node:61571) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:61571) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   1 [chromium] › tests/browser/clipboard.spec.ts:19:1 › API paste/cut/copy settle once, retain IDs on redo and expose completion after document/selection (5.3s)
+(node:61581) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:61581) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   2 [chromium] › tests/browser/clipboard.spec.ts:35:56 › denied clipboard leaves document and history intact (132ms)
+  ✓   3 [chromium] › tests/browser/clipboard.spec.ts:35:56 › unavailable clipboard leaves document and history intact (106ms)
+  ✓   4 [chromium] › tests/browser/clipboard.spec.ts:43:1 › invalid indentation and generated-ID collision reject whole paste (116ms)
+  ✓   5 [chromium] › tests/browser/clipboard.spec.ts:53:113 › cut rejects deferred completion after edit (117ms)
+  ✓   6 [chromium] › tests/browser/clipboard.spec.ts:53:113 › cut rejects deferred completion after replace (109ms)
+  ✓   7 [chromium] › tests/browser/clipboard.spec.ts:53:113 › cut rejects deferred completion after interaction (116ms)
+  ✓   8 [chromium] › tests/browser/clipboard.spec.ts:53:113 › paste rejects deferred completion after edit (108ms)
+  ✓   9 [chromium] › tests/browser/clipboard.spec.ts:53:113 › paste rejects deferred completion after replace (105ms)
+  ✓  10 [chromium] › tests/browser/clipboard.spec.ts:53:113 › paste rejects deferred completion after interaction (109ms)
+  ✓  11 [chromium] › tests/browser/clipboard.spec.ts:66:1 › pending requests keep captured selection/target; copy survives edits; destroy suppresses completion (136ms)
+  ✓  12 [chromium] › tests/browser/clipboard.spec.ts:74:1 › native keyboard clipboard round trip works without duplicate API request and textarea keeps native routing (142ms)
+  ✓  13 [chromium] › tests/browser/clipboard.spec.ts:85:1 › read-only permits copy/links but rejects cut/paste; root cannot be cut (148ms)
+  ✓  14 [chromium] › tests/browser/clipboard.spec.ts:91:1 › URL modifier label clicks open protected tabs; branch selection, cancellation, callback failure and reclassification (268ms)
+(node:61604) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:61604) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  15 [firefox] › tests/browser/clipboard.spec.ts:19:1 › API paste/cut/copy settle once, retain IDs on redo and expose completion after document/selection (6.0s)
+(node:61615) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:61615) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  16 [firefox] › tests/browser/clipboard.spec.ts:35:56 › denied clipboard leaves document and history intact (742ms)
+  ✓  17 [firefox] › tests/browser/clipboard.spec.ts:35:56 › unavailable clipboard leaves document and history intact (285ms)
+  ✓  18 [firefox] › tests/browser/clipboard.spec.ts:43:1 › invalid indentation and generated-ID collision reject whole paste (291ms)
+  ✓  19 [firefox] › tests/browser/clipboard.spec.ts:53:113 › cut rejects deferred completion after edit (242ms)
+  ✓  20 [firefox] › tests/browser/clipboard.spec.ts:53:113 › cut rejects deferred completion after replace (239ms)
+  ✓  21 [firefox] › tests/browser/clipboard.spec.ts:53:113 › cut rejects deferred completion after interaction (240ms)
+  ✓  22 [firefox] › tests/browser/clipboard.spec.ts:53:113 › paste rejects deferred completion after edit (234ms)
+  ✓  23 [firefox] › tests/browser/clipboard.spec.ts:53:113 › paste rejects deferred completion after replace (239ms)
+  ✓  24 [firefox] › tests/browser/clipboard.spec.ts:53:113 › paste rejects deferred completion after interaction (258ms)
+  ✓  25 [firefox] › tests/browser/clipboard.spec.ts:66:1 › pending requests keep captured selection/target; copy survives edits; destroy suppresses completion (277ms)
+  ✓  26 [firefox] › tests/browser/clipboard.spec.ts:74:1 › native keyboard clipboard round trip works without duplicate API request and textarea keeps native routing (323ms)
+  ✓  27 [firefox] › tests/browser/clipboard.spec.ts:85:1 › read-only permits copy/links but rejects cut/paste; root cannot be cut (451ms)
+  ✓  28 [firefox] › tests/browser/clipboard.spec.ts:91:1 › URL modifier label clicks open protected tabs; branch selection, cancellation, callback failure and reclassification (440ms)
+(node:61636) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:61636) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  29 [webkit] › tests/browser/clipboard.spec.ts:19:1 › API paste/cut/copy settle once, retain IDs on redo and expose completion after document/selection (5.6s)
+(node:61648) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:61648) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  30 [webkit] › tests/browser/clipboard.spec.ts:35:56 › denied clipboard leaves document and history intact (408ms)
+  ✓  31 [webkit] › tests/browser/clipboard.spec.ts:35:56 › unavailable clipboard leaves document and history intact (238ms)
+  ✓  32 [webkit] › tests/browser/clipboard.spec.ts:43:1 › invalid indentation and generated-ID collision reject whole paste (193ms)
+  ✓  33 [webkit] › tests/browser/clipboard.spec.ts:53:113 › cut rejects deferred completion after edit (190ms)
+  ✓  34 [webkit] › tests/browser/clipboard.spec.ts:53:113 › cut rejects deferred completion after replace (192ms)
+  ✓  35 [webkit] › tests/browser/clipboard.spec.ts:53:113 › cut rejects deferred completion after interaction (212ms)
+  ✓  36 [webkit] › tests/browser/clipboard.spec.ts:53:113 › paste rejects deferred completion after edit (192ms)
+  ✓  37 [webkit] › tests/browser/clipboard.spec.ts:53:113 › paste rejects deferred completion after replace (184ms)
+  ✓  38 [webkit] › tests/browser/clipboard.spec.ts:53:113 › paste rejects deferred completion after interaction (189ms)
+  ✓  39 [webkit] › tests/browser/clipboard.spec.ts:66:1 › pending requests keep captured selection/target; copy survives edits; destroy suppresses completion (220ms)
+  ✓  40 [webkit] › tests/browser/clipboard.spec.ts:74:1 › native keyboard clipboard round trip works without duplicate API request and textarea keeps native routing (268ms)
+  ✓  41 [webkit] › tests/browser/clipboard.spec.ts:85:1 › read-only permits copy/links but rejects cut/paste; root cannot be cut (275ms)
+  ✓  42 [webkit] › tests/browser/clipboard.spec.ts:91:1 › URL modifier label clicks open protected tabs; branch selection, cancellation, callback failure and reclassification (394ms)
+
+
+  1) [chromium] › tests/browser/clipboard.spec.ts:19:1 › API paste/cut/copy settle once, retain IDs on redo and expose completion after document/selection 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+    [32m- Expected  - 2[39m
+    [31m+ Received  + 2[39m
+
+    [32m- Child 1[39m
+    [2m  One[22m
+    [2m  	A[22m
+    [2m  	B[22m
+    [32m- 	C[39m
+    [31m+ 	C[39m
+    [31m+ Child 1[39m
+    [2m  ↵[22m
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+      28 |     await page.keyboard.press('Meta+Shift+z'); expect(await page.evaluate(() => window.primary.getDocument())).toEqual(pasted);
+      29 |     await page.evaluate(() => window.primary.execute({ type: 'copy', ids: ['one', 'a', 'child1'] }));
+    > 30 |     await expect.poll(() => page.evaluate(() => window.clip.writes.at(-1))).toBe('Child 1\nOne\n\tA\n\tB\n\tC\n');
+         |     ^
+      31 |     await page.evaluate(() => window.primary.execute({ type: 'cut', ids: ['one', 'a'] }));
+      32 |     await expect.poll(() => page.evaluate(() => window.primary.getDocument().root.children.some(n => n.id === 'one'))).toBe(false);
+      33 |     await page.keyboard.press('Meta+z'); expect(await page.evaluate(() => window.primary.getDocument())).toEqual(pasted);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/clipboard.spec.ts:30:5
+
+    Error Context: test-results/clipboard-API-paste-cut-co-3c251-on-after-document-selection-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/clipboard-API-paste-cut-co-3c251-on-after-document-selection-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/clipboard-API-paste-cut-co-3c251-on-after-document-selection-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [firefox] › tests/browser/clipboard.spec.ts:19:1 › API paste/cut/copy settle once, retain IDs on redo and expose completion after document/selection 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+    [32m- Expected  - 2[39m
+    [31m+ Received  + 2[39m
+
+    [32m- Child 1[39m
+    [2m  One[22m
+    [2m  	A[22m
+    [2m  	B[22m
+    [32m- 	C[39m
+    [31m+ 	C[39m
+    [31m+ Child 1[39m
+    [2m  ↵[22m
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+      28 |     await page.keyboard.press('Meta+Shift+z'); expect(await page.evaluate(() => window.primary.getDocument())).toEqual(pasted);
+      29 |     await page.evaluate(() => window.primary.execute({ type: 'copy', ids: ['one', 'a', 'child1'] }));
+    > 30 |     await expect.poll(() => page.evaluate(() => window.clip.writes.at(-1))).toBe('Child 1\nOne\n\tA\n\tB\n\tC\n');
+         |     ^
+      31 |     await page.evaluate(() => window.primary.execute({ type: 'cut', ids: ['one', 'a'] }));
+      32 |     await expect.poll(() => page.evaluate(() => window.primary.getDocument().root.children.some(n => n.id === 'one'))).toBe(false);
+      33 |     await page.keyboard.press('Meta+z'); expect(await page.evaluate(() => window.primary.getDocument())).toEqual(pasted);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/clipboard.spec.ts:30:5
+
+    Error Context: test-results/clipboard-API-paste-cut-co-3c251-on-after-document-selection-firefox/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/clipboard-API-paste-cut-co-3c251-on-after-document-selection-firefox/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/clipboard-API-paste-cut-co-3c251-on-after-document-selection-firefox/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [webkit] › tests/browser/clipboard.spec.ts:19:1 › API paste/cut/copy settle once, retain IDs on redo and expose completion after document/selection 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+    [32m- Expected  - 2[39m
+    [31m+ Received  + 2[39m
+
+    [32m- Child 1[39m
+    [2m  One[22m
+    [2m  	A[22m
+    [2m  	B[22m
+    [32m- 	C[39m
+    [31m+ 	C[39m
+    [31m+ Child 1[39m
+    [2m  ↵[22m
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+      28 |     await page.keyboard.press('Meta+Shift+z'); expect(await page.evaluate(() => window.primary.getDocument())).toEqual(pasted);
+      29 |     await page.evaluate(() => window.primary.execute({ type: 'copy', ids: ['one', 'a', 'child1'] }));
+    > 30 |     await expect.poll(() => page.evaluate(() => window.clip.writes.at(-1))).toBe('Child 1\nOne\n\tA\n\tB\n\tC\n');
+         |     ^
+      31 |     await page.evaluate(() => window.primary.execute({ type: 'cut', ids: ['one', 'a'] }));
+      32 |     await expect.poll(() => page.evaluate(() => window.primary.getDocument().root.children.some(n => n.id === 'one'))).toBe(false);
+      33 |     await page.keyboard.press('Meta+z'); expect(await page.evaluate(() => window.primary.getDocument())).toEqual(pasted);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/clipboard.spec.ts:30:5
+
+    Error Context: test-results/clipboard-API-paste-cut-co-3c251-on-after-document-selection-webkit/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/clipboard-API-paste-cut-co-3c251-on-after-document-selection-webkit/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/clipboard-API-paste-cut-co-3c251-on-after-document-selection-webkit/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    [chromium] › tests/browser/clipboard.spec.ts:19:1 › API paste/cut/copy settle once, retain IDs on redo and expose completion after document/selection 
+    [firefox] › tests/browser/clipboard.spec.ts:19:1 › API paste/cut/copy settle once, retain IDs on redo and expose completion after document/selection 
+    [webkit] › tests/browser/clipboard.spec.ts:19:1 › API paste/cut/copy settle once, retain IDs on redo and expose completion after document/selection 
+  39 passed (33.4s)
+ ELIFECYCLE  Command failed with exit code 1.

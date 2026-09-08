@@ -1,6 +1,6 @@
-# Milestone B API checkpoint
+# Milestone C API checkpoint
 
-Stages 1–5 are implemented; this checkpoint stops before clipboard, links, dragging and menus. The complete contract
+Stages 1–6 are implemented; dragging is in progress and menus remain stage 8. The complete contract
 remains in [requirements](requirements.md). See [acceptance](acceptance.md) for
 verified behavior and pending interaction stages.
 
@@ -63,7 +63,7 @@ editor.destroy();
   node), and `panTo(x, y)` (absolute scene translation in local CSS pixels). Zoom
   clamps to .25–4; keyboard steps multiply/divide by 1.2. Viewport never enters history.
 - Events currently emitted: `documentchange`, `selectionchange`, `viewportchange`,
-  `editstart`, `editcommit`, `editcancel`, and `error`.
+  `editstart`, `editcommit`, `editcancel`, `commandcomplete`, `linkopen`, and `error`.
   Mutation events follow installation/rendering, document before selection.
   Listener exceptions are isolated; listener-triggered commands queue after the
   current event batch in FIFO order, including work enqueued by queued commands.
@@ -126,8 +126,7 @@ and resets selection/history. Invalid replacement preserves the editor and buffe
 has no undo entry. Calling public `undo()` first commits that edit and then undoes
 it. Inside the textarea, the keyboard undo shortcut remains native text undo.
 
-Unsupported clipboard/link commands currently return false. `contextMenu` is
-reserved; menus arrive at stage 8. Node dragging remains stage 7. Read-only allows
+`contextMenu` is reserved; menus arrive at stage 8. Read-only allows
 selection, visible navigation and viewport changes; user mutation gestures are
 silent no-ops, while API mutation attempts report `READ_ONLY`.
 
@@ -199,3 +198,40 @@ Read-only mode preserves document and selection. Effective expansion produces on
 user-origin document change and one undo entry. Existing SVG accessibility and
 keyboard equivalents remain unchanged. The historical `focus-color` theme variable
 is retained but no longer paints a widget focus frame.
+
+## Clipboard and links
+
+`copy` and `cut` accept optional `ids`; `paste` accepts optional `targetId`. Missing
+targets use the current selection/active node. A true return means the clipboard
+request was accepted, not that access or mutation succeeded. `canExecute` does not
+access the clipboard. Native keyboard shortcuts use copy/cut/paste events; public
+requests use the Clipboard API. Textarea shortcuts keep native text behavior.
+
+One request may be pending per instance. Additional requests report `CLIPBOARD_BUSY`.
+Selection and viewport changes never retarget pending work. Cut/paste reject with
+`CLIPBOARD_STALE` after a document mutation/replacement or a new edit (even when
+cancelled); copy still writes its captured text. Destroy suppresses late events.
+A stale cut may have written the clipboard but never deletes the changed map.
+Denial/unavailability reports `CLIPBOARD_DENIED`/`CLIPBOARD_UNAVAILABLE`. No hidden
+clipboard UI or fallback document mutation is used.
+
+The entire paste parses and allocates IDs before one transaction. Pasting expands
+the destination to reveal the inserted children; pasted subtrees start expanded.
+Root pastes use the right side. Copy includes collapsed descendants, normalizes
+selected ancestors, and preserves visual order. Tabs encode indentation; leading
+spaces remain label text. LF/CRLF, checkbox prefixes, backslash/newline/tab/bracket
+escapes, unknown escapes and empty physical lines follow the plan. One terminal LF
+is consumed; empty clipboard text is a successful no-op with no history.
+
+Successful clipboard requests emit `commandcomplete` with `{command, origin, ids}`.
+For paste these IDs are the new top-level nodes; copy/cut report normalized source
+roots. Cut/paste emit their one `documentchange` and any selection change before
+completion. Errors emit no completion. Public clipboard requests finish an active
+edit before capture; native textarea clipboard events never enter this path.
+
+`openLink` accepts an optional target ID. Whole trimmed HTTP(S) labels receive a
+subtle underline; embedded URLs and labels containing internal whitespace are plain
+text. Primary-modifier label clicks and the API emit cancellable `linkopen` before
+opening `_blank` with `noopener,noreferrer`. Branch/padding clicks still toggle
+selection. A policy listener exception prevents opening and emits `HOST_CALLBACK`.
+Copy and links are available in read-only mode and create no document history.

@@ -9,7 +9,7 @@ export interface InputActions {
     hit(x: number, y: number): string | undefined;
     marker(x: number, y: number): string | undefined;
 }
-type Press = { kind: 'node' | 'canvas' | 'marker'; pointerId: number; x: number; y: number; view: Viewport; id?: string; moved: boolean; toggle: boolean; range: boolean };
+type Press = { kind: 'node' | 'canvas' | 'marker' | 'link'; pointerId: number; x: number; y: number; view: Viewport; id?: string; moved: boolean; toggle: boolean; range: boolean };
 export class Input {
     private press: Press | undefined;
     private readonly abort = new AbortController();
@@ -61,9 +61,10 @@ export class Input {
         e.preventDefault(); this.element.focus({ preventScroll: true });
         const marker = this.actions.marker(e.clientX, e.clientY);
         const id = marker ?? this.actions.hit(e.clientX, e.clientY), toggle = this.primary(e), range = e.shiftKey;
+        const link = !marker && id && toggle && this.element.ownerDocument.elementFromPoint(e.clientX, e.clientY)?.closest('.mindmap-link');
         if (!marker && id && this.element.ownerDocument.elementFromPoint(e.clientX, e.clientY)?.closest('input')) { this.actions.command({ type: 'toggleChecked', ids: [id] }); return; }
-        this.press = { kind: marker ? 'marker' : id ? 'node' : 'canvas', pointerId: e.pointerId, x: e.clientX, y: e.clientY, view: this.actions.viewport(), ...(id ? { id } : {}), moved: false, toggle, range };
-        if (!marker && id && (!this.actions.selected(id) || toggle || range)) {
+        this.press = { kind: marker ? 'marker' : link ? 'link' : id ? 'node' : 'canvas', pointerId: e.pointerId, x: e.clientX, y: e.clientY, view: this.actions.viewport(), ...(id ? { id } : {}), moved: false, toggle, range };
+        if (!marker && !link && id && (!this.actions.selected(id) || toggle || range)) {
             this.actions.select(id, toggle, range, false);
             // This press established a selection; editing requires a subsequent click.
             this.press.toggle = true;
@@ -81,6 +82,10 @@ export class Input {
     private up = (e: PointerEvent): void => {
         const p = this.press; if (!p || p.pointerId !== e.pointerId) return;
         this.cancel();
+        if (p.kind === 'link') {
+            if (!p.moved && this.actions.hit(e.clientX, e.clientY) === p.id && this.element.ownerDocument.elementFromPoint(e.clientX, e.clientY)?.closest('.mindmap-link')) this.actions.command({ type: 'openLink', targetId: p.id! });
+            return;
+        }
         if (p.kind === 'marker') {
             if (!p.moved && this.actions.marker(e.clientX, e.clientY) === p.id) this.actions.command({ type: 'expand', targetId: p.id! });
             return;
