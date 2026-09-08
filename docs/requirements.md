@@ -271,8 +271,8 @@ sibling order as specified in section 9.1.
   distance orders candidates; stable layout order breaks ties.
 - At a non-root edge with no eligible destination, selection remains unchanged.
   Do not fall back to an ancestor/root or cross to the opposite root side.
-- At the root, retain the entry behavior: Up/Down selects the nearest visible row
-  in that direction across either side, with stable layout order breaking ties.
+- When the root is active, Up/Down and Shift+Up/Down do nothing: preserve the
+  selection, viewport, document, and history.
 - Shift+Up/Down follows the same destinations, extending/contracting the selection
   path. Left/Right navigation and primary-modifier structural movement are unchanged.
 
@@ -748,6 +748,7 @@ demonstrate all of the following:
 6. Up and Down prefer siblings, then cross group boundaries at the same depth
    and on the same root side. If no peer exists in that direction, use the nearest
    shallower non-ancestor; ancestors and deeper nodes remain ineligible.
+   Up/Down and Shift+Up/Down do nothing when the root is active.
    Outward navigation chooses the visually central child. Outward navigation
    first expands a collapsed node.
 7. Mouse, modifier-click, sibling range selection, cross-parent range
@@ -805,5 +806,7 @@ The following defaults have been confirmed:
   then continues at the same depth in adjacent branches on the same root side.
   The approved follow-up falls back to the nearest shallower node outside the
   ancestor chain when no peer exists. Deeper nodes remain excluded; exhausted edges
-  stay selected. The corrected reference example is Single child + Down → N1 (not C). Root entry and horizontal
-  navigation retain their existing behavior; see section 8.1.
+  stay selected. The corrected reference example is Single child + Down → N1 (not C).
+  Horizontal navigation retains its existing behavior; see section 8.1.
+- Root correction requested on 2026-09-08: Up/Down, including Shift extension,
+  does nothing when the root is active.

@@ -1,6 +1,6 @@
 # Implementation progress
 
-Last updated: 2026-09-07
+Last updated: 2026-09-08
 
 ## Current state
 
@@ -9,7 +9,8 @@ User acceptance of B's navigation/editing experience and editing screenshots is
 pending. Milestone A's default baseline at `253b99d` remains accepted and unchanged.
 The approved Up/Down corrections now prefer siblings, then same-depth nodes, then
 the nearest shallower node outside the ancestor chain. All ten examples are verified.
-[Latest evidence](evidence/milestone-b/navigation-fallback/report.md).
+Root Up/Down, including Shift, now does nothing as requested on 2026-09-08.
+[Latest evidence](evidence/milestone-b/navigation-root/report.md).
 Stages 6–9 have not been started.
 
 Stages 4–5 include mouse/range selection, geometry navigation, keyboard sibling-block
@@ -223,3 +224,18 @@ run failed six cases; corrected assertions enforce the newly approved behavior.
 Earlier evidence is preserved. Full B/browser workload and manual/release checks
 were not rerun for this focused change; previous release gaps remain. Next action:
 user review and any further B feedback. Remain at the stage-5 checkpoint.
+
+## B root navigation correction — 2026-09-08
+
+Requested root Up/Down no-op implemented in the shared navigation resolver, including
+Shift and API commands. Tests preserve single/multiple selection with root active,
+focus, document, viewport, page scroll, event log, layout count and history in both
+editable/read-only modes. Requirements, plan, API and testing instructions updated.
+
+Based on `d7ca866`; tested task changes are in the commit containing this record.
+Passed: typecheck, build, 114 unit tests, 36 focused browser cases and 3 exact
+accepted-A screenshot comparisons. Root screenshots inspected in all three engines.
+[Report and reproducible logs](evidence/milestone-b/navigation-root/report.md).
+Full B suite and later release gates were not rerun; existing gaps remain recorded.
+Demo: `pnpm dev`, open Vite's printed URL, select root and press Up/Down with and
+without Shift. Continue stage-5 product review; stages 6–9 remain unstarted.

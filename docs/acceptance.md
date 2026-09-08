@@ -125,11 +125,18 @@ regression baseline exists. Stop at this product checkpoint as requested.
 
 **Product review:** fluent keyboard creation, selection, navigation, and editing.
 
+**2026-09-08 root navigation:** Up/Down and Shift+Up/Down now do nothing when
+root is active, including a multiple selection. Typecheck/build, 114 unit tests,
+36 focused browser cases and 3 exact approved-default comparisons passed. Root
+screenshots inspected across Chromium, Firefox and WebKit.
+[Latest report and evidence](evidence/milestone-b/navigation-root/report.md).
+Stage-5 product acceptance remains pending.
+
 **2026-09-07 shallower fallback:** the approved priority is siblings, same depth,
 then nearest shallower node outside the ancestor chain, always on the same side.
 All ten reference examples pass. Typecheck/build, 114 unit tests, 30 focused browser
 cases and 3 exact approved-default regressions passed.
-[Latest report and evidence](evidence/milestone-b/navigation-fallback/report.md).
+[Fallback report and evidence](evidence/milestone-b/navigation-fallback/report.md).
 Product acceptance remains pending; previous results below are retained history.
 
 **2026-09-07 navigation correction:** updated to the user's confirmed sibling-first,
@@ -147,7 +154,8 @@ Use the reference map for a short repeatable exercise:
    → Child 1. These shallower fallbacks apply only when no sibling/same-depth node
    exists in that direction. Ancestors/deeper nodes are skipped; exhausted edges
    stay selected. Use Shift to extend through a fallback and retrace same-depth
-   ranges to check contraction.
+   ranges to check contraction. Select root and press Up/Down, with and without
+   Shift: selection and viewport must remain unchanged. Repeat in read-only mode.
 3. Extend and contract selection, then pan and zoom around the pointer.
 4. Edit a multiline label; verify geometry stays frozen until commit.
 5. Cancel creation under a collapsed parent and cancel insert-parent creation;

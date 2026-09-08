@@ -241,15 +241,16 @@ direction on that side, excluding the selected node's entire ancestor chain.
 Choose that fallback by vertical distance, not by depth difference.
 Within each candidate group, choose the nearest vertical center, with stable layout
 order breaking ties. Ancestors and deeper nodes are ineligible; at an edge,
-stay put instead of falling back to root or the opposite side. At the root, retain
-nearest-row entry in the requested direction across both sides, with stable order
-breaking ties. Shift+Up/Down uses the same rule and its existing path contraction.
+stay put instead of falling back to root or the opposite side. When root is active,
+return no destination for Up/Down, including Shift+Up/Down, preserving all state.
+Shift+Up/Down otherwise uses the same rule and its existing path contraction.
 
 Keep all ten confirmed examples in requirements §8.1 as permanent pure and
 actual-browser regressions, including Single child + Down → N1. Also cover mirrored
 branches, sibling priority over closer cross-group nodes, stable ties, collapsed
 peers, shallower fallback distance/ties, exclusion of all ancestors/deeper nodes,
-edge no-ops and Shift selection through fallback destinations and range reversal.
+edge no-ops, root vertical no-ops (single/multiple selection, API and keys,
+editable/read-only), and Shift selection through fallback destinations and range reversal.
 This correction does not change the global visible order used by Shift+click, or primary-modifier structural movement.
 
 Inward navigation selects the parent. Outward navigation selects the nearest child
@@ -508,7 +509,7 @@ paths in secure browser contexts.
 | 1. Reference appearance | Two-sided reference fixture; default, edit, and drag screenshots plus visual review |
 | 2–3. Keyboard structure changes | Each insertion binding at root/non-root; contiguous-block movement, wrapping, promotion, root-side append, eligibility/no-ops, selection retention, exact position/side, and one-step history |
 | 4–5. Editing and creation cancellation | Frozen positions during typing, multiline commit, old-label restoration, provisional rollback |
-| 6. Geometry navigation | Confirmed ten movements, sibling/same-depth priority, shallower fallback, full ancestor exclusion, mirrored branches, stable ties, collapsed peers, edge no-ops, Shift extension/contraction, central child and collapsed outward behavior |
+| 6. Geometry navigation | Confirmed ten movements, sibling/same-depth priority, shallower fallback, full ancestor exclusion, mirrored branches, stable ties, collapsed peers, edge/root vertical no-ops, Shift extension/contraction, central child and collapsed outward behavior |
 | 7. Selection | Click/toggle/ranges, root-side sibling ranges, Shift+Arrow contraction, select-all, hidden selection cleanup |
 | 8–9. Checkboxes | Independent state, mixed selections, presence add/remove, inheritance, no unnecessary relayout |
 | 10. URLs | Whole-label detection, partial-text rejection, modifier hit regions, cancellable/protected opening |

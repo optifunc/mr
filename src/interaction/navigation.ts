@@ -15,16 +15,16 @@ export function navigate(model: Model, layout: Layout, active: string | undefine
         return { id: children.filter(id => layout.nodes.has(id)).sort((a, b) =>
             Math.abs(center(layout.nodes.get(a)!) - center(g)) - Math.abs(center(layout.nodes.get(b)!) - center(g)))[0] };
     }
+    if (g.side === null) return {};
     const sign = direction === 'up' ? -1 : 1;
     const candidates = [...layout.nodes.values()].filter(c => c.id !== g.id &&
-        (g.side === null || c.side === g.side && c.depth === g.depth) && sign * (center(c) - center(g)) > 0)
+        c.side === g.side && c.depth === g.depth && sign * (center(c) - center(g)) > 0)
         .sort((a, b) => {
             // Visit siblings before continuing at the same depth in another branch.
             const siblingPriority = Number(b.parent === g.parent) - Number(a.parent === g.parent);
             return siblingPriority || sign * (center(a) - center(b)) || a.order - b.order;
         });
     if (candidates.length) return { id: candidates[0]!.id };
-    if (g.side === null) return {};
     // Only after exhausting peers may navigation enter a shallower branch.
     // Exclude every ancestor, including root, rather than just the parent.
     const ancestors = new Set<string>();

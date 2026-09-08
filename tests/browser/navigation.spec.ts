@@ -19,8 +19,8 @@ for (const readonly of [false, true]) {
         expect(await page.evaluate(() => ({ document: window.primary.getDocument(), layouts: document.querySelector('#primary .mindmap')!.getAttribute('data-layout-count') }))).toEqual(before);
         expect(await page.evaluate(() => window.primary.canUndo() || window.primary.canRedo())).toBe(false);
         if (!readonly) {
-            writeFileSync(`docs/evidence/milestone-b/navigation-fallback/results-${info.project.name}.json`, JSON.stringify({ browser: browser.version(), results }, null, 2) + '\n');
-            await page.locator('#primary').screenshot({ path: `docs/evidence/milestone-b/navigation-fallback/selection-${info.project.name}.png` });
+            writeFileSync(`docs/evidence/milestone-b/navigation-root/results-${info.project.name}.json`, JSON.stringify({ browser: browser.version(), results }, null, 2) + '\n');
+            await page.locator('#primary').screenshot({ path: `docs/evidence/milestone-b/navigation-root/selection-${info.project.name}.png` });
         }
     });
 }
@@ -52,3 +52,35 @@ test('Shift+Arrow includes shallower fallback destinations without selecting ski
     }
     expect(await page.evaluate(() => window.primary.canUndo() || window.primary.canRedo())).toBe(false);
 });
+
+for (const readonly of [false, true]) {
+    test(`root Up/Down is a no-op with plain and Shift keys (${readonly ? 'read-only' : 'editable'})`, async ({ page }, info) => {
+        await page.goto(readonly ? '/?readonly' : '/');
+        await page.evaluate(() => document.fonts.ready);
+        const state = () => page.evaluate(() => ({
+            document: window.primary.getDocument(), selection: window.primary.getSelection(),
+            viewport: window.primary.getViewport(), undo: window.primary.canUndo(), redo: window.primary.canRedo(),
+            layouts: document.querySelector('#primary .mindmap')!.getAttribute('data-layout-count'),
+            events: document.querySelector('#events')?.textContent,
+            scroll: [window.scrollX, window.scrollY],
+        }));
+        for (const ids of [['root'], ['one', 'root']]) {
+            await page.evaluate(ids => { window.primary.setSelection(ids, 'root'); window.primary.focus(); }, ids);
+            const before = await state();
+            for (const key of ['ArrowUp', 'ArrowDown', 'Shift+ArrowUp', 'Shift+ArrowDown']) {
+                await page.keyboard.press(key);
+                expect(await state()).toEqual(before);
+                await expect(page.locator('#primary .mindmap')).toBeFocused();
+                await expect(page.locator('#primary [data-node-id="root"]')).toHaveAttribute('aria-selected', 'true');
+            }
+            for (const direction of ['up', 'down'] as const) for (const extend of [false, true]) {
+                expect(await page.evaluate(({ direction, extend }) => {
+                    const command = { type: 'navigate', direction, extend } as const;
+                    return [window.primary.canExecute(command), window.primary.execute(command)];
+                }, { direction, extend })).toEqual([false, false]);
+                expect(await state()).toEqual(before);
+            }
+            if (!readonly && ids.length === 1) await page.locator('#primary').screenshot({ path: `docs/evidence/milestone-b/navigation-root/root-${info.project.name}.png` });
+        }
+    });
+}

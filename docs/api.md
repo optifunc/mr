@@ -49,7 +49,8 @@ editor.destroy();
   siblings, then same-depth nodes in adjacent branches on the same root side.
   If those are absent in the requested direction, it falls back to the nearest
   shallower node on that side, excluding ancestors. Deeper nodes are ineligible;
-  exhausted edges stay selected. Root entry and Left/Right retain their behavior.
+  exhausted edges stay selected. When root is active, Up/Down is a no-op even
+  with `extend`: `canExecute` and `execute` return false. Left/Right retains its behavior.
   `extend` follows the same destinations and contracts on reversal.
   Also available: `selectAll`, `clearSelection`,
   `edit`, `zoomIn`, `zoomOut`, `resetZoom`, and `fit`.

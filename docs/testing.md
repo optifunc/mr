@@ -76,9 +76,11 @@ written to `docs/evidence/milestone-b/`; tests retain failure traces in ignored
 - `pnpm test:browser tests/browser/navigation.spec.ts tests/browser/interaction.spec.ts --workers=1`:
   all confirmed Up/Down examples using actual keys in editable/read-only mounts,
   sibling/depth navigation, shallower non-ancestor fallback, Shift selection,
-  edges, and existing interaction regressions.
+  edges, root Up/Down no-ops (with Shift, multiple selection and API parity),
+  and existing interaction regressions.
 - `pnpm test:browser tests/browser/checkpoint-b.spec.ts --grep accepted-A --workers=1`:
   unchanged default screenshots against the approved A images.
 - New navigation evidence and checks are retained under
-  `docs/evidence/milestone-b/navigation-fallback/`; the first correction is retained
-  in `docs/evidence/milestone-b/navigation/`. Earlier B records remain historical.
+  `docs/evidence/milestone-b/navigation-root/`; earlier corrections are retained
+  in `docs/evidence/milestone-b/navigation-fallback/` and
+  `docs/evidence/milestone-b/navigation/`. Earlier B records remain historical.
