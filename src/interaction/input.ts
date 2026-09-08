@@ -1,6 +1,6 @@
 import type { MindMapCommand, Viewport } from '../types';
 export interface InputActions {
-    command(command: MindMapCommand): boolean;
+    command(command: MindMapCommand, replacementText?: string): boolean;
     select(id: string | undefined, toggle: boolean, range: boolean, release: boolean): void;
     selected(id: string): boolean;
     viewport(): Viewport;
@@ -27,7 +27,7 @@ export class Input {
     }
     private primary(e: MouseEvent | KeyboardEvent): boolean { return this.mac ? e.metaKey : e.ctrlKey; }
     private key = (e: KeyboardEvent): void => {
-        if ((e.target as HTMLElement).closest('textarea') || e.isComposing) return;
+        if ((e.target as HTMLElement).closest('textarea') || e.isComposing || e.keyCode === 229) return;
         const primary = this.primary(e), key = e.key.toLowerCase();
         let command: MindMapCommand | undefined;
         if (key.startsWith('arrow')) command = { type: primary ? 'moveSelection' : 'navigate', direction: key.slice(5) as 'left' | 'right' | 'up' | 'down', ...(!primary ? { extend: e.shiftKey } : {}) };
@@ -46,6 +46,11 @@ export class Input {
             if (key === 'delete') command = { type: 'delete' };
             if (key === ' ') command = { type: 'toggleCollapse' };
             if (key === 'escape') { this.cancel(); this.actions.select(undefined, false, false, true); e.preventDefault(); return; }
+        }
+        if (!command && !e.ctrlKey && !e.metaKey && !e.altKey && [...e.key].length === 1) {
+            // Keep the first printable character in the edit buffer, not the model.
+            if (this.actions.command({ type: 'edit' }, e.key)) e.preventDefault();
+            return;
         }
         if (command && !e.altKey) { e.preventDefault(); this.actions.command(command); }
     };

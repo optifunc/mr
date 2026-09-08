@@ -341,6 +341,21 @@ starts dragging. A press on an already selected group preserves the group for a
 possible drag; a completed plain click narrows it as required. Empty-canvas clicks
 clear selection; empty-canvas drags pan.
 
+Printable key input outside the textarea starts the shared edit command with a
+replacement buffer containing the original character, then places the caret after
+it. Keep the document's old text until commit so Escape and undo use the existing
+transaction. Preserve case; do not reinterpret Space, modifier shortcuts, or
+composition keys. Use the active node for multiple selection and the existing
+read-only/visible-target guards.
+
+Size empty creation editors to 100 local CSS pixels (previously 50), capped by
+viewport bounds. Left-side editors anchor their content's right edge at the
+label's right edge; right/root editors retain their left content anchor. Keep the
+3px border-plus-padding inset and frozen scene geometry. Use hidden horizontal
+overflow with native caret scrolling and automatic vertical overflow. Verify
+left root/nested insertion bindings at 100%/200%, mirrored right-side placement,
+cancellation restoration, overflow caret visibility, and accepted-default images.
+
 The textarea owns platform text shortcuts. Respect composition events so Enter
 used by an IME does not prematurely commit. Shift+Enter inserts a newline and
 Escape cancels. Commit on an outside pointer action before processing that action,
@@ -508,7 +523,7 @@ paths in secure browser contexts.
 |---|---|
 | 1. Reference appearance | Two-sided reference fixture; default, edit, and drag screenshots plus visual review |
 | 2–3. Keyboard structure changes | Each insertion binding at root/non-root; contiguous-block movement, wrapping, promotion, root-side append, eligibility/no-ops, selection retention, exact position/side, and one-step history |
-| 4–5. Editing and creation cancellation | Frozen positions during typing, multiline commit, old-label restoration, provisional rollback |
+| 4–5. Editing and creation cancellation | Typing replacement/first character, outward editor anchoring and 100px empty creation width, hidden horizontal scrollbar with caret reveal, frozen positions, multiline commit, old-label restoration, provisional rollback |
 | 6. Geometry navigation | Confirmed ten movements, sibling/same-depth priority, shallower fallback, full ancestor exclusion, mirrored branches, stable ties, collapsed peers, edge/root vertical no-ops, Shift extension/contraction, central child and collapsed outward behavior |
 | 7. Selection | Click/toggle/ranges, root-side sibling ranges, Shift+Arrow contraction, select-all, hidden selection cleanup |
 | 8–9. Checkboxes | Independent state, mixed selections, presence add/remove, inheritance, no unnecessary relayout |

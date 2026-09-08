@@ -125,11 +125,19 @@ regression baseline exists. Stop at this product checkpoint as requested.
 
 **Product review:** fluent keyboard creation, selection, navigation, and editing.
 
+**2026-09-08 editing adjustments:** the four approved changes are implemented:
+typing replaces the active label, horizontal scrollbars stay hidden, empty creation
+editors are 100px wide, and left-side editors expand outward from the label's right
+edge. Typecheck/build, 114 unit tests and 129 distinct browser cases passed across
+Chromium/Firefox/WebKit, including the three exact accepted-A comparisons.
+[Latest report, before/after screenshots and checks](evidence/milestone-b/editing-adjustments/report.md).
+The revised editing images are review candidates; B product acceptance is pending.
+
 **2026-09-08 root navigation:** Up/Down and Shift+Up/Down now do nothing when
 root is active, including a multiple selection. Typecheck/build, 114 unit tests,
 36 focused browser cases and 3 exact approved-default comparisons passed. Root
 screenshots inspected across Chromium, Firefox and WebKit.
-[Latest report and evidence](evidence/milestone-b/navigation-root/report.md).
+[Root navigation report and evidence](evidence/milestone-b/navigation-root/report.md).
 Stage-5 product acceptance remains pending.
 
 **2026-09-07 shallower fallback:** the approved priority is siblings, same depth,
@@ -157,7 +165,13 @@ Use the reference map for a short repeatable exercise:
    ranges to check contraction. Select root and press Up/Down, with and without
    Shift: selection and viewport must remain unchanged. Repeat in read-only mode.
 3. Extend and contract selection, then pan and zoom around the pointer.
-4. Edit a multiline label; verify geometry stays frozen until commit.
+4. Type with a selected node: its text is replaced from the first character.
+   Commit and undo once; repeat and Escape to restore the original. F2 still
+   selects the existing text. Type a long line: no horizontal scrollbar appears,
+   and the caret remains reachable at both ends. Edit a multiline label and verify
+   geometry stays frozen until commit. Select Child 1 and press Enter: the empty
+   editor is 100px wide and grows leftward from the new label's right edge.
+   Repeat on a right branch and at 200% zoom; Escape restores the creation state.
 5. Cancel creation under a collapsed parent and cancel insert-parent creation;
    verify structure, collapse state, selection, and history are restored.
 6. Commit by clicking another node and verify the resulting selection and focus.

@@ -1,0 +1,67 @@
+
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test tests/browser/editing-review.spec.ts tests/browser/checkpoint-b.spec.ts --workers=1
+
+[2m[WebServer] [22m(node:58273) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:58283) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 42 tests using 1 worker
+
+(node:58297) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:58297) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/browser/checkpoint-b.spec.ts:4:1 › editing reference, multiline, checkbox/root alignment and frozen geometry evidence (963ms)
+  ✓   2 [chromium] › tests/browser/checkpoint-b.spec.ts:34:1 › Ctrl routing on simulated non-Mac platform, all movement no-op classes, left promotion, empty destination and reveal (214ms)
+  ✓   3 [chromium] › tests/browser/checkpoint-b.spec.ts:52:1 › an outside click re-hits geometry after a large relayout, rather than selecting its stale DOM target (162ms)
+  ✓   4 [chromium] › tests/browser/checkpoint-b.spec.ts:65:1 › destroy from editcommit listener prevents a queued follow-on content mutation (108ms)
+  ✓   5 [chromium] › tests/browser/checkpoint-b.spec.ts:73:1 › read-only edit/delete/checkbox shortcuts are silent; invalid creation callback is atomic in the browser (171ms)
+  ✓   6 [chromium] › tests/browser/checkpoint-b.spec.ts:82:1 › accepted-A rendering regression in its original page geometry (242ms)
+  ✓   7 [chromium] › tests/browser/checkpoint-b.spec.ts:103:1 › zero-size mount centers when measurable; deferred fit and later resize preserve view/history (334ms)
+  ✓   8 [chromium] › tests/browser/checkpoint-b.spec.ts:113:1 › keyboard deletion normalizes subtrees and restores useful selection in one history step (108ms)
+  ✓   9 [chromium] › tests/browser/checkpoint-b.spec.ts:121:1 › viewport no-ops report false and emit no viewport or document event (116ms)
+  ✓  10 [chromium] › tests/browser/editing-review.spec.ts:8:1 › typing replaces the active label, preserves the first character and commits in one undo step (312ms)
+  ✓  11 [chromium] › tests/browser/editing-review.spec.ts:30:1 › replacement cancellation restores text and redo; shortcuts and empty/read-only selection do not start replacement (185ms)
+  ✓  12 [chromium] › tests/browser/editing-review.spec.ts:49:1 › overflow has no horizontal scrollbar and the caret can reach both ends without relayout (321ms)
+  ✓  13 [chromium] › tests/browser/editing-review.spec.ts:75:28 › empty creation is 100px wide and grows away from root at 100% (523ms)
+  ✓  14 [chromium] › tests/browser/editing-review.spec.ts:75:28 › empty creation is 100px wide and grows away from root at 200% (509ms)
+(node:58333) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:58333) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  15 [firefox] › tests/browser/checkpoint-b.spec.ts:4:1 › editing reference, multiline, checkbox/root alignment and frozen geometry evidence (1.4s)
+  ✓  16 [firefox] › tests/browser/checkpoint-b.spec.ts:34:1 › Ctrl routing on simulated non-Mac platform, all movement no-op classes, left promotion, empty destination and reveal (399ms)
+  ✓  17 [firefox] › tests/browser/checkpoint-b.spec.ts:52:1 › an outside click re-hits geometry after a large relayout, rather than selecting its stale DOM target (289ms)
+  ✓  18 [firefox] › tests/browser/checkpoint-b.spec.ts:65:1 › destroy from editcommit listener prevents a queued follow-on content mutation (269ms)
+  ✓  19 [firefox] › tests/browser/checkpoint-b.spec.ts:73:1 › read-only edit/delete/checkbox shortcuts are silent; invalid creation callback is atomic in the browser (317ms)
+  ✓  20 [firefox] › tests/browser/checkpoint-b.spec.ts:82:1 › accepted-A rendering regression in its original page geometry (363ms)
+  ✓  21 [firefox] › tests/browser/checkpoint-b.spec.ts:103:1 › zero-size mount centers when measurable; deferred fit and later resize preserve view/history (471ms)
+  ✓  22 [firefox] › tests/browser/checkpoint-b.spec.ts:113:1 › keyboard deletion normalizes subtrees and restores useful selection in one history step (276ms)
+  ✓  23 [firefox] › tests/browser/checkpoint-b.spec.ts:121:1 › viewport no-ops report false and emit no viewport or document event (249ms)
+  ✓  24 [firefox] › tests/browser/editing-review.spec.ts:8:1 › typing replaces the active label, preserves the first character and commits in one undo step (481ms)
+  ✓  25 [firefox] › tests/browser/editing-review.spec.ts:30:1 › replacement cancellation restores text and redo; shortcuts and empty/read-only selection do not start replacement (420ms)
+  ✓  26 [firefox] › tests/browser/editing-review.spec.ts:49:1 › overflow has no horizontal scrollbar and the caret can reach both ends without relayout (520ms)
+  ✓  27 [firefox] › tests/browser/editing-review.spec.ts:75:28 › empty creation is 100px wide and grows away from root at 100% (764ms)
+  ✓  28 [firefox] › tests/browser/editing-review.spec.ts:75:28 › empty creation is 100px wide and grows away from root at 200% (758ms)
+(node:58367) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:58367) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  29 [webkit] › tests/browser/checkpoint-b.spec.ts:4:1 › editing reference, multiline, checkbox/root alignment and frozen geometry evidence (1.1s)
+  ✓  30 [webkit] › tests/browser/checkpoint-b.spec.ts:34:1 › Ctrl routing on simulated non-Mac platform, all movement no-op classes, left promotion, empty destination and reveal (408ms)
+  ✓  31 [webkit] › tests/browser/checkpoint-b.spec.ts:52:1 › an outside click re-hits geometry after a large relayout, rather than selecting its stale DOM target (244ms)
+  ✓  32 [webkit] › tests/browser/checkpoint-b.spec.ts:65:1 › destroy from editcommit listener prevents a queued follow-on content mutation (221ms)
+  ✓  33 [webkit] › tests/browser/checkpoint-b.spec.ts:73:1 › read-only edit/delete/checkbox shortcuts are silent; invalid creation callback is atomic in the browser (234ms)
+  ✓  34 [webkit] › tests/browser/checkpoint-b.spec.ts:82:1 › accepted-A rendering regression in its original page geometry (310ms)
+  ✓  35 [webkit] › tests/browser/checkpoint-b.spec.ts:103:1 › zero-size mount centers when measurable; deferred fit and later resize preserve view/history (319ms)
+  ✓  36 [webkit] › tests/browser/checkpoint-b.spec.ts:113:1 › keyboard deletion normalizes subtrees and restores useful selection in one history step (195ms)
+  ✓  37 [webkit] › tests/browser/checkpoint-b.spec.ts:121:1 › viewport no-ops report false and emit no viewport or document event (194ms)
+  ✓  38 [webkit] › tests/browser/editing-review.spec.ts:8:1 › typing replaces the active label, preserves the first character and commits in one undo step (416ms)
+  ✓  39 [webkit] › tests/browser/editing-review.spec.ts:30:1 › replacement cancellation restores text and redo; shortcuts and empty/read-only selection do not start replacement (345ms)
+  ✓  40 [webkit] › tests/browser/editing-review.spec.ts:49:1 › overflow has no horizontal scrollbar and the caret can reach both ends without relayout (407ms)
+  ✓  41 [webkit] › tests/browser/editing-review.spec.ts:75:28 › empty creation is 100px wide and grows away from root at 100% (766ms)
+  ✓  42 [webkit] › tests/browser/editing-review.spec.ts:75:28 › empty creation is 100px wide and grows away from root at 200% (845ms)
+
+  42 passed (21.4s)

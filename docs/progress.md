@@ -10,7 +10,10 @@ pending. Milestone A's default baseline at `253b99d` remains accepted and unchan
 The approved Up/Down corrections now prefer siblings, then same-depth nodes, then
 the nearest shallower node outside the ancestor chain. All ten examples are verified.
 Root Up/Down, including Shift, now does nothing as requested on 2026-09-08.
-[Latest evidence](evidence/milestone-b/navigation-root/report.md).
+[Navigation evidence](evidence/milestone-b/navigation-root/report.md).
+The approved editing adjustments now support typing replacement, hide horizontal
+scrollbars, double empty creation width, and anchor left editors outward.
+[Latest evidence](evidence/milestone-b/editing-adjustments/report.md).
 Stages 6–9 have not been started.
 
 Stages 4–5 include mouse/range selection, geometry navigation, keyboard sibling-block
@@ -239,3 +242,32 @@ accepted-A screenshot comparisons. Root screenshots inspected in all three engin
 Full B suite and later release gates were not rerun; existing gaps remain recorded.
 Demo: `pnpm dev`, open Vite's printed URL, select root and press Up/Down with and
 without Shift. Continue stage-5 product review; stages 6–9 remain unstarted.
+
+## B editing adjustments — 2026-09-08
+
+Implemented the four approved changes: printable typing replaces the active label
+through the shared edit transaction, horizontal editor scrollbars are hidden while
+native caret scrolling remains available, empty creation editors use 100px instead
+of 50px, and left-side editors anchor at the label's right edge and expand outward.
+The width remains capped by the viewport and scales with zoom. Space and modifier
+shortcuts retain their bindings. Multiple selection edits the active node only.
+
+Tested task-only changes based on `53b47b0`, in the commit containing this record.
+Passed: typecheck, build, 114 unit tests, 87 existing editing/navigation/interaction
+browser cases plus 42 final editing-review/checkpoint cases, totaling 129 distinct
+browser cases in Chromium/Firefox/WebKit. The latter include all three exact
+accepted-A default comparisons. Before testing reproduced five failures. The first
+implementation run passed 101/102; its sole failure was a test's incorrect assumption
+that Firefox scrollLeft must be zero at the start. It may scroll away the 2px
+padding without hiding text. The corrected assertion checks the caret at index zero
+and that scrolling does not exceed the padding; the rerun passed all 42 cases.
+
+Inspected before/after left creation at 100%/200%, overflow, all three editing
+reference comparisons, and representative root/checkbox editors at 150%. No new
+visual discrepancy remains in this scope. Updated requirements, plan, API, demo
+help, testing and acceptance. New captures preserve previous evidence and accepted
+baselines. [Report, logs, geometry and screenshots](evidence/milestone-b/editing-adjustments/report.md).
+
+Next: user stage-5 product review. Run `pnpm dev` and follow the report's four
+exercises. Full release/browser workload and real OS IME/manual assistive technology
+checks were not rerun; existing milestone C/D gaps remain unchanged.

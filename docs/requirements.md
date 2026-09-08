@@ -150,18 +150,29 @@ Requirements:
 
 ### 5.2 Inline editor
 
-- The inline editor shall occupy the label's location.
+- The inline editor shall occupy the label's location. On left branches its
+  content's right edge anchors to the label's right edge, expanding outward to
+  the left. Right branches anchor at the label's left edge.
 - It shall be a rectangular text-editing control with a thin border.
 - It shall contain the node's current plain text and select it when editing
   starts, unless editing starts from a direct text-placement gesture supported
-  by the browser.
+  by the browser, or by typing to replace the label.
+- Typing a printable character with an active node shall start editing with that
+  character replacing the old label, with the caret after it. Shift-produced
+  characters retain their case. For multiple selection, edit only the active node.
+  Space retains its collapse binding; Control/Command/Alt shortcuts and composition
+  keys do not trigger replacement. Empty selection and read-only mode do not edit.
 - Shift+Enter shall insert a newline.
 - Enter shall commit.
 - Escape shall cancel.
 - Clicking outside the editor shall commit before processing the click.
 - The map layout shall not change while text is being edited.
-- The editor may grow internally or scroll so all text remains editable, but
-  surrounding nodes and connectors shall retain their pre-edit positions.
+- The editor may grow vertically or scroll so all text remains editable, but
+  surrounding nodes and connectors shall retain their pre-edit positions. Never
+  show a horizontal scrollbar; horizontal scrolling shall still reveal the caret.
+- An empty editor opened for a newly created node shall be 100 local CSS pixels
+  wide (twice the previous 50px), bounded by the available viewport. This width
+  scales with widget zoom; it does not change the provisional node's geometry.
 - On commit, the widget shall measure the final label and perform one automatic
   relayout.
 - On cancellation, the old text and layout shall be restored.
@@ -320,6 +331,7 @@ commands immediately open the new node's inline editor.
 
 | Input | Action outside inline editing |
 |---|---|
+| Printable character (except Space) | Replace the active label in the inline editor; no Control/Command/Alt modifier |
 | F2 | Edit active node label |
 | Click sole selected node | Edit its label |
 | Enter | Insert sibling immediately after active node |
@@ -742,6 +754,8 @@ demonstrate all of the following:
    Each effective move preserves the selection and active node and undoes/redoes
    in one step; ineligible selections and outward arrows do nothing.
 4. F2 and clicking the sole selected node show a thin-bordered inline editor.
+   Typing replaces the active label, preserving the first character. Empty creation
+   editors are 100px wide, align outward on each side, and hide horizontal scrollbars.
    Shift+Enter inserts a newline, Enter commits and relayouts, and Escape
    restores the prior state.
 5. Escape while editing a newly created node removes it.
@@ -810,3 +824,7 @@ The following defaults have been confirmed:
   Horizontal navigation retains its existing behavior; see section 8.1.
 - Root correction requested on 2026-09-08: Up/Down, including Shift extension,
   does nothing when the root is active.
+
+- Editing adjustments approved on 2026-09-08: type-to-replace the active label,
+  hide horizontal editor scrollbars while preserving caret scrolling, double empty
+  creation editor width to 100px, and anchor left-side editors at their right edge.

@@ -83,6 +83,13 @@ errors. It leaves document, selection, rendered geometry, and undo/redo intact;
 
 ## Editing and provisional creation
 
+Typing a printable character while the map has an active node starts a user edit,
+replacing the buffer with that character and placing the caret after it. Multiple
+selection narrows to the active node. The original document text stays unchanged
+until commit; Escape restores it and preserves redo. Space remains collapse;
+modifier shortcuts, composition keys and read-only mounts do not start replacement.
+F2, click-to-edit and `editNode` still open and select the existing text.
+
 Every insertion command opens the new node's textarea, including API insertions
 with a supplied initial `text`. It is selected for editing. Creation and its initial
 label commit form one transaction. `getDocument()` includes the provisional
@@ -93,8 +100,11 @@ Enter commits; Shift+Enter inserts a native newline; Escape cancels. Outside
 pointer actions commit before hit testing the new layout. Focus leaving the textarea
 also commits; it does not steal focus back from the destination. IME composition
 Enter is guarded. Normal text shortcuts, including Command/Ctrl+arrows, stay inside
-the textarea. The editor is bounded to the available viewport and scrolls long text;
-scene geometry remains frozen until commit. Explicit refresh/font invalidation is
+the textarea. The editor is bounded to the available viewport and scrolls long text
+without a horizontal scrollbar. Empty creation editors start at 100 local CSS pixels
+wide, capped by the viewport. Left-side editors anchor at the label's right edge
+and expand leftward; right/root editors anchor at the label's left edge.
+Scene geometry remains frozen until commit. Explicit refresh/font invalidation is
 deferred until the edit finishes.
 
 Creation selection is observable immediately (`selectionchange`, then `editstart`).

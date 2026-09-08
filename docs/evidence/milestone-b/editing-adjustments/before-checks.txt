@@ -1,0 +1,189 @@
+
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test tests/browser/editing-review.spec.ts --project=chromium --workers=1
+
+[2m[WebServer] [22m(node:57740) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:57750) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 5 tests using 1 worker
+
+(node:57766) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:57766) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [chromium] › tests/browser/editing-review.spec.ts:8:1 › typing replaces the active label, preserves the first character and commits in one undo step (5.4s)
+(node:57779) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:57779) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 [chromium] › tests/browser/editing-review.spec.ts:30:1 › replacement cancellation restores text and redo; shortcuts and empty/read-only selection do not start replacement (5.2s)
+(node:57791) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:57791) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  3 [chromium] › tests/browser/editing-review.spec.ts:49:1 › overflow has no horizontal scrollbar and the caret can reach both ends without relayout (265ms)
+(node:57799) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:57799) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  4 [chromium] › tests/browser/editing-review.spec.ts:69:28 › empty creation is 100px wide and grows away from root at 100% (254ms)
+(node:57810) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:57810) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  5 [chromium] › tests/browser/editing-review.spec.ts:69:28 › empty creation is 100px wide and grows away from root at 200% (253ms)
+
+
+  1) [chromium] › tests/browser/editing-review.spec.ts:8:1 › typing replaces the active label, preserves the first character and commits in one undo step 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveValue[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('#primary textarea')
+    Expected: [32m"New label!"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toHaveValue" with timeout 5000ms[22m
+    [2m  - waiting for locator('#primary textarea')[22m
+
+
+      12 |         await page.keyboard.type('New label!');
+      13 |         const editor = page.locator('#primary textarea');
+    > 14 |         await expect(editor).toHaveValue('New label!'); await expect(editor).toBeFocused();
+         |                              ^
+      15 |         expect(await editor.evaluate(e => [(e as HTMLTextAreaElement).selectionStart, (e as HTMLTextAreaElement).selectionEnd])).toEqual([10, 10]);
+      16 |         expect(await page.evaluate(() => ({ document: window.primary.getDocument(), layouts: document.querySelector('#primary .mindmap')!.getAttribute('data-layout-count') }))).toEqual(before);
+      17 |         expect(await page.evaluate(() => window.primary.getSelection())).toEqual({ ids: [ids.at(-1)], activeId: ids.at(-1) });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editing-review.spec.ts:14:30
+
+    Error Context: test-results/editing-review-typing-repl-d159b-nd-commits-in-one-undo-step-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/editing-review-typing-repl-d159b-nd-commits-in-one-undo-step-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/editing-review-typing-repl-d159b-nd-commits-in-one-undo-step-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › tests/browser/editing-review.spec.ts:30:1 › replacement cancellation restores text and redo; shortcuts and empty/read-only selection do not start replacement 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveValue[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('#primary textarea')
+    Expected: [32m"X"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toHaveValue" with timeout 5000ms[22m
+    [2m  - waiting for locator('#primary textarea')[22m
+
+
+      30 | test('replacement cancellation restores text and redo; shortcuts and empty/read-only selection do not start replacement', async ({ page }) => {
+      31 |     await page.evaluate(() => { window.primary.execute({ type: 'setText', targetId: 'one', text: 'Redo me' }); window.primary.undo(); window.primary.setSelection(['one']); window.primary.focus(); });
+    > 32 |     await page.keyboard.press('Shift+X'); await expect(page.locator('#primary textarea')).toHaveValue('X');
+         |                                                                                           ^
+      33 |     await page.keyboard.press('Escape');
+      34 |     expect(await page.evaluate(() => window.primary.getDocument())).toEqual(referenceMap());
+      35 |     expect(await page.evaluate(() => window.primary.canRedo())).toBe(true);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editing-review.spec.ts:32:91
+
+    Error Context: test-results/editing-review-replacement-592d8-on-do-not-start-replacement-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/editing-review-replacement-592d8-on-do-not-start-replacement-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/editing-review-replacement-592d8-on-do-not-start-replacement-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chromium] › tests/browser/editing-review.spec.ts:49:1 › overflow has no horizontal scrollbar and the caret can reach both ends without relayout 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+    Expected: [32m"hidden"[39m
+    Received: [31m"auto"[39m
+
+      55 |     await page.keyboard.type(text);
+      56 |     await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-overflow-${info.project.name}.png` });
+    > 57 |     expect(await editor.evaluate(e => getComputedStyle(e).overflowX)).toBe('hidden');
+         |                                                                       ^
+      58 |     expect(await editor.evaluate(e => e.scrollWidth > e.clientWidth)).toBe(true);
+      59 |     await expect.poll(() => editor.evaluate(e => e.scrollLeft)).toBeGreaterThan(0);
+      60 |     await page.keyboard.press('ControlOrMeta+a'); await page.keyboard.press('ArrowLeft');
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editing-review.spec.ts:57:71
+
+    Error Context: test-results/editing-review-overflow-ha-24495--both-ends-without-relayout-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/editing-review-overflow-ha-24495--both-ends-without-relayout-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/editing-review-overflow-ha-24495--both-ends-without-relayout-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [chromium] › tests/browser/editing-review.spec.ts:69:28 › empty creation is 100px wide and grows away from root at 100% 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.76[39m
+    Received:   [31m43[39m
+
+      84 |         // content's right edge; right branches anchor its left edge.
+      85 |         const dx = target === 'one' ? measured.area.x + 3 * zoom - measured.label.x : measured.area.right - 3 * zoom - measured.label.right;
+    > 86 |         expect(Math.abs(dx)).toBeLessThan(.76);
+         |                              ^
+      87 |         expect(measured.area.width).toBe(100 * zoom);
+      88 |         expect(Math.abs(measured.area.y + 3 * zoom - measured.label.y)).toBeLessThan(.76);
+      89 |         measurements.push({ target, key, zoom, ...measured, dx });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editing-review.spec.ts:86:30
+
+    Error Context: test-results/editing-review-empty-creat-a997f-rows-away-from-root-at-100--chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/editing-review-empty-creat-a997f-rows-away-from-root-at-100--chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/editing-review-empty-creat-a997f-rows-away-from-root-at-100--chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [chromium] › tests/browser/editing-review.spec.ts:69:28 › empty creation is 100px wide and grows away from root at 200% 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeLessThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: < [32m0.76[39m
+    Received:   [31m86[39m
+
+      84 |         // content's right edge; right branches anchor its left edge.
+      85 |         const dx = target === 'one' ? measured.area.x + 3 * zoom - measured.label.x : measured.area.right - 3 * zoom - measured.label.right;
+    > 86 |         expect(Math.abs(dx)).toBeLessThan(.76);
+         |                              ^
+      87 |         expect(measured.area.width).toBe(100 * zoom);
+      88 |         expect(Math.abs(measured.area.y + 3 * zoom - measured.label.y)).toBeLessThan(.76);
+      89 |         measurements.push({ target, key, zoom, ...measured, dx });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/editing-review.spec.ts:86:30
+
+    Error Context: test-results/editing-review-empty-creat-97290-rows-away-from-root-at-200--chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/editing-review-empty-creat-97290-rows-away-from-root-at-200--chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/editing-review-empty-creat-97290-rows-away-from-root-at-200--chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5 failed
+    [chromium] › tests/browser/editing-review.spec.ts:8:1 › typing replaces the active label, preserves the first character and commits in one undo step 
+    [chromium] › tests/browser/editing-review.spec.ts:30:1 › replacement cancellation restores text and redo; shortcuts and empty/read-only selection do not start replacement 
+    [chromium] › tests/browser/editing-review.spec.ts:49:1 › overflow has no horizontal scrollbar and the caret can reach both ends without relayout 
+    [chromium] › tests/browser/editing-review.spec.ts:69:28 › empty creation is 100px wide and grows away from root at 100% 
+    [chromium] › tests/browser/editing-review.spec.ts:69:28 › empty creation is 100px wide and grows away from root at 200% 
+ ELIFECYCLE  Command failed with exit code 1.

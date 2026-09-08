@@ -45,7 +45,7 @@ export class MindMapEditor {
         this.render(true);
         this.selectionPath.reset(this.store.selection);
         this.input = new Input(this.element, {
-            command: command => this.run(() => this.canExecute(command) ? this.dispatch(command, 'user') : false),
+            command: (command, replacementText) => this.run(() => this.canExecute(command) ? this.dispatch(command, 'user', replacementText) : false),
             select: (id, toggle, range, release) => this.pointerSelect(id, toggle, range, release),
             selected: id => this.store.selection.ids.includes(id),
             viewport: () => this.getViewport(), pan: (x, y) => this.applyViewport({ ...this.viewport, x, y }),
@@ -144,11 +144,11 @@ export class MindMapEditor {
         }
         return this.run(() => this.dispatch(copy, 'api'));
     }
-    private dispatch(command: MindMapCommand, source: Origin): boolean {
+    private dispatch(command: MindMapCommand, source: Origin, replacementText?: string): boolean {
         if (this.textEditor && (contentCommands.has(command.type) || ['undo', 'redo', 'edit'].includes(command.type))) this.finishEdit(true, false);
         if (this.destroyed) return false;
         if (['insertChild', 'insertBefore', 'insertAfter', 'insertParent'].includes(command.type)) return this.startEdit(command, source);
-        if (command.type === 'edit') return this.startEdit(command, source);
+        if (command.type === 'edit') return this.startEdit(command, source, replacementText);
         const before = this.getSelection();
         const origin: Origin = command.type === 'undo' || command.type === 'redo' ? command.type : source;
         if (['zoomIn', 'zoomOut', 'resetZoom', 'fit'].includes(command.type)) {
@@ -211,7 +211,7 @@ export class MindMapEditor {
         });
     }
     editNode(id: string): void { this.execute({ type: 'edit', targetId: id }); }
-    private startEdit(command: MindMapCommand, origin: Origin): boolean {
+    private startEdit(command: MindMapCommand, origin: Origin, replacementText?: string): boolean {
         if (origin === 'user' && this.store.readonly) return false;
         const before = this.getSelection();
         const creation = command.type !== 'edit';
@@ -222,9 +222,11 @@ export class MindMapEditor {
         else { this.store.beginEdit(target); this.store.setSelection([target], target); this.render(false); }
         const edit = this.store.edit!; this.editOrigin = origin; this.editViewport = creation ? originalViewport : undefined;
         this.selectionPath.reset(this.store.selection); this.revealIds([edit.id]);
-        this.textEditor = new TextEditor(this.scene.scene, this.scene.nodeElement(edit.id)!, this.store.model.nodes.get(edit.id)!.text,
-            { width: Math.max(20, (this.element.clientWidth - 32) / this.viewport.zoom), height: Math.max(21, Math.min(186, (this.element.clientHeight - 32) / this.viewport.zoom)) },
+        this.textEditor = new TextEditor(this.scene.scene, this.scene.nodeElement(edit.id)!, replacementText ?? this.store.model.nodes.get(edit.id)!.text,
+            { side: this.scene.geometry!.nodes.get(edit.id)!.side, minimumWidth: creation && !this.store.model.nodes.get(edit.id)!.text ? 100 : 50,
+                width: Math.max(20, (this.element.clientWidth - 32) / this.viewport.zoom), height: Math.max(21, Math.min(186, (this.element.clientHeight - 32) / this.viewport.zoom)) },
             (commit, focus) => { this.run(() => { this.finishEdit(commit, focus); return true; }); });
+        if (replacementText !== undefined) this.textEditor.textarea.setSelectionRange(replacementText.length, replacementText.length);
         const area = this.textEditor.textarea.style;
         this.applyViewport(reveal(this.viewport, { x: parseFloat(area.left), y: parseFloat(area.top), width: parseFloat(area.width), height: parseFloat(area.height) }, this.element.clientWidth, this.element.clientHeight));
         this.selectionEvent(before, origin);

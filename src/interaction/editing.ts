@@ -4,15 +4,20 @@ export class TextEditor {
     private readonly label: HTMLElement;
     private readonly abort = new AbortController();
     private composing = false;
-    constructor(scene: HTMLElement, node: HTMLElement, text: string, limits: { width: number; height: number }, finish: (commit: boolean, focus: boolean) => void) {
+    constructor(scene: HTMLElement, node: HTMLElement, text: string, limits: { width: number; height: number; side: 'left' | 'right' | null; minimumWidth: number }, finish: (commit: boolean, focus: boolean) => void) {
         const doc = scene.ownerDocument;
         this.label = node.querySelector<HTMLElement>('.mindmap-label')!;
         const area = doc.createElement('textarea'); this.textarea = area;
         area.className = 'mindmap-editor'; area.value = text; area.wrap = 'off'; area.spellcheck = false;
         area.setAttribute('aria-label', 'Edit node label');
+        const labelWidth = parseFloat(getComputedStyle(this.label).width);
+        const width = Math.min(limits.width, Math.max(limits.minimumWidth, labelWidth + 6));
+        const labelLeft = parseFloat(node.style.left) + this.label.offsetLeft;
+        // Widen toward the outside of a branch, retaining the label's inward edge.
+        const left = limits.side === 'left' ? labelLeft + labelWidth + 3 - width : labelLeft - 3;
         Object.assign(area.style, {
-            left: `${parseFloat(node.style.left) + this.label.offsetLeft - 3}px`, top: `${parseFloat(node.style.top) + this.label.offsetTop - 3}px`,
-            width: `${Math.min(limits.width, Math.max(50, parseFloat(getComputedStyle(this.label).width) + 6))}px`, height: `${Math.min(limits.height, Math.max(21, parseFloat(getComputedStyle(this.label).height) + 6))}px`,
+            left: `${left}px`, top: `${parseFloat(node.style.top) + this.label.offsetTop - 3}px`,
+            width: `${width}px`, height: `${Math.min(limits.height, Math.max(21, parseFloat(getComputedStyle(this.label).height) + 6))}px`,
         });
         this.label.style.visibility = 'hidden'; node.classList.add('mindmap-editing'); scene.append(area);
         const options = { signal: this.abort.signal };
