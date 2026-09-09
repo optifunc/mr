@@ -453,9 +453,13 @@ and pen input. Use a widget-owned compact overlay of selected labels as the drag
 image. Convert screen coordinates through the inverse viewport transform for
 geometry hit tests.
 
-Partition non-root targets into top, bottom, and middle outward zones. Top/bottom
-take precedence at corners; the middle inward area is invalid. The root uses left
-and right halves only. Keep the valid zone and gray gradient aligned, with distinct
+Partition non-root targets into top/bottom quarters, a middle outward child zone,
+and an inward half nearest the parent. Top/bottom quarters take precedence at
+corners. Within the inward half, positions above the vertical midpoint insert
+before; positions at/below it insert after. Mirror inward/outward on left branches;
+the horizontal midpoint belongs to the outward child zone. The root uses left
+and right halves only. Valid drops use the regular arrow cursor; invalid/no-op
+drops keep the prohibited cursor. Keep the valid zone and gray gradient aligned, with distinct
 before/after/child feedback at all zoom levels.
 
 Preview a move through the same destination resolver used for commit. Validate

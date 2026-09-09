@@ -168,3 +168,20 @@ For the related regression run without overwriting prior evidence:
 `MINDMAP_EVIDENCE=docs/evidence/milestone-c/link-editor-review pnpm test:browser tests/browser/link-editor-review.spec.ts tests/browser/editor-sizing.spec.ts tests/browser/editing-review.spec.ts tests/browser/editing.spec.ts tests/browser/clipboard.spec.ts tests/browser/checkpoint-b.spec.ts --workers=1`.
 The directory includes before/after candidates, measured widths and exact
 accepted-default comparisons. The report records actual checks and remaining gaps.
+
+## Stage-7 drag review correction (2026-09-09)
+
+```sh
+pnpm typecheck
+pnpm build
+pnpm test
+MINDMAP_EVIDENCE=docs/evidence/milestone-c/drag-review pnpm test:browser tests/browser/drag.spec.ts tests/browser/checkpoint-b.spec.ts --workers=1
+```
+
+[Drag review report](evidence/milestone-c/drag-review/report.md) retains before/after
+screenshots and computed cursor/zone evidence. New pointer cases drag before/after
+on both inward halves at 100% and 200% (with 0.8 host scaling), commit, undo and redo.
+Existing drag coverage checks child/root zones, no-ops, cycles, cancellation,
+read-only mode and autopan. Checkpoint comparisons retain exact accepted-A images.
+In the demo, drag N4 to the left half of N1, or C 2.3 to the right half of C 2.1;
+move above/below the vertical midpoint and check the top/bottom gradient and arrow.

@@ -1,0 +1,179 @@
+
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test tests/browser/drag.spec.ts --project=chromium --grep 'inward-half.*zoom 1' --workers=1
+
+[WebServer] (node:74334) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:74347) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 4 tests using 1 worker
+
+(node:74354) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:74354) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [chromium] › tests/browser/drag.spec.ts:137:124 › inward-half left before at zoom 1 previews sibling drop and commits one move (5.7s)
+(node:74384) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:74384) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 [chromium] › tests/browser/drag.spec.ts:137:124 › inward-half left after at zoom 1 previews sibling drop and commits one move (5.4s)
+(node:74397) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:74397) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  3 [chromium] › tests/browser/drag.spec.ts:137:124 › inward-half right before at zoom 1 previews sibling drop and commits one move (5.5s)
+(node:74407) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:74407) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  4 [chromium] › tests/browser/drag.spec.ts:137:124 › inward-half right after at zoom 1 previews sibling drop and commits one move (5.5s)
+
+
+  1) [chromium] › tests/browser/drag.spec.ts:137:124 › inward-half left before at zoom 1 previews sibling drop and commits one move
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  locator('#primary .mindmap-nodes [data-node-id="c21"]')
+    Expected: "top"
+    Received: ""
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveAttribute" with timeout 5000ms
+      - waiting for locator('#primary .mindmap-nodes [data-node-id="c21"]')
+        9 × locator resolved to <div aria-level="3" role="treeitem" aria-setsize="3" aria-label="C2.1" aria-posinset="1" data-node-id="c21" class="mindmap-node" id="mindmap-1-node-3" aria-selected="false">…</div>
+          - unexpected value "null"
+
+
+      147 |     const cursors = await page.locator(`#primary .mindmap, #primary [data-node-id="${target}"] .mindmap-label`).evaluateAll(els => els.map(el => getComputedStyle(el).cursor));
+      148 |     writeFileSync(`${evidence}/${phase}-inward-${side}-${mode}-${zoom}-${info.project.name}.json`, JSON.stringify({ cursors, edge: await node(page, target).getAttribute('data-drop-edge'), zoom, side, mode }, null, 2) + '\n');
+    > 149 |     await expect(node(page, target)).toHaveAttribute('data-drop-edge', mode === 'before' ? 'top' : 'bottom');
+          |                                      ^
+      150 |     expect(cursors).toEqual(['default', 'default']);
+      151 |     expect(await state(page)).toEqual(before); expect(await page.locator('#primary .mindmap').getAttribute('data-layout-count')).toBe(count);
+      152 |     await page.mouse.up();
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/drag.spec.ts:149:38
+
+    Error Context: test-results/drag-inward-half-left-befo-0e130-g-drop-and-commits-one-move-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/drag-inward-half-left-befo-0e130-g-drop-and-commits-one-move-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/drag-inward-half-left-befo-0e130-g-drop-and-commits-one-move-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › tests/browser/drag.spec.ts:137:124 › inward-half left after at zoom 1 previews sibling drop and commits one move
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  locator('#primary .mindmap-nodes [data-node-id="c21"]')
+    Expected: "bottom"
+    Received: ""
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveAttribute" with timeout 5000ms
+      - waiting for locator('#primary .mindmap-nodes [data-node-id="c21"]')
+        9 × locator resolved to <div aria-level="3" role="treeitem" aria-setsize="3" aria-label="C2.1" aria-posinset="1" data-node-id="c21" class="mindmap-node" id="mindmap-1-node-3" aria-selected="false">…</div>
+          - unexpected value "null"
+
+
+      147 |     const cursors = await page.locator(`#primary .mindmap, #primary [data-node-id="${target}"] .mindmap-label`).evaluateAll(els => els.map(el => getComputedStyle(el).cursor));
+      148 |     writeFileSync(`${evidence}/${phase}-inward-${side}-${mode}-${zoom}-${info.project.name}.json`, JSON.stringify({ cursors, edge: await node(page, target).getAttribute('data-drop-edge'), zoom, side, mode }, null, 2) + '\n');
+    > 149 |     await expect(node(page, target)).toHaveAttribute('data-drop-edge', mode === 'before' ? 'top' : 'bottom');
+          |                                      ^
+      150 |     expect(cursors).toEqual(['default', 'default']);
+      151 |     expect(await state(page)).toEqual(before); expect(await page.locator('#primary .mindmap').getAttribute('data-layout-count')).toBe(count);
+      152 |     await page.mouse.up();
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/drag.spec.ts:149:38
+
+    Error Context: test-results/drag-inward-half-left-afte-deae6-g-drop-and-commits-one-move-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/drag-inward-half-left-afte-deae6-g-drop-and-commits-one-move-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/drag-inward-half-left-afte-deae6-g-drop-and-commits-one-move-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chromium] › tests/browser/drag.spec.ts:137:124 › inward-half right before at zoom 1 previews sibling drop and commits one move
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  locator('#primary .mindmap-nodes [data-node-id="n1"]')
+    Expected: "top"
+    Received: ""
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveAttribute" with timeout 5000ms
+      - waiting for locator('#primary .mindmap-nodes [data-node-id="n1"]')
+        9 × locator resolved to <div aria-level="3" role="treeitem" aria-label="N1" aria-setsize="4" data-node-id="n1" aria-posinset="1" class="mindmap-node" aria-selected="false" id="mindmap-1-node-14">…</div>
+          - unexpected value "null"
+
+
+      147 |     const cursors = await page.locator(`#primary .mindmap, #primary [data-node-id="${target}"] .mindmap-label`).evaluateAll(els => els.map(el => getComputedStyle(el).cursor));
+      148 |     writeFileSync(`${evidence}/${phase}-inward-${side}-${mode}-${zoom}-${info.project.name}.json`, JSON.stringify({ cursors, edge: await node(page, target).getAttribute('data-drop-edge'), zoom, side, mode }, null, 2) + '\n');
+    > 149 |     await expect(node(page, target)).toHaveAttribute('data-drop-edge', mode === 'before' ? 'top' : 'bottom');
+          |                                      ^
+      150 |     expect(cursors).toEqual(['default', 'default']);
+      151 |     expect(await state(page)).toEqual(before); expect(await page.locator('#primary .mindmap').getAttribute('data-layout-count')).toBe(count);
+      152 |     await page.mouse.up();
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/drag.spec.ts:149:38
+
+    Error Context: test-results/drag-inward-half-right-bef-91c92-g-drop-and-commits-one-move-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/drag-inward-half-right-bef-91c92-g-drop-and-commits-one-move-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/drag-inward-half-right-bef-91c92-g-drop-and-commits-one-move-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [chromium] › tests/browser/drag.spec.ts:137:124 › inward-half right after at zoom 1 previews sibling drop and commits one move
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  locator('#primary .mindmap-nodes [data-node-id="n1"]')
+    Expected: "bottom"
+    Received: ""
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveAttribute" with timeout 5000ms
+      - waiting for locator('#primary .mindmap-nodes [data-node-id="n1"]')
+        9 × locator resolved to <div aria-level="3" role="treeitem" aria-label="N1" aria-setsize="4" data-node-id="n1" aria-posinset="1" class="mindmap-node" aria-selected="false" id="mindmap-1-node-14">…</div>
+          - unexpected value "null"
+
+
+      147 |     const cursors = await page.locator(`#primary .mindmap, #primary [data-node-id="${target}"] .mindmap-label`).evaluateAll(els => els.map(el => getComputedStyle(el).cursor));
+      148 |     writeFileSync(`${evidence}/${phase}-inward-${side}-${mode}-${zoom}-${info.project.name}.json`, JSON.stringify({ cursors, edge: await node(page, target).getAttribute('data-drop-edge'), zoom, side, mode }, null, 2) + '\n');
+    > 149 |     await expect(node(page, target)).toHaveAttribute('data-drop-edge', mode === 'before' ? 'top' : 'bottom');
+          |                                      ^
+      150 |     expect(cursors).toEqual(['default', 'default']);
+      151 |     expect(await state(page)).toEqual(before); expect(await page.locator('#primary .mindmap').getAttribute('data-layout-count')).toBe(count);
+      152 |     await page.mouse.up();
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/drag.spec.ts:149:38
+
+    Error Context: test-results/drag-inward-half-right-aft-54dbf-g-drop-and-commits-one-move-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/drag-inward-half-right-aft-54dbf-g-drop-and-commits-one-move-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/drag-inward-half-right-aft-54dbf-g-drop-and-commits-one-move-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    [chromium] › tests/browser/drag.spec.ts:137:124 › inward-half left before at zoom 1 previews sibling drop and commits one move
+    [chromium] › tests/browser/drag.spec.ts:137:124 › inward-half left after at zoom 1 previews sibling drop and commits one move
+    [chromium] › tests/browser/drag.spec.ts:137:124 › inward-half right before at zoom 1 previews sibling drop and commits one move
+    [chromium] › tests/browser/drag.spec.ts:137:124 › inward-half right after at zoom 1 previews sibling drop and commits one move
+ ELIFECYCLE  Command failed with exit code 1.

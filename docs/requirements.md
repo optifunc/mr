@@ -201,9 +201,12 @@ Requirements:
   - top zone: insert before the target;
   - bottom zone: insert after the target;
   - outward-facing zone: make children of the target;
+  - inward half (nearest the parent): insert before above the vertical midpoint,
+    or after at/below it; mirror this half on left-side branches;
   - left or right half of the root: place on that root side.
 - Before/after and child outcomes shall be visually distinguishable before the
   mouse button is released.
+- Valid drops shall use the regular arrow cursor.
 - Invalid targets shall show no valid-drop gradient and shall use a prohibited
   cursor.
 
@@ -858,3 +861,8 @@ The following defaults have been confirmed:
   visible children use max(eight-M default, rendered node width), preserving
   viewport caps, frozen frames and existing alignment. This supersedes fixed
   eight-M sizing for wider leaves/collapsed nodes.
+
+- Drag correction approved on 2026-09-09: valid drops use the regular arrow;
+  invalid/no-op drops retain the prohibited cursor. The inward half of non-root
+  targets inserts siblings before/after according to vertical position, mirrored
+  on left branches. Existing top/bottom edge and outward child zones remain.

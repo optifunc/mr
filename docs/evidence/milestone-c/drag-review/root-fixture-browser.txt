@@ -1,0 +1,24 @@
+
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test tests/browser/link-editor-review.spec.ts --grep 'wide root leaf' --workers=1
+
+
+Running 3 tests using 1 worker
+
+(node:75222) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:75222) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/browser/link-editor-review.spec.ts:62:1 › wide root leaf still uses node width, while oversized compact frames respect the viewport (455ms)
+(node:75240) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:75240) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  2 [firefox] › tests/browser/link-editor-review.spec.ts:62:1 › wide root leaf still uses node width, while oversized compact frames respect the viewport (1.0s)
+(node:75256) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:75256) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  3 [webkit] › tests/browser/link-editor-review.spec.ts:62:1 › wide root leaf still uses node width, while oversized compact frames respect the viewport (618ms)
+
+  3 passed (6.1s)

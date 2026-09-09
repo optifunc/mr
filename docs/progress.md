@@ -1,6 +1,6 @@
 # Implementation progress
 
-Last updated: 2026-09-08
+Last updated: 2026-09-09
 
 ## Current state
 
@@ -9,9 +9,12 @@ Original C checkpoint gates passed: typecheck/build, 145 unit tests, 346 browser
 explicit engine-specific permission skips, exact accepted-default comparisons and
 workload diagnostics. [C report](evidence/milestone-c/report.md),
 [acceptance](acceptance.md#milestone-c-stages-67). Demo: http://127.0.0.1:5175/.
-Latest follow-up: blue URL labels and editor widths at least as wide as leaf/
+Previous follow-up: blue URL labels and editor widths at least as wide as leaf/
 collapsed nodes. Typecheck/build, 145 unit tests and 178 focused browser cases
 passed (2 documented permission skips). [Follow-up evidence](evidence/milestone-c/link-editor-review/report.md).
+Latest follow-up: regular-arrow valid drops and mirrored inward-half sibling drops.
+Typecheck/build, 147 unit tests and 126 focused browser cases passed, including
+three exact accepted-default comparisons. [Drag review evidence](evidence/milestone-c/drag-review/report.md).
 Stop at stage 7 for user review; stages 8–9 remain unstarted.
 
 **Milestone B is technically complete and accepted at `4209b2a` on 2026-09-08.**
@@ -489,3 +492,31 @@ Requirements, implementation plan, API, testing, acceptance and progress are cur
 Previous evidence/baselines remain unchanged. Full milestone/workload and later
 release/manual gates were not rerun for this focused correction; existing gaps
 remain recorded. Demo remains http://127.0.0.1:5175/. Next: user stage-7 review.
+
+## C drag cursor and inward-half sibling drops — 2026-09-09
+
+The user authorized regular-arrow valid-drop feedback and mirrored inward-half
+before/after sibling drops. The half nearest the parent is left on right branches,
+right on left branches. Above the vertical midpoint means before, at/below means
+after; the horizontal midpoint retains the existing outward child behavior.
+Top/bottom quarters, root halves and prohibited invalid/no-op feedback remain.
+Started from clean `3e73d17`; the commit containing this entry records the tested
+changes. Final typecheck/build, 147 unit tests, 123 drag/checkpoint browser cases,
+and 3 root-fixture browser cases passed with no skips/failures. All three exact
+accepted-default comparisons passed. The four new Chromium pre-change cases failed
+as expected; the initial browser run passed 120 and failed 3 old inward-center
+assertions. Updated those cases to explicitly exercise before, same-position
+rejection and child feedback; no tolerance changed. Typecheck also found and fixed
+the prior review's empty-root test type mismatch, with a correction in its report.
+
+Inspected the supplied drag reference, before/after inward gradients on both sides,
+zoomed/scaled captures and all three child-drop comparisons. Computed cursor JSON
+and browser assertions verify arrow/prohibited feedback because screenshots do not
+capture the OS cursor. No known defect remains in these two changes. Requirements,
+plan, API, demo help, testing and acceptance are current; prior image evidence and
+accepted baselines are preserved. Whitespace and local evidence-link checks passed.
+
+[Report, commands, screenshots and known gaps](evidence/milestone-c/drag-review/report.md).
+Demo: http://127.0.0.1:5175/ or fresh `pnpm dev`. Full milestone/workload and later
+release/manual checks were not rerun; previous gaps remain. Next: user's stage-7
+product review. Stages 8–9 are not started.

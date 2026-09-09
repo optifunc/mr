@@ -260,6 +260,13 @@ checks remain unimplemented or unverified as recorded; no release gate is waived
 
 ## Milestone C: stages 6–7
 
+**2026-09-09 drag review:** valid drops use a regular arrow; inward halves insert
+before/after as siblings according to vertical position, mirrored on left branches.
+Typecheck/build, 147 unit tests and 126 focused browser cases passed, including all
+three exact accepted-default comparisons. Screenshots were inspected in all engines.
+[Current changes, screenshots and verification](evidence/milestone-c/drag-review/report.md).
+Stage-7 product acceptance remains pending.
+
 **2026-09-08 review corrections (technically complete):** the user approved blue
 (#0000EE) URL labels without text underlines, and leaf/collapsed editors at least
 as wide as the rendered node (retaining the eight-M minimum and viewport cap).
@@ -273,7 +280,9 @@ Stage-7 product acceptance remains pending.
 
 1. Copy and paste mixed checkbox/multiline subtrees, then undo and redo.
 2. Select multiple nodes and drag before, after, into a node, and across root sides.
-3. Verify each drop result is clear from its gradient before release.
+3. Verify each drop result is clear from its gradient before release. In the half
+   nearest the parent, upper/lower positions insert before/after; mirror on the left.
+   Valid drops show an arrow, invalid/no-op drops keep the prohibited cursor.
 4. Include ancestor/descendant selections, collapsed targets, invalid cycles,
    same-position drops, Escape cancellation, and edge autopan.
 5. Verify one-step undo for each completed move and paste.

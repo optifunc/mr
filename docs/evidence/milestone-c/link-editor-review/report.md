@@ -84,3 +84,10 @@ milestone suite/workload was not rerun for these focused corrections; the previo
 C report retains that evidence. The two async-permission engine skips and the
 actual-stable-browser, manual IME/screen-reader, packaged-consumer and release
 performance gaps remain as previously documented. No release gate is waived.
+
+
+2026-09-09 verification correction: typecheck on the committed `3e73d17` fixture
+found a `MindMapNode`/`RootChild[]` mismatch for the empty root. The earlier typecheck
+claim above does not establish a clean gate for that committed test. The subsequent
+[drag review](../drag-review/report.md) fixes the fixture's type and records the new
+strict typecheck and dedicated root browser results. Runtime behavior is unchanged.

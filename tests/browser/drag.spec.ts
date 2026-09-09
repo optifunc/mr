@@ -1,9 +1,11 @@
 import { test, expect } from '@playwright/test';
 import type { Page } from '@playwright/test';
-import { writeFileSync } from 'node:fs';
+import { mkdirSync, writeFileSync } from 'node:fs';
 import { referenceMap } from '../fixtures/maps';
 import type { MindMapEditor } from '../../src';
 declare global { interface Window { dragDemo: MindMapEditor; dragEvents: string[] } }
+const evidence = process.env.MINDMAP_EVIDENCE ?? 'docs/evidence/milestone-c/stage7';
+mkdirSync(evidence, { recursive: true });
 const node = (page: Page, id: string, host = '#primary') => page.locator(`${host} .mindmap-nodes [data-node-id="${id}"]`);
 async function point(page: Page, id: string, x = .5, y = .5, host = '#primary') {
     const b = (await node(page, id, host).boundingBox())!; return { x: b.x + b.width * x, y: b.y + b.height * y };
@@ -19,9 +21,10 @@ for (const [mode, x, y, edge] of [['before', .5, .1, 'top'], ['after', .5, .9, '
     const before = await state(page), layout = await page.locator('#primary .mindmap').getAttribute('data-layout-count');
     await begin(page); await over(page, 'n1', x, y);
     await expect(node(page, 'n1')).toHaveAttribute('data-drop-edge', edge);
+    await expect(node(page, 'n1')).toHaveCSS('cursor', 'default');
     await expect(page.locator('#primary .mindmap-drag-image')).toHaveText('BC');
     expect(await state(page)).toEqual(before); expect(await page.locator('#primary .mindmap').getAttribute('data-layout-count')).toBe(layout);
-    await page.locator('#primary').screenshot({ path: `docs/evidence/milestone-c/stage7/${mode}-${info.project.name}.png` });
+    await page.locator('#primary').screenshot({ path: `${evidence}/${mode}-${info.project.name}.png` });
     await page.mouse.up();
     const after = await state(page), parent = after.doc.root.children.find(n => n.id === 'three')!;
     expect(mode === 'child' ? parent.children[0]!.children.map(n => n.id) : parent.children.map(n => n.id)).toEqual(mode === 'child' ? ['b', 'c'] : mode === 'before' ? ['b', 'c', 'n1', 'n2', 'n3', 'n4'] : ['n1', 'b', 'c', 'n2', 'n3', 'n4']);
@@ -37,13 +40,17 @@ for (const side of ['left', 'right'] as const) test(`root ${side} drop assigns s
     await begin(page); await over(page, 'child2', .5, .1); await page.mouse.up();
     expect((await state(page)).doc.root.children.filter(n => n.side === 'left').map(n => n.id)).toEqual(['child1', 'b', 'c', 'child2']);
 });
-test('left outward zones mirror at 200% zoom and host scale; inward middle rejects', async ({ page }, info) => {
+test('left outward zones mirror at 200% zoom and host scale; inward same-position rejects', async ({ page }, info) => {
     await page.evaluate(() => { const host = document.querySelector<HTMLElement>('#primary')!; host.style.transformOrigin = 'top left'; host.style.transform = 'scale(.8)'; window.primary.setZoom(2); window.primary.fit(); window.primary.setZoom(2); window.primary.panToNode('c21'); });
     // Keep both source and target in the viewport at this scale.
     await page.evaluate(() => { window.primary.setSelection(['c22', 'c23'], 'c23'); });
-    await begin(page, 'c23'); await over(page, 'c21', .85, .5); await expect(page.locator('#primary [data-drop-edge]')).toHaveCount(0);
+    await begin(page, 'c23'); await over(page, 'c21', .85, .4);
+    await expect(node(page, 'c21')).toHaveAttribute('data-drop-edge', 'top');
+    await expect(node(page, 'c21')).toHaveCSS('cursor', 'default');
+    await over(page, 'c21', .85, .6); await expect(page.locator('#primary [data-drop-edge]')).toHaveCount(0);
+    await expect(node(page, 'c21')).toHaveCSS('cursor', 'not-allowed');
     await over(page, 'c21', .15, .5); await expect(node(page, 'c21')).toHaveAttribute('data-drop-edge', 'left');
-    await page.locator('#primary').screenshot({ path: `docs/evidence/milestone-c/stage7/left-zoom-${info.project.name}.png` });
+    await page.locator('#primary').screenshot({ path: `${evidence}/left-zoom-${info.project.name}.png` });
     await page.mouse.up(); expect((await state(page)).doc.root.children[1]!.children[0]!.children.map(n => n.id)).toEqual(['c22', 'c23']);
     await page.keyboard.press('Meta+z'); expect((await state(page)).doc).toEqual(referenceMap());
 });
@@ -62,11 +69,11 @@ test('collapsed child drop stays collapsed, selects visible target and reveals p
     await page.keyboard.press('Space'); await expect(node(page, 'b')).toBeVisible();
     await page.keyboard.press('Meta+z'); await page.keyboard.press('Meta+z'); expect(await state(page)).toEqual(before);
 });
-for (const scenario of ['cycle', 'selected', 'same-position', 'root', 'inward'] as const) test(`invalid ${scenario} has prohibited cursor, no gradient, no history`, async ({ page }) => {
+for (const scenario of ['cycle', 'selected', 'same-position', 'root', 'inward-same-position'] as const) test(`invalid ${scenario} has prohibited cursor, no gradient, no history`, async ({ page }) => {
     if (scenario === 'cycle') await page.evaluate(() => window.primary.setSelection(['one']));
     if (scenario === 'root') await page.evaluate(() => window.primary.setSelection(['root', 'c'], 'c'));
     const before = await state(page); await begin(page, scenario === 'cycle' ? 'one' : 'c');
-    await over(page, scenario === 'cycle' ? 'a' : scenario === 'selected' ? 'b' : scenario === 'same-position' ? 'a' : 'n1', scenario === 'inward' ? .1 : .9, scenario === 'same-position' ? .9 : .5);
+    await over(page, scenario === 'cycle' ? 'a' : scenario === 'selected' ? 'b' : scenario === 'same-position' || scenario === 'inward-same-position' ? 'a' : 'n1', scenario === 'inward-same-position' ? .1 : .9, scenario === 'same-position' ? .9 : scenario === 'inward-same-position' ? .6 : .5);
     await expect(page.locator('#primary [data-drop-edge]')).toHaveCount(0);
     if (scenario !== 'root') expect(await page.locator('#primary .mindmap').evaluate(el => getComputedStyle(el).cursor)).toBe('not-allowed');
     else await expect(page.locator('#primary .mindmap-drag-image')).toHaveCount(0);
@@ -92,7 +99,7 @@ test('stationary edge pointer autopans across frames, re-hits the target and sto
     await begin(page); const view = await page.evaluate(() => window.primary.getViewport());
     await page.mouse.move(host.x + host.width - 3, host.y + host.height / 2);
     await expect.poll(() => page.evaluate(() => window.primary.getViewport().x)).toBeLessThan(view.x - 30);
-    await page.locator('#primary').screenshot({ path: `docs/evidence/milestone-c/stage7/autopan-${info.project.name}.png` });
+    await page.locator('#primary').screenshot({ path: `${evidence}/autopan-${info.project.name}.png` });
     await page.keyboard.press('Escape'); const stopped = await page.evaluate(() => window.primary.getViewport()); await page.waitForTimeout(100);
     expect(await page.evaluate(() => window.primary.getViewport())).toEqual(stopped); expect(await state(page)).toEqual(before);
     expect(await page.locator('#primary .mindmap').getAttribute('data-layout-count')).toBe(count);
@@ -109,9 +116,9 @@ test('reference drag comparison and environment evidence', async ({ page, browse
     await page.setViewportSize({ width: 1440, height: 1200 }); await page.locator('.drag-comparison').scrollIntoViewIfNeeded();
     await begin(page, 'c', '#drag-map'); await over(page, 'n1', .9, .5, '#drag-map');
     await expect(node(page, 'n1', '#drag-map')).toHaveAttribute('data-drop-edge', 'right');
-    await page.locator('.drag-comparison').screenshot({ path: `docs/evidence/milestone-c/stage7/comparison-${info.project.name}.png` });
-    await page.locator('#drag-map').screenshot({ path: `docs/evidence/milestone-c/stage7/reference-${info.project.name}.png` });
-    writeFileSync(`docs/evidence/milestone-c/stage7/environment-${info.project.name}.json`, JSON.stringify({ browser: browser.version(), platform: process.platform, viewport: page.viewportSize(), deviceScaleFactor: 1, font: await node(page, 'n1', '#drag-map').evaluate(el => getComputedStyle(el).font), gradient: await node(page, 'n1', '#drag-map').evaluate(el => getComputedStyle(el).backgroundImage) }, null, 2) + '\n');
+    await page.locator('.drag-comparison').screenshot({ path: `${evidence}/comparison-${info.project.name}.png` });
+    await page.locator('#drag-map').screenshot({ path: `${evidence}/reference-${info.project.name}.png` });
+    writeFileSync(`${evidence}/environment-${info.project.name}.json`, JSON.stringify({ browser: browser.version(), platform: process.platform, viewport: page.viewportSize(), deviceScaleFactor: 1, font: await node(page, 'n1', '#drag-map').evaluate(el => getComputedStyle(el).font), gradient: await node(page, 'n1', '#drag-map').evaluate(el => getComputedStyle(el).backgroundImage) }, null, 2) + '\n');
     await page.keyboard.press('Escape'); await page.mouse.up();
 });
 
@@ -130,4 +137,30 @@ test('real pointer capture release and outside-widget release cancel drops', asy
     await page.evaluate(() => document.querySelector('#primary .mindmap')!.releasePointerCapture((window as unknown as { pointer: number }).pointer));
     await page.mouse.move(30, 30); await expect(page.locator('#primary .mindmap-drag-image')).toHaveCount(0); await page.mouse.up(); expect(await state(page)).toEqual(before);
     await begin(page); await over(page, 'n1', .9, .5); await page.mouse.move(30, 30); await page.mouse.up(); expect(await state(page)).toEqual(before);
+});
+
+for (const side of ['left', 'right'] as const) for (const mode of ['before', 'after'] as const) for (const zoom of [1, 2]) test(`inward-half ${side} ${mode} at zoom ${zoom} previews sibling drop and commits one move`, async ({ page }, info) => {
+    const source = side === 'left' ? 'c23' : 'n4', target = side === 'left' ? 'c21' : 'n1';
+    await page.evaluate(({ source, target, zoom }) => {
+        window.primary.setSelection([source]); window.primary.setZoom(zoom); window.primary.panToNode(target);
+        if (zoom === 2) { const host = document.querySelector<HTMLElement>('#primary')!; host.style.transformOrigin = 'top left'; host.style.transform = 'scale(.8)'; }
+    }, { source, target, zoom });
+    const before = await state(page), count = await page.locator('#primary .mindmap').getAttribute('data-layout-count');
+    await begin(page, source); await over(page, target, side === 'left' ? .8 : .2, mode === 'before' ? .4 : .6);
+    const phase = process.env.DRAG_REVIEW_BEFORE ? 'before' : 'after';
+    await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-inward-${side}-${mode}-${zoom}-${info.project.name}.png` });
+    const cursors = await page.locator(`#primary .mindmap, #primary [data-node-id="${target}"] .mindmap-label`).evaluateAll(els => els.map(el => getComputedStyle(el).cursor));
+    writeFileSync(`${evidence}/${phase}-inward-${side}-${mode}-${zoom}-${info.project.name}.json`, JSON.stringify({ cursors, edge: await node(page, target).getAttribute('data-drop-edge'), zoom, side, mode }, null, 2) + '\n');
+    await expect(node(page, target)).toHaveAttribute('data-drop-edge', mode === 'before' ? 'top' : 'bottom');
+    expect(cursors).toEqual(['default', 'default']);
+    expect(await state(page)).toEqual(before); expect(await page.locator('#primary .mindmap').getAttribute('data-layout-count')).toBe(count);
+    await page.mouse.up();
+    const after = await state(page), parent = after.doc.root.children.find(n => n.id === (side === 'left' ? 'child2' : 'three'))!;
+    expect(parent.children.map(n => n.id)).toEqual(side === 'left'
+        ? (mode === 'before' ? ['c23', 'c21', 'c22'] : ['c21', 'c23', 'c22'])
+        : (mode === 'before' ? ['n4', 'n1', 'n2', 'n3'] : ['n1', 'n4', 'n2', 'n3']));
+    expect(after.selection).toEqual({ ids: [source], activeId: source }); expect(await page.evaluate(() => window.dragEvents)).toEqual(['user:move']);
+    await expect(page.locator('#primary .mindmap-drag-image, #primary [data-drop-edge]')).toHaveCount(0);
+    await page.keyboard.press('Meta+z'); expect(await state(page)).toEqual(before);
+    await page.keyboard.press('Meta+Shift+z'); expect((await state(page)).doc).toEqual(after.doc);
 });

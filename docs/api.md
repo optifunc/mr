@@ -247,8 +247,10 @@ Drag a selected non-root node by more than four screen pixels to move the normal
 selection in rendered visual order. An unselected press selects one source first.
 A compact label overlay follows the pointer. Top/bottom quarters insert before/after
 and take precedence at corners. The outward half of the middle makes children;
-the inward half is invalid. Root halves append on that side. The darkest gradient
-edge marks the receiving edge. No-op/cyclic targets have no gradient and use a
+the inward half nearest the parent inserts before above the vertical midpoint,
+or after at/below it (mirrored on left branches). The horizontal midpoint belongs
+to the outward child zone. Root halves append on that side. Valid drops use the
+regular arrow cursor. The darkest gradient edge marks the receiving edge. No-op/cyclic targets have no gradient and use a
 prohibited cursor. Gradient colors do not change document or layout.
 
 Preview and commit share `move` applicability. Every effective release creates one

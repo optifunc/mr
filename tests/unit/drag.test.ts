@@ -14,10 +14,28 @@ it('mirrors middle outward zones, gives top/bottom corners precedence and splits
         if (id === 'root') { expect(at(.1, .1)!.destination).toEqual({ targetId: id, position: 'child', side: 'left' }); expect(at(.9, .9)!.edge).toBe('right'); }
         else {
             expect(at(.1, .1)!.destination.position).toBe('before'); expect(at(.9, .9)!.destination.position).toBe('after');
-            expect(at(n.side === 'left' ? .1 : .9, .5)!.destination.position).toBe('child'); expect(at(n.side === 'left' ? .9 : .1, .5)).toBeUndefined();
+            expect(at(n.side === 'left' ? .1 : .9, .5)!.destination.position).toBe('child');
         }
     }
     expect(dropZone(g, 9999, 9999)).toBeUndefined();
+});
+it.each(['a', 'c21'])('inward half on %s splits at the vertical midpoint and preserves child/quarter boundaries', id => {
+    const g = geometry(), n = g.nodes.get(id)!, b = n.interaction;
+    const at = (x: number, y: number) => dropZone(g, b.x + x * b.width, b.y + y * b.height)!;
+    const inward = n.side === 'left' ? .8 : .2, outward = 1 - inward;
+    for (const y of [.26, .4, .499]) {
+        expect(at(inward, y).destination).toEqual({ targetId: id, position: 'before' });
+        expect(at(inward, y).edge).toBe('top');
+    }
+    for (const y of [.5, .501, .6, .74]) {
+        expect(at(inward, y).destination).toEqual({ targetId: id, position: 'after' });
+        expect(at(inward, y).edge).toBe('bottom');
+    }
+    for (const x of [outward, .5]) {
+        expect(at(x, .25).destination.position).toBe('before');
+        expect(at(x, .75).destination.position).toBe('after');
+        for (const y of [.26, .5, .74]) expect(at(x, y).destination.position).toBe('child');
+    }
 });
 it('autopan velocity scales near each edge and is zero in the middle and zero-sized viewport', () => {
     expect([0, 16, 32, 250, 468, 484, 500].map(x => edgeVelocity(x, 500))).toEqual([480, 240, 0, 0, 0, -240, -480]);

@@ -2,7 +2,7 @@ import type { Layout, NodeGeometry } from '../layout/layout';
 import type { MoveDestination } from '../types';
 export interface DropZone { destination: MoveDestination; edge: 'top' | 'bottom' | 'left' | 'right'; node: NodeGeometry }
 
-/** Top/bottom quarters win corners; only the outward half of the middle is valid. */
+/** Edge quarters win corners; inward halves split before/after, outward makes children. */
 export function dropZone(layout: Layout, x: number, y: number): DropZone | undefined {
     const node = [...layout.nodes.values()].reverse().find(g => {
         const b = g.interaction;
@@ -14,6 +14,7 @@ export function dropZone(layout: Layout, x: number, y: number): DropZone | undef
     if (ry <= .25) return { node, edge: 'top', destination: { targetId: node.id, position: 'before' } };
     if (ry >= .75) return { node, edge: 'bottom', destination: { targetId: node.id, position: 'after' } };
     if (node.side === 'left' ? rx <= .5 : rx >= .5) return { node, edge: node.side, destination: { targetId: node.id, position: 'child' } };
+    return { node, edge: ry < .5 ? 'top' : 'bottom', destination: { targetId: node.id, position: ry < .5 ? 'before' : 'after' } };
 }
 
 /** Speed in local CSS pixels per second; no document or layout dependency. */

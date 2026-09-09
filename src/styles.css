@@ -56,7 +56,7 @@
 .mindmap .mindmap-editor { position: absolute; z-index: 3; box-sizing: border-box; margin: 0; padding: 2px; border: 1px solid #999; border-radius: 0; outline: none; background: #fff; color: var(--mindmap-text-color); font: inherit; line-height: var(--mindmap-line-height); resize: none; overflow-x: hidden; overflow-y: auto; white-space: pre; user-select: text; }
 .mindmap .mindmap-editing { background: transparent; }
 .mindmap .mindmap-link { color: #0000ee; text-decoration: none; cursor: pointer; }
-.mindmap.mindmap-dragging, .mindmap.mindmap-dragging * { cursor: grabbing; }
+.mindmap.mindmap-dragging, .mindmap.mindmap-dragging * { cursor: default; }
 .mindmap.mindmap-drop-invalid, .mindmap.mindmap-drop-invalid * { cursor: not-allowed; }
 .mindmap [data-drop-edge="top"] { background-image: linear-gradient(to bottom, #bdbdbd, transparent); }
 .mindmap [data-drop-edge="bottom"] { background-image: linear-gradient(to top, #bdbdbd, transparent); }

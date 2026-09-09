@@ -61,7 +61,7 @@ for (const zoom of [1, 1.5, 2]) test(`compact editor uses the larger node/eight-
 
 test('wide root leaf still uses node width, while oversized compact frames respect the viewport', async ({ page }) => {
     await page.goto('/');
-    await page.evaluate(doc => { window.primary.setDocument(doc); window.primary.focus(); }, { root: node('root', 'Wide root without visible children') });
+    await page.evaluate(doc => { window.primary.setDocument(doc); window.primary.focus(); }, { root: { ...node('root', 'Wide root without visible children'), children: [] } });
     const width = await page.locator('#primary .mindmap-root-node').evaluate(n => parseFloat(getComputedStyle(n).width));
     await page.keyboard.press('F2'); expect.soft(await page.locator('#primary textarea').evaluate(n => parseFloat(getComputedStyle(n).width))).toBeCloseTo(width, 2);
     await page.keyboard.press('Escape');
