@@ -1,5 +1,7 @@
 import { test, expect } from '@playwright/test';
+import { mkdirSync, writeFileSync } from 'node:fs';
 const evidence = process.env.MINDMAP_EVIDENCE ?? 'docs/evidence/milestone-c/stage7';
+mkdirSync(evidence, { recursive: true });
 import { referenceMap } from '../fixtures/maps';
 
 declare global { interface Window { clip: { events: string[]; completions: unknown[]; writes: string[]; resolve: (text: string) => void; reject: () => void; opens: unknown[][] } } }
@@ -28,7 +30,7 @@ test('API paste/cut/copy settle once, retain IDs on redo and expose completion a
     expect(await page.evaluate(() => window.primary.canUndo())).toBe(false);
     await page.keyboard.press('Meta+Shift+z'); expect(await page.evaluate(() => window.primary.getDocument())).toEqual(pasted);
     await page.evaluate(() => window.primary.execute({ type: 'copy', ids: ['one', 'a', 'child1'] }));
-    await expect.poll(() => page.evaluate(() => window.clip.writes.at(-1))).toBe('One\n\tA\n\tB\n\tC\nChild 1\n');
+    await expect.poll(() => page.evaluate(() => window.clip.writes.at(-1))).toBe('One\n    A\n    B\n    C\nChild 1\n');
     await page.evaluate(() => window.primary.execute({ type: 'cut', ids: ['one', 'a'] }));
     await expect.poll(() => page.evaluate(() => window.primary.getDocument().root.children.some(n => n.id === 'one'))).toBe(false);
     await page.keyboard.press('Meta+z'); expect(await page.evaluate(() => window.primary.getDocument())).toEqual(pasted);
@@ -128,7 +130,7 @@ test('deferred cut deletes its captured sources after selection change and leave
     await setup(page, 'deferred'); await page.evaluate(() => { window.primary.execute({ type: 'cut', ids: ['one', 'a'] }); window.primary.setSelection(['child1']); window.secondary.execute({ type: 'setText', targetId: 'multi', text: 'Other instance' }); window.clip.resolve(''); });
     await expect.poll(() => page.evaluate(() => window.clip.events.at(-1))).toBe('complete:cut:api');
     expect(await page.evaluate(() => window.primary.getDocument().root.children.map(n => n.id))).toEqual(['child1', 'child2', 'two', 'three']);
-    expect(await page.evaluate(() => window.clip.writes)).toEqual(['One\n\tA\n\tB\n\tC\n']);
+    expect(await page.evaluate(() => window.clip.writes)).toEqual(['One\n    A\n    B\n    C\n']);
     await page.keyboard.press('Meta+z'); expect(await page.evaluate(() => window.primary.getDocument())).toEqual(referenceMap());
 });
 test('URL press cancellation and read-only replacement/paste reclassification', async ({ page }) => {
@@ -169,4 +171,43 @@ test('explicit hidden paste target keeps selection visible and completion identi
     expect(completion.ids).toHaveLength(1); expect(completion.ids[0]).not.toBe('collapsed');
     await page.keyboard.press('Space'); await expect(page.locator(`#primary [data-node-id="${completion.ids[0]}"]`)).toBeVisible();
     await page.keyboard.press('Meta+z'); await page.keyboard.press('Meta+z'); expect(await page.evaluate(() => window.primary.getDocument())).toEqual(referenceMap()); expect(await page.evaluate(() => window.primary.canUndo())).toBe(false);
+});
+
+
+for (const mode of ['two', 'four', 'tabs', 'mixed'] as const) test(`native ${mode} indentation paste and four-space copy preserve the forest and one-step undo`, async ({ page }, info) => {
+    const first = mode === 'two' ? '  ' : mode === 'four' ? '    ' : '\t';
+    const second = mode === 'mixed' ? '\t  ' : first.repeat(2);
+    const sibling = mode === 'mixed' ? '  ' : first;
+    const input = `[ ] Parent\n${first}[x] Child\\nline\n${second}\\  literal spaces\n${sibling}Sibling\nOther\n\n`;
+    await page.evaluate(() => {
+        window.primary.setDocument({ root: { id: 'root', text: 'Clipboard indentation', children: [] } });
+        const input = document.createElement('textarea'); input.id = 'external-clipboard'; document.body.append(input);
+        window.clip = { events: [], completions: [], writes: [], resolve: () => {}, reject: () => {}, opens: [] };
+        window.primary.on('commandcomplete', e => window.clip.events.push(`${e.origin}:${e.command}`));
+    });
+    const before = await page.evaluate(() => window.primary.getDocument());
+    const external = page.locator('#external-clipboard'); await external.fill(input); await external.focus(); await page.keyboard.press('Meta+a'); await page.keyboard.press('Meta+c');
+    await page.evaluate(() => { window.primary.setSelection(['root']); window.primary.focus(); }); await page.keyboard.press('Meta+v');
+    await expect.poll(() => page.evaluate(() => window.clip.events)).toEqual(['user:paste']);
+    const pasted = await page.evaluate(() => window.primary.getDocument()), parent = pasted.root.children[0]!;
+    expect(pasted.root.children.map(n => n.text)).toEqual(['Parent', 'Other', '']);
+    expect(parent.checked).toBe(false); expect(parent.children.map(n => n.text)).toEqual(['Child\nline', 'Sibling']);
+    expect(parent.children[0]!.checked).toBe(true); expect(parent.children[0]!.children[0]!.text).toBe('  literal spaces');
+    await page.locator('#primary').scrollIntoViewIfNeeded();
+    await page.locator('#primary').screenshot({ path: `${evidence}/indentation-${mode}-${info.project.name}.png` });
+    await page.keyboard.press('Meta+z'); expect(await page.evaluate(() => window.primary.getDocument())).toEqual(before); expect(await page.evaluate(() => window.primary.canUndo())).toBe(false);
+    await page.keyboard.press('Meta+Shift+z'); expect(await page.evaluate(() => window.primary.getDocument())).toEqual(pasted);
+    await page.keyboard.press('Meta+c'); await expect.poll(() => page.evaluate(() => window.clip.events)).toEqual(['user:paste', 'user:copy']);
+    await external.fill(''); await external.focus(); await page.keyboard.press('Meta+v');
+    const output = '[ ] Parent\n    [x] Child\\nline\n        \\  literal spaces\n    Sibling\nOther\n\n';
+    await expect(external).toHaveValue(output);
+    writeFileSync(`${evidence}/indentation-${mode}-${info.project.name}.json`, JSON.stringify({ input, output: await external.inputValue(), document: pasted, completion: await page.evaluate(() => window.clip.events), undoRedo: 'exact document including IDs' }, null, 2) + '\n');
+});
+for (const [name, text] of [['odd-space', 'Good\n  Child\n   Bad'], ['space-depth-jump', 'Good\n  Child\n      Bad'], ['mixed-depth-jump', 'Good\n\t    Bad']] as const) test(`${name} API paste rejects atomically with a clear indentation error`, async ({ page }) => {
+    await setup(page, 'success', text);
+    const before = await page.evaluate(() => ({ doc: window.primary.getDocument(), selection: window.primary.getSelection(), undo: window.primary.canUndo(), redo: window.primary.canRedo() }));
+    await page.evaluate(() => window.primary.execute({ type: 'paste' }));
+    await expect.poll(() => page.evaluate(() => window.clip.events)).toEqual(['CLIPBOARD_INDENTATION']);
+    expect(await page.evaluate(() => ({ doc: window.primary.getDocument(), selection: window.primary.getSelection(), undo: window.primary.canUndo(), redo: window.primary.canRedo() }))).toEqual(before);
+    expect(await page.evaluate(() => window.clip.completions)).toEqual([]);
 });

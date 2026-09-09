@@ -1,7 +1,9 @@
 # Milestone C — stage-7 product checkpoint
 
 **Technical status: complete (2026-09-08). Product acceptance: pending user review.**
-**Latest follow-up:** [drag cursor and inward-half sibling drops](drag-review/report.md).
+**Latest follow-up:** [clipboard space indentation](clipboard-indentation/report.md).
+The [drag cursor and inward-half sibling drops](drag-review/report.md) were accepted
+at `4e46cea` before this clipboard extension.
 The earlier [blue links and minimum editor width](link-editor-review/report.md)
 report records those corrections and their own checks/visual candidates.
 The milestone-wide results below describe the original C checkpoint.

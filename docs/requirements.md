@@ -466,11 +466,13 @@ Additional requirements:
 
 - Clipboard exchange shall use "text/plain".
 - Each node occupies one physical clipboard line.
-- Leading tab characters express depth relative to the copied selection.
+- Four spaces per level express depth relative to the copied selection.
 - Sibling order and root-side visual order shall be preserved.
 - A multiline label shall encode a newline as the two characters "\n".
 - A literal backslash shall encode as "\\".
 - A literal tab inside a label shall encode as "\t".
+- A literal leading space in a label shall escape its first space as "\ " so
+  label whitespace is not mistaken for indentation. Remaining spaces are literal.
 - Nodes with a checkbox shall prefix the encoded label with "[ ] " or "[x] ".
 - A label on a node without a checkbox beginning with the exact text "[ ] " or
   "[x] " shall escape the opening bracket as "\[".
@@ -482,15 +484,21 @@ Example:
 
 ~~~text
 [ ] Release
-	[x] Code complete
-	Notes\nSecond line
+    [x] Code complete
+    Notes\nSecond line
 Ordinary sibling
 ~~~
 
 ### 12.2 Parsing and paste
 
-- The parser shall accept tabs as indentation. A run of four leading spaces may
-  also be accepted as one indentation level for interoperability.
+- The parser shall accept tabs and two- or four-space indentation, detecting the
+  space width once across the entire paste. Count the spaces in each line's leading
+  space/tab prefix separately from tabs. If every space count is divisible by four,
+  use four spaces per level; otherwise use two if every count is even. Reject odd
+  counts. Prefer four in ambiguous cases, without retrying a different width.
+- Each tab counts as one level; mixed prefixes add tab levels and space levels.
+  Whitespace-only lines participate in detection and represent empty-label nodes.
+  Escape-prefixed label spaces are not indentation. The first node must be depth zero.
 - Increases in indentation may be at most one level per line. Invalid indentation
   shall reject the paste atomically and emit an error event.
 - Recognized checkbox prefixes shall create checkbox nodes and preserve checked
@@ -866,3 +874,8 @@ The following defaults have been confirmed:
   invalid/no-op drops retain the prohibited cursor. The inward half of non-root
   targets inserts siblings before/after according to vertical position, mirrored
   on left branches. Existing top/bottom edge and outward child zones remain.
+
+- Clipboard indentation approved on 2026-09-09: copy uses four spaces per level;
+  paste detects two/four spaces per paste, preferring four when ambiguous, accepts
+  tabs/mixed prefixes, and rejects odd counts and invalid depth jumps atomically.
+  Escape a label's first leading space as "\ " to preserve literal whitespace.

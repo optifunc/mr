@@ -185,3 +185,21 @@ Existing drag coverage checks child/root zones, no-ops, cycles, cancellation,
 read-only mode and autopan. Checkpoint comparisons retain exact accepted-A images.
 In the demo, drag N4 to the left half of N1, or C 2.3 to the right half of C 2.1;
 move above/below the vertical midpoint and check the top/bottom gradient and arrow.
+
+## Stage-7 clipboard indentation (2026-09-09)
+
+```sh
+pnpm typecheck
+pnpm build
+pnpm test
+MINDMAP_EVIDENCE=docs/evidence/milestone-c/clipboard-indentation pnpm test:browser tests/browser/clipboard.spec.ts --workers=1
+```
+
+[Report, sample outlines and evidence](evidence/milestone-c/clipboard-indentation/report.md).
+Passed: 163 unit tests and 79 browser cases; 2 existing Chromium-only async permission
+counterparts skipped. Native clipboard works in all three engines. New native cases
+copy external two-space/four-space/tab/mixed text through a real textarea, paste into
+the widget, verify the exact forest/undo/redo, then copy back to the textarea and
+assert exact four-space output. Pure cases cover whole-paste detection, ambiguous
+widths, whitespace-only lines, literal leading spaces and invalid indentation.
+The full milestone and later release/manual gates were not rerun for this correction.

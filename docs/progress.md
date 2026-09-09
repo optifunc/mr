@@ -12,9 +12,12 @@ workload diagnostics. [C report](evidence/milestone-c/report.md),
 Previous follow-up: blue URL labels and editor widths at least as wide as leaf/
 collapsed nodes. Typecheck/build, 145 unit tests and 178 focused browser cases
 passed (2 documented permission skips). [Follow-up evidence](evidence/milestone-c/link-editor-review/report.md).
-Latest follow-up: regular-arrow valid drops and mirrored inward-half sibling drops.
+Accepted drag follow-up: regular-arrow valid drops and mirrored inward-half sibling drops.
 Typecheck/build, 147 unit tests and 126 focused browser cases passed, including
 three exact accepted-default comparisons. [Drag review evidence](evidence/milestone-c/drag-review/report.md).
+Latest follow-up: four-space copy and two/four-space/tab paste with whole-input
+spacing detection. Typecheck/build, 163 unit tests and 79 focused browser cases
+passed (2 documented permission skips). [Clipboard evidence](evidence/milestone-c/clipboard-indentation/report.md).
 Stop at stage 7 for user review; stages 8–9 remain unstarted.
 
 **Milestone B is technically complete and accepted at `4209b2a` on 2026-09-08.**
@@ -520,3 +523,26 @@ accepted baselines are preserved. Whitespace and local evidence-link checks pass
 Demo: http://127.0.0.1:5175/ or fresh `pnpm dev`. Full milestone/workload and later
 release/manual checks were not rerun; previous gaps remain. Next: user's stage-7
 product review. Stages 8–9 are not started.
+
+## C clipboard space indentation — 2026-09-09
+
+The user accepted the drag corrections at `4e46cea`, then approved four-space copy
+and per-paste two/four-space detection alongside tabs. Started from clean `4e46cea`.
+Space counts divisible by four select width four; otherwise all counts must be even
+and select width two. Odd counts reject; tabs add one level. No fallback changes
+the chosen width after a depth error. Literal label spaces use a first-space escape
+(`\ `) so the existing lossless whitespace round-trip contract survives.
+Final typecheck/build and 163 unit tests passed. The full clipboard browser suite
+passed 79 cases with 2 existing Chromium-only permission counterpart skips. Native
+two-space/four-space/tab/mixed paste and exact four-space copy worked in all engines,
+including whitespace/checkbox/multiline/empty labels and exact one-step undo/redo.
+Before the fix, the new codec expectations produced 19 failures and 20 passes;
+final checks had no failures. Inspected native-paste screenshots in all engines.
+
+Requirements, plan, API, demo help, testing and acceptance are current. The commit
+containing this record identifies the tested task state. Whitespace/evidence-link
+checks and live-demo HTTP smoke passed. Previous images/baselines are preserved.
+[Report, examples, checks and known gaps](evidence/milestone-c/clipboard-indentation/report.md).
+No known defect remains in this extension. Full milestone/workload, exact default
+image and release/manual checks were not rerun; previous gaps remain. Demo stays
+http://127.0.0.1:5175/. Next: user's stage-7 review; stages 8–9 remain unstarted.

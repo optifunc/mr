@@ -260,7 +260,13 @@ checks remain unimplemented or unverified as recorded; no release gate is waived
 
 ## Milestone C: stages 6–7
 
-**2026-09-09 drag review:** valid drops use a regular arrow; inward halves insert
+**2026-09-09 clipboard indentation:** copy uses four spaces; paste detects two/four
+spaces per paste and accepts tabs/mixed prefixes. Typecheck/build, 163 unit tests
+and 79 browser cases passed (2 documented permission skips). Native clipboard and
+screenshots were checked in all engines. [Report and evidence](evidence/milestone-c/clipboard-indentation/report.md).
+Stage-7 product acceptance for this extension remains pending.
+
+**2026-09-09 drag review (accepted at `4e46cea`):** valid drops use a regular arrow; inward halves insert
 before/after as siblings according to vertical position, mirrored on left branches.
 Typecheck/build, 147 unit tests and 126 focused browser cases passed, including all
 three exact accepted-default comparisons. Screenshots were inspected in all engines.
@@ -278,7 +284,10 @@ Stage-7 product acceptance remains pending.
 
 **Product review:** clipboard and predictable restructuring.
 
-1. Copy and paste mixed checkbox/multiline subtrees, then undo and redo.
+1. Copy and paste mixed checkbox/multiline subtrees, then undo and redo. Copy uses
+   four spaces per level. Paste two-space, four-space, tab and mixed outlines;
+   verify hierarchy and atomic rejection of odd counts/depth jumps. Include escaped
+   literal leading spaces and empty labels.
 2. Select multiple nodes and drag before, after, into a node, and across root sides.
 3. Verify each drop result is clear from its gradient before release. In the half
    nearest the parent, upper/lower positions insert before/after; mirror on the left.

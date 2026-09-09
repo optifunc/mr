@@ -403,13 +403,19 @@ replaced text. Render every label through text nodes, never HTML interpretation.
 ## 7. Clipboard codec and synchronous command contract
 
 Implement and test the text codec separately from browser access. Serialize
-normalized subtrees with tab indentation, checkbox prefixes, and the specified
-backslash/newline/tab/bracket escapes. Clipboard text does not preserve IDs, root
+normalized subtrees with four-space indentation, checkbox prefixes, and the specified
+backslash/newline/tab/bracket/leading-space escapes. Clipboard text does not preserve IDs, root
 sides, or collapse state; pasted IDs are new, sides follow the destination, and
 pasted nodes start expanded.
 
-Use tabs for indentation in this version. Four-space indentation is optional in
-the requirements and will not be inferred, preserving leading label spaces.
+Scan every physical line's leading space/tab prefix before constructing the forest.
+Count spaces independently of tabs. If all counts are divisible by four, use width
+four; otherwise require all counts even and use width two. Odd counts reject with
+`CLIPBOARD_INDENTATION`. Each tab adds one level; mixed prefixes add both counts.
+Prefer four in ambiguous cases without fallback. Whitespace-only lines participate.
+Escape the first literal label space as `\ ` on copy; decode after indentation and
+checkbox recognition. This preserves leading/whitespace-only labels despite space
+indentation; backslash escaping also preserves a literal backslash-space sequence.
 Require the first node at depth zero and reject depth increases greater than one.
 Accept LF and CRLF separators, retaining internal blank lines as empty-label nodes.
 Emit a final LF when serializing and consume at most one final line terminator

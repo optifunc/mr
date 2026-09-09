@@ -8,8 +8,8 @@ import { node, referenceMap } from '../fixtures/maps';
 describe('clipboard text contract', () => {
     it('normalizes ancestors, preserves hidden nodes and visual root sides', () => {
         const doc = referenceMap(), model = validateDocument(doc);
-        expect(serialize(model, ['c', 'child1', 'one', 'a'])).toBe('Child 1\nOne\n\tA\n\tB\n\tC\n');
-        expect(serialize(model, ['collapsed'])).toBe('Collapsed node\n\tHidden descendant\n');
+        expect(serialize(model, ['c', 'child1', 'one', 'a'])).toBe('Child 1\nOne\n    A\n    B\n    C\n');
+        expect(serialize(model, ['collapsed'])).toBe('Collapsed node\n    Hidden descendant\n');
         doc.root.children.reverse();
         expect(serialize(validateDocument(doc), ['root']).indexOf('Child2')).toBeLessThan(serialize(validateDocument(doc), ['root']).indexOf('Three'));
     });
@@ -17,7 +17,7 @@ describe('clipboard text contract', () => {
         const values = [node('1', '[x] literal'), { ...node('2', 'a\\b\tc\nd\n'), checked: false }, { ...node('3', ''), checked: true }, node('4', '    indented spaces'), node('5', '')];
         const model = validateDocument({ root: { ...node('root'), children: values.map(n => ({ ...n, side: 'right' })) } });
         const text = serialize(model, values.map(n => n.id));
-        expect(text).toBe('\\[x] literal\n[ ] a\\\\b\\tc\\nd\\n\n[x] \n    indented spaces\n\n');
+        expect(text).toBe('\\[x] literal\n[ ] a\\\\b\\tc\\nd\\n\n[x] \n\\    indented spaces\n\n');
         expect(parse(text)).toEqual(values.map(({ id: _, ...n }) => n));
         expect(parse(text.replace(/\n/g, '\r\n'))).toEqual(parse(text));
     });
@@ -65,7 +65,7 @@ describe('whole label URLs', () => {
 });
 
 it('explicit visual order determines copied forest order without reordering subtree siblings', () => {
-    expect(serialize(validateDocument(referenceMap()), ['child1', 'one', 'a'], ['one', 'a', 'b', 'c', 'child1'])).toBe('One\n\tA\n\tB\n\tC\nChild 1\n');
+    expect(serialize(validateDocument(referenceMap()), ['child1', 'one', 'a'], ['one', 'a', 'b', 'c', 'child1'])).toBe('One\n    A\n    B\n    C\nChild 1\n');
 });
 
 it('an explicit hidden paste target preserves hidden-ancestor collapse and a visible selection', () => {
@@ -75,4 +75,38 @@ it('an explicit hidden paste target preserves hidden-ancestor collapse and a vis
     expect(store.model.nodes.get('collapsed')!.collapsed).toBe(true);
     expect(store.selection).toEqual({ ids: ['collapsed'], activeId: 'collapsed' });
     store.execute({ type: 'undo' }); expect(store.getDocument()).toEqual(referenceMap());
+});
+
+
+describe('space indentation detection', () => {
+    const expected = [{ text: 'Parent', children: [{ text: 'Child', children: [{ text: 'Grandchild', children: [] }] }, { text: 'Sibling', children: [] }] }, { text: 'Other', children: [] }];
+    it.each([2, 4])('accepts %i spaces, siblings and dedents with LF/CRLF', width => {
+        const text = `Parent\n${' '.repeat(width)}Child\n${' '.repeat(width * 2)}Grandchild\n${' '.repeat(width)}Sibling\nOther\n`;
+        expect(parse(text)).toEqual(expected); expect(parse(text.replace(/\n/g, '\r\n'))).toEqual(expected);
+    });
+    it('detects over the whole paste, including a later two-space indent', () => {
+        expect(parse('Parent\n\tChild\n    Grandchild\n  Sibling\nOther\n')).toEqual(expected);
+    });
+    it.each(['\t  ', '  \t'])('counts tabs separately from spaces in mixed indentation %j', mixed => {
+        expect(parse(`Parent\n  Child\n${mixed}Grandchild\n\tSibling\nOther\n`)).toEqual(expected);
+    });
+    it('prefers four spaces when every count is divisible by four', () => {
+        expect(parse('Parent\n    Child\n        Grandchild\n    Sibling\nOther\n')).toEqual(expected);
+        expect(() => parse('Parent\n        Skipped')).toThrow(expect.objectContaining({ code: 'CLIPBOARD_INDENTATION' }));
+    });
+    it.each([' Parent', 'Parent\n   Odd', 'Parent\n  Child\n     Odd', 'Parent\n\t Odd', '  Parent', '    Parent', 'Parent\n  Child\n      Skipped', 'Parent\n  Child\nOther\n    Skipped'])('rejects odd, leading or skipped indentation: %j', text => {
+        expect(() => parse(text)).toThrow(expect.objectContaining({ code: 'CLIPBOARD_INDENTATION' }));
+    });
+    it('counts whitespace-only lines as empty nodes and consumes one terminator', () => {
+        expect(parse('Parent\n  \n')).toEqual([{ text: 'Parent', children: [{ text: '', children: [] }] }]);
+        expect(parse('Parent\n    \n\n')).toEqual([{ text: 'Parent', children: [{ text: '', children: [] }] }, { text: '', children: [] }]);
+    });
+    it('round trips leading spaces, whitespace-only labels and literal escapes at multiple depths', () => {
+        const labels = [' ', '  ', '    leading', '\\ leading', '\\s', ' \t\n', ' [x] literal', ' trailing ', ''];
+        const children = labels.map((text, i) => ({ ...node(`c${i}`, text), ...(i % 2 ? { checked: false } : {}) }));
+        const parent = node('parent', '  Parent', children);
+        const model = validateDocument({ root: { ...node('root'), children: [{ ...parent, side: 'right' }] } });
+        expect(serialize(model, ['parent']).startsWith('\\  Parent\n    \\ \n')).toBe(true);
+        expect(parse(serialize(model, ['parent']))).toEqual([{ text: parent.text, children: children.map(({ id: _, ...n }) => n) }]);
+    });
 });

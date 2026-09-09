@@ -222,8 +222,13 @@ the destination to reveal the inserted children; pasted subtrees start expanded.
 An explicit target hidden by an ancestor remains hidden; selection stays on its
 nearest visible ancestor and completion still reports the newly inserted roots.
 Root pastes use the right side. Copy includes collapsed descendants, normalizes
-selected ancestors, and preserves visual order. Tabs encode indentation; leading
-spaces remain label text. LF/CRLF, checkbox prefixes, backslash/newline/tab/bracket
+selected ancestors, and preserves visual order. Copy uses four spaces per level.
+Paste counts spaces in each leading space/tab prefix across the whole input: all divisible by four selects width four; otherwise
+all even selects width two; odd counts reject. Tabs always add one level and can
+mix with spaces. Ambiguous input prefers four, with no fallback. The first node
+must be unindented and depth may increase by at most one. A literal leading label
+space is escaped as `\ `, including on whitespace-only labels.
+LF/CRLF, checkbox prefixes, backslash/newline/tab/bracket/leading-space
 escapes, unknown escapes and empty physical lines follow the plan. One terminal LF
 is consumed; empty clipboard text is a successful no-op with no history.
 
