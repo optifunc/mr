@@ -1,5 +1,30 @@
 # Testing and demo
 
+## P2 review corrections
+
+- `pnpm test:tools` runs verification-tool regressions for preview startup/exit,
+  occupied ports, stale/tampered assets, performance thresholds, raw-sample
+  validation, provenance and mixed-run rejection.
+- `pnpm test:browser integration.spec.ts profile-input.spec.ts --workers=1`
+  checks invalid move atomicity plus actual wheel gestures with Mac/Windows/Linux
+  platform mappings in all engines. Overrides do not establish actual OS coverage.
+- `MINDMAP_EVIDENCE=<directory> pnpm test:package` records a new consumer's run ID,
+  tarball/asset hashes and actual browser-loaded assets, with an explicit overall
+  result and preview diagnostics. An occupied port cannot pass the gate.
+- `MINDMAP_EVIDENCE=<new-directory> pnpm test:browser performance.spec.ts --workers=1`
+  captures common run identity, source revision/digest/dirty state, settings and
+  per-gesture viewport transitions. Set `MINDMAP_PROFILE_CONCURRENCY` to an honest
+  description; otherwise concurrency is recorded as unknown.
+- `MINDMAP_EVIDENCE=<same-directory> node scripts/summarize-performance.mjs`
+  validates all three profiles and generates measured conclusions. Incomplete,
+  legacy, inconsistent or mixed-run evidence exits nonzero and replaces stale
+  passing prose with invalid/unverified status. Timing target misses are reported
+  as failed without enforcing machine-specific timing assertions on arbitrary CI.
+
+Use a fresh directory per profiling invocation. A Chromium-only `pnpm perf` run
+cannot be combined with older Firefox/WebKit profiles for a three-engine report.
+Original D reports remain historical; the demo links current review-fix evidence.
+
 Use Node 22.12+ (verified with Node 24.2.0) and pnpm 10.28.1.
 
 - `pnpm install --frozen-lockfile`: install pinned tools.

@@ -622,6 +622,13 @@ and viewport changes do not create snapshots or relayouts.
 Keep performance reports reproducible rather than enforcing hardware-specific
 timing assertions on arbitrary CI workers. Investigate measured failures before
 adding complexity such as virtualization or a different layout algorithm.
+Record a shared profiling run ID, source revision/digest and dirty state, actual
+browser/platform/viewport settings and declared concurrency with each profile.
+Verify each pan/zoom gesture changes the intended viewport component. Generate
+conclusions from validated raw samples; reject missing or mixed-run evidence and
+report target failures explicitly. Unknown execution conditions remain unknown.
+Packaged-consumer verification must own preview startup/exit, enforce readiness,
+and match the fresh consumer's run identity and browser-loaded HTML/JS/CSS hashes.
 
 ## 12. Final deliverables
 

@@ -3,10 +3,13 @@ import { expect, test } from '@playwright/test';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { gzipSync } from 'node:zlib';
 import { arch, cpus, platform, release, totalmem } from 'node:os';
-const evidence = 'docs/evidence/milestone-d/performance';
+import { profileWheel } from './helpers/profile-input';
+import { profileProvenance } from './helpers/profile-provenance';
+const evidence = process.env.MINDMAP_EVIDENCE ?? 'docs/evidence/milestone-d/performance';
 mkdirSync(evidence, { recursive: true });
 declare global { interface Window { mountDuration: number; perfSamples: Record<string, number[]> } }
 test('release workload: cold/font load, relayout, actual input rendering opportunities and frame traces', async ({ page, browser }, info) => {
+    const provenance = profileProvenance(info);
     await page.goto('/examples/performance/index.html'); await page.evaluate(() => document.fonts.ready);
     const cold = await page.evaluate(() => ({ mountMs: window.mountDuration, navigation: performance.getEntriesByType('navigation')[0]!.toJSON(), paints: performance.getEntriesByType('paint').map(e => e.toJSON()) }));
     const metrics = await page.evaluate(async () => {
@@ -49,10 +52,8 @@ test('release workload: cold/font load, relayout, actual input rendering opportu
     for (let i = 0; i < 30; i++) { await (i % 2 ? nodeA : nodeB).click(); await page.waitForTimeout(20); }
     for (let i = 0; i < 30; i++) { await page.keyboard.press(i % 2 ? 'ArrowDown' : 'ArrowUp'); await page.waitForTimeout(20); }
     await tree.hover();
-    for (let i = 0; i < 30; i++) { await page.mouse.wheel(0, i % 2 ? 10 : -10); await page.waitForTimeout(20); }
-    await page.keyboard.down('Meta');
-    for (let i = 0; i < 30; i++) { await page.mouse.wheel(0, i % 2 ? 5 : -5); await page.waitForTimeout(20); }
-    await page.keyboard.up('Meta');
+    const pan = await profileWheel(page, 'pan', 30);
+    const zoom = await profileWheel(page, 'zoom', 30);
     await page.waitForTimeout(100);
     if (cdp) {
         const complete = new Promise<{ stream: string }>(resolve => cdp.once('Tracing.tracingComplete', result => resolve({ stream: result.stream! })));
@@ -70,7 +71,12 @@ test('release workload: cold/font load, relayout, actual input rendering opportu
     expect(after.samples.documentEvents).toEqual([]);
     expect(after.samples.pointerdown).toHaveLength(30); expect(after.samples.keydown!.length).toBeGreaterThanOrEqual(30); expect(after.samples.wheel).toHaveLength(60);
     const summary = (values: number[]) => { const sorted = [...values].sort((a, b) => a - b); return { median: sorted[Math.floor(sorted.length / 2)], p95: sorted[Math.ceil(sorted.length * .95) - 1], samples: values }; };
-    const report = { date: new Date().toISOString(), browser: info.project.name, version: browser.version(), os: { platform: platform(), release: release(), arch: arch(), cpu: cpus()[0]?.model, logicalCpus: cpus().length, memoryGB: Math.round(totalmem() / 2 ** 30) }, viewport: page.viewportSize(), deviceScaleFactor: 1, cold,
+    const finishedProvenance = profileProvenance(info);
+    expect(finishedProvenance.sourceDigest).toBe(provenance.sourceDigest);
+    expect(finishedProvenance.revision).toBe(provenance.revision);
+    const report = { date: new Date().toISOString(), provenance, measurement: { warmups: 5, samples: 30 },
+        browser: info.project.name, version: browser.version(), os: { platform: platform(), release: release(), arch: arch(), cpu: cpus()[0]?.model, logicalCpus: cpus().length, memoryGB: Math.round(totalmem() / 2 ** 30) }, viewport: page.viewportSize(), deviceScaleFactor: await page.evaluate(() => devicePixelRatio), cold,
+        input: { pan, zoom }, verification: { initialLayoutCount: metrics.layoutCount, finalLayoutCount: after.layoutCount, documentEvents: after.samples.documentEvents!.length, finalVisible: after.visible },
         total: metrics.total, visible: metrics.visible, font: metrics.font, fontLoadAndRefreshMs: metrics.fontLoadAndRefreshMs,
         fullMeasurementRelayoutMs: summary(metrics.full), structuralCommandMs: summary(metrics.structural),
         inputToRenderingOpportunityMs: Object.fromEntries(Object.entries(after.samples).filter(([k]) => ['pointerdown', 'keydown', 'wheel'].includes(k)).map(([key, values]) => [key, summary(values)])), synchronousInputHandlerMs: Object.fromEntries(Object.entries(after.samples).filter(([k]) => k.endsWith('Handler')).map(([key, values]) => [key, summary(values)])),

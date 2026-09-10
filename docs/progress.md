@@ -15,8 +15,10 @@ fresh tarball consumer in Chromium/Firefox/WebKit. The gate records a unique run
 tarball hash and HTML/JS/CSS hashes verified from actual browser responses.
 [Package evidence](evidence/milestone-d/review-fixes/package/result.json),
 [failure-path checks](evidence/milestone-d/review-fixes/package-tools.txt).
-Packaged consumer screenshots were inspected. Next: platform-correct profiling,
-derived reports, and final combined checks.
+Packaged consumer screenshots were inspected. Platform-correct profiling and
+sample-derived reporting are implemented; nine platform-gesture browser checks
+and all 15 tooling regressions passed. [Current fix report](evidence/milestone-d/review-fixes/report.md).
+Next: combined browser gate and a fresh isolated three-engine profiling run.
 
 **Milestone D is implemented and stopped at the stage-9 product checkpoint.**
 Product acceptance is pending. Required unavailable release/manual checks remain

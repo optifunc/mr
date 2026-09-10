@@ -1,0 +1,26 @@
+> @mindmap/widget@0.1.0 test:tools /Users/yezo/Scratch/09-26/mr
+> node --test tests/tools/*.test.mjs
+
+✔ passing report derives provenance and conditions from profiles (4.006666ms)
+✔ 150 ms raw p95 produces an explicit failed target, without a passing claim (0.707166ms)
+✔ 100 ms is within the target; fabricated summaries are rejected (1.509208ms)
+✔ invalid raw samples are rejected:  (0.463375ms)
+✔ invalid raw samples are rejected: NaN (0.474667ms)
+✔ invalid raw samples are rejected: Infinity (0.436125ms)
+✔ invalid raw samples are rejected: -1 (0.631875ms)
+✔ missing engine, legacy provenance and mixed runs/sources/settings are rejected (1.982042ms)
+✔ pan masquerading as zoom, wrong modifier and failed layout invariants cannot pass (1.237125ms)
+✔ CLI fails invalid regeneration and replaces stale passing text with unverified status (35.222125ms)
+✔ rejects spawn errors and includes preview startup diagnostics (65.603708ms)
+✔ readiness timeout fails even if the process stays alive (162.546291ms)
+✔ occupied port serving a previous consumer cannot pass or be killed by the gate (73.398ms)
+✔ checks actual bytes even when the run identity matches (61.625084ms)
+✔ verified preview passes, then detects a later unexpected exit (614.43575ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1035.650667

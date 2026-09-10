@@ -1,92 +1,150 @@
 import { readFileSync, writeFileSync } from 'node:fs';
-const dir = 'docs/evidence/milestone-d/performance';
-const profiles = ['chromium', 'firefox', 'webkit'].map(name => JSON.parse(readFileSync(`${dir}/profile-${name}.json`, 'utf8')));
-const number = n => Number(n).toFixed(2);
-const pair = metric => `${number(metric.median)} / ${number(metric.p95)}`;
-const rows = profiles.map(p => `| ${p.browser} ${p.version} | ${number(p.cold.mountMs)} | ${number(p.fontLoadAndRefreshMs)} | ${pair(p.fullMeasurementRelayoutMs)} | ${pair(p.structuralCommandMs)} |`).join('\n');
-const input = profiles.map(p => `| ${p.browser} | ${pair(p.inputToRenderingOpportunityMs.pointerdown)} | ${pair(p.inputToRenderingOpportunityMs.keydown)} | ${pair(p.panRenderingOpportunityMs)} | ${pair(p.zoomRenderingOpportunityMs)} | ${pair(p.frameIntervalsMs)} |`).join('\n');
-const handler = profiles.map(p => `| ${p.browser} | ${pair(p.synchronousInputHandlerMs.pointerdownHandler)} | ${pair(p.synchronousInputHandlerMs.keydownHandler)} | ${pair(p.synchronousInputHandlerMs.wheelHandler)} |`).join('\n');
-writeFileSync(`${dir}/report.md`, `# Stage-9 performance evidence
+import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-Reference hardware: ${profiles[0].os.cpu}, ${profiles[0].os.logicalCpus} logical CPUs,
-${profiles[0].os.memoryGB} GB RAM, ${profiles[0].os.platform} ${profiles[0].os.release},
-${profiles[0].os.arch}. Headless browsers, 1400×1000 viewport, DPR 1, local Arial.
-Widget source is the final integration implementation at \`de15b91\`; the profiler
-and fixtures are in the stage-9 evidence commit. No competing test command ran
-during these final workload samples. Individual timestamps are retained in JSON.
+const engines = ['chromium', 'firefox', 'webkit'];
+const finite = value => typeof value === 'number' && Number.isFinite(value) && value >= 0;
+const requireValue = (condition, message) => { if (!condition) throw Error(`Invalid performance evidence: ${message}`); };
+const text = value => String(value).replace(/[|\n\r]/g, ' ');
+const number = value => value.toFixed(2);
 
-All engines verified **1,000 total / 500 visible nodes**, with no hidden descendant
-DOM. Actual selection/navigation/pan/zoom input leaves the layout counter and
-render count unchanged and emits no document events. Source inspection confirms
-selection and viewport paths do not call document snapshot creation.
+export function metric(values) {
+    requireValue(Array.isArray(values) && values.length > 0 && values.every(finite), 'missing, empty or non-finite samples');
+    const sorted = [...values].sort((a, b) => a - b);
+    return { median: sorted[Math.floor(sorted.length / 2)], p95: sorted[Math.ceil(sorted.length * .95) - 1] };
+}
+function checkedMetric(value) {
+    const derived = metric(value?.samples);
+    requireValue(value.median === derived.median && value.p95 === derived.p95, 'stored summary disagrees with raw samples');
+    return derived;
+}
 
-## Measurement and relayout
+export function summarizeProfiles(input) {
+    requireValue(Array.isArray(input) && input.length === 3 && engines.every(name => input.filter(p => p.browser === name).length === 1), 'need one profile per engine');
+    const profiles = engines.map(name => structuredClone(input.find(p => p.browser === name)));
+    for (const p of profiles) {
+        requireValue(Number.isFinite(Date.parse(p.date)), 'missing profile date');
+        const s = p.provenance;
+        requireValue(s && typeof s.runId === 'string' && s.runId && /^[a-f0-9]{40}$/.test(s.revision) && /^[a-f0-9]{64}$/.test(s.sourceDigest) && typeof s.sourceDirty === 'boolean', 'missing run/source provenance; reprofile legacy evidence');
+        requireValue(Array.isArray(s.dirtyPaths) && Array.isArray(s.sourcePaths) && s.sourcePaths.length > 0, 'missing source manifest');
+        requireValue(typeof s.headless === 'boolean' && Number.isInteger(s.workers) && s.workers > 0 && typeof s.concurrency === 'string', 'missing execution conditions');
+        requireValue(p.os?.cpu && p.os.platform && p.os.release && p.os.arch && finite(p.os.memoryGB) && finite(p.os.logicalCpus) && p.version && p.font, 'missing environment');
+        requireValue(finite(p.viewport?.width) && p.viewport.width > 0 && finite(p.viewport?.height) && p.viewport.height > 0 && finite(p.deviceScaleFactor) && p.deviceScaleFactor > 0, 'missing viewport/DPR');
+        requireValue(finite(p.cold?.mountMs) && finite(p.fontLoadAndRefreshMs), 'invalid cold/font measurements');
+        requireValue(Number.isInteger(p.measurement?.warmups) && p.measurement.warmups >= 0 && Number.isInteger(p.measurement?.samples) && p.measurement.samples > 0, 'missing measurement counts');
+        requireValue(p.total === 1000 && p.visible === 500 && p.verification?.finalVisible === 500 && p.verification.documentEvents === 0 && p.verification.initialLayoutCount !== undefined && p.verification.initialLayoutCount === p.verification.finalLayoutCount, 'workload/render invariants did not pass');
+        for (const kind of ['pan', 'zoom']) {
+            const gesture = p.input?.[kind];
+            requireValue(gesture && typeof gesture.platform === 'string' && gesture.platform && gesture.transitions?.length === p.measurement.samples, `missing verified ${kind} transitions`);
+            const modifier = /Mac|iPhone|iPad/.test(gesture.platform) ? 'Meta' : 'Control';
+            requireValue(gesture.modifier === (kind === 'zoom' ? modifier : null), 'wrong platform modifier');
+            for (const { before, after, delta } of gesture.transitions) {
+                requireValue(before && after && ['x', 'y', 'zoom'].every(key => Number.isFinite(before[key]) && Number.isFinite(after[key])) && Number.isFinite(delta) && delta !== 0, 'invalid viewport transition');
+                requireValue(kind === 'pan'
+                    ? before.zoom === after.zoom && before.x === after.x && Math.sign(after.y - before.y) === -Math.sign(delta)
+                    : Math.sign(after.zoom - before.zoom) === -Math.sign(delta), `${kind} input did not perform its intended action`);
+            }
+        }
+        p.full = checkedMetric(p.fullMeasurementRelayoutMs); p.structural = checkedMetric(p.structuralCommandMs);
+        for (const value of [p.fullMeasurementRelayoutMs, p.structuralCommandMs, p.panRenderingOpportunityMs, p.zoomRenderingOpportunityMs]) requireValue(value?.samples?.length === p.measurement.samples, 'wrong sample count');
+        p.pan = checkedMetric(p.panRenderingOpportunityMs); p.zoom = checkedMetric(p.zoomRenderingOpportunityMs); p.frames = checkedMetric(p.frameIntervalsMs);
+        p.selection = checkedMetric(p.inputToRenderingOpportunityMs?.pointerdown); p.navigation = checkedMetric(p.inputToRenderingOpportunityMs?.keydown);
+        p.handlers = ['pointerdownHandler', 'keydownHandler', 'wheelHandler'].map(key => checkedMetric(p.synchronousInputHandlerMs?.[key]));
+    }
+    const first = profiles[0], source = first.provenance;
+    const compatibility = p => JSON.stringify([p.provenance.runId, p.provenance.revision, p.provenance.sourceDigest, p.provenance.sourceDirty, p.os, p.viewport, p.deviceScaleFactor, p.provenance.headless, p.provenance.workers, p.provenance.concurrency, p.measurement]);
+    requireValue(profiles.every(p => compatibility(p) === compatibility(first)), 'profiles belong to different runs, sources or execution environments');
+    const failures = profiles.filter(p => p.full.p95 > 100);
+    const outcome = failures.length
+        ? `**Full-relayout target: FAILED.** Above 100 ms: ${failures.map(p => `${p.browser} (${number(p.full.p95)} ms p95)`).join(', ')}.`
+        : '**Full-relayout target: MET.** Every full-relayout p95 is at or below 100 ms on the recorded hardware.';
+    const tails = profiles.filter(p => [p.selection, p.navigation, p.pan, p.zoom, p.frames].some(m => m.p95 > 1000 / 60));
+    const pair = m => `${number(m.median)} / ${number(m.p95)}`;
+    const report = `# Performance evidence
 
-All numbers are milliseconds. Warm entries show **median / p95** from 30 samples
-after five warmups; cold/font-load values are individual measurements.
+${outcome}
 
-| Browser | Cold mount + DOM flush | Local font load + refresh | Uncached full relayout | Cached structural command |
+## Run and provenance
+
+Run: \`${text(source.runId)}\`. Revision: \`${source.revision}\`.
+Source dirty: **${source.sourceDirty}**. SHA-256 of the scoped source manifest:
+\`${source.sourceDigest}\`. Full source paths and dirty paths are retained in each JSON.
+Evidence files are outside that source scope.
+
+Hardware: ${text(first.os.cpu)}, ${first.os.logicalCpus} logical CPUs, ${first.os.memoryGB} GB RAM;
+${text(first.os.platform)} ${text(first.os.release)}, ${text(first.os.arch)}.
+Headless: ${source.headless}; workers: ${source.workers}; viewport:
+${first.viewport.width}×${first.viewport.height}; DPR: ${first.deviceScaleFactor}.
+Other workload/concurrency: ${text(source.concurrency)}. This is a recorded operator
+statement, not automatic detection of other applications or operating-system work.
+
+| Engine | Version | Captured UTC | Browser channel | Navigator platform | Font |
+|---|---|---|---|---|---|
+${profiles.map(p => `| ${p.browser} | ${text(p.version)} | ${text(p.date)} | ${text(p.provenance.channel ?? 'bundled')} | ${text(p.input.zoom.platform)} | ${text(p.font)} |`).join('\n')}
+
+## Relayout and cold load
+
+Milliseconds; warmed median / p95 from ${first.measurement.samples} samples after
+${first.measurement.warmups} warmups. Summaries are checked against raw samples.
+
+| Engine | Cold mount + DOM flush | Local font load + refresh | Uncached full relayout | Cached structural command |
 |---|---:|---:|---:|---:|
-${rows}
+${profiles.map(p => `| ${p.browser} | ${number(p.cold.mountMs)} | ${number(p.fontLoadAndRefreshMs)} | ${pair(p.full)} | ${pair(p.structural)} |`).join('\n')}
 
-Every full-relayout p95 is below the 100 ms target on this machine. Uncached refresh
-includes text measurement, layout, DOM application and forced browser layout;
-structural command also includes mutation/history and uses cached measurements.
-Cold mount starts before the constructor after module fetch; navigation and first
-paint entries are recorded separately in each JSON. Font load adds a new FontFace
-backed by local Arial and refreshes geometry; it is not a remote-font download test.
+Uncached refresh includes measurement, layout, DOM application and forced browser
+layout. Structural commands also include mutation/history and use cached measurement.
+Cold mount excludes module fetch; navigation/paint entries are separate. The FontFace
+loads local Arial and refreshes geometry, rather than downloading a remote font.
 
-## Actual input and frames
+## Verified input and frame opportunities
 
-Trusted pointer clicks alternate revealed leaves (30), physical arrows navigate
-(30), wheel pans (30), and modifier+wheel zooms (30). The key array also contains
-the modifier keydown; raw samples are retained. Capture-phase event timestamps to
-requestAnimationFrame followed by a task measure a **rendering opportunity**.
-This is not physical input-to-display presentation, and does not prove a one-frame
-physical response or manual pan/zoom smoothness.
+All three profiles verify 1,000 total / 500 visible nodes, unchanged layout/render
+counts and no document events during input. Each pan changes translation without
+changing zoom; each zoom uses the platform modifier and changes zoom in the expected
+direction. Before/after viewport values for every wheel gesture are retained.
 
-| Browser | Selection opportunity | Navigation opportunity | Pan opportunity | Zoom opportunity | Frame interval |
+| Engine | Selection | Navigation | Pan | Zoom | Frame interval |
 |---|---:|---:|---:|---:|---:|
-${input}
+${profiles.map(p => `| ${p.browser} | ${pair(p.selection)} | ${pair(p.navigation)} | ${pair(p.pan)} | ${pair(p.zoom)} | ${pair(p.frames)} |`).join('\n')}
 
-The warmed medians and tails must be read against each browser's frame cadence.
-Some p95 input/opportunity and frame intervals exceed a nominal 16.67 ms frame.
-This measured limit is not hidden or converted into a pass. To investigate, the
-profiler also measures event-handler work through DOM/layout flush before returning:
+${tails.length ? `Input/opportunity or frame p95 exceeds a nominal 16.67 ms frame in: ${tails.map(p => p.browser).join(', ')}.` : 'No recorded input/opportunity or frame p95 exceeds a nominal 16.67 ms frame.'}
+These rAF-plus-task measurements identify rendering opportunities, not physical
+input-to-display presentation. The keyboard array includes the modifier keydown.
+Headless timing cannot establish manual smoothness or screen presentation.
 
-| Browser | Selection handler | Navigation handler | Wheel handler |
+| Engine | Selection handler | Navigation handler | Wheel handler |
 |---|---:|---:|---:|
-${handler}
+${profiles.map(p => `| ${p.browser} | ${p.handlers.map(pair).join(' | ')} |`).join('\n')}
 
-Handler work is substantially shorter than the observed opportunity tails. The
-unchanged layout counter rules out unexpected tree relayout during these inputs.
-This supports frame scheduling/presentation as a contributor, but does not establish
-that every delay is external to the widget. No speculative virtualization or timing
-assertion relaxation was introduced. A human display/frame review remains required.
-
-[Compressed Chromium frame/input/paint trace](frames-chromium.json.gz) retains real
-DevTools trace records and process/thread metadata, filtered to frames, paint,
-input/latency, animation and EventDispatch. Decompress with \`gzip -dc\` to JSON
-and load it into Chrome DevTools Performance. The trace is separate from the
-cross-engine rendering-opportunity estimates. It is not a physical display trace.
-
-## Reproduce and inspect
-
-Run \`pnpm dev --port 5173 --strictPort\`, then
-\`pnpm test:browser tests/browser/performance.spec.ts --workers=1\` for all engines.
-\`pnpm perf\` runs Chromium alone. Run \`node scripts/summarize-performance.mjs\`
-to regenerate this table; do not silently mix dates when comparing profiles.
-The isolated fixture is \`/examples/performance/\`; the interactive demo workload
-is \`/?workload\` and its earlier diagnostic remains \`workload.spec.ts\`.
+## Evidence and reproduction
 
 - [Chromium samples](profile-chromium.json), [Firefox samples](profile-firefox.json), [WebKit samples](profile-webkit.json)
 - [Chromium view](workload-chromium.png), [Firefox view](workload-firefox.png), [WebKit view](workload-webkit.png)
-- [Final full browser gate](../browser.txt), [initial profiler errors](initial-browser.txt)
+- [Chromium frame/input/paint trace](frames-chromium.json.gz); decompress to JSON for DevTools.
 
-Initial profiler code had a shadowed DOM document variable and strict typing errors;
-those were corrected before successful measurement. No timing assertions were
-weakened or hardware-specific performance thresholds added. The release gap is
-actual physical presentation and manual smoothness on reference hardware/current
-stable applications, including the observed greater-than-one-frame tails.
-`);
-console.log('Performance report updated from all three dated profiles.');
+Run \`pnpm dev --port 5173 --strictPort\`, then
+\`MINDMAP_EVIDENCE=<new-directory> pnpm test:browser performance.spec.ts --workers=1\`.
+Set \`MINDMAP_PROFILE_CONCURRENCY\` to an honest description of concurrent work;
+otherwise it is recorded as unknown. The invocation supplies a shared run ID.
+Generate with \`MINDMAP_EVIDENCE=<same-directory> node scripts/summarize-performance.mjs\`.
+Incomplete, legacy, inconsistent or mixed-run evidence is rejected. A failed target
+is reported as failed without introducing a hardware timing assertion into arbitrary CI.
+Actual stable-browser, screen-reader, OS IME and physical-display release checks
+remain separate; this report grants no release waiver.
+`;
+    return { report, targetMet: failures.length === 0 };
+}
+
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+    const dir = process.env.MINDMAP_EVIDENCE ?? 'docs/evidence/milestone-d/performance';
+    try {
+        const profiles = engines.map(name => JSON.parse(readFileSync(`${dir}/profile-${name}.json`, 'utf8')));
+        const result = summarizeProfiles(profiles);
+        writeFileSync(`${dir}/report.md`, result.report);
+        console.log(`Performance report written; full-relayout target ${result.targetMet ? 'MET' : 'FAILED'}.`);
+    } catch (error) {
+        // A failed regeneration must not leave a previous passing report current.
+        try { writeFileSync(`${dir}/report.md`, `# Performance evidence\n\n**Evidence INVALID / target unverified.**\n\n${text(error.message)}\n`); } catch {}
+        console.error(error.message); process.exitCode = 1;
+    }
+}
