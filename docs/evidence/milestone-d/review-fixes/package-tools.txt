@@ -1,0 +1,16 @@
+> @mindmap/widget@0.1.0 test:tools /Users/yezo/Scratch/09-26/mr
+> node --test tests/tools/*.test.mjs
+
+✔ rejects spawn errors and includes preview startup diagnostics (63.100292ms)
+✔ readiness timeout fails even if the process stays alive (160.540208ms)
+✔ occupied port serving a previous consumer cannot pass or be killed by the gate (72.130875ms)
+✔ checks actual bytes even when the run identity matches (60.194875ms)
+✔ verified preview passes, then detects a later unexpected exit (612.664ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1022.075375

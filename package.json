@@ -25,6 +25,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:browser": "playwright test",
+    "test:tools": "node --test tests/tools/*.test.mjs",
     "perf": "playwright test performance --project=chromium --workers=1",
     "test:package": "pnpm build && node scripts/package-consumer.mjs"
   },

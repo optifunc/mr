@@ -1,9 +1,10 @@
 import { realpathSync, mkdtempSync, cpSync, writeFileSync, readFileSync, mkdirSync, readdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { resolve, join } from 'node:path';
-import { spawnSync, spawn } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
+import { identifyBuild, startPreview, verifyBuild, digest } from './preview-server.mjs';
 import { chromium, firefox, webkit, expect } from '@playwright/test';
-const root = process.cwd(), evidence = resolve('docs/evidence/milestone-d/package');
+const root = process.cwd(), evidence = resolve(process.env.MINDMAP_EVIDENCE ?? 'docs/evidence/milestone-d/package');
 mkdirSync(evidence, { recursive: true });
 const consumer = realpathSync(mkdtempSync(join(tmpdir(), 'mindmap-consumer-')));
 const logs = [];
@@ -22,18 +23,25 @@ writeFileSync(join(consumer, 'tsconfig.json'), JSON.stringify({ compilerOptions:
 run('pnpm', ['install', '--offline', '--ignore-scripts']);
 run(process.execPath, [resolve('node_modules/typescript/bin/tsc'), '-p', join(consumer, 'tsconfig.json')]);
 run(process.execPath, [resolve('node_modules/vite/bin/vite.js'), 'build', consumer]);
-const server = spawn(process.execPath, [resolve('node_modules/vite/bin/vite.js'), 'preview', consumer, '--host', '127.0.0.1', '--port', '5180', '--strictPort'], { stdio: 'pipe' });
+const identity = identifyBuild(join(consumer, 'dist'), { tarballSha256: digest(readFileSync(join(consumer, tarball))) });
+const url = 'http://127.0.0.1:5180';
 const results = [];
+let server, failure, passed = false;
 try {
-    for (let i = 0; i < 100; i++) {
-        try { if ((await fetch('http://127.0.0.1:5180')).ok) break; } catch {}
-        await new Promise(resolve => setTimeout(resolve, 100));
-    }
+    server = await startPreview({ command: process.execPath, args: [resolve('node_modules/vite/bin/vite.js'), 'preview', consumer, '--host', '127.0.0.1', '--port', '5180', '--strictPort'], url, identity });
     for (const [name, engine] of Object.entries({ chromium, firefox, webkit })) {
+        server.assertRunning();
+        await verifyBuild(url, identity);
         const browser = await engine.launch();
         try {
             const page = await browser.newPage({ viewport: { width: 1100, height: 900 } });
-            const errors = [], requests = [];
+            const errors = [], requests = [], assets = [], assetChecks = [];
+            page.on('response', response => {
+                const path = new URL(response.url()).pathname.slice(1) || 'index.html';
+                if (identity.files[path]) assetChecks.push(response.body().then(body => {
+                    expect(digest(body), `Browser-loaded asset: ${path}`).toBe(identity.files[path]); assets.push(path);
+                }).catch(error => { errors.push(error.message); }));
+            });
             page.on('pageerror', e => errors.push(e.message)); page.on('request', r => requests.push(r.url()));
             await page.goto('http://127.0.0.1:5180');
             const tree = page.locator('#first .mindmap');
@@ -50,12 +58,19 @@ try {
             await tree.focus(); await page.keyboard.press('Shift+F10'); await page.locator('#destroy').click();
             await expect(page.locator('#first .mindmap')).toHaveCount(0); await expect(page.locator('#host-content')).toHaveText('Caller-owned content');
             await page.locator('#mount').click(); await expect(page.getByRole('tree')).toHaveCount(2);
+            await Promise.all(assetChecks);
             expect(errors).toEqual([]); expect(requests.every(url => url.startsWith('http://127.0.0.1:5180/'))).toBe(true);
-            results.push({ browser: name, version: browser.version(), passed: true, requests, errors });
+            for (const path of Object.keys(identity.files).filter(path => /\.(html|js|css)$/.test(path))) expect(assets, `Expected loaded asset: ${path}`).toContain(path);
+            server.assertRunning();
+            results.push({ browser: name, version: browser.version(), passed: true, runId: identity.runId, assets, requests, errors });
         } finally { await browser.close(); }
     }
+    server.assertRunning(); passed = true;
+} catch (error) {
+    failure = error.message; throw error;
 } finally {
-    server.kill();
-    writeFileSync(join(evidence, 'result.json'), JSON.stringify({ consumer, tarball, date: new Date().toISOString(), results, package: JSON.parse(readFileSync(join(consumer, 'node_modules/@mindmap/widget/package.json'), 'utf8')) }, null, 2) + '\n');
+    await server?.close();
+    writeFileSync(join(evidence, 'preview.txt'), (server?.output() ?? failure ?? '').trim() + '\n');
+    writeFileSync(join(evidence, 'result.json'), JSON.stringify({ passed, failure, identity, consumer, tarball, date: new Date().toISOString(), results, package: JSON.parse(readFileSync(join(consumer, 'node_modules/@mindmap/widget/package.json'), 'utf8')) }, null, 2) + '\n');
 }
 console.log(`Packaged consumer passed in ${results.length} engines. Isolated runnable source: ${consumer}`);

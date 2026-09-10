@@ -1,0 +1,106 @@
+{
+  "passed": true,
+  "identity": {
+    "runId": "40c9c0e5-2410-4bd8-a7dd-1e02b5d76b6d",
+    "tarballSha256": "6021c068a75526148a9d91ff1559d34f10e992c6e3fbda4483c1b8497ca3444d",
+    "files": {
+      "assets/index-Bbj07AQL.js": "09a7482240940c4828b6ff082225c0f35e15e8dc640cd06139f7d0e5e81cb1c9",
+      "assets/index-DijWvVRE.css": "87d19306da92e713584ea87be5b9ea2656d50817b692f1bcf6d70f2aa7858030",
+      "index.html": "993f22a3cd366513466ccf08584c210b21e289c261f5703c6f4c8c655f733a90"
+    }
+  },
+  "consumer": "/private/var/folders/lk/7r7cs2j52zn8c2hdkyj0y4zh0000gn/T/mindmap-consumer-3zqwB0",
+  "tarball": "mindmap-widget-0.1.0.tgz",
+  "date": "2026-09-10T12:54:30.049Z",
+  "results": [
+    {
+      "browser": "chromium",
+      "version": "145.0.7632.6",
+      "passed": true,
+      "runId": "40c9c0e5-2410-4bd8-a7dd-1e02b5d76b6d",
+      "assets": [
+        "assets/index-DijWvVRE.css",
+        "index.html",
+        "assets/index-Bbj07AQL.js"
+      ],
+      "requests": [
+        "http://127.0.0.1:5180/",
+        "http://127.0.0.1:5180/assets/index-Bbj07AQL.js",
+        "http://127.0.0.1:5180/assets/index-DijWvVRE.css"
+      ],
+      "errors": []
+    },
+    {
+      "browser": "firefox",
+      "version": "146.0.1",
+      "passed": true,
+      "runId": "40c9c0e5-2410-4bd8-a7dd-1e02b5d76b6d",
+      "assets": [
+        "index.html",
+        "assets/index-DijWvVRE.css",
+        "assets/index-Bbj07AQL.js"
+      ],
+      "requests": [
+        "http://127.0.0.1:5180/",
+        "http://127.0.0.1:5180/assets/index-Bbj07AQL.js",
+        "http://127.0.0.1:5180/assets/index-DijWvVRE.css"
+      ],
+      "errors": []
+    },
+    {
+      "browser": "webkit",
+      "version": "26.0",
+      "passed": true,
+      "runId": "40c9c0e5-2410-4bd8-a7dd-1e02b5d76b6d",
+      "assets": [
+        "index.html",
+        "assets/index-DijWvVRE.css",
+        "assets/index-Bbj07AQL.js"
+      ],
+      "requests": [
+        "http://127.0.0.1:5180/",
+        "http://127.0.0.1:5180/assets/index-Bbj07AQL.js",
+        "http://127.0.0.1:5180/assets/index-DijWvVRE.css"
+      ],
+      "errors": []
+    }
+  ],
+  "package": {
+    "name": "@mindmap/widget",
+    "version": "0.1.0",
+    "private": false,
+    "type": "module",
+    "files": [
+      "dist",
+      "docs/api.md",
+      "examples/consumer"
+    ],
+    "sideEffects": [
+      "**/*.css"
+    ],
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/mindmap.js"
+      },
+      "./styles.css": "./dist/mindmap.css"
+    },
+    "devDependencies": {
+      "@playwright/test": "1.58.2",
+      "typescript": "5.9.3",
+      "vite": "7.3.1",
+      "vitest": "4.0.18",
+      "@types/node": "24.10.1"
+    },
+    "scripts": {
+      "dev": "vite --host 127.0.0.1",
+      "build": "vite build && tsc -p tsconfig.build.json",
+      "typecheck": "tsc --noEmit",
+      "test": "vitest run",
+      "test:browser": "playwright test",
+      "test:tools": "node --test tests/tools/*.test.mjs",
+      "perf": "playwright test performance --project=chromium --workers=1",
+      "test:package": "pnpm build && node scripts/package-consumer.mjs"
+    }
+  }
+}

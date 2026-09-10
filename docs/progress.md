@@ -10,7 +10,13 @@ preflight. Passed typecheck, 163 unit tests and 33 three-engine integration case
 including retained buffer/caret/focus, viewport, events and undo/redo history.
 [Checks](evidence/milestone-d/review-fixes/atomicity-checks.txt),
 [browser evidence](evidence/milestone-d/review-fixes/atomicity-browser.txt).
-Next: package build identity/lifecycle, platform-correct profiling and derived reports.
+Package gate correction also passed: five lifecycle/identity regressions and a
+fresh tarball consumer in Chromium/Firefox/WebKit. The gate records a unique run,
+tarball hash and HTML/JS/CSS hashes verified from actual browser responses.
+[Package evidence](evidence/milestone-d/review-fixes/package/result.json),
+[failure-path checks](evidence/milestone-d/review-fixes/package-tools.txt).
+Packaged consumer screenshots were inspected. Next: platform-correct profiling,
+derived reports, and final combined checks.
 
 **Milestone D is implemented and stopped at the stage-9 product checkpoint.**
 Product acceptance is pending. Required unavailable release/manual checks remain
