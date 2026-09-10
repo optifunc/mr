@@ -66,6 +66,7 @@ export class ContextMenu {
             e.stopPropagation();
             const index = buttons.indexOf(doc.activeElement as HTMLButtonElement);
             let next: number | undefined;
+            if (e.key === 'ArrowDown' || e.key === 'ArrowUp') menu.classList.add('mindmap-menu-navigated');
             if (e.key === 'ArrowDown') next = (index + 1) % buttons.length;
             if (e.key === 'ArrowUp') next = (index + buttons.length - 1) % buttons.length;
             if (e.key === 'Home') next = 0;

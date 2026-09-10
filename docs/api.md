@@ -291,10 +291,14 @@ checkbox actions; and Open link. The menu and item highlights have 4px corners.
 Right-aligned hints show existing canvas shortcuts (⌘ on macOS, Ctrl elsewhere;
 Ctrl+Space on every platform). Entries without a shortcut have no hint. Hints are
 also exposed with `aria-keyshortcuts` without changing item accessible names.
-Disabled labels and hints use #757575. The default menu is 250px wide, capped to
+Hints use #666; disabled labels use #757575 and disabled hints #888.
+The default menu is 250px wide, capped to
 the host, with labels wrapping in small hosts.
 
 Up/Down wraps through every item, including disabled items for discoverability;
+the focus highlight stays hidden until Up/Down is pressed in that opening.
+DOM focus and activation remain available immediately, and pointer hover still
+highlights items. Each reopening resets the visual focus state.
 Home/End moves to the endpoints. Enter/Space activates an enabled item. Escape/Tab
 closes and returns focus to the canvas. The menu scrolls within small hosts, stays
 unscaled by map zoom, and accounts for host CSS scale. Outside pointer/focus closes

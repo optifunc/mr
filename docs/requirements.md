@@ -600,6 +600,10 @@ The menu and item highlights shall have 4px rounded corners. Show right-aligned
 shortcut hints matching section 9, using Command on macOS and Ctrl elsewhere for
 primary-modifier bindings; Ctrl+Space remains Control on every platform. Omit hints
 where no binding exists. Disabled labels and hints shall be slightly lighter.
+Shortcut hints shall be lighter than their item labels, including disabled items.
+Hide the focused item's highlight until Up or Down is pressed during that menu
+opening. Keep pointer hover feedback and keyboard focus/activation functional;
+opening the menu again resets the focus highlight to hidden.
 
 ## 16. Undo and redo
 

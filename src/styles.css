@@ -69,12 +69,14 @@
 .mindmap .mindmap-menu { position: absolute; z-index: 5; box-sizing: border-box; width: 250px; max-width: 100%; max-height: 100%; overflow: auto; padding: 3px; border: 1px solid #888; border-radius: 4px; background: #fff; color: #111; box-shadow: 1px 2px 5px #0003; user-select: none; }
 .mindmap .mindmap-menu button { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 12px; box-sizing: border-box; width: 100%; margin: 0; padding: 4px 9px; border: 1px solid transparent; border-radius: 4px; background: transparent; color: inherit; font: inherit; text-align: left; white-space: normal; cursor: default; }
 .mindmap .mindmap-menu-label { overflow-wrap: anywhere; }
-.mindmap .mindmap-menu-shortcut { white-space: nowrap; text-align: right; }
+.mindmap .mindmap-menu-shortcut { white-space: nowrap; text-align: right; color: #666; }
 .mindmap .mindmap-menu-separator { margin: 3px 6px; border-top: 1px solid #ddd; }
 .mindmap .mindmap-menu button[aria-disabled="true"] { color: #757575; }
-.mindmap .mindmap-menu button:hover, .mindmap .mindmap-menu button:focus { background: #e5e5e5; }
-.mindmap .mindmap-menu button:focus { outline: 1px solid #555; outline-offset: -2px; }
+.mindmap .mindmap-menu button[aria-disabled="true"] .mindmap-menu-shortcut { color: #888; }
+.mindmap .mindmap-menu button:focus { outline: none; }
+.mindmap .mindmap-menu button:hover, .mindmap .mindmap-menu-navigated button:focus { background: #e5e5e5; }
+.mindmap .mindmap-menu-navigated button:focus { outline: 1px solid #555; outline-offset: -2px; }
 @media (forced-colors: active) {
   .mindmap .mindmap-selected { outline: 1px solid Highlight; }
-  .mindmap .mindmap-menu button:focus { outline-color: Highlight; }
+  .mindmap .mindmap-menu-navigated button:focus { outline-color: Highlight; }
 }

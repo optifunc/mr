@@ -515,7 +515,10 @@ within the widget's bounds and allow it to scroll in a small viewport.
 Use separators between the six groups in requirements section 15, keeping Delete
 with node creation. The menu and item highlights have 4px corners. A two-column
 layout right-aligns platform shortcut hints and wraps labels in narrow hosts.
-Default width is 250px, capped to the host; disabled labels/hints use #757575.
+Default width is 250px, capped to the host. Enabled hints use #666; disabled labels
+use #757575 and disabled hints #888. Keep DOM focus on the first item at opening,
+but reveal its focus background/outline only after Up/Down navigation. Reset this
+visual state on each opening; hover feedback remains independent.
 Separators are nonfocusable; shortcut hints preserve item accessible names and
 expose the bindings through `aria-keyshortcuts`.
 

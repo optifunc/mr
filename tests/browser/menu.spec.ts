@@ -3,6 +3,50 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 const evidence = process.env.MINDMAP_EVIDENCE ?? 'docs/evidence/milestone-d/stage8';
 mkdirSync(evidence, { recursive: true });
 test.beforeEach(async ({ page }) => { await page.goto('/'); await page.evaluate(() => document.fonts.ready); });
+for (const opening of ['pointer', 'keyboard']) test(`menu focus highlight waits for arrows after ${opening} opening and resets on reopen`, async ({ page }, info) => {
+    const tree = page.locator('#primary .mindmap'), menu = tree.getByRole('menu');
+    await page.evaluate(() => window.primary.setSelection(['root']));
+    if (opening === 'pointer') await tree.locator('[data-node-id="root"]').click({ button: 'right' });
+    else { await tree.focus(); await page.keyboard.press('Shift+F10'); }
+    await page.mouse.move(0, 0);
+    const edit = menu.getByRole('menuitem', { name: 'Edit', exact: true });
+    const child = menu.getByRole('menuitem', { name: 'Add child', exact: true });
+    await expect(edit).toBeFocused();
+    await expect(edit).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+    await expect(edit).toHaveCSS('outline-style', 'none');
+    await expect(edit.locator('.mindmap-menu-shortcut')).toHaveCSS('color', 'rgb(102, 102, 102)');
+    await tree.screenshot({ path: `${evidence}/menu-initial-${opening}-${info.project.name}.png` });
+    await child.hover();
+    await expect(child).toHaveCSS('background-color', 'rgb(229, 229, 229)');
+    await expect(edit).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+    await page.mouse.move(0, 0);
+    await page.keyboard.press('End');
+    const link = menu.getByRole('menuitem', { name: 'Open link', exact: true });
+    await expect(link).toBeFocused();
+    await expect(link).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+    await expect(link).toHaveCSS('outline-style', 'none');
+    await page.keyboard.press('Home');
+    await expect(edit).toHaveCSS('outline-style', 'none');
+    if (opening === 'pointer') {
+        await page.keyboard.press('ArrowUp');
+        await expect(link).toBeFocused();
+        await expect(link).toHaveCSS('outline-style', 'solid');
+        await expect(link).toHaveCSS('background-color', 'rgb(229, 229, 229)');
+        await page.keyboard.press('ArrowDown');
+    }
+    await page.keyboard.press('ArrowDown');
+    await expect(child).toBeFocused();
+    await expect(child).toHaveCSS('outline-style', 'solid');
+    await expect(child).toHaveCSS('background-color', 'rgb(229, 229, 229)');
+    await tree.screenshot({ path: `${evidence}/menu-navigated-${opening}-${info.project.name}.png` });
+    await page.keyboard.press('Escape'); await expect(tree).toBeFocused();
+    await page.keyboard.press('Shift+F10');
+    await expect(edit).toBeFocused();
+    await expect(edit).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+    await expect(edit).toHaveCSS('outline-style', 'none');
+    await page.keyboard.press('Enter'); await expect(tree.locator('textarea')).toBeFocused();
+    await page.keyboard.press('Escape'); await expect(tree).toBeFocused();
+});
 test('keyboard menu traversal, disabled discovery, edit and focus return', async ({ page }, info) => {
     const tree = page.locator('#primary .mindmap'), menu = tree.getByRole('menu');
     await tree.focus(); await page.keyboard.press('Shift+F10');
@@ -138,7 +182,7 @@ for (const platform of ['MacIntel', 'Win32']) test(`menu groups, rounded highlig
     const disabled = menu.getByRole('menuitem', { name: 'Delete', exact: true });
     await expect(disabled).toHaveAttribute('aria-disabled', 'true');
     await expect(disabled).toHaveCSS('color', 'rgb(117, 117, 117)');
-    await expect(disabled.locator('.mindmap-menu-shortcut')).toHaveCSS('color', 'rgb(117, 117, 117)');
+    await expect(disabled.locator('.mindmap-menu-shortcut')).toHaveCSS('color', 'rgb(136, 136, 136)');
     await menu.getByRole('menuitem', { name: 'Add child', exact: true }).hover();
     await expect(menu.getByRole('menuitem', { name: 'Add child', exact: true })).toHaveCSS('background-color', 'rgb(229, 229, 229)');
     await tree.screenshot({ path: `${evidence}/menu-${platform}-${info.project.name}.png` });

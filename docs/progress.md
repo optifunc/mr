@@ -8,6 +8,14 @@ Last updated: 2026-09-10
 Product acceptance is pending. Required unavailable release/manual checks remain
 not run, so release validation is not declared complete.
 
+**Latest menu correction (2026-09-10):** after review of `64d273a`, the user
+authorized hiding focus paint until Up/Down and lighter shortcut hints. Implemented
+with a per-opening visual focus state, #666 enabled hints and #888 disabled hints.
+Passed typecheck/build, 163 unit tests, 48 menu/integration browser cases and three
+exact accepted-default PNG comparisons. Inspected initial and navigated images
+in all three engines. [Current review evidence](evidence/milestone-d/menu-focus/report.md).
+Product acceptance remains pending; the runnable demo links this correction.
+
 **Context-menu follow-up (2026-09-10):** user authorized separators between six
 groups, Delete with creation, 4px menu/item corners, right-aligned platform shortcut
 hints and lighter disabled text. Implemented with #757575 disabled text and a

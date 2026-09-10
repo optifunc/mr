@@ -369,6 +369,12 @@ is missing. Document any user-approved change to release scope explicitly.
 
 **Implementation is at the stage-9 product checkpoint. User decision: pending.**
 
+Latest menu correction after review of `64d273a`: focus paint appears only after
+Up/Down, resets on reopening, and shortcut hints are lighter than labels. Passed
+typecheck/build, 163 unit tests, 48 menu/integration cases and three exact accepted
+default-image comparisons. Initial/navigated three-engine screenshots inspected;
+visual acceptance remains pending. [Current evidence](evidence/milestone-d/menu-focus/report.md).
+
 Context-menu appearance follow-up authorized on 2026-09-10: grouped separators,
 Delete with creation, 4px corners, platform shortcut hints and lighter disabled
 labels/hints are implemented. Passed typecheck/build, 163 unit tests, 42 focused
