@@ -7,7 +7,7 @@ test('two mounts own their DOM, focus, and teardown', async ({ page }, info) => 
     // Tab is now the specified insert-child binding. Enter the other mount by pointer.
     await page.locator('#secondary [data-node-id="multi"]').click();
     await expect(page.getByRole('tree').nth(1)).toBeFocused();
-    await page.screenshot({ path: `docs/evidence/milestone-c/regression/mounts-${info.project.name}.png` });
+    await page.screenshot({ path: `docs/evidence/milestone-d/regression/mounts-${info.project.name}.png` });
     await page.evaluate(() => { (window as unknown as {
         primary: {
             destroy(): void;

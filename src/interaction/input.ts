@@ -32,7 +32,7 @@ export class Input {
     }
     private primary(e: MouseEvent | KeyboardEvent): boolean { return this.mac ? e.metaKey : e.ctrlKey; }
     private key = (e: KeyboardEvent): void => {
-        if ((e.target as HTMLElement).closest('textarea') || e.isComposing || e.keyCode === 229) return;
+        if ((e.target as HTMLElement).closest('textarea, [role="menu"]') || e.isComposing || e.keyCode === 229) return;
         const primary = this.primary(e), key = e.key.toLowerCase();
         if (this.press?.moved) { if (key === 'escape') this.cancel(); e.preventDefault(); return; }
         let command: MindMapCommand | undefined;
@@ -62,7 +62,7 @@ export class Input {
         if (command && !e.altKey) { e.preventDefault(); this.actions.command(command); }
     };
     private down = (e: PointerEvent): void => {
-        if (e.pointerType !== 'mouse' || e.button !== 0 || (e.target as HTMLElement).closest('textarea')) return;
+        if (e.pointerType !== 'mouse' || e.button !== 0 || (e.target as HTMLElement).closest('textarea, [role="menu"]')) return;
         e.preventDefault(); this.element.focus({ preventScroll: true });
         const marker = this.actions.marker(e.clientX, e.clientY);
         const id = marker ?? this.actions.hit(e.clientX, e.clientY), toggle = this.primary(e), range = e.shiftKey;
@@ -108,7 +108,7 @@ export class Input {
         if (p && this.element.hasPointerCapture(p.pointerId)) this.element.releasePointerCapture(p.pointerId);
     };
     private wheel = (e: WheelEvent): void => {
-        if ((e.target as HTMLElement).closest('textarea')) return;
+        if ((e.target as HTMLElement).closest('textarea, [role="menu"]')) return;
         e.preventDefault();
         const unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? this.element.clientHeight : 1;
         const x = e.deltaX * unit, y = e.deltaY * unit, view = this.actions.viewport();

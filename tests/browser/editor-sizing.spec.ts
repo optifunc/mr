@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { writeFileSync } from 'node:fs';
-const evidence = process.env.MINDMAP_EVIDENCE ?? 'docs/evidence/milestone-c/regression/editor-sizing';
+const evidence = process.env.MINDMAP_EVIDENCE ?? 'docs/evidence/milestone-d/regression/editor-sizing';
 const phase = process.env.EDITOR_SIZING_BEFORE ? 'before' : 'after';
 test.beforeEach(async ({ page }) => { await page.goto('/'); await page.evaluate(() => document.fonts.ready); });
 

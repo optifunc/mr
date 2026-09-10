@@ -1,0 +1,89 @@
+
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test tests/browser/menu.spec.ts --workers=1
+
+[WebServer] (node:83018) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:83028) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 21 tests using 1 worker
+
+(node:83035) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:83035) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/browser/menu.spec.ts:6:1 › keyboard menu traversal, disabled discovery, edit and focus return (504ms)
+  ✓   2 [chromium] › tests/browser/menu.spec.ts:29:1 › right click preserves selected group; unselected node becomes sole selection; pointer commands undo once (269ms)
+  ✓   3 [chromium] › tests/browser/menu.spec.ts:46:1 › root protections, checkbox/collapse applicability and user event origins (269ms)
+  ✓   4 [chromium] › tests/browser/menu.spec.ts:61:1 › read-only menu, disabled option, empty selection and native textarea context menu (329ms)
+  ✓   5 [chromium] › tests/browser/menu.spec.ts:76:1 › bounded scrolling menu under host scaling, outside focus and two-instance isolation (393ms)
+  ✓   6 [chromium] › tests/browser/menu.spec.ts:95:1 › replacement, invalid replacement, resize, API editing and destruction clean up menu (313ms)
+  ✓   7 [chromium] › tests/browser/menu.spec.ts:114:1 › menu clipboard and protected link use shared completion and policy path (344ms)
+(node:83082) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:83082) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   8 [firefox] › tests/browser/menu.spec.ts:6:1 › keyboard menu traversal, disabled discovery, edit and focus return (1.2s)
+  ✓   9 [firefox] › tests/browser/menu.spec.ts:29:1 › right click preserves selected group; unselected node becomes sole selection; pointer commands undo once (525ms)
+  ✓  10 [firefox] › tests/browser/menu.spec.ts:46:1 › root protections, checkbox/collapse applicability and user event origins (481ms)
+  ✓  11 [firefox] › tests/browser/menu.spec.ts:61:1 › read-only menu, disabled option, empty selection and native textarea context menu (618ms)
+  ✓  12 [firefox] › tests/browser/menu.spec.ts:76:1 › bounded scrolling menu under host scaling, outside focus and two-instance isolation (523ms)
+  ✓  13 [firefox] › tests/browser/menu.spec.ts:95:1 › replacement, invalid replacement, resize, API editing and destruction clean up menu (469ms)
+  ✓  14 [firefox] › tests/browser/menu.spec.ts:114:1 › menu clipboard and protected link use shared completion and policy path (618ms)
+(node:83109) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:83109) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  15 [webkit] › tests/browser/menu.spec.ts:6:1 › keyboard menu traversal, disabled discovery, edit and focus return (818ms)
+  ✓  16 [webkit] › tests/browser/menu.spec.ts:29:1 › right click preserves selected group; unselected node becomes sole selection; pointer commands undo once (419ms)
+  ✓  17 [webkit] › tests/browser/menu.spec.ts:46:1 › root protections, checkbox/collapse applicability and user event origins (410ms)
+  ✓  18 [webkit] › tests/browser/menu.spec.ts:61:1 › read-only menu, disabled option, empty selection and native textarea context menu (878ms)
+  ✘  19 [webkit] › tests/browser/menu.spec.ts:76:1 › bounded scrolling menu under host scaling, outside focus and two-instance isolation (5.5s)
+(node:83135) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:83135) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  20 [webkit] › tests/browser/menu.spec.ts:95:1 › replacement, invalid replacement, resize, API editing and destruction clean up menu (694ms)
+  ✓  21 [webkit] › tests/browser/menu.spec.ts:114:1 › menu clipboard and protected link use shared completion and policy path (512ms)
+
+
+  1) [webkit] › tests/browser/menu.spec.ts:76:1 › bounded scrolling menu under host scaling, outside focus and two-instance isolation
+
+    Error: expect(locator).toBeFocused() failed
+
+    Locator:  locator('#reset')
+    Expected: focused
+    Received: inactive
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeFocused" with timeout 5000ms
+      - waiting for locator('#reset')
+        9 × locator resolved to <button id="reset">Reset map</button>
+          - unexpected value "inactive"
+
+
+      87 |     expect(bounds.m.right).toBeLessThanOrEqual(bounds.h.right + .1); expect(bounds.m.bottom).toBeLessThanOrEqual(bounds.h.bottom + .1);
+      88 |     await tree.screenshot({ path: `${evidence}/menu-small-${info.project.name}.png` });
+    > 89 |     await page.locator('#reset').click(); await expect(tree.getByRole('menu')).toHaveCount(0); await expect(page.locator('#reset')).toBeFocused();
+         |                                                                                                                                     ^
+      90 |     await tree.focus(); await page.keyboard.press('Shift+F10');
+      91 |     await page.locator('#secondary .mindmap').focus(); await page.keyboard.press('Shift+F10');
+      92 |     await expect(tree.getByRole('menu')).toHaveCount(0); await expect(page.locator('#secondary').getByRole('menu')).toBeVisible();
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/menu.spec.ts:89:133
+
+    Error Context: test-results/menu-bounded-scrolling-men-bec51--and-two-instance-isolation-webkit/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/menu-bounded-scrolling-men-bec51--and-two-instance-isolation-webkit/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/menu-bounded-scrolling-men-bec51--and-two-instance-isolation-webkit/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [webkit] › tests/browser/menu.spec.ts:76:1 › bounded scrolling menu under host scaling, outside focus and two-instance isolation
+  20 passed (21.0s)
+ ELIFECYCLE  Command failed with exit code 1.

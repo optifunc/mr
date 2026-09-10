@@ -367,7 +367,9 @@ Unavailable release checks remain not run, with the required environment and nex
 action recorded. Do not declare release validation complete while required evidence
 is missing. Document any user-approved change to release scope explicitly.
 
-Evidence: not run. User decision: pending.
+Stage 8 is technically complete: typecheck/build, 163 unit tests and 117 browser
+cases passed. [Stage-8 report](evidence/milestone-d/stage8/report.md). Stage-9
+release checks are in progress. User decision: pending.
 
 ### B stage-4 interim evidence
 

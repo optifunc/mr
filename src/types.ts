@@ -79,7 +79,7 @@ export interface MindMapEditorEvents {
     selectionchange: Selection & {
         origin: Origin;
     };
-    viewportchange: Viewport;
+    viewportchange: Viewport & { origin: Origin };
     error: {
         code: ErrorCode;
         message: string;
@@ -105,6 +105,7 @@ export interface MindMapEditorEvents {
         ids: NodeId[];
     };
     linkopen: {
+        origin: Origin;
         id: NodeId;
         url: string;
         preventDefault(): void;

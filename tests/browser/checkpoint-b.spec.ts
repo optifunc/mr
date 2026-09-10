@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-const evidence = process.env.MINDMAP_EVIDENCE ?? 'docs/evidence/milestone-c/regression/editor-sizing';
+const evidence = process.env.MINDMAP_EVIDENCE ?? 'docs/evidence/milestone-d/regression/editor-sizing';
 import { writeFileSync } from 'node:fs';
 import { referenceMap, node } from '../fixtures/maps';
 test('editing reference, multiline, checkbox/root alignment and frozen geometry evidence', async ({ page, browser }, info) => {

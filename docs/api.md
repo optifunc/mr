@@ -1,6 +1,6 @@
-# Milestone C API checkpoint
+# Mind map widget API
 
-Stages 1–7 are implemented; this checkpoint stops before menus and release validation. The complete contract
+Stages 1–8 are implemented; stage-9 release evidence and remaining environment checks are recorded in acceptance. The complete contract
 remains in [requirements](requirements.md). See [acceptance](acceptance.md) for
 verified behavior and pending interaction stages.
 
@@ -135,7 +135,7 @@ and resets selection/history. Invalid replacement preserves the editor and buffe
 has no undo entry. Calling public `undo()` first commits that edit and then undoes
 it. Inside the textarea, the keyboard undo shortcut remains native text undo.
 
-`contextMenu` is reserved; menus arrive at stage 8. Read-only allows
+`contextMenu` defaults to true; set false to retain the native browser context menu and use host UI commands. Read-only allows
 selection, visible navigation and viewport changes; user mutation gestures are
 silent no-ops, while API mutation attempts report `READ_ONLY`.
 
@@ -190,9 +190,9 @@ WebKit tinting; forced-color mode uses native appearance.
 Selection only updates affected highlights/ARIA state and does not relayout.
 Checked-state changes reconcile controls without measuring or relayout; presence
 changes do relayout. DOM IDs are instance-specific and labels are always text.
-The tree entry point, active descendant, levels, ownership, selection, expansion,
-and checkbox states are preliminary accessibility support; screen-reader validation
-and completed keyboard interaction remain milestone D work.
+The tree entry point exposes multiselection/read-only state, active descendant, levels,
+group ownership, selection, expansion and checkbox states. Keyboard accessibility is
+automated; actual screen-reader validation is recorded separately in release evidence.
 
 ## Focus and direct controls
 
@@ -275,3 +275,34 @@ edit and destruction cancel the gesture and remove feedback. Edge autopan runs o
 animation frames and re-tests the stationary pointer after each viewport change;
 it stops immediately on completion/cancellation. Pan is view state, so cancelling
 a drag retains the resulting viewport and never adds history.
+
+## Context menu and lifecycle
+
+Right-click a node, Shift+F10 or the Context Menu key opens the built-in menu.
+Right-click on an unselected node selects it; a selected node preserves the group
+and its active node. Target commands use that active node and group commands use
+the selection. All 13 entries retain their order; unavailable commands are disabled,
+including link and checkbox actions. Labels switch Expand/Collapse and Add/Remove
+checkbox according to the active node. Root insertion entries retain the documented
+root keyboard insertion behavior.
+
+Up/Down wraps through every item, including disabled items for discoverability;
+Home/End moves to the endpoints. Enter/Space activates an enabled item. Escape/Tab
+closes and returns focus to the canvas. The menu scrolls within small hosts, stays
+unscaled by map zoom, and accounts for host CSS scale. Outside pointer/focus closes
+it without stealing host input focus. Textareas retain their native context menu.
+Document changes, selection replacement, viewport moves, resize, a new edit and
+destruction close the menu. Invalid replacement leaves it intact. Menu commands
+use the shared command/clipboard path and emit user origins.
+
+`viewportchange` carries `{x, y, zoom, origin}`; coalesced events report the origin
+of the last effective viewport update in that frame. `getViewport()` remains
+`{x, y, zoom}`. `linkopen` also carries `origin`, along with id/url/preventDefault.
+Public methods and host layout/resize adjustments use api; gestures use user.
+
+Destroy is idempotent and removes owned DOM, the menu's temporary outside listeners,
+input/clipboard handlers, font/resize observers and scheduled frames. It cancels
+unfinished edits and drags and suppresses late clipboard results. Caller-owned
+host content and attributes are preserved. Queries retain the final detached state;
+mutating calls after destruction return false or do nothing, and new subscriptions
+return inert unsubscribe functions.

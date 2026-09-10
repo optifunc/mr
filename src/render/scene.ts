@@ -16,6 +16,7 @@ export class Scene {
     private readonly markers = new Map<string, SVGCircleElement>();
     private readonly ellipse: SVGEllipseElement;
     private readonly prefix = `mindmap-${++instance}`;
+    private readonly groups = new Map<string, HTMLDivElement>();
     private serial = 0;
     private readonly ids = new Map<string, string>();
     geometry: Layout | undefined;
@@ -36,6 +37,8 @@ export class Scene {
                 if (!live.has(id)) {
                     element.remove();
                     this.elements.delete(id);
+                    this.ids.delete(id);
+                    this.groups.get(id)?.remove(); this.groups.delete(id);
                     this.paths.get(id)?.remove();
                     this.paths.delete(id);
                     this.markers.get(id)?.remove();
@@ -111,10 +114,19 @@ export class Scene {
                 const n = model.nodes.get(g.id)!;
                 const children = n.children.filter(id => live.has(id));
                 const element = this.elements.get(g.id)!;
-                if (children.length)
-                    element.setAttribute('aria-owns', children.map(id => this.ids.get(id)!).join(' '));
-                else
+                if (children.length) {
+                    let group = this.groups.get(n.id);
+                    if (!group) {
+                        group = this.widget.ownerDocument.createElement('div');
+                        group.id = `${element.id}-group`; group.setAttribute('role', 'group');
+                        this.groups.set(n.id, group); this.labels.append(group);
+                    }
+                    group.setAttribute('aria-owns', children.map(id => this.ids.get(id)!).join(' '));
+                    element.setAttribute('aria-owns', group.id);
+                } else {
                     element.removeAttribute('aria-owns');
+                    this.groups.get(n.id)?.remove(); this.groups.delete(n.id);
+                }
             }
             this.widget.dataset.layoutCount = String(this.layoutCount);
         }
@@ -151,5 +163,5 @@ export class Scene {
             this.widget.removeAttribute('aria-activedescendant');
         return this.geometry;
     }
-    destroy(): void { this.measurements.destroy(); this.scene.remove(); this.elements.clear(); this.paths.clear(); this.markers.clear(); this.ids.clear(); }
+    destroy(): void { this.measurements.destroy(); this.scene.remove(); this.elements.clear(); this.paths.clear(); this.markers.clear(); this.ids.clear(); this.groups.clear(); }
 }

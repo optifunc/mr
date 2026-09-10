@@ -4,6 +4,18 @@ Last updated: 2026-09-10
 
 ## Current state
 
+**Milestone D is authorized and in progress, based on clean `7979ca8`.**
+Stage 8 implements the context menu, tree group semantics, viewport/link origins
+and interaction cleanup. All four supplied images were opened and inspected.
+Typecheck/build and 163 unit tests pass. Initial menu browser gate: 20 passed,
+1 invalid platform focus assumption corrected to use a host text input.
+The expanded stage-8 gate passed all 117 browser cases in three engines, including
+exact accepted-default PNG comparisons. Stage 8 is technically complete; next is
+stage-9 packaging, workload profiling, final regressions and environment checks.
+New captures go to `evidence/milestone-d/`, preserving accepted A/B/C artifacts.
+User authorized coherent commits and continuing to the stage-9 product checkpoint.
+
+
 **Milestone C (stages 6–7) is complete and accepted at `bb4145b` on 2026-09-10.**
 Original C checkpoint gates passed: typecheck/build, 145 unit tests, 346 browser cases with 2
 explicit engine-specific permission skips, exact accepted-default comparisons and

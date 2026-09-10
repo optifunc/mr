@@ -82,7 +82,7 @@ for (const method of ['panTo', 'setZoom', 'fit', 'panToNode'] as const) test(`vi
     }, method);
     writeFileSync(`${evidence}/${phase}-queue-${method}-${info.project.name}.json`, JSON.stringify(result, null, 2) + '\n');
     expect(result.events).toEqual(['first-start', 'first-end', 'second', 'document', 'first-start', 'first-end', 'second']);
-    expect(result.observations).toEqual([0, 1].map(() => ({ event: result.initial, view: result.initial, text: 'A' })));
+    expect(result.observations).toEqual([0, 1].map(() => ({ event: { ...result.initial, origin: 'api' }, view: result.initial, text: 'A' })));
     expect(result.final).not.toEqual(result.initial);
 });
 
@@ -97,7 +97,7 @@ test('viewport batches retain coalescing, detached payloads and exception isolat
         await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
         return { events, views, viewport: a.getViewport() };
     });
-    expect(result.events).toEqual(['error', 'second', 'document']); expect(result.views).toEqual([{ x: 30, y: 40, zoom: 1 }]); expect(result.viewport).toEqual(result.views[0]);
+    expect(result.events).toEqual(['error', 'second', 'document']); expect(result.views).toEqual([{ x: 30, y: 40, zoom: 1, origin: 'api' }]); expect(result.viewport).toEqual({ x: 30, y: 40, zoom: 1 });
 });
 
 test('destroy from viewport listener discards queued mutations and later notifications', async ({ page }) => {

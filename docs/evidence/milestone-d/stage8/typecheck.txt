@@ -1,0 +1,4 @@
+
+> @mindmap/widget@0.1.0 typecheck /Users/yezo/Scratch/09-26/mr
+> tsc --noEmit
+

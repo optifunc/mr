@@ -46,6 +46,6 @@ test('workload early full-relayout diagnostic', async ({ page, browser }, info) 
     expect(result.total).toBe(1000);
     expect(result.visible).toBe(500);
     const report = { date: new Date().toISOString(), browser: info.project.name, version: browser.version(), os: { platform: platform(), release: release(), arch: arch(), cpu: cpus()[0]?.model, logicalCpus: cpus().length, memoryGB: Math.round(totalmem() / 2 ** 30) }, ...result, notes: 'Early diagnostic; timings include synchronous DOM/layout flush, not presentation. No hardware-specific pass threshold. Cold is first explicit font-ready cache invalidation, not initial navigation/font load. Final input-to-paint, frame traces, and cold/font-load profiling remain stage 9.' };
-    writeFileSync(`docs/evidence/milestone-c/regression/workload-${info.project.name}.json`, JSON.stringify(report, null, 2) + '\n');
-    await page.locator('#primary').screenshot({ path: `docs/evidence/milestone-c/regression/workload-${info.project.name}.png` });
+    writeFileSync(`docs/evidence/milestone-d/regression/workload-${info.project.name}.json`, JSON.stringify(report, null, 2) + '\n');
+    await page.locator('#primary').screenshot({ path: `docs/evidence/milestone-d/regression/workload-${info.project.name}.png` });
 });
