@@ -1,0 +1,51 @@
+{
+  "events": [
+    "first-start",
+    "first-end",
+    "second",
+    "document",
+    "first-start",
+    "first-end",
+    "second"
+  ],
+  "observations": [
+    {
+      "event": {
+        "x": -1400,
+        "y": -1400,
+        "zoom": 2,
+        "origin": "api"
+      },
+      "view": {
+        "x": -1400,
+        "y": -1400,
+        "zoom": 2
+      },
+      "text": "A"
+    },
+    {
+      "event": {
+        "x": -1400,
+        "y": -1400,
+        "zoom": 2,
+        "origin": "api"
+      },
+      "view": {
+        "x": -1400,
+        "y": -1400,
+        "zoom": 2
+      },
+      "text": "A"
+    }
+  ],
+  "initial": {
+    "x": -1400,
+    "y": -1400,
+    "zoom": 2
+  },
+  "final": {
+    "x": -232.00009999999997,
+    "y": 228.5,
+    "zoom": 2
+  }
+}

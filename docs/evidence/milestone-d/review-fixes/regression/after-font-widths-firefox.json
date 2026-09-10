@@ -1,0 +1,26 @@
+[
+  {
+    "fontSize": 12,
+    "key": "Enter",
+    "width": 86,
+    "expected": 86
+  },
+  {
+    "fontSize": 12,
+    "key": "Shift+Tab",
+    "width": 86,
+    "expected": 86
+  },
+  {
+    "fontSize": 18,
+    "key": "Enter",
+    "width": 126,
+    "expected": 126
+  },
+  {
+    "fontSize": 18,
+    "key": "Shift+Tab",
+    "width": 126,
+    "expected": 126
+  }
+]

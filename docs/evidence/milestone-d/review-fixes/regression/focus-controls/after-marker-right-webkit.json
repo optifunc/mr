@@ -1,0 +1,138 @@
+{
+  "side": "right",
+  "zoom": 2,
+  "selection": {
+    "ids": [
+      "a",
+      "b"
+    ],
+    "activeId": "a"
+  },
+  "restoredDocument": {
+    "root": {
+      "id": "root",
+      "text": "New Mindmap",
+      "children": [
+        {
+          "id": "child1",
+          "text": "Child 1",
+          "children": [],
+          "side": "left"
+        },
+        {
+          "id": "child2",
+          "text": "Child2",
+          "children": [
+            {
+              "id": "c21",
+              "text": "C2.1",
+              "children": []
+            },
+            {
+              "id": "c22",
+              "text": "C2.2",
+              "children": []
+            },
+            {
+              "id": "c23",
+              "text": "C 2.3",
+              "children": []
+            }
+          ],
+          "side": "left"
+        },
+        {
+          "id": "one",
+          "text": "One",
+          "children": [
+            {
+              "id": "a",
+              "text": "A",
+              "children": []
+            },
+            {
+              "id": "b",
+              "text": "B",
+              "children": []
+            },
+            {
+              "id": "c",
+              "text": "C",
+              "children": []
+            }
+          ],
+          "side": "right"
+        },
+        {
+          "id": "two",
+          "text": "Two",
+          "children": [
+            {
+              "id": "single",
+              "text": "Single child",
+              "children": [
+                {
+                  "id": "chain",
+                  "text": "Child of a single child",
+                  "children": []
+                }
+              ]
+            }
+          ],
+          "side": "right"
+        },
+        {
+          "id": "three",
+          "text": "Three",
+          "children": [
+            {
+              "id": "n1",
+              "text": "N1",
+              "children": []
+            },
+            {
+              "id": "n2",
+              "text": "N2",
+              "children": []
+            },
+            {
+              "id": "n3",
+              "text": "N3",
+              "children": [
+                {
+                  "id": "c1",
+                  "text": "C1",
+                  "children": [
+                    {
+                      "id": "collapsed",
+                      "text": "Collapsed node",
+                      "children": [
+                        {
+                          "id": "hidden",
+                          "text": "Hidden descendant",
+                          "children": []
+                        }
+                      ],
+                      "collapsed": true
+                    }
+                  ]
+                },
+                {
+                  "id": "c2",
+                  "text": "C2",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "n4",
+              "text": "N4",
+              "children": []
+            }
+          ],
+          "side": "right"
+        }
+      ]
+    }
+  }
+}

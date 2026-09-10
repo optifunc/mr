@@ -4,24 +4,18 @@ Last updated: 2026-09-10
 
 ## Current state
 
-**Approved P2 review fixes in progress:** invalid structural move destinations now
-reject before an existing or provisional edit is committed, using shared reducer
-preflight. Passed typecheck, 163 unit tests and 33 three-engine integration cases,
-including retained buffer/caret/focus, viewport, events and undo/redo history.
-[Checks](evidence/milestone-d/review-fixes/atomicity-checks.txt),
-[browser evidence](evidence/milestone-d/review-fixes/atomicity-browser.txt).
-Package gate correction also passed: five lifecycle/identity regressions and a
-fresh tarball consumer in Chromium/Firefox/WebKit. The gate records a unique run,
-tarball hash and HTML/JS/CSS hashes verified from actual browser responses.
-[Package evidence](evidence/milestone-d/review-fixes/package/result.json),
-[failure-path checks](evidence/milestone-d/review-fixes/package-tools.txt).
-Packaged consumer screenshots were inspected. Platform-correct profiling and
-sample-derived reporting are implemented; nine platform-gesture browser checks
-and all 15 tooling regressions passed. [Current fix report](evidence/milestone-d/review-fixes/report.md).
-The first fresh run was rejected by the stricter generator because the initial
-Chromium frame interval was negative. Corrected rAF initialization to measure
-consecutive frame timestamps and added a browser assertion. Rejected evidence is
-retained in the fix report. Next: finish the combined browser gate and reprofile.
+**Approved P2 review corrections are implemented.** Invalid move destinations
+preserve active edits/history (`2f7ede1`); the package gate verifies preview lifecycle
+and browser-loaded build identity (`5e8b580`); profiler gestures and report provenance
+are verified (`a39b37f`), with consecutive-frame timing corrected at `d134744`.
+Passed typecheck/build, 163 unit tests, 15 tooling tests, fresh packaged consumer in
+three engines, and 532 unique browser cases across final coverage, including three
+isolated profiles; two existing clipboard-permission skips remain. Initial WebKit
+navigation timeouts and the rejected negative-frame run are retained transparently;
+final WebKit and corrected profiling runs passed. Full-relayout p95: 7.8 / 11 / 13 ms.
+Final demo/evidence-link and public-package mount/cleanup smoke passed in all engines.
+[Current fixes, verification, traces and comparisons](evidence/milestone-d/review-fixes/report.md).
+Product review and previously unavailable release/manual checks remain pending.
 
 **Milestone D is implemented and stopped at the stage-9 product checkpoint.**
 Product acceptance is pending. Required unavailable release/manual checks remain

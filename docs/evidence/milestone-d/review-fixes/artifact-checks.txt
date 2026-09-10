@@ -1,0 +1,3 @@
+Validated 179 local evidence/documentation links.
+Supplied references, accepted A/B/C artifacts and prior D regression artifacts unchanged from b624e64.
+Final demo smoke: all three engines passed.

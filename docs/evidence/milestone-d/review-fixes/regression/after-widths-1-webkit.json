@@ -1,0 +1,202 @@
+[
+  {
+    "id": "wide-left",
+    "width": 154.75,
+    "nodeWidth": 154.75,
+    "defaultWidth": 86,
+    "area": {
+      "x": 476.90625,
+      "y": 609.5,
+      "width": 154.75,
+      "height": 20.5,
+      "top": 609.5,
+      "right": 631.65625,
+      "bottom": 630,
+      "left": 476.90625
+    },
+    "label": {
+      "x": 485.90625,
+      "y": 612.5,
+      "width": 142.75,
+      "height": 15,
+      "top": 612.5,
+      "right": 628.65625,
+      "bottom": 627.5,
+      "left": 485.90625
+    },
+    "node": {
+      "x": 479.90625,
+      "y": 609.5,
+      "width": 154.75,
+      "height": 20,
+      "top": 609.5,
+      "right": 634.65625,
+      "bottom": 629.5,
+      "left": 479.90625
+    },
+    "paddingLeft": 8,
+    "paddingTop": 2,
+    "scrollLeft": 0,
+    "scrollTop": 0
+  },
+  {
+    "id": "collapsed-left",
+    "width": 192.4375,
+    "nodeWidth": 192.4375,
+    "defaultWidth": 86,
+    "area": {
+      "x": 439.21875,
+      "y": 634,
+      "width": 192.4375,
+      "height": 20.5,
+      "top": 634,
+      "right": 631.65625,
+      "bottom": 654.5,
+      "left": 439.21875
+    },
+    "label": {
+      "x": 465.21875,
+      "y": 637,
+      "width": 163.4375,
+      "height": 15,
+      "top": 637,
+      "right": 628.65625,
+      "bottom": 652,
+      "left": 465.21875
+    },
+    "node": {
+      "x": 442.21875,
+      "y": 634,
+      "width": 192.4375,
+      "height": 20,
+      "top": 634,
+      "right": 634.65625,
+      "bottom": 654,
+      "left": 442.21875
+    },
+    "paddingLeft": 25,
+    "paddingTop": 2,
+    "scrollLeft": 0,
+    "scrollTop": 0
+  },
+  {
+    "id": "wide-right",
+    "width": 162.078125,
+    "nodeWidth": 162.078125,
+    "defaultWidth": 86,
+    "area": {
+      "x": 768.34375,
+      "y": 589.75,
+      "width": 162.078125,
+      "height": 20.5,
+      "top": 589.75,
+      "right": 930.421875,
+      "bottom": 610.25,
+      "left": 768.34375
+    },
+    "label": {
+      "x": 771.34375,
+      "y": 592.75,
+      "width": 150.078125,
+      "height": 15,
+      "top": 592.75,
+      "right": 921.421875,
+      "bottom": 607.75,
+      "left": 771.34375
+    },
+    "node": {
+      "x": 765.34375,
+      "y": 589.75,
+      "width": 162.078125,
+      "height": 20,
+      "top": 589.75,
+      "right": 927.421875,
+      "bottom": 609.75,
+      "left": 765.34375
+    },
+    "paddingLeft": 2,
+    "paddingTop": 2,
+    "scrollLeft": 0,
+    "scrollTop": 0
+  },
+  {
+    "id": "collapsed-right",
+    "width": 168.09375,
+    "nodeWidth": 168.09375,
+    "defaultWidth": 86,
+    "area": {
+      "x": 768.34375,
+      "y": 614.25,
+      "width": 168.09375,
+      "height": 35.5,
+      "top": 614.25,
+      "right": 936.4375,
+      "bottom": 649.75,
+      "left": 768.34375
+    },
+    "label": {
+      "x": 771.34375,
+      "y": 617.25,
+      "width": 156.09375,
+      "height": 30,
+      "top": 617.25,
+      "right": 927.4375,
+      "bottom": 647.25,
+      "left": 771.34375
+    },
+    "node": {
+      "x": 765.34375,
+      "y": 614.25,
+      "width": 168.09375,
+      "height": 35,
+      "top": 614.25,
+      "right": 933.4375,
+      "bottom": 649.25,
+      "left": 765.34375
+    },
+    "paddingLeft": 2,
+    "paddingTop": 2,
+    "scrollLeft": 0,
+    "scrollTop": 0
+  },
+  {
+    "id": "short",
+    "width": 86,
+    "nodeWidth": 20.015625,
+    "defaultWidth": 86,
+    "area": {
+      "x": 768.34375,
+      "y": 656.25,
+      "width": 86,
+      "height": 20.5,
+      "top": 656.25,
+      "right": 854.34375,
+      "bottom": 676.75,
+      "left": 768.34375
+    },
+    "label": {
+      "x": 771.34375,
+      "y": 659.25,
+      "width": 8.015625,
+      "height": 15,
+      "top": 659.25,
+      "right": 779.359375,
+      "bottom": 674.25,
+      "left": 771.34375
+    },
+    "node": {
+      "x": 765.34375,
+      "y": 656.25,
+      "width": 20.015625,
+      "height": 20,
+      "top": 656.25,
+      "right": 785.359375,
+      "bottom": 676.25,
+      "left": 765.34375
+    },
+    "paddingLeft": 2,
+    "paddingTop": 2,
+    "scrollLeft": 0,
+    "scrollTop": 0
+  }
+]

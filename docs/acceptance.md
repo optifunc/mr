@@ -369,6 +369,17 @@ is missing. Document any user-approved change to release scope explicitly.
 
 **Implementation is at the stage-9 product checkpoint. User decision: pending.**
 
+The four approved P2 review corrections are implemented: invalid move atomicity,
+package preview/build identity, platform-correct profiling, and sample-derived
+reports with provenance. Passed typecheck/build, 163 unit tests, 15 tooling tests,
+three-engine packaged consumer, and 532 unique browser cases including isolated
+profiles (two existing permission skips). Final WebKit coverage passed after recorded
+navigation-timeout diagnostics; the stricter profiler rejected an initial negative
+frame interval, which was corrected and remeasured. Relayout p95: 7.8 / 11 / 13 ms.
+[Current review-fix evidence, failure history and screenshots](evidence/milestone-d/review-fixes/report.md).
+The historical milestone-wide numbers below retain their original tested scope.
+
+
 Latest menu correction after review of `64d273a`: focus paint appears only after
 Up/Down, resets on reopening, and shortcut hints are lighter than labels. Passed
 typecheck/build, 163 unit tests, 48 menu/integration cases and three exact accepted

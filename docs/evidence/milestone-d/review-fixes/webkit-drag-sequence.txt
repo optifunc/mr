@@ -1,0 +1,20 @@
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test drag.spec.ts --project=webkit --grep 'unselected press|reference drag comparison' --repeat-each=2 --trace=on --workers=1
+
+
+Running 4 tests using 1 worker
+
+(node:96160) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:96160) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [webkit] › tests/browser/drag.spec.ts:108:1 › unselected press selects one source; read-only and non-mouse input never drag (957ms)
+  ✓  2 [webkit] › tests/browser/drag.spec.ts:115:1 › reference drag comparison and environment evidence (489ms)
+(node:96176) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:96176) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  3 [webkit] › tests/browser/drag.spec.ts:108:1 › unselected press selects one source; read-only and non-mouse input never drag (665ms)
+  ✓  4 [webkit] › tests/browser/drag.spec.ts:115:1 › reference drag comparison and environment evidence (471ms)
+
+  4 passed (4.1s)
