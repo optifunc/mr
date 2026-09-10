@@ -367,7 +367,10 @@ Unavailable release checks remain not run, with the required environment and nex
 action recorded. Do not declare release validation complete while required evidence
 is missing. Document any user-approved change to release scope explicitly.
 
-**Implementation is at the stage-9 product checkpoint. User decision: pending.**
+**Milestone D is complete. User accepted the stage-9 product checkpoint on
+2026-09-10 at `497eff9`, including menu refinements and all four P2 review fixes.**
+The instruction “record milestone D completed” records product acceptance.
+Outstanding release/manual checks remain separately recorded as not run.
 
 The four approved P2 review corrections are implemented: invalid move atomicity,
 package preview/build identity, platform-correct profiling, and sample-derived
@@ -384,13 +387,13 @@ Latest menu correction after review of `64d273a`: focus paint appears only after
 Up/Down, resets on reopening, and shortcut hints are lighter than labels. Passed
 typecheck/build, 163 unit tests, 48 menu/integration cases and three exact accepted
 default-image comparisons. Initial/navigated three-engine screenshots inspected;
-visual acceptance remains pending. [Current evidence](evidence/milestone-d/menu-focus/report.md).
+visuals accepted at `497eff9`. [Current evidence](evidence/milestone-d/menu-focus/report.md).
 
 Context-menu appearance follow-up authorized on 2026-09-10: grouped separators,
 Delete with creation, 4px corners, platform shortcut hints and lighter disabled
 labels/hints are implemented. Passed typecheck/build, 163 unit tests, 42 focused
 browser cases and three exact accepted-default comparisons. Inspected the new
-three-engine screenshots; acceptance is pending.
+three-engine screenshots; accepted at `497eff9`.
 [Current menu review, before/after images and checks](evidence/milestone-d/menu-review/report.md).
 
 Final verification: typecheck/build, 163 unit tests and 490 browser cases passed
@@ -420,9 +423,9 @@ valid/invalid host replacement, snapshot inspection, read-only and menu-disabled
 routes, repeated mounting/destruction in the public-package integration example,
 and the isolated workload. The D report gives reproducible product exercises.
 
-Existing default/edit/drag appearance remains accepted through C. New menu and
-stage-9 screenshots are review candidates; no accepted baseline or supplied image
-is overwritten. Stage-9 product acceptance is separate from all technical passes.
+Existing default/edit/drag appearance remains accepted through C. Menu refinements
+and the final stage-9 checkpoint are accepted at `497eff9`; supplied images and
+prior baselines remain intact. Technical evidence retains its recorded scope.
 Required gaps: latest stable Chrome/Edge/Firefox, actual Safari, VoiceOver/Safari,
 NVDA/Windows, actual OS IME and physical input-to-display/manual smoothness. Installed
 Chrome 152 automation is additional evidence, not the latest stable Chrome gate.

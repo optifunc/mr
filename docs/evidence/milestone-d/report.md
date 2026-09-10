@@ -1,5 +1,12 @@
 # Milestone D — stage-9 product checkpoint
 
+**Completion recorded 2026-09-10:** milestone D was accepted by the user at
+`497eff9`, including the subsequent menu and P2 review corrections.
+[Accepted final checkpoint and verification](review-fixes/report.md).
+The original checkpoint evidence below is historical; its pending-product-review
+statements are superseded by this acceptance. Unavailable release/manual checks
+retain their recorded status.
+
 Stage 8 is committed at `87da40b`, based on accepted C (`bb4145b`) and its acceptance
 record `7979ca8`. Final widget fixes are committed at `de15b91`. Stage 9 adds the packaged consumer, performance profiler, final
 integration fixes, review demo and release evidence. The final milestone-wide gate passed **490 browser cases**, with **two documented

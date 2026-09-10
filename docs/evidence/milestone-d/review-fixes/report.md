@@ -1,8 +1,9 @@
 # Approved P2 review corrections — 2026-09-10
 
-All four approved corrections are implemented. The runnable demo remains at the
-stage-9 product checkpoint; product acceptance and the existing manual release
-checks remain pending. No release waiver is inferred.
+**Milestone D is complete and accepted by the user on 2026-09-10 at `497eff9`.**
+Acceptance includes all four corrections, the menu refinements and the runnable
+stage-9 checkpoint. The existing manual release checks remain pending; their
+recorded results are unchanged.
 
 ## Changes and tested revisions
 
@@ -113,4 +114,5 @@ Known gaps remain the [actual-browser/manual release matrix](../installed-browse
 latest stable applications, Safari automation, VoiceOver/Safari, NVDA/Windows, real
 OS IME and physical display/manual smoothness. Rendering-opportunity tails can
 exceed a nominal frame; the generated report states observed values and limits.
-No known defect remains in the four corrected behaviors. Next: user's stage-9 review.
+No known defect remains in the four corrected behaviors. Stage-9 product review
+is complete; outstanding release/manual checks remain tracked before release.

@@ -4,6 +4,16 @@ Last updated: 2026-09-10
 
 ## Current state
 
+**Milestone D (stages 8–9) is complete and accepted by the user on 2026-09-10
+at `497eff9`.** Acceptance includes the menu refinements and all four P2 review
+corrections. All planned milestones A–D are complete. The previously recorded
+release/manual checks retain their not-run status; milestone acceptance does not
+change those results.
+
+Completion-record verification: typecheck and whitespace checks passed. This
+update changes documentation and demo status text only; runtime suites were not
+rerun, and the implementation evidence below retains its tested revisions.
+
 **Approved P2 review corrections are implemented.** Invalid move destinations
 preserve active edits/history (`2f7ede1`); the package gate verifies preview lifecycle
 and browser-loaded build identity (`5e8b580`); profiler gestures and report provenance
@@ -15,11 +25,10 @@ navigation timeouts and the rejected negative-frame run are retained transparent
 final WebKit and corrected profiling runs passed. Full-relayout p95: 7.8 / 11 / 13 ms.
 Final demo/evidence-link and public-package mount/cleanup smoke passed in all engines.
 [Current fixes, verification, traces and comparisons](evidence/milestone-d/review-fixes/report.md).
-Product review and previously unavailable release/manual checks remain pending.
+Product acceptance is recorded above; unavailable release/manual checks remain pending.
 
-**Milestone D is implemented and stopped at the stage-9 product checkpoint.**
-Product acceptance is pending. Required unavailable release/manual checks remain
-not run, so release validation is not declared complete.
+**Stage-9 product review is complete.** Required unavailable release/manual checks
+remain not run, so release validation is not declared complete.
 
 **Latest menu correction (2026-09-10):** after review of `64d273a`, the user
 authorized hiding focus paint until Up/Down and lighter shortcut hints. Implemented
@@ -27,7 +36,7 @@ with a per-opening visual focus state, #666 enabled hints and #888 disabled hint
 Passed typecheck/build, 163 unit tests, 48 menu/integration browser cases and three
 exact accepted-default PNG comparisons. Inspected initial and navigated images
 in all three engines. [Current review evidence](evidence/milestone-d/menu-focus/report.md).
-Product acceptance remains pending; the runnable demo links this correction.
+Accepted as part of milestone D at `497eff9`; the demo links this correction.
 
 **Context-menu follow-up (2026-09-10):** user authorized separators between six
 groups, Delete with creation, 4px menu/item corners, right-aligned platform shortcut
@@ -35,10 +44,10 @@ hints and lighter disabled text. Implemented with #757575 disabled text and a
 host-capped 250px width. Passed typecheck/build, 163 unit tests, 42 menu/integration
 browser cases, three exact accepted-default PNG comparisons and three-engine demo
 smoke including evidence links and built-package mount/cleanup. Screenshots were
-inspected in Chromium/Firefox/WebKit; visual acceptance remains pending.
+inspected in Chromium/Firefox/WebKit; accepted as part of milestone D at `497eff9`.
 [Follow-up evidence and before/after images](evidence/milestone-d/menu-review/report.md).
 The demo links this update; the earlier milestone-wide results below retain their
-tested scope. Next remains the user's stage-9 product review.
+tested scope. The stage-9 product review is now complete.
 
 - Widget/menu implementation: `87da40b`; final API atomicity and initial-resize
   corrections: `de15b91`. The stage-9 commit containing the final report records
@@ -62,16 +71,16 @@ tested scope. Next remains the user's stage-9 product review.
   disabled), VoiceOver/Safari, NVDA/Windows, real OS IME and physical display checks.
   These are not passed or waived. Follow the matrix before release.
 
-Runnable review: **http://127.0.0.1:5173/**. Fresh start: `pnpm build` then `pnpm dev`.
+Runnable demo: **http://127.0.0.1:5173/**. Fresh start: `pnpm build` then `pnpm dev`.
 The demo includes all A/B/C fixtures, menus, public API/state/events, read-only and
 menu-disabled routes, a built-package mount/destroy example, the target workload,
 reference comparisons, test results and known gaps.
 
 [D report and all 18 criteria](evidence/milestone-d/report.md),
-[performance](evidence/milestone-d/performance/report.md),
+[current performance](evidence/milestone-d/review-fixes/performance/report.md),
 [release/manual matrix](evidence/milestone-d/installed-browsers/report.md),
 [acceptance](acceptance.md#milestone-d-stages-89), [API](api.md), [testing](testing.md).
-Next: user's stage-9 product review. No further implementation milestone is started.
+Next: await the user’s next task; complete the recorded release/manual matrix before release.
 
 Earlier milestones remain accepted: A at `253b99d`, B at `4209b2a`, C at `bb4145b`.
 Historical progress and superseded checkpoint notes below retain their original scope.
@@ -83,7 +92,7 @@ Historical progress and superseded checkpoint notes below retain their original 
 | A: Foundation and appearance | 1–3 | Complete | Accepted at `253b99d`, including default visuals | [A](acceptance.md#milestone-a-stages-13) |
 | B: Navigation and editing | 4–5 | Complete | Accepted at `4209b2a` on 2026-09-08 | [B](acceptance.md#milestone-b-stages-45) |
 | C: Clipboard and dragging | 6–7 | Complete | Accepted at `bb4145b` on 2026-09-10 | [C](acceptance.md#milestone-c-stages-67) |
-| D: Integration and release | 8–9 | Implemented; release/manual gates pending | Pending at stage 9 | [D](acceptance.md#milestone-d-stages-89) |
+| D: Integration and release | 8–9 | Complete; release/manual gates tracked separately | Accepted at `497eff9` on 2026-09-10 | [D](acceptance.md#milestone-d-stages-89) |
 
 ## Verification and revisions
 
