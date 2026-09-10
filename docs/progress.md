@@ -4,7 +4,7 @@ Last updated: 2026-09-10
 
 ## Current state
 
-**Milestone C (stages 6–7) is technically complete; product acceptance is pending.**
+**Milestone C (stages 6–7) is complete and accepted at `bb4145b` on 2026-09-10.**
 Original C checkpoint gates passed: typecheck/build, 145 unit tests, 346 browser cases with 2
 explicit engine-specific permission skips, exact accepted-default comparisons and
 workload diagnostics. [C report](evidence/milestone-c/report.md),
@@ -22,7 +22,8 @@ Latest follow-up: physical fit shortcut, editor visibility after host resize and
 queued viewport events/API mutations. Typecheck/build, 163 unit tests and 267 browser
 cases passed (no failures/skips), including three exact accepted-default comparisons.
 [Review fixes evidence](evidence/milestone-c/review-fixes/report.md).
-Stop at stage 7 for user review; stages 8–9 remain unstarted.
+The stage-7 product checkpoint is accepted. Next: await authorization for milestone D
+(stages 8–9); its implementation and release checks remain outstanding.
 
 **Milestone B is technically complete and accepted at `4209b2a` on 2026-09-08.**
 The user accepted the stage-5 product checkpoint, including the final reviewed
@@ -41,7 +42,7 @@ with the bottom border on the branch line and stable text position.
 The latest approved controls remove the focused-widget frame, use Ctrl+Space on
 all platforms, and expand collapsed nodes by clicking their circles without
 changing selection. [Latest evidence](evidence/milestone-b/focus-controls/report.md).
-Milestone C is now complete as recorded above; the next action is user stage-7 review.
+Milestone C is complete and accepted as recorded above; next is authorization for milestone D.
 
 Stages 4–5 include mouse/range selection, geometry navigation, keyboard sibling-block
 movement, viewport controls, checkbox/structural gestures, native textarea editing,
@@ -59,7 +60,7 @@ Run `pnpm dev`, then open http://127.0.0.1:5173.
 |---|---|---|---|---|
 | A: Foundation and appearance | 1–3 | Complete | Accepted at `253b99d`, including default visuals | [A](acceptance.md#milestone-a-stages-13) |
 | B: Navigation and editing | 4–5 | Complete | Accepted at `4209b2a` on 2026-09-08 | [B](acceptance.md#milestone-b-stages-45) |
-| C: Clipboard and dragging | 6–7 | Complete | Pending | [C](acceptance.md#milestone-c-stages-67) |
+| C: Clipboard and dragging | 6–7 | Complete | Accepted at `bb4145b` on 2026-09-10 | [C](acceptance.md#milestone-c-stages-67) |
 | D: Integration and release | 8–9 | Not started | Pending | [D](acceptance.md#milestone-d-stages-89) |
 
 ## Verification and revisions
@@ -579,3 +580,23 @@ No known defect remains in these fixes. Full milestone/workload and later
 release/manual gates were not rerun; their existing gaps remain. Demo is available
 at http://127.0.0.1:5175/ (or fresh `pnpm dev`). Next: user's stage-7 product review;
 stages 8–9 remain unstarted.
+
+## C product acceptance — 2026-09-10
+
+The user explicitly accepted milestone C and requested it be marked completed.
+Accepted revision: **`bb4145b`**, including stages 6–7 and all reviewed follow-ups:
+link/editor styling, drag zones/cursors, clipboard space indentation, physical fit,
+editor resize and viewport event ordering. Historical pending-review notes in this
+file and earlier evidence reports are superseded by this acceptance. The accepted
+implementation's final images remain in their existing evidence directories;
+intermediate/before images remain historical and no baselines are overwritten.
+
+[Acceptance record](acceptance.md#milestone-c-stages-67),
+[final review evidence](evidence/milestone-c/review-fixes/report.md).
+This commit updates documentation only. `git diff --check` passed; implementation
+tests were not rerun. The latest implementation verification remains typecheck/build,
+163 unit tests and 267 browser cases, including three exact accepted-A comparisons.
+Earlier full-milestone and clipboard-specific checks retain their recorded scope
+and permission skips. Milestone-D actual-browser/manual/packaged/performance gates
+remain outstanding. Next: await authorization for milestone D; stages 8–9 are not
+started by this acceptance update.

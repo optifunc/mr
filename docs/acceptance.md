@@ -260,25 +260,30 @@ checks remain unimplemented or unverified as recorded; no release gate is waived
 
 ## Milestone C: stages 6–7
 
+**Complete and accepted on 2026-09-10 at `bb4145b`.** The user accepted the stage-7
+product checkpoint, including all reviewed follow-ups and final behavior/appearance.
+[Final review evidence](evidence/milestone-c/review-fixes/report.md) identifies the
+latest implementation checks and images. Historical pending-review notes in earlier
+reports are superseded; before/intermediate images remain historical. Existing
+accepted baseline files are preserved. This records acceptance, not new test
+execution or completion of milestone-D release gates.
+
 **2026-09-10 review fixes:** physical shifted-zero fit, editor visibility on host
 resize, and FIFO viewport listener/API handling are implemented. Typecheck/build,
 163 unit tests and 267 browser cases passed, including the three exact accepted-A
 image comparisons. Resized editor/reference screenshots were inspected.
 [Current report, checks and screenshots](evidence/milestone-c/review-fixes/report.md).
-Stage-7 product acceptance remains pending.
 
 **2026-09-09 clipboard indentation:** copy uses four spaces; paste detects two/four
 spaces per paste and accepts tabs/mixed prefixes. Typecheck/build, 163 unit tests
 and 79 browser cases passed (2 documented permission skips). Native clipboard and
 screenshots were checked in all engines. [Report and evidence](evidence/milestone-c/clipboard-indentation/report.md).
-Stage-7 product acceptance for this extension remains pending.
 
 **2026-09-09 drag review (accepted at `4e46cea`):** valid drops use a regular arrow; inward halves insert
 before/after as siblings according to vertical position, mirrored on left branches.
 Typecheck/build, 147 unit tests and 126 focused browser cases passed, including all
 three exact accepted-default comparisons. Screenshots were inspected in all engines.
 [Current changes, screenshots and verification](evidence/milestone-c/drag-review/report.md).
-Stage-7 product acceptance remains pending.
 
 **2026-09-08 review corrections (technically complete):** the user approved blue
 (#0000EE) URL labels without text underlines, and leaf/collapsed editors at least
@@ -287,7 +292,6 @@ Passed typecheck/build, 145 unit tests and 178 browser cases with 2 documented
 permission skips, including all three exact accepted-default comparisons.
 Screenshots were inspected in all three engines.
 [Report, before/after images and checks](evidence/milestone-c/link-editor-review/report.md).
-Stage-7 product acceptance remains pending.
 
 **Product review:** clipboard and predictable restructuring.
 
@@ -308,9 +312,10 @@ Include drag-reference comparison and browser evidence for clipboard denial,
 invalid text, and delayed completion after edits or document replacement. Test
 available real clipboard paths alongside deterministic failure/staleness stubs.
 
-**Technical status: complete (2026-09-08). User decision: pending stage-7 review.**
+**Original milestone-wide verification (2026-09-08):**
 
-Stage 6 is `3b2f7f8`; the final stage-7 tested implementation is `9ade849`.
+Stage 6 is `3b2f7f8`; the original stage-7 implementation is `9ade849`.
+The accepted implementation, including subsequent corrections, is `bb4145b`.
 The documentation-only handover state is recorded in [progress](progress.md#c-stage-7-handover--2026-09-08).
 Passed: strict typecheck, ESM/CSS/declaration build, **145 unit tests**, **346 browser
 cases** across Chromium/Firefox/WebKit, exact accepted-A PNG comparisons in every
@@ -333,13 +338,14 @@ All supplied images and current default/edit/drag comparisons were inspected.
 Softened the drag gradient against the reference and corrected the demo clipboard
 fixture's initial zoom so the pasted descendants are visible. Before/after images
 and failure corrections are retained in the report. Accepted A/B artifacts were
-preserved; C images are candidates awaiting visual acceptance.
+preserved; final C appearance is accepted at `bb4145b`. Superseded images remain
+historical rather than becoming replacement baselines.
 
 Demo: http://127.0.0.1:5175/; fresh start: `pnpm dev`. Use the reference selection,
 clipboard/link fixture, API buttons/event log and separate drag comparison.
 No known C functional defect remains after verification. Menus, final host
 integration, packaged consumer, actual stable browsers, screen readers and final
-performance validation remain stages 8–9. Stop here for the requested review.
+performance validation remain stages 8–9. Next: await authorization for milestone D.
 
 ## Milestone D: stages 8–9
 

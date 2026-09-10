@@ -1,6 +1,12 @@
 # Milestone C — stage-7 product checkpoint
 
-**Technical status: complete (2026-09-08). Product acceptance: pending user review.**
+**Complete and accepted on 2026-09-10 at `bb4145b`.**
+The user accepted milestone C, including all reviewed follow-ups and final
+behavior/appearance. [Acceptance record](../../acceptance.md#milestone-c-stages-67).
+Historical pending-review statements in this and earlier reports are superseded.
+Before/intermediate images remain historical; existing baseline files are preserved.
+This acceptance update changes documentation only and does not claim new test runs.
+Milestone D (stages 8–9) awaits authorization.
 **Latest follow-up:** [fit, editor resize and viewport event queue](review-fixes/report.md).
 The [clipboard space indentation](clipboard-indentation/report.md) extension retains
 its separate verification record.
@@ -12,7 +18,7 @@ The milestone-wide results below describe the original C checkpoint.
 
 Stages 6–7 cover clipboard, URL links and mouse restructuring. Stages 8–9 remain
 outside this checkpoint. Started with a clean tree at `b80bb9f`; stage 6 is
-`3b2f7f8`. The final tested stage-7 implementation and evidence are **`9ade849`**. The
+`3b2f7f8`. The original stage-7 implementation and evidence are **`9ade849`**. The
 subsequent handover commit changes documentation/log formatting only. All changes
 are task-related.
 
@@ -168,8 +174,8 @@ profiling remains stage 9.
   relayout median/p95/cold-load profiling. Real OS IME remains manually unverified
   from B. These release gates remain required; Playwright WebKit is not Safari.
 
-Next action: user stage-7 product review. Do not begin milestone D without its
-implementation authorization. Product acceptance is recorded only after feedback.
+Next action: await authorization to implement milestone D. Milestone C product
+acceptance is recorded above; stages 8–9 and their release gates remain outstanding.
 
 ## Workload diagnostic (not the final release performance gate)
 

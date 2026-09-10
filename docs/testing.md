@@ -122,6 +122,12 @@ written to `docs/evidence/milestone-b/`; tests retain failure traces in ignored
 
 ## Milestone C — stages 6–7
 
+Milestone C is complete and accepted at `bb4145b` on 2026-09-10.
+[Acceptance record](acceptance.md#milestone-c-stages-67). Recording acceptance did
+not rerun implementation checks. The final review gate below records 163 unit tests
+and 267 browser cases; older gates retain their original scope and limitations.
+Milestone-D release checks remain outstanding.
+
 Run `pnpm dev` for the stage-7 review demo. “Load clipboard + links fixture” loads
 mixed checkbox/multiline/empty/escaped nodes and URL/prose labels. Native clipboard
 shortcuts and API buttons are both available. The recent-event panel shows
@@ -143,7 +149,8 @@ with B/C selected. Reset buttons restore each deterministic fixture. See the
 
 Current captures go to `docs/evidence/milestone-c/stage7/` and C `regression/`
 subdirectories. Historical test captures under A/B remain unchanged. C drag and
-clipboard screenshots are review candidates. Failure logs, corrections, final
+clipboard screenshots for the final implementation are accepted at `bb4145b`;
+superseded captures remain historical. Failure logs, corrections, final
 results and per-engine environment JSON are linked from the C report.
 
 Native clipboard C/X/V paths run in all three engines. Chromium also tests a
