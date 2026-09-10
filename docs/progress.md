@@ -4,6 +4,14 @@ Last updated: 2026-09-10
 
 ## Current state
 
+**Approved P2 review fixes in progress:** invalid structural move destinations now
+reject before an existing or provisional edit is committed, using shared reducer
+preflight. Passed typecheck, 163 unit tests and 33 three-engine integration cases,
+including retained buffer/caret/focus, viewport, events and undo/redo history.
+[Checks](evidence/milestone-d/review-fixes/atomicity-checks.txt),
+[browser evidence](evidence/milestone-d/review-fixes/atomicity-browser.txt).
+Next: package build identity/lifecycle, platform-correct profiling and derived reports.
+
 **Milestone D is implemented and stopped at the stage-9 product checkpoint.**
 Product acceptance is pending. Required unavailable release/manual checks remain
 not run, so release validation is not declared complete.

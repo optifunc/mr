@@ -1,0 +1,53 @@
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test integration.spec.ts --workers=1
+
+
+Running 33 tests using 1 worker
+
+(node:93709) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:93709) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/browser/integration.spec.ts:6:4 › invalid structural move preserves existing edit and history: one (330ms)
+  ✓   2 [chromium] › tests/browser/integration.spec.ts:6:4 › invalid structural move preserves existing edit and history: a (154ms)
+  ✓   3 [chromium] › tests/browser/integration.spec.ts:6:4 › invalid structural move preserves existing edit and history: root (145ms)
+  ✓   4 [chromium] › tests/browser/integration.spec.ts:6:4 › invalid structural move preserves provisional edit and history: one (155ms)
+  ✓   5 [chromium] › tests/browser/integration.spec.ts:6:4 › invalid structural move preserves provisional edit and history: a (153ms)
+  ✓   6 [chromium] › tests/browser/integration.spec.ts:6:4 › invalid structural move preserves provisional edit and history: root (147ms)
+  ✓   7 [chromium] › tests/browser/integration.spec.ts:36:1 › valid move still commits the active label and moves with separate undo steps (132ms)
+  ✓   8 [chromium] › tests/browser/integration.spec.ts:44:1 › invalid explicit edit, insertion and link targets reject before changing an active buffer (128ms)
+  ✓   9 [chromium] › tests/browser/integration.spec.ts:65:1 › menu reentrant replacement and throwing ID callback preserve atomicity and cleanup (291ms)
+  ✓  10 [chromium] › tests/browser/integration.spec.ts:89:1 › opening a menu immediately after mounting survives the initial resize notification (287ms)
+  ✓  11 [chromium] › tests/browser/integration.spec.ts:104:1 › keyboard menu reveal reports user origin and default label/menu contrast is readable (136ms)
+(node:93731) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:93731) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  12 [firefox] › tests/browser/integration.spec.ts:6:4 › invalid structural move preserves existing edit and history: one (896ms)
+  ✓  13 [firefox] › tests/browser/integration.spec.ts:6:4 › invalid structural move preserves existing edit and history: a (356ms)
+  ✓  14 [firefox] › tests/browser/integration.spec.ts:6:4 › invalid structural move preserves existing edit and history: root (312ms)
+  ✓  15 [firefox] › tests/browser/integration.spec.ts:6:4 › invalid structural move preserves provisional edit and history: one (296ms)
+  ✓  16 [firefox] › tests/browser/integration.spec.ts:6:4 › invalid structural move preserves provisional edit and history: a (296ms)
+  ✓  17 [firefox] › tests/browser/integration.spec.ts:6:4 › invalid structural move preserves provisional edit and history: root (287ms)
+  ✓  18 [firefox] › tests/browser/integration.spec.ts:36:1 › valid move still commits the active label and moves with separate undo steps (268ms)
+  ✓  19 [firefox] › tests/browser/integration.spec.ts:44:1 › invalid explicit edit, insertion and link targets reject before changing an active buffer (266ms)
+  ✓  20 [firefox] › tests/browser/integration.spec.ts:65:1 › menu reentrant replacement and throwing ID callback preserve atomicity and cleanup (455ms)
+  ✓  21 [firefox] › tests/browser/integration.spec.ts:89:1 › opening a menu immediately after mounting survives the initial resize notification (450ms)
+  ✓  22 [firefox] › tests/browser/integration.spec.ts:104:1 › keyboard menu reveal reports user origin and default label/menu contrast is readable (329ms)
+(node:93749) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:93749) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  23 [webkit] › tests/browser/integration.spec.ts:6:4 › invalid structural move preserves existing edit and history: one (661ms)
+  ✓  24 [webkit] › tests/browser/integration.spec.ts:6:4 › invalid structural move preserves existing edit and history: a (292ms)
+  ✓  25 [webkit] › tests/browser/integration.spec.ts:6:4 › invalid structural move preserves existing edit and history: root (263ms)
+  ✓  26 [webkit] › tests/browser/integration.spec.ts:6:4 › invalid structural move preserves provisional edit and history: one (252ms)
+  ✓  27 [webkit] › tests/browser/integration.spec.ts:6:4 › invalid structural move preserves provisional edit and history: a (270ms)
+  ✓  28 [webkit] › tests/browser/integration.spec.ts:6:4 › invalid structural move preserves provisional edit and history: root (257ms)
+  ✓  29 [webkit] › tests/browser/integration.spec.ts:36:1 › valid move still commits the active label and moves with separate undo steps (244ms)
+  ✓  30 [webkit] › tests/browser/integration.spec.ts:44:1 › invalid explicit edit, insertion and link targets reject before changing an active buffer (231ms)
+  ✓  31 [webkit] › tests/browser/integration.spec.ts:65:1 › menu reentrant replacement and throwing ID callback preserve atomicity and cleanup (391ms)
+  ✓  32 [webkit] › tests/browser/integration.spec.ts:89:1 › opening a menu immediately after mounting survives the initial resize notification (389ms)
+  ✓  33 [webkit] › tests/browser/integration.spec.ts:104:1 › keyboard menu reveal reports user origin and default label/menu contrast is readable (239ms)
+
+  33 passed (13.4s)

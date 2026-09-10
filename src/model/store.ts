@@ -72,17 +72,18 @@ export class Store {
             return this.history.canRedo;
         if (!contentCommands.has(command.type))
             return false;
+        try { return this.checkContentCommand(command); }
+        catch { return false; }
+    }
+    /** Side-effect-free reducer preflight. Preserve validation errors for callers
+     * that must reject a command before settling an active edit. */
+    checkContentCommand(command: MindMapCommand): boolean {
         // Applicability must not invoke the host callback or reserve real IDs.
         let serial = 0;
         const id = (): string => { let value: string; do {
             value = `__preview_${serial++}`;
         } while (this.model.nodes.has(value)); return value; };
-        try {
-            return !!prepare(this.model, this.selection, command, id, this.visualOrder);
-        }
-        catch {
-            return false;
-        }
+        return !!prepare(this.model, this.selection, command, id, this.visualOrder);
     }
     execute(command: MindMapCommand): boolean {
         validateCommand(command);

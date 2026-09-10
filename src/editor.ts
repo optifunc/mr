@@ -220,6 +220,9 @@ export class MindMapEditor {
             ...(command.type === 'move' ? [command.destination.targetId] : []),
         ];
         if (explicitIds.some(id => !this.store.model.nodes.has(id))) throw new MindMapError('INVALID_TARGET', 'Unknown command target');
+        // Existing IDs can still form a cycle or an invalid root destination.
+        // Use the same reducer validation as applicability, before committing text.
+        if (this.textEditor && command.type === 'move') this.store.checkContentCommand(command);
         if (['copy', 'cut', 'paste'].includes(command.type)) return this.clipboardRequest(command, source);
         if (this.textEditor && (contentCommands.has(command.type) || ['undo', 'redo', 'edit', 'openLink'].includes(command.type))) this.finishEdit(true, false);
         if (this.destroyed) return false;

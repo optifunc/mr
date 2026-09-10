@@ -1,4 +1,46 @@
 import { expect, test } from '@playwright/test';
+for (const provisional of [false, true]) for (const destination of [
+    { targetId: 'one', position: 'child' as const },
+    { targetId: 'a', position: 'child' as const },
+    { targetId: 'root', position: 'before' as const },
+]) test(`invalid structural move preserves ${provisional ? 'provisional' : 'existing'} edit and history: ${destination.targetId}`, async ({ page }) => {
+    await page.goto('/');
+    await page.evaluate(() => {
+        const a = window.primary;
+        a.execute({ type: 'setText', targetId: 'two', text: 'Retained undo entry' });
+        a.execute({ type: 'setText', targetId: 'two', text: 'Retained redo entry' }); a.undo();
+        a.setSelection(['one']); a.focus();
+    });
+    await page.keyboard.press(provisional ? 'Tab' : 'F2');
+    const textarea = page.locator('#primary textarea');
+    await textarea.fill('Uncommitted'); await page.keyboard.press('ArrowLeft');
+    const result = await page.evaluate(destination => {
+        const a = window.primary, errors: string[] = [], events: string[] = [];
+        const state = () => ({ document: a.getDocument(), selection: a.getSelection(), viewport: a.getViewport(), undo: a.canUndo(), redo: a.canRedo(),
+            caret: (document.querySelector('#primary textarea') as HTMLTextAreaElement | null)?.selectionStart });
+        const before = state();
+        a.on('error', e => errors.push(e.code));
+        for (const type of ['documentchange', 'selectionchange', 'viewportchange', 'editcommit', 'editcancel'] as const) a.on(type, () => events.push(type));
+        const command = { type: 'move' as const, ids: ['one'], destination };
+        return { before, can: a.canExecute(command), accepted: a.execute(command), after: state(), errors, events };
+    }, destination);
+    expect(result.can).toBe(false); expect(result.accepted).toBe(false);
+    expect(result.errors).toEqual(['INVALID_TARGET']); expect(result.events).toEqual([]);
+    expect(result.after).toEqual(result.before);
+    await expect(textarea).toHaveValue('Uncommitted'); await expect(textarea).toBeFocused();
+    await page.keyboard.press('Escape');
+    expect(await page.evaluate(() => { window.primary.redo(); return window.primary.getDocument().root.children.find(n => n.id === 'two')!.text; })).toBe('Retained redo entry');
+    expect(await page.evaluate(() => { window.primary.undo(); window.primary.undo(); return window.primary.canUndo(); })).toBe(false);
+});
+
+test('valid move still commits the active label and moves with separate undo steps', async ({ page }) => {
+    await page.goto('/'); await page.locator('#primary .mindmap').focus(); await page.keyboard.press('F2');
+    await page.locator('#primary textarea').fill('Committed before move');
+    expect(await page.evaluate(() => window.primary.execute({ type: 'move', ids: ['one'], destination: { targetId: 'two', position: 'child' } }))).toBe(true);
+    await expect(page.locator('#primary textarea')).toHaveCount(0);
+    expect(await page.evaluate(() => { window.primary.undo(); return window.primary.getDocument().root.children.find(n => n.id === 'one')!.text; })).toBe('Committed before move');
+    expect(await page.evaluate(() => { window.primary.undo(); return window.primary.getDocument().root.children.find(n => n.id === 'one')!.text; })).toBe('One');
+});
 test('invalid explicit edit, insertion and link targets reject before changing an active buffer', async ({ page }) => {
     await page.goto('/'); await page.evaluate(() => window.primary.editNode('one'));
     await page.locator('#primary textarea').fill('Uncommitted');
