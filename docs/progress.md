@@ -612,3 +612,48 @@ Earlier full-milestone and clipboard-specific checks retain their recorded scope
 and permission skips. Milestone-D actual-browser/manual/packaged/performance gates
 remain outstanding. Next: await authorization for milestone D; stages 8–9 are not
 started by this acceptance update.
+
+## D stage-8 checkpoint and stage-9 validation — 2026-09-10
+
+Stage 8 is committed at `87da40b`: typecheck/build, 163 unit tests and 117 browser
+cases passed, with all exact accepted-default PNGs preserved. The menu and tree
+semantics were inspected. Two trailing blank log lines found by the staged audit
+will be normalized in the next documentation/evidence commit.
+
+Stage 9 adds an isolated tarball consumer and a separate deterministic workload
+profiler. Package installation/declaration checking/production build and all three
+consumer browsers passed after canonicalizing macOS `/var` temporary paths for
+Vite. Initial profiling passed all three engines: relayout p95 well below 100 ms;
+rendering-opportunity tails sometimes exceed a frame. Added synchronous handler
+measurements to distinguish processing from frame scheduling. Physical display
+presentation and manual smoothness remain unverified.
+
+Installed Chrome 152 launches, but its first test run lost the shared Vite server
+when the preceding profiler's server owner exited. That failed run is retained;
+a persistent review server now runs at http://127.0.0.1:5173/ and tests will rerun.
+Safari 26.6.2 WebDriver refuses sessions because Allow Remote Automation is disabled.
+No Edge/Firefox application or Windows/NVDA environment is installed. These release
+checks and manual VoiceOver/IME remain recorded gaps, not passes. The latest Chrome
+stable channel has moved to 153, so installed 152 coverage is recorded separately.
+
+## D final integration corrections — 2026-09-10
+
+The first complete D gate passed 478 browser cases with two documented async
+clipboard permission skips. Installed Chrome 152 then passed 98 cases. The API
+release audit reproduced unknown explicit targets finishing an unrelated editor;
+validate target/ID/destination existence before edit completion. The expanded
+integration gate passed 271, skipped 2 and failed 3 initial-mount menu races, one
+per engine. An immediate-mount regression reproduced the observer issue directly:
+the first ResizeObserver delivery closed an already-open menu despite unchanged
+host dimensions. Track actual dimensions and dismiss only for a size change.
+User-triggered menu/editor reveal and cancellation now retain user viewport origin.
+
+After corrections: typecheck/build, 163 unit tests and all 12 focused browser cases
+passed across the three engines, including preserved editor buffer/focus/history,
+all seven explicit-target command classes, callback failure, reentrant replacement,
+immediate menu opening, user origins and default label/menu text contrast >=4.5.
+[Focused results](evidence/milestone-d/integration.txt),
+[invalid-target reproduction](evidence/milestone-d/integration-before.txt),
+[resize reproduction](evidence/milestone-d/initial-resize-before.txt).
+Final full-suite/package/installed-browser follow-up checks are next. No assertions
+were weakened; accepted images remain unchanged. Product/release status is pending.

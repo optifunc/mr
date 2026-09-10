@@ -1,0 +1,49 @@
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test tests/browser/integration.spec.ts --grep 'initial resize' --project=chromium --workers=1 --output=test-results/resize-before
+
+
+Running 1 test using 1 worker
+
+(node:87509) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:87509) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [chromium] › tests/browser/integration.spec.ts:47:1 › opening a menu immediately after mounting survives the initial resize notification (5.6s)
+
+
+  1) [chromium] › tests/browser/integration.spec.ts:47:1 › opening a menu immediately after mounting survives the initial resize notification
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: locator('#primary [role="menu"]')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('#primary [role="menu"]')
+
+
+      56 |     });
+      57 |     await page.waitForTimeout(150);
+    > 58 |     await expect(page.locator('#primary [role="menu"]')).toBeVisible();
+         |                                                          ^
+      59 |     await expect(page.locator('#primary').getByRole('menuitem', { name: 'Edit', exact: true })).toBeFocused();
+      60 |     await page.keyboard.press('Escape'); await expect(page.locator('#primary .mindmap')).toBeFocused();
+      61 | });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/integration.spec.ts:58:58
+
+    Error Context: test-results/resize-before/integration-opening-a-menu-d2a27-initial-resize-notification-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/resize-before/integration-opening-a-menu-d2a27-initial-resize-notification-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/resize-before/integration-opening-a-menu-d2a27-initial-resize-notification-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › tests/browser/integration.spec.ts:47:1 › opening a menu immediately after mounting survives the initial resize notification
+ ELIFECYCLE  Command failed with exit code 1.

@@ -1,0 +1,55 @@
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test tests/browser/integration.spec.ts --project=chromium --workers=1
+
+
+Running 2 tests using 1 worker
+
+(node:86109) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:86109) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [chromium] › tests/browser/integration.spec.ts:2:1 › invalid explicit edit, insertion and link targets reject before changing an active buffer (713ms)
+(node:86133) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:86133) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  2 [chromium] › tests/browser/integration.spec.ts:19:1 › menu reentrant replacement and throwing ID callback preserve atomicity and cleanup (638ms)
+
+
+  1) [chromium] › tests/browser/integration.spec.ts:2:1 › invalid explicit edit, insertion and link targets reject before changing an active buffer
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 3
+    + Received  + 0
+
+      Array [
+        "INVALID_TARGET",
+    -   "INVALID_TARGET",
+    -   "INVALID_TARGET",
+    -   "INVALID_TARGET",
+      ]
+
+      13 |     });
+      14 |     expect(result.results).toEqual(Array.from({ length: 4 }, () => [false, false]));
+    > 15 |     expect(result.errors).toEqual(Array(4).fill('INVALID_TARGET')); expect(result.changes).toEqual([]);
+         |                           ^
+      16 |     expect(result.after).toEqual(result.before); expect(result.undo).toBe(false);
+      17 |     await expect(page.locator('#primary textarea')).toHaveValue('Uncommitted'); await expect(page.locator('#primary textarea')).toBeFocused();
+      18 | });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/integration.spec.ts:15:27
+
+    Error Context: test-results/integration-invalid-explic-0725c-e-changing-an-active-buffer-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/integration-invalid-explic-0725c-e-changing-an-active-buffer-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/integration-invalid-explic-0725c-e-changing-an-active-buffer-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › tests/browser/integration.spec.ts:2:1 › invalid explicit edit, insertion and link targets reject before changing an active buffer
+  1 passed (6.8s)
+ ELIFECYCLE  Command failed with exit code 1.

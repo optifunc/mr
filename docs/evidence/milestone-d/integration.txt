@@ -1,0 +1,32 @@
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test tests/browser/integration.spec.ts --workers=1
+
+
+Running 12 tests using 1 worker
+
+(node:87847) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:87847) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/browser/integration.spec.ts:2:1 › invalid explicit edit, insertion and link targets reject before changing an active buffer (182ms)
+  ✓   2 [chromium] › tests/browser/integration.spec.ts:23:1 › menu reentrant replacement and throwing ID callback preserve atomicity and cleanup (260ms)
+  ✓   3 [chromium] › tests/browser/integration.spec.ts:47:1 › opening a menu immediately after mounting survives the initial resize notification (285ms)
+  ✓   4 [chromium] › tests/browser/integration.spec.ts:62:1 › keyboard menu reveal reports user origin and default label/menu contrast is readable (253ms)
+(node:87863) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:87863) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   5 [firefox] › tests/browser/integration.spec.ts:2:1 › invalid explicit edit, insertion and link targets reject before changing an active buffer (879ms)
+  ✓   6 [firefox] › tests/browser/integration.spec.ts:23:1 › menu reentrant replacement and throwing ID callback preserve atomicity and cleanup (543ms)
+  ✓   7 [firefox] › tests/browser/integration.spec.ts:47:1 › opening a menu immediately after mounting survives the initial resize notification (428ms)
+  ✓   8 [firefox] › tests/browser/integration.spec.ts:62:1 › keyboard menu reveal reports user origin and default label/menu contrast is readable (299ms)
+(node:87874) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:87874) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   9 [webkit] › tests/browser/integration.spec.ts:2:1 › invalid explicit edit, insertion and link targets reject before changing an active buffer (621ms)
+  ✓  10 [webkit] › tests/browser/integration.spec.ts:23:1 › menu reentrant replacement and throwing ID callback preserve atomicity and cleanup (363ms)
+  ✓  11 [webkit] › tests/browser/integration.spec.ts:47:1 › opening a menu immediately after mounting survives the initial resize notification (382ms)
+  ✓  12 [webkit] › tests/browser/integration.spec.ts:62:1 › keyboard menu reveal reports user origin and default label/menu contrast is readable (238ms)
+
+  12 passed (8.2s)
