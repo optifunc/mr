@@ -260,6 +260,13 @@ checks remain unimplemented or unverified as recorded; no release gate is waived
 
 ## Milestone C: stages 6–7
 
+**2026-09-10 review fixes:** physical shifted-zero fit, editor visibility on host
+resize, and FIFO viewport listener/API handling are implemented. Typecheck/build,
+163 unit tests and 267 browser cases passed, including the three exact accepted-A
+image comparisons. Resized editor/reference screenshots were inspected.
+[Current report, checks and screenshots](evidence/milestone-c/review-fixes/report.md).
+Stage-7 product acceptance remains pending.
+
 **2026-09-09 clipboard indentation:** copy uses four spaces; paste detects two/four
 spaces per paste and accepts tabs/mixed prefixes. Typecheck/build, 163 unit tests
 and 79 browser cases passed (2 documented permission skips). Native clipboard and

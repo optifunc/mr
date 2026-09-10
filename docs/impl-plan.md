@@ -207,7 +207,13 @@ Expose documented `--mindmap-*` properties for font, colors, line width, and gap
 Provide a `refreshLayout()` facade method as an implementation extension so hosts
 can apply runtime theme changes explicitly. Font-load notifications also invalidate
 measurements. Defer geometry refresh until an active text edit ends. Host resize
-updates viewport dimensions without changing layout inputs or document data.
+updates viewport dimensions without changing layout inputs or document data. During
+editing, reapply width/height caps to the same textarea using the frozen initial
+geometry and preferred frame size, then minimally pan to reveal its bounded frame.
+Preserve buffer, selection, native undo and focus. Skip zero-sized hosts and apply
+the constraints when measurable again; growth can restore the preferred frame size.
+Reduce full-node alignment padding if it would force the textarea beyond its width
+cap (notably tall root ellipses); viewport bounds take priority in that case.
 
 Use the Windows 100% DPI image as the default proportions/root-selection anchor;
 retain the earlier appearance, editing, and dragging references in
@@ -454,6 +460,10 @@ creates history or a document event.
 
 ## 8. Drag-and-drop and viewport
 
+Fit recognizes Primary-modifier+Shift+physical `Digit0`, including `key: ")"`;
+unshifted zero retains reset zoom. Verify the actual fitted viewport with physical
+key input for both Command and Ctrl, rather than only checking unchanged history.
+
 Implement mouse dragging with Pointer Events and pointer capture, ignoring touch
 and pen input. Use a widget-owned compact overlay of selected labels as the drag
 image. Convert screen coordinates through the inverse viewport transform for
@@ -506,7 +516,10 @@ Centralize event payloads with an origin (`user`, `api`, `undo`, or `redo`), com
 identity where applicable, and change reason. Settle document, history, selection,
 and derived layout before dispatching mutation events. Emit `documentchange`, then
 any selection change, then edit/clipboard completion as applicable. Viewport events
-follow the rendering scheduler. `setDocument` emits a replacement change reason
+follow the rendering scheduler, coalesced per animation frame, but dispatch their
+listener batch through the same command queue. Public pan/zoom/fit/reveal methods
+queue reentrant work; internal command implementations update the viewport directly
+so synchronous command results and no-op checks remain accurate. `setDocument` emits a replacement change reason
 without creating history.
 
 Queue commands invoked reentrantly by event listeners until the current event

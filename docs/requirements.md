@@ -178,6 +178,9 @@ Requirements:
 - Clicking outside the editor shall commit before processing the click.
 - The map layout shall not change while text is being edited.
 - The editor frame shall remain fixed during typing, with text scrolling internally.
+  Host resize shall reapply editor width/height limits and reveal the editor by
+  panning if necessary, preserving the same textarea, buffer, caret and focus.
+  This resize adjustment shall not relayout the tree or create undo history.
   Surrounding nodes and connectors retain their pre-edit positions. Never show a
   horizontal scrollbar; horizontal scrolling shall still reveal the caret.
 - The editor's bottom border shall align with the node's bottom branch line, with
@@ -556,10 +559,12 @@ Ordinary sibling
   complete visible map.
 - Default bindings shall be Primary-modifier+Plus,
   Primary-modifier+Minus, Primary-modifier+0, and
-  Primary-modifier+Shift+0 respectively.
+  Primary-modifier+Shift+0 respectively. The shifted physical `Digit0` key shall
+  trigger fit even when its character is `)` on the keyboard layout.
 - Zoom shall be continuous for the wheel and stepped for keyboard commands.
 - The default zoom range shall be 25% through 400%.
-- Resizing the host element shall resize the viewport without changing document
+- Resizing the host element shall resize the viewport and keep an active editor
+  within its available bounds without changing document
   data.
 - The host API shall expose "panToNode", "fit", "setZoom", and "getViewport".
 - Pan and zoom are view state and shall not enter undo history or document
@@ -879,3 +884,8 @@ The following defaults have been confirmed:
   paste detects two/four spaces per paste, preferring four when ambiguous, accepts
   tabs/mixed prefixes, and rejects odd counts and invalid depth jumps atomically.
   Escape a label's first leading space as "\ " to preserve literal whitespace.
+
+- Review fixes approved on 2026-09-10: recognize shifted physical Digit0 for fit;
+  constrain/reveal the active editor after host resize without recreating its buffer
+  or relayout; queue viewport notifications and reentrant viewport API mutations
+  with the existing FIFO event/command path.

@@ -66,8 +66,10 @@ test('pan, wheel variants, pointer-anchored zoom, keyboard fit/clamps and resize
     expect((point.y - old.y) / old.zoom).toBeCloseTo((point.y - zoom.y) / zoom.zoom, 5);
     await page.evaluate(() => { window.primary.setZoom(100); window.primary.focus(); }); expect(await page.evaluate(() => window.primary.getViewport().zoom)).toBe(4);
     await page.keyboard.press(`${primary}+0`); expect(await page.evaluate(() => window.primary.getViewport().zoom)).toBe(1);
-    await page.keyboard.press(`${primary}+Shift+0`);
+    await page.keyboard.press(`${primary}+Shift+Digit0`);
     const fitted = await page.evaluate(() => window.primary.getViewport());
+    const expectedFit = await page.evaluate(() => { window.primary.fit(); return window.primary.getViewport(); });
+    expect(fitted).toEqual(expectedFit);
     await page.evaluate(() => { document.querySelector<HTMLElement>('#primary')!.style.height = '500px'; });
     await page.waitForTimeout(50); expect(await page.evaluate(() => window.primary.getViewport())).toEqual(fitted);
     expect(await page.evaluate(() => ({ d: window.primary.getDocument(), count: document.querySelector('#primary .mindmap')!.getAttribute('data-layout-count') }))).toEqual(before);

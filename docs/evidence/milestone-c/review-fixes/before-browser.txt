@@ -1,0 +1,131 @@
+
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test tests/browser/review-fixes.spec.ts --project=chromium --grep 'MacIntel|chain edit at 1|commands and panTo until' --workers=1
+
+[WebServer] (node:80832) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:80843) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:80852) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:80852) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [chromium] › tests/browser/review-fixes.spec.ts:10:47 › physical fit shortcut on MacIntel actually fits and unshifted zero resets zoom (466ms)
+(node:80864) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:80864) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 [chromium] › tests/browser/review-fixes.spec.ts:29:71 › resize during chain edit at 1 keeps buffer, caret, native undo and frozen geometry (334ms)
+(node:80874) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:80874) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  3 [chromium] › tests/browser/review-fixes.spec.ts:65:73 › viewport listeners defer commands and panTo until the entire batch ends (252ms)
+
+
+  1) [chromium] › tests/browser/review-fixes.spec.ts:10:47 › physical fit shortcut on MacIntel actually fits and unshifted zero resets zoom
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 3
+    + Received  + 3
+
+      Object {
+    -   "x": 522.8175604705882,
+    -   "y": 220,
+    -   "zoom": 1.8447058823529412,
+    +   "x": -1000,
+    +   "y": -1000,
+    +   "zoom": 4,
+      }
+
+      17 |     const actual = await page.evaluate(() => window.primary.getViewport());
+      18 |     writeFileSync(`${evidence}/${phase}-fit-${platform}-${info.project.name}.json`, JSON.stringify({ expected: fitted, actual }, null, 2) + '\n');
+    > 19 |     expect(actual).toEqual(fitted);
+         |                    ^
+      20 |     const host = (await page.locator('#primary').boundingBox())!;
+      21 |     for (const box of await page.locator('#primary .mindmap-node').evaluateAll(nodes => nodes.map(n => { const r = n.getBoundingClientRect(); return { x: r.x, y: r.y, right: r.right, bottom: r.bottom }; }))) {
+      22 |         expect(box.x).toBeGreaterThanOrEqual(host.x); expect(box.y).toBeGreaterThanOrEqual(host.y); expect(box.right).toBeLessThanOrEqual(host.x + host.width); expect(box.bottom).toBeLessThanOrEqual(host.y + host.height);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/review-fixes.spec.ts:19:20
+
+    Error Context: test-results/review-fixes-physical-fit--d1e4c--unshifted-zero-resets-zoom-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/review-fixes-physical-fit--d1e4c--unshifted-zero-resets-zoom-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/review-fixes-physical-fit--d1e4c--unshifted-zero-resets-zoom-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › tests/browser/review-fixes.spec.ts:29:71 › resize during chain edit at 1 keeps buffer, caret, native undo and frozen geometry
+
+    Error: expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 344
+    Received:    1045.125
+
+      43 |         if (width === 320) { await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-resize-${id}-${zoom}-${info.project.name}.png` }); writeFileSync(`${evidence}/${phase}-resize-${id}-${zoom}-${info.project.name}.json`, JSON.stringify({ host, editor: rect, saved }, null, 2) + '\n'); }
+      44 |         expect(rect.x).toBeGreaterThanOrEqual(host.x); expect(rect.y).toBeGreaterThanOrEqual(host.y);
+    > 45 |         expect(rect.x + rect.width).toBeLessThanOrEqual(host.x + host.width); expect(rect.y + rect.height).toBeLessThanOrEqual(host.y + host.height);
+         |                                     ^
+      46 |         await expect(area).toBeFocused(); await expect(area).toHaveAttribute('data-identity', 'retained');
+      47 |         expect(await area.evaluate(el => { const a = el as HTMLTextAreaElement; return { value: a.value, start: a.selectionStart, end: a.selectionEnd }; })).toEqual(saved);
+      48 |         expect(await page.locator('#primary .mindmap-nodes').innerHTML()).toBe(frozen); expect(await page.locator('#primary .mindmap').getAttribute('data-layout-count')).toBe(count);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/review-fixes.spec.ts:45:37
+
+    Error Context: test-results/review-fixes-resize-during-3a6d6-ve-undo-and-frozen-geometry-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/review-fixes-resize-during-3a6d6-ve-undo-and-frozen-geometry-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/review-fixes-resize-during-3a6d6-ve-undo-and-frozen-geometry-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chromium] › tests/browser/review-fixes.spec.ts:65:73 › viewport listeners defer commands and panTo until the entire batch ends
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 1
+
+      Array [
+        "first-start",
+    +   "document",
+        "first-end",
+        "second",
+    -   "document",
+        "first-start",
+        "first-end",
+        "second",
+      ]
+
+      82 |     }, method);
+      83 |     writeFileSync(`${evidence}/${phase}-queue-${method}-${info.project.name}.json`, JSON.stringify(result, null, 2) + '\n');
+    > 84 |     expect(result.events).toEqual(['first-start', 'first-end', 'second', 'document', 'first-start', 'first-end', 'second']);
+         |                           ^
+      85 |     expect(result.observations).toEqual([0, 1].map(() => ({ event: result.initial, view: result.initial, text: 'A' })));
+      86 |     expect(result.final).not.toEqual(result.initial);
+      87 | });
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/review-fixes.spec.ts:84:27
+
+    Error Context: test-results/review-fixes-viewport-list-0682b-until-the-entire-batch-ends-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/review-fixes-viewport-list-0682b-until-the-entire-batch-ends-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/review-fixes-viewport-list-0682b-until-the-entire-batch-ends-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    [chromium] › tests/browser/review-fixes.spec.ts:10:47 › physical fit shortcut on MacIntel actually fits and unshifted zero resets zoom
+    [chromium] › tests/browser/review-fixes.spec.ts:29:71 › resize during chain edit at 1 keeps buffer, caret, native undo and frozen geometry
+    [chromium] › tests/browser/review-fixes.spec.ts:65:73 › viewport listeners defer commands and panTo until the entire batch ends
+ ELIFECYCLE  Command failed with exit code 1.

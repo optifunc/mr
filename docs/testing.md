@@ -203,3 +203,25 @@ the widget, verify the exact forest/undo/redo, then copy back to the textarea an
 assert exact four-space output. Pure cases cover whole-paste detection, ambiguous
 widths, whitespace-only lines, literal leading spaces and invalid indentation.
 The full milestone and later release/manual gates were not rerun for this correction.
+
+## Stage-7 interaction review fixes (2026-09-10)
+
+```sh
+pnpm typecheck
+pnpm build
+pnpm test
+MINDMAP_EVIDENCE=docs/evidence/milestone-c/review-fixes pnpm test:browser tests/browser/review-fixes.spec.ts tests/browser/interaction.spec.ts tests/browser/editing.spec.ts tests/browser/api.spec.ts tests/browser/editor-sizing.spec.ts tests/browser/checkpoint-b.spec.ts tests/browser/drag.spec.ts --workers=1
+```
+
+[Review fixes report and evidence](evidence/milestone-c/review-fixes/report.md).
+Passed: typecheck/build, 163 unit tests, 267 browser cases, no failures/skips;
+three exact accepted-default comparisons and inspected resized-editor screenshots.
+Physical `Meta+Shift+Digit0` and `Control+Shift+Digit0` must match the fitted view
+and show the reference nodes within the host; unshifted zero resets zoom. Ctrl
+routing uses a Win32 platform override, not a claim of real Windows verification.
+Resize while F2 is active on left/right/root nodes at 100%/200%; shrink, grow, pass
+through zero size, type, use native undo/redo and cancel. The textarea, selection,
+buffer and frozen tree are retained. A separate provisional edit commits once.
+Viewport listeners test FIFO for commands and all four public viewport methods,
+coalescing, detached payloads, exceptions and destruction. Existing A default-image,
+API, editing, sizing, pointer/keyboard and drag checks are included.

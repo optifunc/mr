@@ -1,6 +1,6 @@
 # Implementation progress
 
-Last updated: 2026-09-09
+Last updated: 2026-09-10
 
 ## Current state
 
@@ -15,9 +15,13 @@ passed (2 documented permission skips). [Follow-up evidence](evidence/milestone-
 Accepted drag follow-up: regular-arrow valid drops and mirrored inward-half sibling drops.
 Typecheck/build, 147 unit tests and 126 focused browser cases passed, including
 three exact accepted-default comparisons. [Drag review evidence](evidence/milestone-c/drag-review/report.md).
-Latest follow-up: four-space copy and two/four-space/tab paste with whole-input
+Previous follow-up: four-space copy and two/four-space/tab paste with whole-input
 spacing detection. Typecheck/build, 163 unit tests and 79 focused browser cases
 passed (2 documented permission skips). [Clipboard evidence](evidence/milestone-c/clipboard-indentation/report.md).
+Latest follow-up: physical fit shortcut, editor visibility after host resize and
+queued viewport events/API mutations. Typecheck/build, 163 unit tests and 267 browser
+cases passed (no failures/skips), including three exact accepted-default comparisons.
+[Review fixes evidence](evidence/milestone-c/review-fixes/report.md).
 Stop at stage 7 for user review; stages 8–9 remain unstarted.
 
 **Milestone B is technically complete and accepted at `4209b2a` on 2026-09-08.**
@@ -546,3 +550,32 @@ checks and live-demo HTTP smoke passed. Previous images/baselines are preserved.
 No known defect remains in this extension. Full milestone/workload, exact default
 image and release/manual checks were not rerun; previous gaps remain. Demo stays
 http://127.0.0.1:5175/. Next: user's stage-7 review; stages 8–9 remain unstarted.
+
+## C review fixes — 2026-09-10
+
+The user authorized all three confirmed P2 findings: physical shifted-zero fit,
+editor visibility after host resize, and queued viewport notifications/API work.
+Started from clean `0161591`. Pre-change Chromium regressions reproduced all three;
+triage independently reproduced them in Chromium/Firefox/WebKit without file changes.
+Implementation now retains the textarea while resizing/revealing it, recognizes
+physical Digit0, and queues public viewport mutations/notifications while preserving
+internal synchronous command results. The initial broader browser gate passed 264
+cases and failed three tall-root resize cases at 200%: alignment padding expanded
+the textarea beyond its cap. Bounded that padding and retained the intermediate
+images/measurements. No assertion/tolerance was relaxed.
+
+Final typecheck/build, 163 unit tests and 267 browser cases passed without skips or
+failures, including 45 new review cases and three exact accepted-default comparisons.
+Inspected before/after resized editors in all engines and editing reference images.
+The same native textarea retains buffer, caret, focus and native undo through
+shrink/grow/zero-size cycles; tree geometry/document/history stay unchanged.
+Viewport traces show the full listener batch before queued document/viewport work.
+
+Requirements, plan, API, testing and acceptance are updated. The commit containing
+this record identifies the tested task state. Whitespace/evidence-link checks and
+live-demo HTTP smoke passed; prior evidence and accepted baselines are unchanged.
+[Report, commands, screenshots and known gaps](evidence/milestone-c/review-fixes/report.md).
+No known defect remains in these fixes. Full milestone/workload and later
+release/manual gates were not rerun; their existing gaps remain. Demo is available
+at http://127.0.0.1:5175/ (or fresh `pnpm dev`). Next: user's stage-7 product review;
+stages 8–9 remain unstarted.

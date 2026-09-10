@@ -64,16 +64,20 @@ export class MindMapEditor {
             command: (command, replacementText) => this.run(() => this.canExecute(command) ? this.dispatch(command, 'user', replacementText) : false),
             select: (id, toggle, range, release) => this.pointerSelect(id, toggle, range, release),
             selected: id => this.store.selection.ids.includes(id),
-            viewport: () => this.getViewport(), pan: (x, y) => this.applyViewport({ ...this.viewport, x, y }),
-            zoom: (scale, x, y) => { const p = this.localPoint(x, y); this.applyViewport(zoomAt(this.viewport, scale, p.x, p.y)); },
+            viewport: () => this.getViewport(), pan: (x, y) => this.panTo(x, y),
+            zoom: (scale, x, y) => { this.run(() => { const p = this.localPoint(x, y); this.applyViewport(zoomAt(this.viewport, scale, p.x, p.y)); return true; }); },
             startDrag: (id, x, y) => this.drag.start(id, x, y), drag: (x, y) => this.drag.update(x, y), drop: (x, y) => this.drag.finish(x, y), cancelDrag: () => this.drag.cancel(),
             hit: (x, y) => this.hit(x, y), marker: (x, y) => this.hit(x, y, true),
         });
         this.resize = new ResizeObserver(() => {
             if (this.destroyed || !this.element.clientWidth || !this.element.clientHeight) return;
-            if (this.pendingFit) this.fit();
-            else if (!this.measuredViewport) this.panTo(this.element.clientWidth / 2, this.element.clientHeight / 2);
-            this.measuredViewport = true;
+            this.run(() => {
+                if (this.pendingFit) this.fitViewport();
+                else if (!this.measuredViewport) this.applyViewport({ ...this.viewport, x: this.element.clientWidth / 2, y: this.element.clientHeight / 2 });
+                this.measuredViewport = true;
+                this.constrainEditor();
+                return true;
+            });
         });
         this.resize.observe(this.element);
         this.fonts = host.ownerDocument.fonts;
@@ -173,8 +177,8 @@ export class MindMapEditor {
         const origin: Origin = command.type === 'undo' || command.type === 'redo' ? command.type : source;
         if (['zoomIn', 'zoomOut', 'resetZoom', 'fit'].includes(command.type)) {
             const view = this.getViewport(), pending = this.pendingFit;
-            if (command.type === 'fit') this.fit();
-            else this.setZoom(command.type === 'resetZoom' ? 1 : this.viewport.zoom * (command.type === 'zoomIn' ? 1.2 : 1 / 1.2));
+            if (command.type === 'fit') this.fitViewport();
+            else this.zoom(command.type === 'resetZoom' ? 1 : this.viewport.zoom * (command.type === 'zoomIn' ? 1.2 : 1 / 1.2));
             return JSON.stringify(view) !== JSON.stringify(this.viewport) || pending !== this.pendingFit;
         }
         if (command.type === 'selectAll' || command.type === 'clearSelection') {
@@ -247,14 +251,23 @@ export class MindMapEditor {
         this.selectionPath.reset(this.store.selection); this.revealIds([edit.id]);
         this.textEditor = new TextEditor(this.scene.scene, this.scene.nodeElement(edit.id)!, replacementText ?? this.store.model.nodes.get(edit.id)!.text,
             { geometry: this.scene.geometry!.nodes.get(edit.id)!, creation, compact: creation || !this.store.model.nodes.get(edit.id)!.children.some(id => this.scene.geometry!.nodes.has(id)),
-                width: Math.max(20, (this.element.clientWidth - 32) / this.viewport.zoom), height: Math.max(21, Math.min(186, (this.element.clientHeight - 32) / this.viewport.zoom)) },
+                ...this.editorLimits() },
             (commit, focus) => { this.run(() => { this.finishEdit(commit, focus); return true; }); });
         if (replacementText !== undefined) this.textEditor.textarea.setSelectionRange(replacementText.length, replacementText.length);
-        const area = this.textEditor.textarea.style;
-        this.applyViewport(reveal(this.viewport, { x: parseFloat(area.left), y: parseFloat(area.top), width: parseFloat(area.width), height: parseFloat(area.height) }, this.element.clientWidth, this.element.clientHeight));
+        this.constrainEditor();
         this.selectionEvent(before, origin);
         this.emit('editstart', () => ({ id: edit.id, provisional: edit.provisional, origin }));
         return true;
+    }
+    private editorLimits(): { width: number; height: number } {
+        return { width: Math.max(20, (this.element.clientWidth - 32) / this.viewport.zoom), height: Math.max(21, Math.min(186, (this.element.clientHeight - 32) / this.viewport.zoom)) };
+    }
+    private constrainEditor(): void {
+        if (!this.textEditor || !this.element.clientWidth || !this.element.clientHeight) return;
+        const limits = this.editorLimits();
+        this.textEditor.resize(limits.width, limits.height);
+        const area = this.textEditor.textarea.style;
+        this.applyViewport(reveal(this.viewport, { x: parseFloat(area.left), y: parseFloat(area.top), width: parseFloat(area.width), height: parseFloat(area.height) }, this.element.clientWidth, this.element.clientHeight));
     }
     private finishEdit(commit: boolean, focus: boolean): void {
         const editor = this.textEditor, edit = this.store.edit; if (!editor || !edit) return;
@@ -343,12 +356,17 @@ export class MindMapEditor {
         const changed = view.x !== this.viewport.x || view.y !== this.viewport.y || view.zoom !== this.viewport.zoom;
         this.viewport = view;
         this.scene.scene.style.transform = `translate(${view.x}px, ${view.y}px) scale(${view.zoom})`;
-        if (changed && !this.viewportFrame) this.viewportFrame = requestAnimationFrame(() => { this.viewportFrame = 0; if (!this.destroyed) this.emit('viewportchange', () => this.getViewport()); });
+        if (changed && !this.viewportFrame) this.viewportFrame = requestAnimationFrame(() => {
+            this.viewportFrame = 0;
+            this.run(() => { this.emit('viewportchange', () => this.getViewport()); return true; });
+        });
     }
-    panTo(x: number, y: number): void { this.applyViewport({ ...this.viewport, x, y }); }
+    panTo(x: number, y: number): void { this.run(() => { this.applyViewport({ ...this.viewport, x, y }); return true; }); }
     getViewport(): Viewport { return { ...this.viewport }; }
-    setZoom(scale: number): void { if (Number.isFinite(scale)) this.applyViewport(zoomAt(this.viewport, scale, this.element.clientWidth / 2, this.element.clientHeight / 2)); }
-    fit(): void {
+    setZoom(scale: number): void { this.run(() => { this.zoom(scale); return true; }); }
+    private zoom(scale: number): void { if (Number.isFinite(scale)) this.applyViewport(zoomAt(this.viewport, scale, this.element.clientWidth / 2, this.element.clientHeight / 2)); }
+    fit(): void { this.run(() => { this.fitViewport(); return true; }); }
+    private fitViewport(): void {
         if (this.destroyed) return;
         this.pendingFit = !this.element.clientWidth || !this.element.clientHeight;
         if (this.pendingFit) {
@@ -357,7 +375,7 @@ export class MindMapEditor {
             this.resize.unobserve(this.element); this.resize.observe(this.element);
         } else this.applyViewport(fitBounds(this.scene.geometry!.bounds, this.element.clientWidth, this.element.clientHeight));
     }
-    panToNode(id: string): void { this.revealIds([id]); }
+    panToNode(id: string): void { this.run(() => { this.revealIds([id]); return true; }); }
     private revealIds(ids: string[]): void {
         const boxes = ids.flatMap(id => { const g = this.scene.geometry!.nodes.get(id); return g ? [g.interaction] : []; });
         if (!boxes.length) return;

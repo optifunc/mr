@@ -1,0 +1,388 @@
+
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test tests/browser/review-fixes.spec.ts tests/browser/interaction.spec.ts tests/browser/editing.spec.ts tests/browser/api.spec.ts tests/browser/editor-sizing.spec.ts tests/browser/checkpoint-b.spec.ts tests/browser/drag.spec.ts --workers=1
+
+[WebServer] (node:80943) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:80953) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 267 tests using 1 worker
+
+(node:80964) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:80964) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓    1 [chromium] › tests/browser/api.spec.ts:12:1 › malformed JavaScript commands reject atomically with stable errors (379ms)
+  ✓    2 [chromium] › tests/browser/api.spec.ts:45:1 › model commands, event isolation, replacement, and independent histories (115ms)
+  ✓    3 [chromium] › tests/browser/api.spec.ts:73:1 › reentrant listeners run after the current event batch and exceptions are isolated (115ms)
+  ✓    4 [chromium] › tests/browser/api.spec.ts:95:1 › reentrant branches drain FIFO and preserve event batches despite callback errors (113ms)
+  ✓    5 [chromium] › tests/browser/api.spec.ts:120:1 › destroy during a queue drain discards pending work and remaining notifications (110ms)
+  ✓    6 [chromium] › tests/browser/api.spec.ts:137:1 › long reentrant chains do not depend on the JavaScript call stack (142ms)
+  ✓    7 [chromium] › tests/browser/checkpoint-b.spec.ts:5:1 › editing reference, multiline, checkbox/root alignment and frozen geometry evidence (861ms)
+  ✓    8 [chromium] › tests/browser/checkpoint-b.spec.ts:35:1 › Ctrl routing on simulated non-Mac platform, all movement no-op classes, left promotion, empty destination and reveal (287ms)
+  ✓    9 [chromium] › tests/browser/checkpoint-b.spec.ts:53:1 › an outside click re-hits geometry after a large relayout, rather than selecting its stale DOM target (157ms)
+  ✓   10 [chromium] › tests/browser/checkpoint-b.spec.ts:66:1 › destroy from editcommit listener prevents a queued follow-on content mutation (122ms)
+  ✓   11 [chromium] › tests/browser/checkpoint-b.spec.ts:74:1 › read-only edit/delete/checkbox shortcuts are silent; invalid creation callback is atomic in the browser (165ms)
+  ✓   12 [chromium] › tests/browser/checkpoint-b.spec.ts:83:1 › accepted-A rendering regression in its original page geometry (257ms)
+  ✓   13 [chromium] › tests/browser/checkpoint-b.spec.ts:104:1 › zero-size mount centers when measurable; deferred fit and later resize preserve view/history (327ms)
+  ✓   14 [chromium] › tests/browser/checkpoint-b.spec.ts:114:1 › keyboard deletion normalizes subtrees and restores useful selection in one history step (115ms)
+  ✓   15 [chromium] › tests/browser/checkpoint-b.spec.ts:122:1 › viewport no-ops report false and emit no viewport or document event (121ms)
+  ✓   16 [chromium] › tests/browser/drag.spec.ts:20:129 › actual group drag before previews gradient, freezes layout and commits one undoable move (355ms)
+  ✓   17 [chromium] › tests/browser/drag.spec.ts:20:129 › actual group drag after previews gradient, freezes layout and commits one undoable move (345ms)
+  ✓   18 [chromium] › tests/browser/drag.spec.ts:20:129 › actual group drag child previews gradient, freezes layout and commits one undoable move (362ms)
+  ✓   19 [chromium] › tests/browser/drag.spec.ts:35:48 › root left drop assigns side and append order; before/after root siblings adopts their side (333ms)
+  ✓   20 [chromium] › tests/browser/drag.spec.ts:35:48 › root right drop assigns side and append order; before/after root siblings adopts their side (345ms)
+  ✓   21 [chromium] › tests/browser/drag.spec.ts:43:1 › left outward zones mirror at 200% zoom and host scale; inward same-position rejects (429ms)
+  ✓   22 [chromium] › tests/browser/drag.spec.ts:57:1 › multi-parent and ancestor selections normalize to one visual forest without duplicate descendants (250ms)
+  ✓   23 [chromium] › tests/browser/drag.spec.ts:64:1 › collapsed child drop stays collapsed, selects visible target and reveals preserved subtrees on expansion (260ms)
+  ✓   24 [chromium] › tests/browser/drag.spec.ts:72:105 › invalid cycle has prohibited cursor, no gradient, no history (246ms)
+  ✓   25 [chromium] › tests/browser/drag.spec.ts:72:105 › invalid selected has prohibited cursor, no gradient, no history (244ms)
+  ✓   26 [chromium] › tests/browser/drag.spec.ts:72:105 › invalid same-position has prohibited cursor, no gradient, no history (246ms)
+  ✓   27 [chromium] › tests/browser/drag.spec.ts:72:105 › invalid root has prohibited cursor, no gradient, no history (243ms)
+  ✓   28 [chromium] › tests/browser/drag.spec.ts:72:105 › invalid inward-same-position has prohibited cursor, no gradient, no history (245ms)
+  ✓   29 [chromium] › tests/browser/drag.spec.ts:82:116 › Escape clears drag feedback and cancels mutation (250ms)
+  ✓   30 [chromium] › tests/browser/drag.spec.ts:82:116 › pointercancel clears drag feedback and cancels mutation (243ms)
+  ✓   31 [chromium] › tests/browser/drag.spec.ts:82:116 › capture-loss clears drag feedback and cancels mutation (245ms)
+  ✓   32 [chromium] › tests/browser/drag.spec.ts:82:116 › replacement clears drag feedback and cancels mutation (245ms)
+  ✓   33 [chromium] › tests/browser/drag.spec.ts:82:116 › edit clears drag feedback and cancels mutation (246ms)
+  ✓   34 [chromium] › tests/browser/drag.spec.ts:82:116 › destroy clears drag feedback and cancels mutation (241ms)
+  ✓   35 [chromium] › tests/browser/drag.spec.ts:97:1 › stationary edge pointer autopans across frames, re-hits the target and stops on cancel without relayout (496ms)
+  ✓   36 [chromium] › tests/browser/drag.spec.ts:108:1 › unselected press selects one source; read-only and non-mouse input never drag (379ms)
+  ✓   37 [chromium] › tests/browser/drag.spec.ts:115:1 › reference drag comparison and environment evidence (480ms)
+  ✓   38 [chromium] › tests/browser/drag.spec.ts:125:1 › stationary pointer gradient is re-evaluated as autopan moves its target away (1.1s)
+  ✓   39 [chromium] › tests/browser/drag.spec.ts:134:1 › real pointer capture release and outside-widget release cancel drops (357ms)
+  ✓   40 [chromium] › tests/browser/drag.spec.ts:142:124 › inward-half left before at zoom 1 previews sibling drop and commits one move (354ms)
+  ✓   41 [chromium] › tests/browser/drag.spec.ts:142:124 › inward-half left before at zoom 2 previews sibling drop and commits one move (345ms)
+  ✓   42 [chromium] › tests/browser/drag.spec.ts:142:124 › inward-half left after at zoom 1 previews sibling drop and commits one move (345ms)
+  ✓   43 [chromium] › tests/browser/drag.spec.ts:142:124 › inward-half left after at zoom 2 previews sibling drop and commits one move (346ms)
+  ✓   44 [chromium] › tests/browser/drag.spec.ts:142:124 › inward-half right before at zoom 1 previews sibling drop and commits one move (346ms)
+  ✓   45 [chromium] › tests/browser/drag.spec.ts:142:124 › inward-half right before at zoom 2 previews sibling drop and commits one move (343ms)
+  ✓   46 [chromium] › tests/browser/drag.spec.ts:142:124 › inward-half right after at zoom 1 previews sibling drop and commits one move (344ms)
+  ✓   47 [chromium] › tests/browser/drag.spec.ts:142:124 › inward-half right after at zoom 2 previews sibling drop and commits one move (348ms)
+  ✓   48 [chromium] › tests/browser/editing.spec.ts:5:1 › F2 selects text, native multiline typing freezes geometry and one commit relayouts once (175ms)
+  ✓   49 [chromium] › tests/browser/editing.spec.ts:20:5 › Tab on root: visible provisional insertion, exact placement and one-entry commit (137ms)
+  ✓   50 [chromium] › tests/browser/editing.spec.ts:20:5 › Enter on root: visible provisional insertion, exact placement and one-entry commit (138ms)
+  ✓   51 [chromium] › tests/browser/editing.spec.ts:20:5 › Shift+Enter on root: visible provisional insertion, exact placement and one-entry commit (144ms)
+  ✓   52 [chromium] › tests/browser/editing.spec.ts:20:5 › Shift+Tab on root: visible provisional insertion, exact placement and one-entry commit (140ms)
+  ✓   53 [chromium] › tests/browser/editing.spec.ts:20:5 › Tab on one: visible provisional insertion, exact placement and one-entry commit (135ms)
+  ✓   54 [chromium] › tests/browser/editing.spec.ts:20:5 › Enter on one: visible provisional insertion, exact placement and one-entry commit (139ms)
+  ✓   55 [chromium] › tests/browser/editing.spec.ts:20:5 › Shift+Enter on one: visible provisional insertion, exact placement and one-entry commit (134ms)
+  ✓   56 [chromium] › tests/browser/editing.spec.ts:20:5 › Shift+Tab on one: visible provisional insertion, exact placement and one-entry commit (137ms)
+  ✓   57 [chromium] › tests/browser/editing.spec.ts:40:1 › Escape restores collapsed-parent creation and inserted-parent wrapping with selection and redo intact (153ms)
+  ✓   58 [chromium] › tests/browser/editing.spec.ts:50:1 › click-to-edit only on sole selection and after pointer release; moved presses never edit (229ms)
+  ✓   59 [chromium] › tests/browser/editing.spec.ts:58:1 › outside pointer commits before resolving the new node target; external blur commits without stealing focus (194ms)
+  ✓   60 [chromium] › tests/browser/editing.spec.ts:68:1 › composition Enter is guarded; platform textarea shortcuts never move, select map nodes or create history (146ms)
+  ✓   61 [chromium] › tests/browser/editing.spec.ts:78:1 › checkbox inheritance, empty creation commit, existing unchanged no-op and event order/origin (129ms)
+  ✓   62 [chromium] › tests/browser/editing.spec.ts:85:1 › valid replacement/destroy discard edits, invalid replacement preserves buffer, public content commands finish it (149ms)
+  ✓   63 [chromium] › tests/browser/editing.spec.ts:94:1 › deferred style refresh cannot move the scene during typing; cancellation applies refresh (114ms)
+  ✓   64 [chromium] › tests/browser/editing.spec.ts:102:1 › long labels stay editable inside the viewport; provisional Escape restores the prior view (141ms)
+  ✓   65 [chromium] › tests/browser/editor-sizing.spec.ts:7:33 › F2 width follows visible children and text/bottom alignment at 1 (332ms)
+  ✓   66 [chromium] › tests/browser/editor-sizing.spec.ts:7:33 › F2 width follows visible children and text/bottom alignment at 1.5 (342ms)
+  ✓   67 [chromium] › tests/browser/editor-sizing.spec.ts:7:33 › F2 width follows visible children and text/bottom alignment at 2 (578ms)
+  ✓   68 [chromium] › tests/browser/editor-sizing.spec.ts:42:1 › eight-M width fits eight letters, follows the font, and creation wrapping follows visible children (269ms)
+  ✓   69 [chromium] › tests/browser/interaction.spec.ts:5:1 › mouse toggle/range/empty selection and keyboard central-child navigation, contraction and collapse (374ms)
+  ✓   70 [chromium] › tests/browser/interaction.spec.ts:21:1 › actual block keys wrap, promote, flip, preserve selection, emit one event and undo/redo once (138ms)
+  ✓   71 [chromium] › tests/browser/interaction.spec.ts:40:1 › ineligible movement does not navigate or change viewport/history; interleaved siblings use same-side order (123ms)
+  ✓   72 [chromium] › tests/browser/interaction.spec.ts:52:1 › pan, wheel variants, pointer-anchored zoom, keyboard fit/clamps and resize keep document/history intact (348ms)
+  ✓   73 [chromium] › tests/browser/interaction.spec.ts:78:1 › checkbox click and mixed keyboard toggle are independent and do not relayout (148ms)
+  ✓   74 [chromium] › tests/browser/interaction.spec.ts:88:1 › read-only gestures allow navigation/viewport but reject movement/collapse and preserve instance isolation (115ms)
+  ✓   75 [chromium] › tests/browser/review-fixes.spec.ts:10:47 › physical fit shortcut on MacIntel actually fits and unshifted zero resets zoom (245ms)
+  ✓   76 [chromium] › tests/browser/review-fixes.spec.ts:10:47 › physical fit shortcut on Win32 actually fits and unshifted zero resets zoom (242ms)
+  ✓   77 [chromium] › tests/browser/review-fixes.spec.ts:29:71 › resize during chain edit at 1 keeps buffer, caret, native undo and frozen geometry (491ms)
+  ✓   78 [chromium] › tests/browser/review-fixes.spec.ts:29:71 › resize during chain edit at 2 keeps buffer, caret, native undo and frozen geometry (496ms)
+  ✓   79 [chromium] › tests/browser/review-fixes.spec.ts:29:71 › resize during c21 edit at 1 keeps buffer, caret, native undo and frozen geometry (495ms)
+  ✓   80 [chromium] › tests/browser/review-fixes.spec.ts:29:71 › resize during c21 edit at 2 keeps buffer, caret, native undo and frozen geometry (496ms)
+  ✓   81 [chromium] › tests/browser/review-fixes.spec.ts:29:71 › resize during root edit at 1 keeps buffer, caret, native undo and frozen geometry (494ms)
+  ✘   82 [chromium] › tests/browser/review-fixes.spec.ts:29:71 › resize during root edit at 2 keeps buffer, caret, native undo and frozen geometry (293ms)
+(node:81162) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:81162) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   83 [chromium] › tests/browser/review-fixes.spec.ts:56:1 › resized provisional editor commits once and undo restores its creation (233ms)
+  ✓   84 [chromium] › tests/browser/review-fixes.spec.ts:65:73 › viewport listeners defer commands and panTo until the entire batch ends (180ms)
+  ✓   85 [chromium] › tests/browser/review-fixes.spec.ts:65:73 › viewport listeners defer commands and setZoom until the entire batch ends (194ms)
+  ✓   86 [chromium] › tests/browser/review-fixes.spec.ts:65:73 › viewport listeners defer commands and fit until the entire batch ends (194ms)
+  ✓   87 [chromium] › tests/browser/review-fixes.spec.ts:65:73 › viewport listeners defer commands and panToNode until the entire batch ends (194ms)
+  ✓   88 [chromium] › tests/browser/review-fixes.spec.ts:89:1 › viewport batches retain coalescing, detached payloads and exception isolation (155ms)
+  ✓   89 [chromium] › tests/browser/review-fixes.spec.ts:103:1 › destroy from viewport listener discards queued mutations and later notifications (178ms)
+(node:81181) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:81181) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   90 [firefox] › tests/browser/api.spec.ts:12:1 › malformed JavaScript commands reject atomically with stable errors (967ms)
+  ✓   91 [firefox] › tests/browser/api.spec.ts:45:1 › model commands, event isolation, replacement, and independent histories (269ms)
+  ✓   92 [firefox] › tests/browser/api.spec.ts:73:1 › reentrant listeners run after the current event batch and exceptions are isolated (259ms)
+  ✓   93 [firefox] › tests/browser/api.spec.ts:95:1 › reentrant branches drain FIFO and preserve event batches despite callback errors (253ms)
+  ✓   94 [firefox] › tests/browser/api.spec.ts:120:1 › destroy during a queue drain discards pending work and remaining notifications (246ms)
+  ✓   95 [firefox] › tests/browser/api.spec.ts:137:1 › long reentrant chains do not depend on the JavaScript call stack (273ms)
+  ✓   96 [firefox] › tests/browser/checkpoint-b.spec.ts:5:1 › editing reference, multiline, checkbox/root alignment and frozen geometry evidence (687ms)
+  ✓   97 [firefox] › tests/browser/checkpoint-b.spec.ts:35:1 › Ctrl routing on simulated non-Mac platform, all movement no-op classes, left promotion, empty destination and reveal (378ms)
+  ✓   98 [firefox] › tests/browser/checkpoint-b.spec.ts:53:1 › an outside click re-hits geometry after a large relayout, rather than selecting its stale DOM target (302ms)
+  ✓   99 [firefox] › tests/browser/checkpoint-b.spec.ts:66:1 › destroy from editcommit listener prevents a queued follow-on content mutation (281ms)
+  ✓  100 [firefox] › tests/browser/checkpoint-b.spec.ts:74:1 › read-only edit/delete/checkbox shortcuts are silent; invalid creation callback is atomic in the browser (329ms)
+  ✓  101 [firefox] › tests/browser/checkpoint-b.spec.ts:83:1 › accepted-A rendering regression in its original page geometry (448ms)
+  ✓  102 [firefox] › tests/browser/checkpoint-b.spec.ts:104:1 › zero-size mount centers when measurable; deferred fit and later resize preserve view/history (461ms)
+  ✓  103 [firefox] › tests/browser/checkpoint-b.spec.ts:114:1 › keyboard deletion normalizes subtrees and restores useful selection in one history step (281ms)
+  ✓  104 [firefox] › tests/browser/checkpoint-b.spec.ts:122:1 › viewport no-ops report false and emit no viewport or document event (257ms)
+  ✓  105 [firefox] › tests/browser/drag.spec.ts:20:129 › actual group drag before previews gradient, freezes layout and commits one undoable move (442ms)
+  ✓  106 [firefox] › tests/browser/drag.spec.ts:20:129 › actual group drag after previews gradient, freezes layout and commits one undoable move (459ms)
+  ✓  107 [firefox] › tests/browser/drag.spec.ts:20:129 › actual group drag child previews gradient, freezes layout and commits one undoable move (430ms)
+  ✓  108 [firefox] › tests/browser/drag.spec.ts:35:48 › root left drop assigns side and append order; before/after root siblings adopts their side (447ms)
+  ✓  109 [firefox] › tests/browser/drag.spec.ts:35:48 › root right drop assigns side and append order; before/after root siblings adopts their side (495ms)
+  ✓  110 [firefox] › tests/browser/drag.spec.ts:43:1 › left outward zones mirror at 200% zoom and host scale; inward same-position rejects (742ms)
+  ✓  111 [firefox] › tests/browser/drag.spec.ts:57:1 › multi-parent and ancestor selections normalize to one visual forest without duplicate descendants (405ms)
+  ✓  112 [firefox] › tests/browser/drag.spec.ts:64:1 › collapsed child drop stays collapsed, selects visible target and reveals preserved subtrees on expansion (395ms)
+  ✓  113 [firefox] › tests/browser/drag.spec.ts:72:105 › invalid cycle has prohibited cursor, no gradient, no history (394ms)
+  ✓  114 [firefox] › tests/browser/drag.spec.ts:72:105 › invalid selected has prohibited cursor, no gradient, no history (377ms)
+  ✓  115 [firefox] › tests/browser/drag.spec.ts:72:105 › invalid same-position has prohibited cursor, no gradient, no history (378ms)
+  ✓  116 [firefox] › tests/browser/drag.spec.ts:72:105 › invalid root has prohibited cursor, no gradient, no history (374ms)
+  ✓  117 [firefox] › tests/browser/drag.spec.ts:72:105 › invalid inward-same-position has prohibited cursor, no gradient, no history (348ms)
+  ✓  118 [firefox] › tests/browser/drag.spec.ts:82:116 › Escape clears drag feedback and cancels mutation (383ms)
+  ✓  119 [firefox] › tests/browser/drag.spec.ts:82:116 › pointercancel clears drag feedback and cancels mutation (357ms)
+  ✓  120 [firefox] › tests/browser/drag.spec.ts:82:116 › capture-loss clears drag feedback and cancels mutation (380ms)
+  ✓  121 [firefox] › tests/browser/drag.spec.ts:82:116 › replacement clears drag feedback and cancels mutation (396ms)
+  ✓  122 [firefox] › tests/browser/drag.spec.ts:82:116 › edit clears drag feedback and cancels mutation (513ms)
+  ✓  123 [firefox] › tests/browser/drag.spec.ts:82:116 › destroy clears drag feedback and cancels mutation (376ms)
+  ✓  124 [firefox] › tests/browser/drag.spec.ts:97:1 › stationary edge pointer autopans across frames, re-hits the target and stops on cancel without relayout (613ms)
+  ✓  125 [firefox] › tests/browser/drag.spec.ts:108:1 › unselected press selects one source; read-only and non-mouse input never drag (557ms)
+  ✓  126 [firefox] › tests/browser/drag.spec.ts:115:1 › reference drag comparison and environment evidence (531ms)
+  ✓  127 [firefox] › tests/browser/drag.spec.ts:125:1 › stationary pointer gradient is re-evaluated as autopan moves its target away (1.3s)
+  ✓  128 [firefox] › tests/browser/drag.spec.ts:134:1 › real pointer capture release and outside-widget release cancel drops (545ms)
+  ✓  129 [firefox] › tests/browser/drag.spec.ts:142:124 › inward-half left before at zoom 1 previews sibling drop and commits one move (671ms)
+  ✓  130 [firefox] › tests/browser/drag.spec.ts:142:124 › inward-half left before at zoom 2 previews sibling drop and commits one move (457ms)
+  ✓  131 [firefox] › tests/browser/drag.spec.ts:142:124 › inward-half left after at zoom 1 previews sibling drop and commits one move (464ms)
+  ✓  132 [firefox] › tests/browser/drag.spec.ts:142:124 › inward-half left after at zoom 2 previews sibling drop and commits one move (460ms)
+  ✓  133 [firefox] › tests/browser/drag.spec.ts:142:124 › inward-half right before at zoom 1 previews sibling drop and commits one move (449ms)
+  ✓  134 [firefox] › tests/browser/drag.spec.ts:142:124 › inward-half right before at zoom 2 previews sibling drop and commits one move (458ms)
+  ✓  135 [firefox] › tests/browser/drag.spec.ts:142:124 › inward-half right after at zoom 1 previews sibling drop and commits one move (466ms)
+  ✓  136 [firefox] › tests/browser/drag.spec.ts:142:124 › inward-half right after at zoom 2 previews sibling drop and commits one move (440ms)
+  ✓  137 [firefox] › tests/browser/editing.spec.ts:5:1 › F2 selects text, native multiline typing freezes geometry and one commit relayouts once (329ms)
+  ✓  138 [firefox] › tests/browser/editing.spec.ts:20:5 › Tab on root: visible provisional insertion, exact placement and one-entry commit (319ms)
+  ✓  139 [firefox] › tests/browser/editing.spec.ts:20:5 › Enter on root: visible provisional insertion, exact placement and one-entry commit (410ms)
+  ✓  140 [firefox] › tests/browser/editing.spec.ts:20:5 › Shift+Enter on root: visible provisional insertion, exact placement and one-entry commit (347ms)
+  ✓  141 [firefox] › tests/browser/editing.spec.ts:20:5 › Shift+Tab on root: visible provisional insertion, exact placement and one-entry commit (291ms)
+  ✓  142 [firefox] › tests/browser/editing.spec.ts:20:5 › Tab on one: visible provisional insertion, exact placement and one-entry commit (286ms)
+  ✓  143 [firefox] › tests/browser/editing.spec.ts:20:5 › Enter on one: visible provisional insertion, exact placement and one-entry commit (290ms)
+  ✓  144 [firefox] › tests/browser/editing.spec.ts:20:5 › Shift+Enter on one: visible provisional insertion, exact placement and one-entry commit (321ms)
+  ✓  145 [firefox] › tests/browser/editing.spec.ts:20:5 › Shift+Tab on one: visible provisional insertion, exact placement and one-entry commit (327ms)
+  ✓  146 [firefox] › tests/browser/editing.spec.ts:40:1 › Escape restores collapsed-parent creation and inserted-parent wrapping with selection and redo intact (305ms)
+  ✓  147 [firefox] › tests/browser/editing.spec.ts:50:1 › click-to-edit only on sole selection and after pointer release; moved presses never edit (404ms)
+  ✓  148 [firefox] › tests/browser/editing.spec.ts:58:1 › outside pointer commits before resolving the new node target; external blur commits without stealing focus (362ms)
+  ✓  149 [firefox] › tests/browser/editing.spec.ts:68:1 › composition Enter is guarded; platform textarea shortcuts never move, select map nodes or create history (294ms)
+  ✓  150 [firefox] › tests/browser/editing.spec.ts:78:1 › checkbox inheritance, empty creation commit, existing unchanged no-op and event order/origin (274ms)
+  ✓  151 [firefox] › tests/browser/editing.spec.ts:85:1 › valid replacement/destroy discard edits, invalid replacement preserves buffer, public content commands finish it (314ms)
+  ✓  152 [firefox] › tests/browser/editing.spec.ts:94:1 › deferred style refresh cannot move the scene during typing; cancellation applies refresh (279ms)
+  ✓  153 [firefox] › tests/browser/editing.spec.ts:102:1 › long labels stay editable inside the viewport; provisional Escape restores the prior view (345ms)
+  ✓  154 [firefox] › tests/browser/editor-sizing.spec.ts:7:33 › F2 width follows visible children and text/bottom alignment at 1 (777ms)
+  ✓  155 [firefox] › tests/browser/editor-sizing.spec.ts:7:33 › F2 width follows visible children and text/bottom alignment at 1.5 (545ms)
+  ✓  156 [firefox] › tests/browser/editor-sizing.spec.ts:7:33 › F2 width follows visible children and text/bottom alignment at 2 (678ms)
+  ✓  157 [firefox] › tests/browser/editor-sizing.spec.ts:42:1 › eight-M width fits eight letters, follows the font, and creation wrapping follows visible children (404ms)
+  ✓  158 [firefox] › tests/browser/interaction.spec.ts:5:1 › mouse toggle/range/empty selection and keyboard central-child navigation, contraction and collapse (655ms)
+  ✓  159 [firefox] › tests/browser/interaction.spec.ts:21:1 › actual block keys wrap, promote, flip, preserve selection, emit one event and undo/redo once (291ms)
+  ✓  160 [firefox] › tests/browser/interaction.spec.ts:40:1 › ineligible movement does not navigate or change viewport/history; interleaved siblings use same-side order (268ms)
+  ✓  161 [firefox] › tests/browser/interaction.spec.ts:52:1 › pan, wheel variants, pointer-anchored zoom, keyboard fit/clamps and resize keep document/history intact (419ms)
+  ✓  162 [firefox] › tests/browser/interaction.spec.ts:78:1 › checkbox click and mixed keyboard toggle are independent and do not relayout (330ms)
+  ✓  163 [firefox] › tests/browser/interaction.spec.ts:88:1 › read-only gestures allow navigation/viewport but reject movement/collapse and preserve instance isolation (289ms)
+  ✓  164 [firefox] › tests/browser/review-fixes.spec.ts:10:47 › physical fit shortcut on MacIntel actually fits and unshifted zero resets zoom (834ms)
+  ✓  165 [firefox] › tests/browser/review-fixes.spec.ts:10:47 › physical fit shortcut on Win32 actually fits and unshifted zero resets zoom (540ms)
+  ✓  166 [firefox] › tests/browser/review-fixes.spec.ts:29:71 › resize during chain edit at 1 keeps buffer, caret, native undo and frozen geometry (574ms)
+  ✓  167 [firefox] › tests/browser/review-fixes.spec.ts:29:71 › resize during chain edit at 2 keeps buffer, caret, native undo and frozen geometry (584ms)
+  ✓  168 [firefox] › tests/browser/review-fixes.spec.ts:29:71 › resize during c21 edit at 1 keeps buffer, caret, native undo and frozen geometry (621ms)
+  ✓  169 [firefox] › tests/browser/review-fixes.spec.ts:29:71 › resize during c21 edit at 2 keeps buffer, caret, native undo and frozen geometry (583ms)
+  ✓  170 [firefox] › tests/browser/review-fixes.spec.ts:29:71 › resize during root edit at 1 keeps buffer, caret, native undo and frozen geometry (591ms)
+  ✘  171 [firefox] › tests/browser/review-fixes.spec.ts:29:71 › resize during root edit at 2 keeps buffer, caret, native undo and frozen geometry (498ms)
+(node:81313) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:81313) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  172 [firefox] › tests/browser/review-fixes.spec.ts:56:1 › resized provisional editor commits once and undo restores its creation (921ms)
+  ✓  173 [firefox] › tests/browser/review-fixes.spec.ts:65:73 › viewport listeners defer commands and panTo until the entire batch ends (336ms)
+  ✓  174 [firefox] › tests/browser/review-fixes.spec.ts:65:73 › viewport listeners defer commands and setZoom until the entire batch ends (327ms)
+  ✓  175 [firefox] › tests/browser/review-fixes.spec.ts:65:73 › viewport listeners defer commands and fit until the entire batch ends (326ms)
+  ✓  176 [firefox] › tests/browser/review-fixes.spec.ts:65:73 › viewport listeners defer commands and panToNode until the entire batch ends (321ms)
+  ✓  177 [firefox] › tests/browser/review-fixes.spec.ts:89:1 › viewport batches retain coalescing, detached payloads and exception isolation (312ms)
+  ✓  178 [firefox] › tests/browser/review-fixes.spec.ts:103:1 › destroy from viewport listener discards queued mutations and later notifications (283ms)
+(node:81337) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:81337) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  179 [webkit] › tests/browser/api.spec.ts:12:1 › malformed JavaScript commands reject atomically with stable errors (722ms)
+  ✓  180 [webkit] › tests/browser/api.spec.ts:45:1 › model commands, event isolation, replacement, and independent histories (213ms)
+  ✓  181 [webkit] › tests/browser/api.spec.ts:73:1 › reentrant listeners run after the current event batch and exceptions are isolated (190ms)
+  ✓  182 [webkit] › tests/browser/api.spec.ts:95:1 › reentrant branches drain FIFO and preserve event batches despite callback errors (185ms)
+  ✓  183 [webkit] › tests/browser/api.spec.ts:120:1 › destroy during a queue drain discards pending work and remaining notifications (187ms)
+  ✓  184 [webkit] › tests/browser/api.spec.ts:137:1 › long reentrant chains do not depend on the JavaScript call stack (224ms)
+  ✓  185 [webkit] › tests/browser/checkpoint-b.spec.ts:5:1 › editing reference, multiline, checkbox/root alignment and frozen geometry evidence (682ms)
+  ✓  186 [webkit] › tests/browser/checkpoint-b.spec.ts:35:1 › Ctrl routing on simulated non-Mac platform, all movement no-op classes, left promotion, empty destination and reveal (353ms)
+  ✓  187 [webkit] › tests/browser/checkpoint-b.spec.ts:53:1 › an outside click re-hits geometry after a large relayout, rather than selecting its stale DOM target (243ms)
+  ✓  188 [webkit] › tests/browser/checkpoint-b.spec.ts:66:1 › destroy from editcommit listener prevents a queued follow-on content mutation (223ms)
+  ✓  189 [webkit] › tests/browser/checkpoint-b.spec.ts:74:1 › read-only edit/delete/checkbox shortcuts are silent; invalid creation callback is atomic in the browser (248ms)
+  ✓  190 [webkit] › tests/browser/checkpoint-b.spec.ts:83:1 › accepted-A rendering regression in its original page geometry (339ms)
+  ✓  191 [webkit] › tests/browser/checkpoint-b.spec.ts:104:1 › zero-size mount centers when measurable; deferred fit and later resize preserve view/history (411ms)
+  ✓  192 [webkit] › tests/browser/checkpoint-b.spec.ts:114:1 › keyboard deletion normalizes subtrees and restores useful selection in one history step (215ms)
+  ✓  193 [webkit] › tests/browser/checkpoint-b.spec.ts:122:1 › viewport no-ops report false and emit no viewport or document event (189ms)
+  ✓  194 [webkit] › tests/browser/drag.spec.ts:20:129 › actual group drag before previews gradient, freezes layout and commits one undoable move (347ms)
+  ✓  195 [webkit] › tests/browser/drag.spec.ts:20:129 › actual group drag after previews gradient, freezes layout and commits one undoable move (384ms)
+  ✓  196 [webkit] › tests/browser/drag.spec.ts:20:129 › actual group drag child previews gradient, freezes layout and commits one undoable move (361ms)
+  ✓  197 [webkit] › tests/browser/drag.spec.ts:35:48 › root left drop assigns side and append order; before/after root siblings adopts their side (339ms)
+  ✓  198 [webkit] › tests/browser/drag.spec.ts:35:48 › root right drop assigns side and append order; before/after root siblings adopts their side (343ms)
+  ✓  199 [webkit] › tests/browser/drag.spec.ts:43:1 › left outward zones mirror at 200% zoom and host scale; inward same-position rejects (387ms)
+  ✓  200 [webkit] › tests/browser/drag.spec.ts:57:1 › multi-parent and ancestor selections normalize to one visual forest without duplicate descendants (285ms)
+  ✓  201 [webkit] › tests/browser/drag.spec.ts:64:1 › collapsed child drop stays collapsed, selects visible target and reveals preserved subtrees on expansion (291ms)
+  ✓  202 [webkit] › tests/browser/drag.spec.ts:72:105 › invalid cycle has prohibited cursor, no gradient, no history (278ms)
+  ✓  203 [webkit] › tests/browser/drag.spec.ts:72:105 › invalid selected has prohibited cursor, no gradient, no history (275ms)
+  ✓  204 [webkit] › tests/browser/drag.spec.ts:72:105 › invalid same-position has prohibited cursor, no gradient, no history (280ms)
+  ✓  205 [webkit] › tests/browser/drag.spec.ts:72:105 › invalid root has prohibited cursor, no gradient, no history (276ms)
+  ✓  206 [webkit] › tests/browser/drag.spec.ts:72:105 › invalid inward-same-position has prohibited cursor, no gradient, no history (280ms)
+  ✓  207 [webkit] › tests/browser/drag.spec.ts:82:116 › Escape clears drag feedback and cancels mutation (287ms)
+  ✓  208 [webkit] › tests/browser/drag.spec.ts:82:116 › pointercancel clears drag feedback and cancels mutation (287ms)
+  ✓  209 [webkit] › tests/browser/drag.spec.ts:82:116 › capture-loss clears drag feedback and cancels mutation (276ms)
+  ✓  210 [webkit] › tests/browser/drag.spec.ts:82:116 › replacement clears drag feedback and cancels mutation (280ms)
+  ✓  211 [webkit] › tests/browser/drag.spec.ts:82:116 › edit clears drag feedback and cancels mutation (291ms)
+  ✓  212 [webkit] › tests/browser/drag.spec.ts:82:116 › destroy clears drag feedback and cancels mutation (278ms)
+  ✓  213 [webkit] › tests/browser/drag.spec.ts:97:1 › stationary edge pointer autopans across frames, re-hits the target and stops on cancel without relayout (576ms)
+  ✓  214 [webkit] › tests/browser/drag.spec.ts:108:1 › unselected press selects one source; read-only and non-mouse input never drag (411ms)
+  ✓  215 [webkit] › tests/browser/drag.spec.ts:115:1 › reference drag comparison and environment evidence (394ms)
+  ✓  216 [webkit] › tests/browser/drag.spec.ts:125:1 › stationary pointer gradient is re-evaluated as autopan moves its target away (2.2s)
+  ✓  217 [webkit] › tests/browser/drag.spec.ts:134:1 › real pointer capture release and outside-widget release cancel drops (337ms)
+  ✓  218 [webkit] › tests/browser/drag.spec.ts:142:124 › inward-half left before at zoom 1 previews sibling drop and commits one move (365ms)
+  ✓  219 [webkit] › tests/browser/drag.spec.ts:142:124 › inward-half left before at zoom 2 previews sibling drop and commits one move (398ms)
+  ✓  220 [webkit] › tests/browser/drag.spec.ts:142:124 › inward-half left after at zoom 1 previews sibling drop and commits one move (376ms)
+  ✓  221 [webkit] › tests/browser/drag.spec.ts:142:124 › inward-half left after at zoom 2 previews sibling drop and commits one move (351ms)
+  ✓  222 [webkit] › tests/browser/drag.spec.ts:142:124 › inward-half right before at zoom 1 previews sibling drop and commits one move (386ms)
+  ✓  223 [webkit] › tests/browser/drag.spec.ts:142:124 › inward-half right before at zoom 2 previews sibling drop and commits one move (394ms)
+  ✓  224 [webkit] › tests/browser/drag.spec.ts:142:124 › inward-half right after at zoom 1 previews sibling drop and commits one move (392ms)
+  ✓  225 [webkit] › tests/browser/drag.spec.ts:142:124 › inward-half right after at zoom 2 previews sibling drop and commits one move (405ms)
+  ✓  226 [webkit] › tests/browser/editing.spec.ts:5:1 › F2 selects text, native multiline typing freezes geometry and one commit relayouts once (310ms)
+  ✓  227 [webkit] › tests/browser/editing.spec.ts:20:5 › Tab on root: visible provisional insertion, exact placement and one-entry commit (280ms)
+  ✓  228 [webkit] › tests/browser/editing.spec.ts:20:5 › Enter on root: visible provisional insertion, exact placement and one-entry commit (296ms)
+  ✓  229 [webkit] › tests/browser/editing.spec.ts:20:5 › Shift+Enter on root: visible provisional insertion, exact placement and one-entry commit (274ms)
+  ✓  230 [webkit] › tests/browser/editing.spec.ts:20:5 › Shift+Tab on root: visible provisional insertion, exact placement and one-entry commit (259ms)
+  ✓  231 [webkit] › tests/browser/editing.spec.ts:20:5 › Tab on one: visible provisional insertion, exact placement and one-entry commit (255ms)
+  ✓  232 [webkit] › tests/browser/editing.spec.ts:20:5 › Enter on one: visible provisional insertion, exact placement and one-entry commit (282ms)
+  ✓  233 [webkit] › tests/browser/editing.spec.ts:20:5 › Shift+Enter on one: visible provisional insertion, exact placement and one-entry commit (278ms)
+  ✓  234 [webkit] › tests/browser/editing.spec.ts:20:5 › Shift+Tab on one: visible provisional insertion, exact placement and one-entry commit (256ms)
+  ✓  235 [webkit] › tests/browser/editing.spec.ts:40:1 › Escape restores collapsed-parent creation and inserted-parent wrapping with selection and redo intact (304ms)
+  ✓  236 [webkit] › tests/browser/editing.spec.ts:50:1 › click-to-edit only on sole selection and after pointer release; moved presses never edit (293ms)
+  ✓  237 [webkit] › tests/browser/editing.spec.ts:58:1 › outside pointer commits before resolving the new node target; external blur commits without stealing focus (292ms)
+  ✓  238 [webkit] › tests/browser/editing.spec.ts:68:1 › composition Enter is guarded; platform textarea shortcuts never move, select map nodes or create history (282ms)
+  ✓  239 [webkit] › tests/browser/editing.spec.ts:78:1 › checkbox inheritance, empty creation commit, existing unchanged no-op and event order/origin (234ms)
+  ✓  240 [webkit] › tests/browser/editing.spec.ts:85:1 › valid replacement/destroy discard edits, invalid replacement preserves buffer, public content commands finish it (277ms)
+  ✓  241 [webkit] › tests/browser/editing.spec.ts:94:1 › deferred style refresh cannot move the scene during typing; cancellation applies refresh (220ms)
+  ✓  242 [webkit] › tests/browser/editing.spec.ts:102:1 › long labels stay editable inside the viewport; provisional Escape restores the prior view (252ms)
+  ✓  243 [webkit] › tests/browser/editor-sizing.spec.ts:7:33 › F2 width follows visible children and text/bottom alignment at 1 (616ms)
+  ✓  244 [webkit] › tests/browser/editor-sizing.spec.ts:7:33 › F2 width follows visible children and text/bottom alignment at 1.5 (585ms)
+  ✓  245 [webkit] › tests/browser/editor-sizing.spec.ts:7:33 › F2 width follows visible children and text/bottom alignment at 2 (733ms)
+  ✓  246 [webkit] › tests/browser/editor-sizing.spec.ts:42:1 › eight-M width fits eight letters, follows the font, and creation wrapping follows visible children (355ms)
+  ✓  247 [webkit] › tests/browser/interaction.spec.ts:5:1 › mouse toggle/range/empty selection and keyboard central-child navigation, contraction and collapse (573ms)
+  ✓  248 [webkit] › tests/browser/interaction.spec.ts:21:1 › actual block keys wrap, promote, flip, preserve selection, emit one event and undo/redo once (240ms)
+  ✓  249 [webkit] › tests/browser/interaction.spec.ts:40:1 › ineligible movement does not navigate or change viewport/history; interleaved siblings use same-side order (227ms)
+  ✓  250 [webkit] › tests/browser/interaction.spec.ts:52:1 › pan, wheel variants, pointer-anchored zoom, keyboard fit/clamps and resize keep document/history intact (387ms)
+  ✓  251 [webkit] › tests/browser/interaction.spec.ts:78:1 › checkbox click and mixed keyboard toggle are independent and do not relayout (238ms)
+  ✓  252 [webkit] › tests/browser/interaction.spec.ts:88:1 › read-only gestures allow navigation/viewport but reject movement/collapse and preserve instance isolation (224ms)
+  ✓  253 [webkit] › tests/browser/review-fixes.spec.ts:10:47 › physical fit shortcut on MacIntel actually fits and unshifted zero resets zoom (355ms)
+  ✓  254 [webkit] › tests/browser/review-fixes.spec.ts:10:47 › physical fit shortcut on Win32 actually fits and unshifted zero resets zoom (345ms)
+  ✓  255 [webkit] › tests/browser/review-fixes.spec.ts:29:71 › resize during chain edit at 1 keeps buffer, caret, native undo and frozen geometry (638ms)
+  ✓  256 [webkit] › tests/browser/review-fixes.spec.ts:29:71 › resize during chain edit at 2 keeps buffer, caret, native undo and frozen geometry (582ms)
+  ✓  257 [webkit] › tests/browser/review-fixes.spec.ts:29:71 › resize during c21 edit at 1 keeps buffer, caret, native undo and frozen geometry (597ms)
+  ✓  258 [webkit] › tests/browser/review-fixes.spec.ts:29:71 › resize during c21 edit at 2 keeps buffer, caret, native undo and frozen geometry (595ms)
+  ✓  259 [webkit] › tests/browser/review-fixes.spec.ts:29:71 › resize during root edit at 1 keeps buffer, caret, native undo and frozen geometry (639ms)
+  ✘  260 [webkit] › tests/browser/review-fixes.spec.ts:29:71 › resize during root edit at 2 keeps buffer, caret, native undo and frozen geometry (423ms)
+(node:81484) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:81484) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  261 [webkit] › tests/browser/review-fixes.spec.ts:56:1 › resized provisional editor commits once and undo restores its creation (570ms)
+  ✓  262 [webkit] › tests/browser/review-fixes.spec.ts:65:73 › viewport listeners defer commands and panTo until the entire batch ends (288ms)
+  ✓  263 [webkit] › tests/browser/review-fixes.spec.ts:65:73 › viewport listeners defer commands and setZoom until the entire batch ends (283ms)
+  ✓  264 [webkit] › tests/browser/review-fixes.spec.ts:65:73 › viewport listeners defer commands and fit until the entire batch ends (278ms)
+  ✓  265 [webkit] › tests/browser/review-fixes.spec.ts:65:73 › viewport listeners defer commands and panToNode until the entire batch ends (275ms)
+  ✓  266 [webkit] › tests/browser/review-fixes.spec.ts:89:1 › viewport batches retain coalescing, detached payloads and exception isolation (222ms)
+  ✓  267 [webkit] › tests/browser/review-fixes.spec.ts:103:1 › destroy from viewport listener discards queued mutations and later notifications (243ms)
+
+
+  1) [chromium] › tests/browser/review-fixes.spec.ts:29:71 › resize during root edit at 2 keeps buffer, caret, native undo and frozen geometry
+
+    Error: expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 344
+    Received:    632.124755859375
+
+      43 |         if (width === 320) { await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-resize-${id}-${zoom}-${info.project.name}.png` }); writeFileSync(`${evidence}/${phase}-resize-${id}-${zoom}-${info.project.name}.json`, JSON.stringify({ host, editor: rect, saved }, null, 2) + '\n'); }
+      44 |         expect(rect.x).toBeGreaterThanOrEqual(host.x); expect(rect.y).toBeGreaterThanOrEqual(host.y);
+    > 45 |         expect(rect.x + rect.width).toBeLessThanOrEqual(host.x + host.width); expect(rect.y + rect.height).toBeLessThanOrEqual(host.y + host.height);
+         |                                     ^
+      46 |         await expect(area).toBeFocused(); await expect(area).toHaveAttribute('data-identity', 'retained');
+      47 |         expect(await area.evaluate(el => { const a = el as HTMLTextAreaElement; return { value: a.value, start: a.selectionStart, end: a.selectionEnd }; })).toEqual(saved);
+      48 |         expect(await page.locator('#primary .mindmap-nodes').innerHTML()).toBe(frozen); expect(await page.locator('#primary .mindmap').getAttribute('data-layout-count')).toBe(count);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/review-fixes.spec.ts:45:37
+
+    Error Context: test-results/review-fixes-resize-during-e16fb-ve-undo-and-frozen-geometry-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/review-fixes-resize-during-e16fb-ve-undo-and-frozen-geometry-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/review-fixes-resize-during-e16fb-ve-undo-and-frozen-geometry-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [firefox] › tests/browser/review-fixes.spec.ts:29:71 › resize during root edit at 2 keeps buffer, caret, native undo and frozen geometry
+
+    Error: expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 344
+    Received:    631.853271484375
+
+      43 |         if (width === 320) { await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-resize-${id}-${zoom}-${info.project.name}.png` }); writeFileSync(`${evidence}/${phase}-resize-${id}-${zoom}-${info.project.name}.json`, JSON.stringify({ host, editor: rect, saved }, null, 2) + '\n'); }
+      44 |         expect(rect.x).toBeGreaterThanOrEqual(host.x); expect(rect.y).toBeGreaterThanOrEqual(host.y);
+    > 45 |         expect(rect.x + rect.width).toBeLessThanOrEqual(host.x + host.width); expect(rect.y + rect.height).toBeLessThanOrEqual(host.y + host.height);
+         |                                     ^
+      46 |         await expect(area).toBeFocused(); await expect(area).toHaveAttribute('data-identity', 'retained');
+      47 |         expect(await area.evaluate(el => { const a = el as HTMLTextAreaElement; return { value: a.value, start: a.selectionStart, end: a.selectionEnd }; })).toEqual(saved);
+      48 |         expect(await page.locator('#primary .mindmap-nodes').innerHTML()).toBe(frozen); expect(await page.locator('#primary .mindmap').getAttribute('data-layout-count')).toBe(count);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/review-fixes.spec.ts:45:37
+
+    Error Context: test-results/review-fixes-resize-during-e16fb-ve-undo-and-frozen-geometry-firefox/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/review-fixes-resize-during-e16fb-ve-undo-and-frozen-geometry-firefox/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/review-fixes-resize-during-e16fb-ve-undo-and-frozen-geometry-firefox/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [webkit] › tests/browser/review-fixes.spec.ts:29:71 › resize during root edit at 2 keeps buffer, caret, native undo and frozen geometry
+
+    Error: expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 344
+    Received:    632.09375
+
+      43 |         if (width === 320) { await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-resize-${id}-${zoom}-${info.project.name}.png` }); writeFileSync(`${evidence}/${phase}-resize-${id}-${zoom}-${info.project.name}.json`, JSON.stringify({ host, editor: rect, saved }, null, 2) + '\n'); }
+      44 |         expect(rect.x).toBeGreaterThanOrEqual(host.x); expect(rect.y).toBeGreaterThanOrEqual(host.y);
+    > 45 |         expect(rect.x + rect.width).toBeLessThanOrEqual(host.x + host.width); expect(rect.y + rect.height).toBeLessThanOrEqual(host.y + host.height);
+         |                                     ^
+      46 |         await expect(area).toBeFocused(); await expect(area).toHaveAttribute('data-identity', 'retained');
+      47 |         expect(await area.evaluate(el => { const a = el as HTMLTextAreaElement; return { value: a.value, start: a.selectionStart, end: a.selectionEnd }; })).toEqual(saved);
+      48 |         expect(await page.locator('#primary .mindmap-nodes').innerHTML()).toBe(frozen); expect(await page.locator('#primary .mindmap').getAttribute('data-layout-count')).toBe(count);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/review-fixes.spec.ts:45:37
+
+    Error Context: test-results/review-fixes-resize-during-e16fb-ve-undo-and-frozen-geometry-webkit/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/review-fixes-resize-during-e16fb-ve-undo-and-frozen-geometry-webkit/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/review-fixes-resize-during-e16fb-ve-undo-and-frozen-geometry-webkit/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    [chromium] › tests/browser/review-fixes.spec.ts:29:71 › resize during root edit at 2 keeps buffer, caret, native undo and frozen geometry
+    [firefox] › tests/browser/review-fixes.spec.ts:29:71 › resize during root edit at 2 keeps buffer, caret, native undo and frozen geometry
+    [webkit] › tests/browser/review-fixes.spec.ts:29:71 › resize during root edit at 2 keeps buffer, caret, native undo and frozen geometry
+  264 passed (1.8m)
+ ELIFECYCLE  Command failed with exit code 1.

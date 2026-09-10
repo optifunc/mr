@@ -62,12 +62,17 @@ editor.destroy();
 - `getViewport`, `setZoom(scale)`, `fit`, `panToNode(id)` (minimal reveal of a visible
   node), and `panTo(x, y)` (absolute scene translation in local CSS pixels). Zoom
   clamps to .25–4; keyboard steps multiply/divide by 1.2. Viewport never enters history.
+  Primary-modifier+Shift+physical Digit0 fits even when its character is `)`;
+  unshifted zero resets zoom.
 - Events currently emitted: `documentchange`, `selectionchange`, `viewportchange`,
   `editstart`, `editcommit`, `editcancel`, `commandcomplete`, `linkopen`, and `error`.
   Mutation events follow installation/rendering, document before selection.
   Listener exceptions are isolated; listener-triggered commands queue after the
   current event batch in FIFO order, including work enqueued by queued commands.
-  Every document listener receives its own detached snapshot.
+  Viewport notifications retain animation-frame coalescing while using this queue;
+  reentrant `panTo`, `setZoom`, `fit` and `panToNode` also wait for the batch to finish.
+  Calls outside a notification still apply synchronously. Destroy discards pending
+  work and remaining notifications. Every document listener receives its own detached snapshot.
 - Read-only rejects every implemented content command, including history and
   collapse. Host replacement and selection remain available. No-op commands return
   false and create no history. Invalid document construction throws `MindMapError`;
@@ -100,7 +105,9 @@ Enter commits; Shift+Enter inserts a native newline; Escape cancels. Outside
 pointer actions commit before hit testing the new layout. Focus leaving the textarea
 also commits; it does not steal focus back from the destination. IME composition
 Enter is guarded. Normal text shortcuts, including Command/Ctrl+arrows, stay inside
-the textarea. The editor is bounded to the available viewport and scrolls long text
+the textarea. Host resize re-bounds and reveals the same editor, retaining its
+buffer, caret, focus and native undo; the tree layout stays frozen. Zero-size hosts
+defer this adjustment until measurable. The editor is bounded to the available viewport and scrolls long text
 without a horizontal scrollbar. New nodes, including wrapped parents, use the
 eight-M default plus padding/borders.
 For nodes without visible children, use the larger of this default and their

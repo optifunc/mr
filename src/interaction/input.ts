@@ -46,7 +46,7 @@ export class Input {
             if (key === 'y') command = { type: 'redo' };
             if (key === '+' || key === '=') command = { type: 'zoomIn' };
             if (key === '-') command = { type: 'zoomOut' };
-            if (key === '0') command = { type: e.shiftKey ? 'fit' : 'resetZoom' };
+            if (key === '0' || e.shiftKey && e.code === 'Digit0') command = { type: e.shiftKey ? 'fit' : 'resetZoom' };
         } else {
             if (key === 'f2') command = { type: 'edit' };
             if (key === 'enter') command = { type: e.shiftKey ? 'insertBefore' : 'insertAfter' };

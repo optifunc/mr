@@ -1,7 +1,9 @@
 # Milestone C — stage-7 product checkpoint
 
 **Technical status: complete (2026-09-08). Product acceptance: pending user review.**
-**Latest follow-up:** [clipboard space indentation](clipboard-indentation/report.md).
+**Latest follow-up:** [fit, editor resize and viewport event queue](review-fixes/report.md).
+The [clipboard space indentation](clipboard-indentation/report.md) extension retains
+its separate verification record.
 The [drag cursor and inward-half sibling drops](drag-review/report.md) were accepted
 at `4e46cea` before this clipboard extension.
 The earlier [blue links and minimum editor width](link-editor-review/report.md)

@@ -1,0 +1,19 @@
+{
+  "host": {
+    "x": 24,
+    "y": 415.734375,
+    "width": 320,
+    "height": 240
+  },
+  "editor": {
+    "x": 919.734375,
+    "y": 599.984375,
+    "width": 125.390625,
+    "height": 20.5
+  },
+  "saved": {
+    "value": "Child of a single child buffer",
+    "start": 30,
+    "end": 30
+  }
+}
