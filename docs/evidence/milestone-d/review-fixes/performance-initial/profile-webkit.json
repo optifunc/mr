@@ -1,0 +1,1636 @@
+{
+  "date": "2026-09-10T13:04:22.568Z",
+  "provenance": {
+    "runId": "452d7e94-6d4d-4bee-a8e9-c793fa6c069d",
+    "revision": "a39b37ffb92de0e2eedf5e8987a76da15f7e5b64",
+    "sourceDigest": "478efda1180fee9ee8664b9304780cb7ab0b6ecbc0d04e42c351dfacb7690787",
+    "sourceDirty": false,
+    "dirtyPaths": [],
+    "sourcePaths": [
+      "examples/basic/main.ts",
+      "examples/basic/style.css",
+      "examples/consumer/README.md",
+      "examples/consumer/index.html",
+      "examples/consumer/main.ts",
+      "examples/consumer/style.css",
+      "examples/performance/index.html",
+      "examples/performance/main.ts",
+      "package.json",
+      "playwright.config.ts",
+      "pnpm-lock.yaml",
+      "scripts/package-consumer.mjs",
+      "scripts/preview-server.mjs",
+      "scripts/review-demo.mjs",
+      "scripts/safari-check.py",
+      "scripts/summarize-performance.mjs",
+      "src/clipboard/browser.ts",
+      "src/clipboard/codec.ts",
+      "src/clipboard/paste.ts",
+      "src/commands/keyboard-move.ts",
+      "src/commands/reducer.ts",
+      "src/commands/validate.ts",
+      "src/editor.ts",
+      "src/history/history.ts",
+      "src/index.ts",
+      "src/interaction/drag.ts",
+      "src/interaction/drop.ts",
+      "src/interaction/editing.ts",
+      "src/interaction/input.ts",
+      "src/interaction/links.ts",
+      "src/interaction/menu.ts",
+      "src/interaction/navigation.ts",
+      "src/interaction/viewport.ts",
+      "src/layout/layout.ts",
+      "src/model/document.ts",
+      "src/model/store.ts",
+      "src/render/measure.ts",
+      "src/render/scene.ts",
+      "src/styles.css",
+      "src/types.ts",
+      "tests/browser/api.spec.ts",
+      "tests/browser/checkpoint-b.spec.ts",
+      "tests/browser/clipboard.spec.ts",
+      "tests/browser/drag.spec.ts",
+      "tests/browser/editing-review.spec.ts",
+      "tests/browser/editing.spec.ts",
+      "tests/browser/editor-sizing.spec.ts",
+      "tests/browser/focus-controls.spec.ts",
+      "tests/browser/helpers/profile-input.ts",
+      "tests/browser/helpers/profile-provenance.ts",
+      "tests/browser/integration.spec.ts",
+      "tests/browser/interaction.spec.ts",
+      "tests/browser/layout-edge.spec.ts",
+      "tests/browser/link-editor-review.spec.ts",
+      "tests/browser/menu.spec.ts",
+      "tests/browser/mount.spec.ts",
+      "tests/browser/navigation.spec.ts",
+      "tests/browser/performance.spec.ts",
+      "tests/browser/profile-input.spec.ts",
+      "tests/browser/render.spec.ts",
+      "tests/browser/review-fixes.spec.ts",
+      "tests/browser/workload.spec.ts",
+      "tests/fixtures/accepted-a-shell.html",
+      "tests/fixtures/invalid-commands.ts",
+      "tests/fixtures/maps.ts",
+      "tests/fixtures/navigation.ts",
+      "tests/tools/performance-report.test.mjs",
+      "tests/tools/preview-server.test.mjs",
+      "tests/unit/clipboard.test.ts",
+      "tests/unit/contracts.test.ts",
+      "tests/unit/drag.test.ts",
+      "tests/unit/editing.test.ts",
+      "tests/unit/interaction.test.ts",
+      "tests/unit/layout.test.ts",
+      "tests/unit/model.test.ts",
+      "tsconfig.json"
+    ],
+    "workers": 1,
+    "headless": true,
+    "channel": null,
+    "concurrency": "One Playwright worker; no other assistant-started test or build during profiling. Local Vite demo server running; other applications and OS load not measured."
+  },
+  "measurement": {
+    "warmups": 5,
+    "samples": 30
+  },
+  "browser": "webkit",
+  "version": "26.0",
+  "os": {
+    "platform": "darwin",
+    "release": "25.6.0",
+    "arch": "arm64",
+    "cpu": "Apple M2",
+    "logicalCpus": 8,
+    "memoryGB": 16
+  },
+  "viewport": {
+    "width": 1400,
+    "height": 1000
+  },
+  "deviceScaleFactor": 1,
+  "cold": {
+    "mountMs": 45.00000000000001,
+    "navigation": {
+      "name": "http://127.0.0.1:5173/examples/performance/index.html",
+      "entryType": "navigation",
+      "startTime": 0,
+      "duration": 106,
+      "initiatorType": "navigation",
+      "nextHopProtocol": "http/1.1",
+      "workerStart": 0,
+      "redirectStart": 0,
+      "redirectEnd": 0,
+      "fetchStart": 2,
+      "domainLookupStart": 2,
+      "domainLookupEnd": 2,
+      "connectStart": 2,
+      "connectEnd": 2,
+      "secureConnectionStart": 0,
+      "requestStart": 2,
+      "finalResponseHeadersStart": 3,
+      "firstInterimResponseStart": 0,
+      "responseStart": 3,
+      "responseEnd": 3,
+      "transferSize": 638,
+      "encodedBodySize": 338,
+      "decodedBodySize": 338,
+      "deliveryType": "",
+      "serverTiming": [],
+      "unloadEventStart": 0,
+      "unloadEventEnd": 0,
+      "domInteractive": 27,
+      "domContentLoadedEventStart": 105,
+      "domContentLoadedEventEnd": 105,
+      "domComplete": 105,
+      "loadEventStart": 106,
+      "loadEventEnd": 106,
+      "type": "navigate",
+      "redirectCount": 0
+    },
+    "paints": [
+      {
+        "name": "first-contentful-paint",
+        "entryType": "paint",
+        "startTime": 139,
+        "duration": 0
+      }
+    ]
+  },
+  "input": {
+    "pan": {
+      "platform": "MacIntel",
+      "modifier": null,
+      "transitions": [
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "delta": -10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "delta": -10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "delta": -10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "delta": -10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "delta": -10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "delta": -10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "delta": -10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "delta": -10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "delta": -10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "delta": -10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "delta": -10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "delta": -10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "delta": -10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "delta": -10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "delta": -10
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1671,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 10
+        }
+      ]
+    },
+    "zoom": {
+      "platform": "MacIntel",
+      "modifier": "Meta",
+      "transitions": [
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "delta": -5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "delta": -5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "delta": -5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "delta": -5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "delta": -5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "delta": -5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "delta": -5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "delta": -5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "delta": -5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "delta": -5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "delta": -5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "delta": -5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "delta": -5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "delta": -5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "after": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "delta": -5
+        },
+        {
+          "before": {
+            "x": 700,
+            "y": -1702.9194144105704,
+            "zoom": 1.010050167084168
+          },
+          "after": {
+            "x": 700,
+            "y": -1681,
+            "zoom": 1
+          },
+          "delta": 5
+        }
+      ]
+    }
+  },
+  "verification": {
+    "initialLayoutCount": "73",
+    "finalLayoutCount": "73",
+    "documentEvents": 0,
+    "finalVisible": 500
+  },
+  "total": 1000,
+  "visible": 500,
+  "font": "12px / 15px MindmapProfileArial",
+  "fontLoadAndRefreshMs": 27,
+  "fullMeasurementRelayoutMs": {
+    "median": 12.999999999999886,
+    "p95": 13.000000000000114,
+    "samples": [
+      13,
+      13,
+      13,
+      12.999999999999943,
+      12,
+      12,
+      12.999999999999886,
+      12,
+      12,
+      11.000000000000114,
+      12,
+      12,
+      13,
+      12.999999999999886,
+      13,
+      12,
+      13.000000000000114,
+      12,
+      13,
+      12,
+      12,
+      11,
+      12,
+      12,
+      13,
+      13,
+      13,
+      13,
+      12,
+      13.000000000000227
+    ]
+  },
+  "structuralCommandMs": {
+    "median": 11,
+    "p95": 12,
+    "samples": [
+      11,
+      11,
+      12.000000000000057,
+      11,
+      11,
+      11.000000000000114,
+      11,
+      10,
+      11,
+      9.999999999999886,
+      10,
+      12,
+      11.000000000000114,
+      11,
+      12,
+      11,
+      10,
+      11,
+      11,
+      10,
+      10,
+      11,
+      10,
+      11,
+      12,
+      10.999999999999773,
+      12,
+      12,
+      11,
+      10
+    ]
+  },
+  "inputToRenderingOpportunityMs": {
+    "pointerdown": {
+      "median": 12,
+      "p95": 20,
+      "samples": [
+        11,
+        12,
+        11.999999999999773,
+        18,
+        12,
+        12,
+        20,
+        2.0000000000002274,
+        13,
+        20,
+        13,
+        11,
+        19,
+        13,
+        12,
+        16,
+        2.9999999999995453,
+        13,
+        12,
+        8,
+        12,
+        12,
+        13,
+        12,
+        12,
+        14,
+        14,
+        11,
+        18,
+        12
+      ]
+    },
+    "keydown": {
+      "median": 11.999999999999545,
+      "p95": 24,
+      "samples": [
+        12,
+        22,
+        1,
+        16.999999999999545,
+        10,
+        10,
+        23.000000000000455,
+        3.0000000000004547,
+        5,
+        11.999999999999545,
+        11.999999999999545,
+        29,
+        6,
+        21,
+        12,
+        20,
+        3,
+        3.9999999999990905,
+        9,
+        14,
+        21,
+        5,
+        20,
+        12,
+        11,
+        24,
+        15,
+        3.0000000000009095,
+        9,
+        9,
+        0.9999999999990905
+      ]
+    },
+    "wheel": {
+      "median": 12,
+      "p95": 21.00000000000091,
+      "samples": [
+        17,
+        10,
+        4,
+        18.00000000000091,
+        30,
+        16,
+        24,
+        31,
+        7.0000000000009095,
+        3,
+        14.00000000000091,
+        4.9999999999990905,
+        17,
+        13,
+        9,
+        4,
+        17,
+        9.00000000000091,
+        6,
+        3.0000000000009095,
+        14,
+        9,
+        2.0000000000009095,
+        10,
+        4,
+        17,
+        13.00000000000091,
+        10,
+        7.0000000000009095,
+        17,
+        16,
+        15,
+        12,
+        9.00000000000091,
+        4.9999999999990905,
+        4.0000000000009095,
+        4,
+        15.00000000000091,
+        18,
+        11,
+        12,
+        10,
+        7,
+        4.0000000000009095,
+        16,
+        12,
+        16.99999999999909,
+        7,
+        4.0000000000009095,
+        17.99999999999909,
+        12.99999999999909,
+        12,
+        10,
+        15,
+        19,
+        18,
+        21.00000000000091,
+        11,
+        8,
+        8.99999999999909
+      ]
+    }
+  },
+  "synchronousInputHandlerMs": {
+    "pointerdownHandler": {
+      "median": 1,
+      "p95": 1.0000000000004547,
+      "samples": [
+        1,
+        0,
+        0.9999999999997726,
+        0,
+        1,
+        1.0000000000002274,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        1,
+        1.0000000000004547,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1.0000000000004547,
+        0,
+        0,
+        0
+      ]
+    },
+    "keydownHandler": {
+      "median": 0,
+      "p95": 1.0000000000009095,
+      "samples": [
+        1,
+        0,
+        0,
+        0.9999999999995453,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0.9999999999995453,
+        0,
+        0,
+        1,
+        0,
+        1,
+        1.0000000000009095,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1.0000000000009095,
+        1.0000000000009095,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "wheelHandler": {
+      "median": 0,
+      "p95": 1.0000000000009095,
+      "samples": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        1.0000000000009095,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1.0000000000009095,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1.0000000000009095,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1.0000000000009095,
+        0,
+        0.9999999999990905
+      ]
+    }
+  },
+  "panRenderingOpportunityMs": {
+    "median": 10,
+    "p95": 30,
+    "samples": [
+      17,
+      10,
+      4,
+      18.00000000000091,
+      30,
+      16,
+      24,
+      31,
+      7.0000000000009095,
+      3,
+      14.00000000000091,
+      4.9999999999990905,
+      17,
+      13,
+      9,
+      4,
+      17,
+      9.00000000000091,
+      6,
+      3.0000000000009095,
+      14,
+      9,
+      2.0000000000009095,
+      10,
+      4,
+      17,
+      13.00000000000091,
+      10,
+      7.0000000000009095,
+      17
+    ]
+  },
+  "zoomRenderingOpportunityMs": {
+    "median": 12,
+    "p95": 19,
+    "samples": [
+      16,
+      15,
+      12,
+      9.00000000000091,
+      4.9999999999990905,
+      4.0000000000009095,
+      4,
+      15.00000000000091,
+      18,
+      11,
+      12,
+      10,
+      7,
+      4.0000000000009095,
+      16,
+      12,
+      16.99999999999909,
+      7,
+      4.0000000000009095,
+      17.99999999999909,
+      12.99999999999909,
+      12,
+      10,
+      15,
+      19,
+      18,
+      21.00000000000091,
+      11,
+      8,
+      8.99999999999909
+    ]
+  },
+  "frameIntervalsMs": {
+    "median": 16,
+    "p95": 27,
+    "samples": [
+      0,
+      22,
+      14,
+      16,
+      1,
+      16,
+      16,
+      16,
+      18,
+      16,
+      1,
+      16,
+      17,
+      17,
+      19,
+      14,
+      16,
+      25,
+      9,
+      18,
+      2,
+      23,
+      7,
+      16,
+      17,
+      16,
+      1,
+      16,
+      17,
+      22,
+      12,
+      16,
+      26,
+      7,
+      19,
+      25,
+      6,
+      17,
+      17,
+      18,
+      15,
+      15,
+      19,
+      16,
+      1,
+      17,
+      21,
+      11,
+      16,
+      25,
+      9,
+      16,
+      27,
+      7,
+      17,
+      16,
+      17,
+      17,
+      16,
+      19,
+      15,
+      16,
+      1,
+      23,
+      10,
+      16,
+      27,
+      7,
+      16,
+      17,
+      17,
+      16,
+      1,
+      16,
+      18,
+      15,
+      17,
+      1,
+      19,
+      13,
+      17,
+      25,
+      1,
+      7,
+      17,
+      28,
+      5,
+      1,
+      16,
+      18,
+      16,
+      16,
+      1,
+      16,
+      21,
+      11,
+      18,
+      24,
+      9,
+      17,
+      27,
+      6,
+      1,
+      16,
+      18,
+      15,
+      17,
+      18,
+      20,
+      12,
+      16,
+      27,
+      7,
+      17,
+      16,
+      16,
+      17,
+      17,
+      1,
+      20,
+      12,
+      17,
+      26,
+      7,
+      1,
+      16,
+      34,
+      16,
+      17,
+      18,
+      17,
+      14,
+      23,
+      10,
+      1,
+      17,
+      28,
+      4,
+      18,
+      15,
+      18,
+      17,
+      17,
+      20,
+      13,
+      16,
+      29,
+      5,
+      16,
+      17,
+      19,
+      15,
+      17,
+      24,
+      9,
+      16,
+      30,
+      3,
+      17,
+      16,
+      19,
+      14,
+      17,
+      26,
+      8,
+      17,
+      15,
+      19,
+      16,
+      16,
+      20,
+      14,
+      16,
+      28,
+      7,
+      15,
+      32,
+      2,
+      17,
+      15,
+      22,
+      13,
+      15,
+      28,
+      5,
+      18,
+      17,
+      15,
+      18,
+      15,
+      24,
+      11,
+      17,
+      30,
+      3,
+      17,
+      16,
+      22,
+      12,
+      16,
+      28,
+      6,
+      16,
+      18,
+      15,
+      18,
+      16,
+      22,
+      11,
+      19,
+      27,
+      5,
+      17,
+      16,
+      16,
+      17,
+      16,
+      23,
+      10,
+      17,
+      29,
+      3,
+      19,
+      15,
+      19,
+      16,
+      17,
+      24,
+      8,
+      17,
+      29,
+      4,
+      18,
+      16,
+      19,
+      13,
+      18,
+      24,
+      8,
+      18
+    ]
+  },
+  "notes": "30 warmed relayout samples after 5 warmups. Full includes uncached measurement, layout, DOM and forced layout flush. Structural includes mutation/history, cached measurements, DOM and layout flush. Cold mount excludes module fetch; navigation/paint entries are separate. Font load uses local Arial via a newly loaded FontFace, not network. Trusted pointer/keyboard/wheel input to rAF+task measures a rendering opportunity, NOT physical presentation. Headless frame cadence is not a manual smoothness claim. Chromium trace retains actual frame/paint/input records. No hardware timing assertions. Selection/navigation/pan/zoom leave layout count and 500 rendered nodes unchanged."
+}

@@ -25,3 +25,16 @@ are in progress; final combined browser and performance gates have not yet run.
 
 Current demo: http://127.0.0.1:5173/ (`pnpm build` then `pnpm dev`).
 The stage-9 product checkpoint and previously recorded manual release gaps remain.
+
+## Initial profiling rejection and correction
+
+The first fresh run at `a39b37f` passed its browser assertions but the stricter
+report generator correctly rejected a **−15 ms initial Chromium frame interval**.
+The profiler seeded `last` with `performance.now()` while a current-frame rAF
+callback could carry an earlier timestamp. Frame intervals now start between the
+first and second rAF timestamps; no value is clamped or discarded after measurement.
+The browser profile also asserts nonempty, finite, nonnegative frame intervals.
+[Rejected samples](performance-initial/profile-chromium.json),
+[invalid/unverified report](performance-initial/report.md),
+[generator diagnostic](performance-initial-summary.txt) are retained.
+A clean fresh run is pending after the combined browser gate.

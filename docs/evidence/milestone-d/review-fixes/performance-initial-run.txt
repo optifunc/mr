@@ -1,0 +1,23 @@
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test performance.spec.ts --workers=1
+
+
+Running 3 tests using 1 worker
+
+(node:94406) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:94406) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/browser/performance.spec.ts:11:1 › release workload: cold/font load, relayout, actual input rendering opportunities and frame traces (9.0s)
+(node:94467) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:94467) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  2 [firefox] › tests/browser/performance.spec.ts:11:1 › release workload: cold/font load, relayout, actual input rendering opportunities and frame traces (8.3s)
+(node:94531) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:94531) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  3 [webkit] › tests/browser/performance.spec.ts:11:1 › release workload: cold/font load, relayout, actual input rendering opportunities and frame traces (8.7s)
+
+  3 passed (29.4s)

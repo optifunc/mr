@@ -41,8 +41,10 @@ test('release workload: cold/font load, relayout, actual input rendering opportu
     const cdp = info.project.name === 'chromium' ? await page.context().newCDPSession(page) : undefined;
     if (cdp) await cdp.send('Tracing.start', { categories: 'devtools.timeline,benchmark,cc,input', transferMode: 'ReturnAsStream' });
     await page.evaluate(() => {
-        let last = performance.now(), count = 0;
-        const tick = (time: number): void => { window.perfSamples.frames!.push(time - last); last = time; if (++count < 240) requestAnimationFrame(tick); };
+        let last: number | undefined, count = 0;
+        // rAF timestamps can precede registration's performance.now() within the
+        // current frame. Measure intervals between frame timestamps only.
+        const tick = (time: number): void => { if (last !== undefined) window.perfSamples.frames!.push(time - last); last = time; if (++count < 240) requestAnimationFrame(tick); };
         requestAnimationFrame(tick);
     });
     const tree = page.locator('.mindmap');
@@ -69,6 +71,8 @@ test('release workload: cold/font load, relayout, actual input rendering opportu
     const after = await page.evaluate(() => ({ samples: window.perfSamples, layoutCount: document.querySelector<HTMLElement>('.mindmap')!.dataset.layoutCount, visible: document.querySelectorAll('.mindmap-nodes .mindmap-node').length }));
     expect(after.layoutCount).toBe(metrics.layoutCount); expect(after.visible).toBe(500);
     expect(after.samples.documentEvents).toEqual([]);
+    expect(after.samples.frames!.length).toBeGreaterThan(0);
+    expect(after.samples.frames!.every(value => Number.isFinite(value) && value >= 0)).toBe(true);
     expect(after.samples.pointerdown).toHaveLength(30); expect(after.samples.keydown!.length).toBeGreaterThanOrEqual(30); expect(after.samples.wheel).toHaveLength(60);
     const summary = (values: number[]) => { const sorted = [...values].sort((a, b) => a - b); return { median: sorted[Math.floor(sorted.length / 2)], p95: sorted[Math.ceil(sorted.length * .95) - 1], samples: values }; };
     const finishedProvenance = profileProvenance(info);

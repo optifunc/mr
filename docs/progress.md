@@ -18,7 +18,10 @@ tarball hash and HTML/JS/CSS hashes verified from actual browser responses.
 Packaged consumer screenshots were inspected. Platform-correct profiling and
 sample-derived reporting are implemented; nine platform-gesture browser checks
 and all 15 tooling regressions passed. [Current fix report](evidence/milestone-d/review-fixes/report.md).
-Next: combined browser gate and a fresh isolated three-engine profiling run.
+The first fresh run was rejected by the stricter generator because the initial
+Chromium frame interval was negative. Corrected rAF initialization to measure
+consecutive frame timestamps and added a browser assertion. Rejected evidence is
+retained in the fix report. Next: finish the combined browser gate and reprofile.
 
 **Milestone D is implemented and stopped at the stage-9 product checkpoint.**
 Product acceptance is pending. Required unavailable release/manual checks remain
