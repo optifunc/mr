@@ -368,6 +368,14 @@ action recorded. Do not declare release validation complete while required evide
 is missing. Document any user-approved change to release scope explicitly.
 
 **Implementation is at the stage-9 product checkpoint. User decision: pending.**
+
+Context-menu appearance follow-up authorized on 2026-09-10: grouped separators,
+Delete with creation, 4px corners, platform shortcut hints and lighter disabled
+labels/hints are implemented. Passed typecheck/build, 163 unit tests, 42 focused
+browser cases and three exact accepted-default comparisons. Inspected the new
+three-engine screenshots; acceptance is pending.
+[Current menu review, before/after images and checks](evidence/milestone-d/menu-review/report.md).
+
 Final verification: typecheck/build, 163 unit tests and 490 browser cases passed
 with two documented clipboard-permission skips. All exact accepted-default images
 passed; the isolated packaged consumer passed in three engines. Installed Chrome

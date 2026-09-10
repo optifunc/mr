@@ -8,6 +8,17 @@ Last updated: 2026-09-10
 Product acceptance is pending. Required unavailable release/manual checks remain
 not run, so release validation is not declared complete.
 
+**Context-menu follow-up (2026-09-10):** user authorized separators between six
+groups, Delete with creation, 4px menu/item corners, right-aligned platform shortcut
+hints and lighter disabled text. Implemented with #757575 disabled text and a
+host-capped 250px width. Passed typecheck/build, 163 unit tests, 42 menu/integration
+browser cases, three exact accepted-default PNG comparisons and three-engine demo
+smoke including evidence links and built-package mount/cleanup. Screenshots were
+inspected in Chromium/Firefox/WebKit; visual acceptance remains pending.
+[Follow-up evidence and before/after images](evidence/milestone-d/menu-review/report.md).
+The demo links this update; the earlier milestone-wide results below retain their
+tested scope. Next remains the user's stage-9 product review.
+
 - Widget/menu implementation: `87da40b`; final API atomicity and initial-resize
   corrections: `de15b91`. The stage-9 commit containing the final report records
   the tested demo, package metadata, harness and evidence state.

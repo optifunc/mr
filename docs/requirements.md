@@ -580,10 +580,10 @@ built-in menu containing applicable commands:
 - Add sibling before
 - Add sibling after
 - Insert parent
+- Delete
 - Cut
 - Copy
 - Paste
-- Delete
 - Expand/Collapse
 - Add checkbox/Remove checkbox
 - Toggle checked state, when applicable
@@ -593,6 +593,13 @@ Unavailable commands shall be disabled or omitted consistently. The menu shall
 also be openable from the keyboard using Shift+F10 and the platform Context Menu
 key. The host may disable the built-in menu and invoke the same public commands
 from application UI.
+
+Separate logical groups with dividers: Edit; node creation and Delete;
+Cut/Copy/Paste; Expand/Collapse; checkbox presence and checked state; Open link.
+The menu and item highlights shall have 4px rounded corners. Show right-aligned
+shortcut hints matching section 9, using Command on macOS and Ctrl elsewhere for
+primary-modifier bindings; Ctrl+Space remains Control on every platform. Omit hints
+where no binding exists. Disabled labels and hints shall be slightly lighter.
 
 ## 16. Undo and redo
 

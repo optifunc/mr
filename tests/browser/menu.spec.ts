@@ -62,7 +62,7 @@ test('read-only menu, disabled option, empty selection and native textarea conte
     await page.goto('/?readonly');
     const tree = page.locator('#primary .mindmap');
     await tree.focus(); await page.keyboard.press('Shift+F10');
-    const states = await tree.getByRole('menuitem').evaluateAll(items => items.map(n => [n.textContent, n.getAttribute('aria-disabled')]));
+    const states = await tree.getByRole('menuitem').evaluateAll(items => items.map(n => [n.querySelector('.mindmap-menu-label')!.textContent, n.getAttribute('aria-disabled')]));
     expect(states.filter(([, disabled]) => disabled === 'false')).toEqual([['Copy', 'false']]);
     await page.keyboard.press('Home'); await page.keyboard.press('Enter'); await expect(tree.getByRole('menu')).toBeVisible();
     await page.keyboard.press('Escape');
@@ -85,6 +85,7 @@ test('bounded scrolling menu under host scaling, outside focus and two-instance 
     const bounds = await tree.evaluate(host => { const h = host.getBoundingClientRect(), m = host.querySelector('[role="menu"]')!.getBoundingClientRect(); return { h: h.toJSON(), m: m.toJSON() }; });
     expect(bounds.m.x).toBeGreaterThanOrEqual(bounds.h.x); expect(bounds.m.y).toBeGreaterThanOrEqual(bounds.h.y);
     expect(bounds.m.right).toBeLessThanOrEqual(bounds.h.right + .1); expect(bounds.m.bottom).toBeLessThanOrEqual(bounds.h.bottom + .1);
+    expect(await tree.getByRole('menu').evaluate(menu => menu.scrollWidth <= menu.clientWidth)).toBe(true);
     await tree.screenshot({ path: `${evidence}/menu-small-${info.project.name}.png` });
     await page.evaluate(() => { const input = document.createElement('input'); input.id = 'host-input'; document.querySelector('header')!.append(input); });
     await page.locator('#host-input').click(); await expect(tree.getByRole('menu')).toHaveCount(0); await expect(page.locator('#host-input')).toBeFocused();
@@ -92,6 +93,56 @@ test('bounded scrolling menu under host scaling, outside focus and two-instance 
     await page.locator('#secondary .mindmap').focus(); await page.keyboard.press('Shift+F10');
     await expect(tree.getByRole('menu')).toHaveCount(0); await expect(page.locator('#secondary').getByRole('menu')).toBeVisible();
     writeFileSync(`${evidence}/menu-bounds-${info.project.name}.json`, JSON.stringify(bounds, null, 2) + '\n');
+});
+
+for (const platform of ['MacIntel', 'Win32']) test(`menu groups, rounded highlights and aligned shortcuts on ${platform}`, async ({ page }, info) => {
+    await page.addInitScript(platform => Object.defineProperty(navigator, 'platform', { get: () => platform }), platform);
+    await page.goto('/'); await page.evaluate(() => document.fonts.ready);
+    const tree = page.locator('#primary .mindmap'), menu = tree.getByRole('menu');
+    await tree.locator('[data-node-id="root"]').click({ button: 'right' });
+    const groups = [
+        ['Edit'], ['Add child', 'Add sibling before', 'Add sibling after', 'Insert parent', 'Delete'],
+        ['Cut', 'Copy', 'Paste'], ['Collapse'], ['Add checkbox', 'Toggle checked state'], ['Open link'],
+    ];
+    expect(await menu.evaluate(menu => {
+        const groups: string[][] = [[]];
+        for (const child of menu.children) {
+            if (child.getAttribute('role') === 'separator') groups.push([]);
+            else groups.at(-1)!.push(child.querySelector('.mindmap-menu-label')!.textContent!);
+        }
+        return groups;
+    })).toEqual(groups);
+    await expect(menu.getByRole('separator')).toHaveCount(5);
+    await expect(menu).toHaveCSS('border-radius', '4px');
+    const primary = platform === 'MacIntel' ? '⌘' : 'Ctrl+';
+    const hints = ['F2', 'Tab', 'Shift+Enter', 'Enter', 'Shift+Tab', 'Delete', `${primary}X`, `${primary}C`, `${primary}V`, 'Space', '', 'Ctrl+Space', ''];
+    const keys = ['F2', 'Tab', 'Shift+Enter', 'Enter', 'Shift+Tab', 'Delete', ...['X', 'C', 'V'].map(k => `${platform === 'MacIntel' ? 'Meta' : 'Control'}+${k}`), 'Space', null, 'Control+Space', null];
+    const labels = groups.flat();
+    for (let i = 0; i < labels.length; i++) {
+        const item = menu.getByRole('menuitem', { name: labels[i]!, exact: true });
+        await expect(item).toBeFocused(); // Separators never enter arrow-key traversal.
+        await expect(item).toHaveCSS('border-radius', '4px');
+        expect(await item.getAttribute('aria-keyshortcuts')).toBe(keys[i]);
+        if (hints[i]) {
+            await expect(item.locator('.mindmap-menu-shortcut')).toHaveText(hints[i]!);
+            await expect(item.locator('.mindmap-menu-shortcut')).toHaveAttribute('aria-hidden', 'true');
+        } else await expect(item.locator('.mindmap-menu-shortcut')).toHaveCount(0);
+        await page.keyboard.press('ArrowDown');
+    }
+    const geometry = await menu.locator('.mindmap-menu-shortcut').evaluateAll(hints => hints.map(hint => ({
+        right: hint.getBoundingClientRect().right,
+        gap: hint.getBoundingClientRect().left - hint.previousElementSibling!.getBoundingClientRect().right,
+    })));
+    expect(Math.max(...geometry.map(g => g.right)) - Math.min(...geometry.map(g => g.right))).toBeLessThan(.1);
+    for (const { gap } of geometry) expect(gap).toBeGreaterThanOrEqual(11.9);
+    const disabled = menu.getByRole('menuitem', { name: 'Delete', exact: true });
+    await expect(disabled).toHaveAttribute('aria-disabled', 'true');
+    await expect(disabled).toHaveCSS('color', 'rgb(117, 117, 117)');
+    await expect(disabled.locator('.mindmap-menu-shortcut')).toHaveCSS('color', 'rgb(117, 117, 117)');
+    await menu.getByRole('menuitem', { name: 'Add child', exact: true }).hover();
+    await expect(menu.getByRole('menuitem', { name: 'Add child', exact: true })).toHaveCSS('background-color', 'rgb(229, 229, 229)');
+    await tree.screenshot({ path: `${evidence}/menu-${platform}-${info.project.name}.png` });
+    await page.keyboard.press('Escape'); await expect(tree).toBeFocused();
 });
 test('replacement, invalid replacement, resize, API editing and destruction clean up menu', async ({ page }) => {
     const tree = page.locator('#primary .mindmap');

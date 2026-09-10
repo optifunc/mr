@@ -1,0 +1,8 @@
+> @mindmap/widget@0.1.0 typecheck /Users/yezo/Scratch/09-26/mr
+> tsc --noEmit
+
+tests/browser/menu.spec.ts(122,49): error TS2379: Argument of type '{ name: string | undefined; exact: true; }' is not assignable to parameter of type '{ checked?: boolean; disabled?: boolean; exact?: boolean; expanded?: boolean; includeHidden?: boolean; level?: number; name?: string | RegExp; pressed?: boolean; selected?: boolean; }' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'name' are incompatible.
+    Type 'string | undefined' is not assignable to type 'string | RegExp'.
+      Type 'undefined' is not assignable to type 'string | RegExp'.
+ ELIFECYCLE  Command failed with exit code 2.

@@ -1,0 +1,62 @@
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test menu.spec.ts integration.spec.ts --workers=1
+
+
+Running 42 tests using 1 worker
+
+(node:91028) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:91028) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/browser/integration.spec.ts:2:1 › invalid explicit edit, insertion and link targets reject before changing an active buffer (398ms)
+  ✓   2 [chromium] › tests/browser/integration.spec.ts:23:1 › menu reentrant replacement and throwing ID callback preserve atomicity and cleanup (295ms)
+  ✓   3 [chromium] › tests/browser/integration.spec.ts:47:1 › opening a menu immediately after mounting survives the initial resize notification (292ms)
+  ✓   4 [chromium] › tests/browser/integration.spec.ts:62:1 › keyboard menu reveal reports user origin and default label/menu contrast is readable (144ms)
+  ✓   5 [chromium] › tests/browser/menu.spec.ts:6:1 › keyboard menu traversal, disabled discovery, edit and focus return (292ms)
+  ✓   6 [chromium] › tests/browser/menu.spec.ts:29:1 › right click preserves selected group; unselected node becomes sole selection; pointer commands undo once (300ms)
+  ✓   7 [chromium] › tests/browser/menu.spec.ts:46:1 › root protections, checkbox/collapse applicability and user event origins (286ms)
+  ✓   8 [chromium] › tests/browser/menu.spec.ts:61:1 › read-only menu, disabled option, empty selection and native textarea context menu (350ms)
+  ✓   9 [chromium] › tests/browser/menu.spec.ts:76:1 › bounded scrolling menu under host scaling, outside focus and two-instance isolation (398ms)
+  ✓  10 [chromium] › tests/browser/menu.spec.ts:98:47 › menu groups, rounded highlights and aligned shortcuts on MacIntel (595ms)
+  ✓  11 [chromium] › tests/browser/menu.spec.ts:98:47 › menu groups, rounded highlights and aligned shortcuts on Win32 (595ms)
+  ✓  12 [chromium] › tests/browser/menu.spec.ts:147:1 › replacement, invalid replacement, resize, API editing and destruction clean up menu (318ms)
+  ✓  13 [chromium] › tests/browser/menu.spec.ts:166:1 › menu clipboard and protected link use shared completion and policy path (356ms)
+  ✓  14 [chromium] › tests/browser/menu.spec.ts:181:1 › accessible hierarchy, selection, checkboxes and viewport/link event origins (348ms)
+(node:91069) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:91069) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  15 [firefox] › tests/browser/integration.spec.ts:2:1 › invalid explicit edit, insertion and link targets reject before changing an active buffer (945ms)
+  ✓  16 [firefox] › tests/browser/integration.spec.ts:23:1 › menu reentrant replacement and throwing ID callback preserve atomicity and cleanup (607ms)
+  ✓  17 [firefox] › tests/browser/integration.spec.ts:47:1 › opening a menu immediately after mounting survives the initial resize notification (460ms)
+  ✓  18 [firefox] › tests/browser/integration.spec.ts:62:1 › keyboard menu reveal reports user origin and default label/menu contrast is readable (283ms)
+  ✓  19 [firefox] › tests/browser/menu.spec.ts:6:1 › keyboard menu traversal, disabled discovery, edit and focus return (433ms)
+  ✓  20 [firefox] › tests/browser/menu.spec.ts:29:1 › right click preserves selected group; unselected node becomes sole selection; pointer commands undo once (481ms)
+  ✓  21 [firefox] › tests/browser/menu.spec.ts:46:1 › root protections, checkbox/collapse applicability and user event origins (536ms)
+  ✓  22 [firefox] › tests/browser/menu.spec.ts:61:1 › read-only menu, disabled option, empty selection and native textarea context menu (1.5s)
+  ✓  23 [firefox] › tests/browser/menu.spec.ts:76:1 › bounded scrolling menu under host scaling, outside focus and two-instance isolation (628ms)
+  ✓  24 [firefox] › tests/browser/menu.spec.ts:98:47 › menu groups, rounded highlights and aligned shortcuts on MacIntel (832ms)
+  ✓  25 [firefox] › tests/browser/menu.spec.ts:98:47 › menu groups, rounded highlights and aligned shortcuts on Win32 (884ms)
+  ✓  26 [firefox] › tests/browser/menu.spec.ts:147:1 › replacement, invalid replacement, resize, API editing and destruction clean up menu (493ms)
+  ✓  27 [firefox] › tests/browser/menu.spec.ts:166:1 › menu clipboard and protected link use shared completion and policy path (693ms)
+  ✓  28 [firefox] › tests/browser/menu.spec.ts:181:1 › accessible hierarchy, selection, checkboxes and viewport/link event origins (680ms)
+(node:91109) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:91109) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  29 [webkit] › tests/browser/integration.spec.ts:2:1 › invalid explicit edit, insertion and link targets reject before changing an active buffer (2.9s)
+  ✓  30 [webkit] › tests/browser/integration.spec.ts:23:1 › menu reentrant replacement and throwing ID callback preserve atomicity and cleanup (498ms)
+  ✓  31 [webkit] › tests/browser/integration.spec.ts:47:1 › opening a menu immediately after mounting survives the initial resize notification (420ms)
+  ✓  32 [webkit] › tests/browser/integration.spec.ts:62:1 › keyboard menu reveal reports user origin and default label/menu contrast is readable (243ms)
+  ✓  33 [webkit] › tests/browser/menu.spec.ts:6:1 › keyboard menu traversal, disabled discovery, edit and focus return (418ms)
+  ✓  34 [webkit] › tests/browser/menu.spec.ts:29:1 › right click preserves selected group; unselected node becomes sole selection; pointer commands undo once (601ms)
+  ✓  35 [webkit] › tests/browser/menu.spec.ts:46:1 › root protections, checkbox/collapse applicability and user event origins (534ms)
+  ✓  36 [webkit] › tests/browser/menu.spec.ts:61:1 › read-only menu, disabled option, empty selection and native textarea context menu (906ms)
+  ✓  37 [webkit] › tests/browser/menu.spec.ts:76:1 › bounded scrolling menu under host scaling, outside focus and two-instance isolation (535ms)
+  ✓  38 [webkit] › tests/browser/menu.spec.ts:98:47 › menu groups, rounded highlights and aligned shortcuts on MacIntel (812ms)
+  ✓  39 [webkit] › tests/browser/menu.spec.ts:98:47 › menu groups, rounded highlights and aligned shortcuts on Win32 (773ms)
+  ✓  40 [webkit] › tests/browser/menu.spec.ts:147:1 › replacement, invalid replacement, resize, API editing and destruction clean up menu (494ms)
+  ✓  41 [webkit] › tests/browser/menu.spec.ts:166:1 › menu clipboard and protected link use shared completion and policy path (572ms)
+  ✓  42 [webkit] › tests/browser/menu.spec.ts:181:1 › accessible hierarchy, selection, checkboxes and viewport/link event origins (526ms)
+
+  42 passed (29.7s)

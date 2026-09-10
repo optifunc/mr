@@ -286,6 +286,14 @@ including link and checkbox actions. Labels switch Expand/Collapse and Add/Remov
 checkbox according to the active node. Root insertion entries retain the documented
 root keyboard insertion behavior.
 
+Dividers separate Edit; node creation and Delete; Cut/Copy/Paste; Expand/Collapse;
+checkbox actions; and Open link. The menu and item highlights have 4px corners.
+Right-aligned hints show existing canvas shortcuts (⌘ on macOS, Ctrl elsewhere;
+Ctrl+Space on every platform). Entries without a shortcut have no hint. Hints are
+also exposed with `aria-keyshortcuts` without changing item accessible names.
+Disabled labels and hints use #757575. The default menu is 250px wide, capped to
+the host, with labels wrapping in small hosts.
+
 Up/Down wraps through every item, including disabled items for discoverability;
 Home/End moves to the endpoints. Enter/Space activates an enabled item. Escape/Tab
 closes and returns focus to the canvas. The menu scrolls within small hosts, stays

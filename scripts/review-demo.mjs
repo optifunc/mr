@@ -1,6 +1,6 @@
 import { chromium, firefox, webkit, expect } from '@playwright/test';
 import { mkdirSync, writeFileSync } from 'node:fs';
-const evidence = 'docs/evidence/milestone-d/demo'; mkdirSync(evidence, { recursive: true });
+const evidence = process.env.MINDMAP_EVIDENCE ?? 'docs/evidence/milestone-d/demo'; mkdirSync(evidence, { recursive: true });
 const results = [];
 for (const [name, engine] of Object.entries({ chromium, firefox, webkit })) {
     const browser = await engine.launch();

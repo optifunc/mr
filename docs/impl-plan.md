@@ -512,6 +512,12 @@ unavailable commands disabled. Support Shift+F10, Context Menu key, arrows,
 Home/End, Enter, Escape, and focus return. Right-clicking a selected node preserves
 the selection; an unselected node becomes the sole selection. Position the menu
 within the widget's bounds and allow it to scroll in a small viewport.
+Use separators between the six groups in requirements section 15, keeping Delete
+with node creation. The menu and item highlights have 4px corners. A two-column
+layout right-aligns platform shortcut hints and wraps labels in narrow hosts.
+Default width is 250px, capped to the host; disabled labels/hints use #757575.
+Separators are nonfocusable; shortcut hints preserve item accessible names and
+expose the bindings through `aria-keyshortcuts`.
 
 Centralize event payloads with an origin (`user`, `api`, `undo`, or `redo`), command
 identity where applicable, and change reason. Settle document, history, selection,

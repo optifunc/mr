@@ -1,22 +1,22 @@
 import type { MindMapCommand } from '../types';
 
-export interface MenuItem { label: string; command: MindMapCommand }
+export interface MenuItem { label: string; command: MindMapCommand; separatorBefore?: boolean; shortcut?: string }
 /** Stable order; applicability always comes from the shared command path. */
 export function menuItems(collapsed: boolean, checked: boolean): MenuItem[] {
     return [
-        { label: 'Edit', command: { type: 'edit' } },
-        { label: 'Add child', command: { type: 'insertChild' } },
-        { label: 'Add sibling before', command: { type: 'insertBefore' } },
-        { label: 'Add sibling after', command: { type: 'insertAfter' } },
-        { label: 'Insert parent', command: { type: 'insertParent' } },
-        { label: 'Cut', command: { type: 'cut' } },
-        { label: 'Copy', command: { type: 'copy' } },
-        { label: 'Paste', command: { type: 'paste' } },
-        { label: 'Delete', command: { type: 'delete' } },
-        { label: collapsed ? 'Expand' : 'Collapse', command: { type: 'toggleCollapse' } },
-        { label: checked ? 'Remove checkbox' : 'Add checkbox', command: { type: checked ? 'removeCheckbox' : 'addCheckbox' } },
-        { label: 'Toggle checked state', command: { type: 'toggleChecked' } },
-        { label: 'Open link', command: { type: 'openLink' } },
+        { label: 'Edit', command: { type: 'edit' }, shortcut: 'F2' },
+        { label: 'Add child', command: { type: 'insertChild' }, separatorBefore: true, shortcut: 'Tab' },
+        { label: 'Add sibling before', command: { type: 'insertBefore' }, shortcut: 'Shift+Enter' },
+        { label: 'Add sibling after', command: { type: 'insertAfter' }, shortcut: 'Enter' },
+        { label: 'Insert parent', command: { type: 'insertParent' }, shortcut: 'Shift+Tab' },
+        { label: 'Delete', command: { type: 'delete' }, shortcut: 'Delete' },
+        { label: 'Cut', command: { type: 'cut' }, separatorBefore: true, shortcut: 'Primary+X' },
+        { label: 'Copy', command: { type: 'copy' }, shortcut: 'Primary+C' },
+        { label: 'Paste', command: { type: 'paste' }, shortcut: 'Primary+V' },
+        { label: collapsed ? 'Expand' : 'Collapse', command: { type: 'toggleCollapse' }, separatorBefore: true, shortcut: 'Space' },
+        { label: checked ? 'Remove checkbox' : 'Add checkbox', command: { type: checked ? 'removeCheckbox' : 'addCheckbox' }, separatorBefore: true },
+        { label: 'Toggle checked state', command: { type: 'toggleChecked' }, shortcut: 'Ctrl+Space' },
+        { label: 'Open link', command: { type: 'openLink' }, separatorBefore: true },
     ];
 }
 
@@ -31,10 +31,25 @@ export class ContextMenu {
         this.menu = menu; this.abort = new AbortController();
         const options = { signal: this.abort.signal };
         menu.className = 'mindmap-menu'; menu.setAttribute('role', 'menu'); menu.setAttribute('aria-label', 'Node commands');
+        const mac = /Mac|iPhone|iPad/.test(doc.defaultView!.navigator.platform);
         const buttons = items.map(item => {
+            if (item.separatorBefore) {
+                const separator = doc.createElement('div');
+                separator.className = 'mindmap-menu-separator'; separator.setAttribute('role', 'separator');
+                menu.append(separator);
+            }
             const button = doc.createElement('button');
             button.type = 'button'; button.tabIndex = -1; button.setAttribute('role', 'menuitem');
-            button.textContent = item.label; button.setAttribute('aria-disabled', String(!this.can(item.command)));
+            const label = doc.createElement('span');
+            label.className = 'mindmap-menu-label'; label.textContent = item.label; button.append(label);
+            if (item.shortcut) {
+                const hint = doc.createElement('span');
+                hint.className = 'mindmap-menu-shortcut'; hint.setAttribute('aria-hidden', 'true');
+                hint.textContent = item.shortcut.replace('Primary+', mac ? '⌘' : 'Ctrl+');
+                button.setAttribute('aria-keyshortcuts', item.shortcut.replace('Primary', mac ? 'Meta' : 'Control').replace('Ctrl', 'Control'));
+                button.append(hint);
+            }
+            button.setAttribute('aria-disabled', String(!this.can(item.command)));
             button.addEventListener('click', () => {
                 if (!this.can(item.command)) return;
                 this.close(true); this.execute(item.command);
