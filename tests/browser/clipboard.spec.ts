@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { mkdirSync, writeFileSync } from 'node:fs';
-const evidence = process.env.MINDMAP_EVIDENCE ?? 'docs/evidence/milestone-c/stage7';
+const evidence = process.env.MINDMAP_EVIDENCE ?? 'docs/evidence/milestone-d/regression';
 mkdirSync(evidence, { recursive: true });
 import { referenceMap } from '../fixtures/maps';
 

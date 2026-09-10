@@ -4,7 +4,7 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { referenceMap } from '../fixtures/maps';
 import type { MindMapEditor } from '../../src';
 declare global { interface Window { dragDemo: MindMapEditor; dragEvents: string[] } }
-const evidence = process.env.MINDMAP_EVIDENCE ?? 'docs/evidence/milestone-c/stage7';
+const evidence = process.env.MINDMAP_EVIDENCE ?? 'docs/evidence/milestone-d/regression';
 mkdirSync(evidence, { recursive: true });
 const node = (page: Page, id: string, host = '#primary') => page.locator(`${host} .mindmap-nodes [data-node-id="${id}"]`);
 async function point(page: Page, id: string, x = .5, y = .5, host = '#primary') {
@@ -116,8 +116,8 @@ test('reference drag comparison and environment evidence', async ({ page, browse
     await page.setViewportSize({ width: 1440, height: 1200 }); await page.locator('.drag-comparison').scrollIntoViewIfNeeded();
     await begin(page, 'c', '#drag-map'); await over(page, 'n1', .9, .5, '#drag-map');
     await expect(node(page, 'n1', '#drag-map')).toHaveAttribute('data-drop-edge', 'right');
-    await page.locator('.drag-comparison').screenshot({ path: `${evidence}/comparison-${info.project.name}.png` });
-    await page.locator('#drag-map').screenshot({ path: `${evidence}/reference-${info.project.name}.png` });
+    await page.locator('.drag-comparison').screenshot({ path: `${evidence}/drag-comparison-${info.project.name}.png` });
+    await page.locator('#drag-map').screenshot({ path: `${evidence}/drag-reference-${info.project.name}.png` });
     writeFileSync(`${evidence}/environment-${info.project.name}.json`, JSON.stringify({ browser: browser.version(), platform: process.platform, viewport: page.viewportSize(), deviceScaleFactor: 1, font: await node(page, 'n1', '#drag-map').evaluate(el => getComputedStyle(el).font), gradient: await node(page, 'n1', '#drag-map').evaluate(el => getComputedStyle(el).backgroundImage) }, null, 2) + '\n');
     await page.keyboard.press('Escape'); await page.mouse.up();
 });

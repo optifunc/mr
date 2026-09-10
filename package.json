@@ -1,8 +1,38 @@
 {
-  "name": "@mindmap/widget", "version": "0.1.0", "private": false, "type": "module",
+  "name": "@mindmap/widget",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
   "packageManager": "pnpm@10.28.1",
-  "files": ["dist"], "sideEffects": ["**/*.css"],
-  "exports": {".": {"types": "./dist/index.d.ts", "import": "./dist/mindmap.js"}, "./styles.css": "./dist/mindmap.css"},
-  "scripts": {"dev": "vite --host 127.0.0.1", "build": "vite build && tsc -p tsconfig.build.json", "typecheck": "tsc --noEmit", "test": "vitest run", "test:browser": "playwright test", "perf": "playwright test workload --project=chromium"},
-  "devDependencies": {"@playwright/test": "1.58.2", "typescript": "5.9.3", "vite": "7.3.1", "vitest": "4.0.18", "@types/node": "24.10.1"}
+  "files": [
+    "dist",
+    "docs/api.md",
+    "examples/consumer"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/mindmap.js"
+    },
+    "./styles.css": "./dist/mindmap.css"
+  },
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build && tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:browser": "playwright test",
+    "perf": "playwright test performance --project=chromium --workers=1",
+    "test:package": "pnpm build && node scripts/package-consumer.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.58.2",
+    "typescript": "5.9.3",
+    "vite": "7.3.1",
+    "vitest": "4.0.18",
+    "@types/node": "24.10.1"
+  }
 }

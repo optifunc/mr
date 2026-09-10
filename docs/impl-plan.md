@@ -327,8 +327,9 @@ Use these insertion defaults:
 If a root side is empty, append its new branch to the root child array. Inserting
 around a root child transfers that child's side to the new parent. Creating a child
 under a collapsed parent expands it within the creation transaction so the editor
-is visible. A child drop or paste into a collapsed parent keeps it collapsed;
-selection then remains on the visible target.
+is visible. A child drop into a collapsed parent keeps it collapsed; selection then remains
+on the visible target. Paste expands its destination to reveal inserted children
+(the accepted stage-6 behavior); hidden ancestors remain collapsed.
 
 New children/siblings inherit checkbox presence from the active node and start
 unchecked; inserted parents have no checkbox. Mixed checkbox-presence selection

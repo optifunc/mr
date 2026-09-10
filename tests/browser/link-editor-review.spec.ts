@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { writeFileSync } from 'node:fs';
 import { node } from '../fixtures/maps';
-const evidence = 'docs/evidence/milestone-c/link-editor-review';
+const evidence = process.env.MINDMAP_EVIDENCE ?? 'docs/evidence/milestone-d/regression';
 const phase = process.env.LINK_EDITOR_BEFORE ? 'before' : 'after';
 
 test('URL labels use standard blue without underline, retain their branch and protected click behavior', async ({ page }, info) => {

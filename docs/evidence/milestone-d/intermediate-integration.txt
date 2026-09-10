@@ -1,0 +1,406 @@
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test tests/browser/integration.spec.ts tests/browser/api.spec.ts tests/browser/menu.spec.ts tests/browser/editing.spec.ts tests/browser/clipboard.spec.ts tests/browser/drag.spec.ts --workers=1
+
+
+Running 276 tests using 1 worker
+
+(node:86716) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:86716) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓    1 [chromium] › tests/browser/api.spec.ts:12:1 › malformed JavaScript commands reject atomically with stable errors (418ms)
+  ✓    2 [chromium] › tests/browser/api.spec.ts:45:1 › model commands, event isolation, replacement, and independent histories (117ms)
+  ✓    3 [chromium] › tests/browser/api.spec.ts:73:1 › reentrant listeners run after the current event batch and exceptions are isolated (115ms)
+  ✓    4 [chromium] › tests/browser/api.spec.ts:95:1 › reentrant branches drain FIFO and preserve event batches despite callback errors (114ms)
+  ✓    5 [chromium] › tests/browser/api.spec.ts:120:1 › destroy during a queue drain discards pending work and remaining notifications (101ms)
+  ✓    6 [chromium] › tests/browser/api.spec.ts:137:1 › long reentrant chains do not depend on the JavaScript call stack (128ms)
+  ✓    7 [chromium] › tests/browser/clipboard.spec.ts:22:1 › API paste/cut/copy settle once, retain IDs on redo and expose completion after document/selection (185ms)
+  ✓    8 [chromium] › tests/browser/clipboard.spec.ts:38:56 › denied clipboard leaves document and history intact (125ms)
+  ✓    9 [chromium] › tests/browser/clipboard.spec.ts:38:56 › unavailable clipboard leaves document and history intact (115ms)
+  ✓   10 [chromium] › tests/browser/clipboard.spec.ts:46:1 › invalid indentation and generated-ID collision reject whole paste (128ms)
+  ✓   11 [chromium] › tests/browser/clipboard.spec.ts:56:113 › cut rejects deferred completion after edit (120ms)
+  ✓   12 [chromium] › tests/browser/clipboard.spec.ts:56:113 › cut rejects deferred completion after replace (133ms)
+  ✓   13 [chromium] › tests/browser/clipboard.spec.ts:56:113 › cut rejects deferred completion after interaction (125ms)
+  ✓   14 [chromium] › tests/browser/clipboard.spec.ts:56:113 › paste rejects deferred completion after edit (123ms)
+  ✓   15 [chromium] › tests/browser/clipboard.spec.ts:56:113 › paste rejects deferred completion after replace (119ms)
+  ✓   16 [chromium] › tests/browser/clipboard.spec.ts:56:113 › paste rejects deferred completion after interaction (123ms)
+  ✓   17 [chromium] › tests/browser/clipboard.spec.ts:69:1 › pending requests keep captured selection/target; copy survives edits; destroy suppresses completion (153ms)
+  ✓   18 [chromium] › tests/browser/clipboard.spec.ts:77:1 › native keyboard clipboard round trip works without duplicate API request and textarea keeps native routing (172ms)
+  ✓   19 [chromium] › tests/browser/clipboard.spec.ts:91:1 › read-only permits copy/links but rejects cut/paste; root cannot be cut (175ms)
+  ✓   20 [chromium] › tests/browser/clipboard.spec.ts:97:1 › URL modifier label clicks open protected tabs; branch selection, cancellation, callback failure and reclassification (276ms)
+  ✓   21 [chromium] › tests/browser/clipboard.spec.ts:111:1 › real asynchronous Clipboard API in a granted secure Chromium context (109ms)
+  ✓   22 [chromium] › tests/browser/clipboard.spec.ts:120:1 › empty clipboard no-op, empty physical label and literal HTML are preserved (128ms)
+  ✓   23 [chromium] › tests/browser/clipboard.spec.ts:129:1 › deferred cut deletes its captured sources after selection change and leaves clipboard errors isolated between mounts (123ms)
+  ✓   24 [chromium] › tests/browser/clipboard.spec.ts:136:1 › URL press cancellation and read-only replacement/paste reclassification (288ms)
+  ✓   25 [chromium] › tests/browser/clipboard.spec.ts:144:1 › review fixture real clipboard, multiline/checkbox paste, undo/redo and denial evidence (387ms)
+  ✓   26 [chromium] › tests/browser/clipboard.spec.ts:165:1 › explicit hidden paste target keeps selection visible and completion identifies inserted roots (135ms)
+  ✓   27 [chromium] › tests/browser/clipboard.spec.ts:177:63 › native two indentation paste and four-space copy preserve the forest and one-step undo (300ms)
+  ✓   28 [chromium] › tests/browser/clipboard.spec.ts:177:63 › native four indentation paste and four-space copy preserve the forest and one-step undo (280ms)
+  ✓   29 [chromium] › tests/browser/clipboard.spec.ts:177:63 › native tabs indentation paste and four-space copy preserve the forest and one-step undo (276ms)
+  ✓   30 [chromium] › tests/browser/clipboard.spec.ts:177:63 › native mixed indentation paste and four-space copy preserve the forest and one-step undo (279ms)
+  ✓   31 [chromium] › tests/browser/clipboard.spec.ts:206:170 › odd-space API paste rejects atomically with a clear indentation error (105ms)
+  ✓   32 [chromium] › tests/browser/clipboard.spec.ts:206:170 › space-depth-jump API paste rejects atomically with a clear indentation error (105ms)
+  ✓   33 [chromium] › tests/browser/clipboard.spec.ts:206:170 › mixed-depth-jump API paste rejects atomically with a clear indentation error (104ms)
+  ✓   34 [chromium] › tests/browser/drag.spec.ts:20:129 › actual group drag before previews gradient, freezes layout and commits one undoable move (350ms)
+  ✓   35 [chromium] › tests/browser/drag.spec.ts:20:129 › actual group drag after previews gradient, freezes layout and commits one undoable move (361ms)
+  ✓   36 [chromium] › tests/browser/drag.spec.ts:20:129 › actual group drag child previews gradient, freezes layout and commits one undoable move (364ms)
+  ✓   37 [chromium] › tests/browser/drag.spec.ts:35:48 › root left drop assigns side and append order; before/after root siblings adopts their side (347ms)
+  ✓   38 [chromium] › tests/browser/drag.spec.ts:35:48 › root right drop assigns side and append order; before/after root siblings adopts their side (346ms)
+  ✓   39 [chromium] › tests/browser/drag.spec.ts:43:1 › left outward zones mirror at 200% zoom and host scale; inward same-position rejects (428ms)
+  ✓   40 [chromium] › tests/browser/drag.spec.ts:57:1 › multi-parent and ancestor selections normalize to one visual forest without duplicate descendants (251ms)
+  ✓   41 [chromium] › tests/browser/drag.spec.ts:64:1 › collapsed child drop stays collapsed, selects visible target and reveals preserved subtrees on expansion (259ms)
+  ✓   42 [chromium] › tests/browser/drag.spec.ts:72:105 › invalid cycle has prohibited cursor, no gradient, no history (247ms)
+  ✓   43 [chromium] › tests/browser/drag.spec.ts:72:105 › invalid selected has prohibited cursor, no gradient, no history (245ms)
+  ✓   44 [chromium] › tests/browser/drag.spec.ts:72:105 › invalid same-position has prohibited cursor, no gradient, no history (244ms)
+  ✓   45 [chromium] › tests/browser/drag.spec.ts:72:105 › invalid root has prohibited cursor, no gradient, no history (242ms)
+  ✓   46 [chromium] › tests/browser/drag.spec.ts:72:105 › invalid inward-same-position has prohibited cursor, no gradient, no history (248ms)
+  ✓   47 [chromium] › tests/browser/drag.spec.ts:82:116 › Escape clears drag feedback and cancels mutation (249ms)
+  ✓   48 [chromium] › tests/browser/drag.spec.ts:82:116 › pointercancel clears drag feedback and cancels mutation (243ms)
+  ✓   49 [chromium] › tests/browser/drag.spec.ts:82:116 › capture-loss clears drag feedback and cancels mutation (261ms)
+  ✓   50 [chromium] › tests/browser/drag.spec.ts:82:116 › replacement clears drag feedback and cancels mutation (245ms)
+  ✓   51 [chromium] › tests/browser/drag.spec.ts:82:116 › edit clears drag feedback and cancels mutation (263ms)
+  ✓   52 [chromium] › tests/browser/drag.spec.ts:82:116 › destroy clears drag feedback and cancels mutation (259ms)
+  ✓   53 [chromium] › tests/browser/drag.spec.ts:97:1 › stationary edge pointer autopans across frames, re-hits the target and stops on cancel without relayout (495ms)
+  ✓   54 [chromium] › tests/browser/drag.spec.ts:108:1 › unselected press selects one source; read-only and non-mouse input never drag (395ms)
+  ✓   55 [chromium] › tests/browser/drag.spec.ts:115:1 › reference drag comparison and environment evidence (444ms)
+  ✓   56 [chromium] › tests/browser/drag.spec.ts:125:1 › stationary pointer gradient is re-evaluated as autopan moves its target away (1.1s)
+  ✓   57 [chromium] › tests/browser/drag.spec.ts:134:1 › real pointer capture release and outside-widget release cancel drops (356ms)
+  ✓   58 [chromium] › tests/browser/drag.spec.ts:142:124 › inward-half left before at zoom 1 previews sibling drop and commits one move (357ms)
+  ✓   59 [chromium] › tests/browser/drag.spec.ts:142:124 › inward-half left before at zoom 2 previews sibling drop and commits one move (347ms)
+  ✓   60 [chromium] › tests/browser/drag.spec.ts:142:124 › inward-half left after at zoom 1 previews sibling drop and commits one move (368ms)
+  ✓   61 [chromium] › tests/browser/drag.spec.ts:142:124 › inward-half left after at zoom 2 previews sibling drop and commits one move (350ms)
+  ✓   62 [chromium] › tests/browser/drag.spec.ts:142:124 › inward-half right before at zoom 1 previews sibling drop and commits one move (345ms)
+  ✓   63 [chromium] › tests/browser/drag.spec.ts:142:124 › inward-half right before at zoom 2 previews sibling drop and commits one move (345ms)
+  ✓   64 [chromium] › tests/browser/drag.spec.ts:142:124 › inward-half right after at zoom 1 previews sibling drop and commits one move (347ms)
+  ✓   65 [chromium] › tests/browser/drag.spec.ts:142:124 › inward-half right after at zoom 2 previews sibling drop and commits one move (343ms)
+  ✓   66 [chromium] › tests/browser/editing.spec.ts:5:1 › F2 selects text, native multiline typing freezes geometry and one commit relayouts once (172ms)
+  ✓   67 [chromium] › tests/browser/editing.spec.ts:20:5 › Tab on root: visible provisional insertion, exact placement and one-entry commit (145ms)
+  ✓   68 [chromium] › tests/browser/editing.spec.ts:20:5 › Enter on root: visible provisional insertion, exact placement and one-entry commit (136ms)
+  ✓   69 [chromium] › tests/browser/editing.spec.ts:20:5 › Shift+Enter on root: visible provisional insertion, exact placement and one-entry commit (140ms)
+  ✓   70 [chromium] › tests/browser/editing.spec.ts:20:5 › Shift+Tab on root: visible provisional insertion, exact placement and one-entry commit (138ms)
+  ✓   71 [chromium] › tests/browser/editing.spec.ts:20:5 › Tab on one: visible provisional insertion, exact placement and one-entry commit (137ms)
+  ✓   72 [chromium] › tests/browser/editing.spec.ts:20:5 › Enter on one: visible provisional insertion, exact placement and one-entry commit (140ms)
+  ✓   73 [chromium] › tests/browser/editing.spec.ts:20:5 › Shift+Enter on one: visible provisional insertion, exact placement and one-entry commit (136ms)
+  ✓   74 [chromium] › tests/browser/editing.spec.ts:20:5 › Shift+Tab on one: visible provisional insertion, exact placement and one-entry commit (141ms)
+  ✓   75 [chromium] › tests/browser/editing.spec.ts:40:1 › Escape restores collapsed-parent creation and inserted-parent wrapping with selection and redo intact (153ms)
+  ✓   76 [chromium] › tests/browser/editing.spec.ts:50:1 › click-to-edit only on sole selection and after pointer release; moved presses never edit (222ms)
+  ✓   77 [chromium] › tests/browser/editing.spec.ts:58:1 › outside pointer commits before resolving the new node target; external blur commits without stealing focus (198ms)
+  ✓   78 [chromium] › tests/browser/editing.spec.ts:68:1 › composition Enter is guarded; platform textarea shortcuts never move, select map nodes or create history (155ms)
+  ✓   79 [chromium] › tests/browser/editing.spec.ts:78:1 › checkbox inheritance, empty creation commit, existing unchanged no-op and event order/origin (133ms)
+  ✓   80 [chromium] › tests/browser/editing.spec.ts:85:1 › valid replacement/destroy discard edits, invalid replacement preserves buffer, public content commands finish it (156ms)
+  ✓   81 [chromium] › tests/browser/editing.spec.ts:94:1 › deferred style refresh cannot move the scene during typing; cancellation applies refresh (119ms)
+  ✓   82 [chromium] › tests/browser/editing.spec.ts:102:1 › long labels stay editable inside the viewport; provisional Escape restores the prior view (160ms)
+  ✓   83 [chromium] › tests/browser/integration.spec.ts:2:1 › invalid explicit edit, insertion and link targets reject before changing an active buffer (119ms)
+  ✘   84 [chromium] › tests/browser/integration.spec.ts:23:1 › menu reentrant replacement and throwing ID callback preserve atomicity and cleanup (30.1s)
+(node:87178) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:87178) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   85 [chromium] › tests/browser/menu.spec.ts:6:1 › keyboard menu traversal, disabled discovery, edit and focus return (374ms)
+  ✓   86 [chromium] › tests/browser/menu.spec.ts:29:1 › right click preserves selected group; unselected node becomes sole selection; pointer commands undo once (403ms)
+  ✓   87 [chromium] › tests/browser/menu.spec.ts:46:1 › root protections, checkbox/collapse applicability and user event origins (364ms)
+  ✓   88 [chromium] › tests/browser/menu.spec.ts:61:1 › read-only menu, disabled option, empty selection and native textarea context menu (432ms)
+  ✓   89 [chromium] › tests/browser/menu.spec.ts:76:1 › bounded scrolling menu under host scaling, outside focus and two-instance isolation (440ms)
+  ✓   90 [chromium] › tests/browser/menu.spec.ts:96:1 › replacement, invalid replacement, resize, API editing and destruction clean up menu (392ms)
+  ✓   91 [chromium] › tests/browser/menu.spec.ts:115:1 › menu clipboard and protected link use shared completion and policy path (416ms)
+  ✓   92 [chromium] › tests/browser/menu.spec.ts:130:1 › accessible hierarchy, selection, checkboxes and viewport/link event origins (439ms)
+(node:87246) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:87246) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   93 [firefox] › tests/browser/api.spec.ts:12:1 › malformed JavaScript commands reject atomically with stable errors (1.4s)
+  ✓   94 [firefox] › tests/browser/api.spec.ts:45:1 › model commands, event isolation, replacement, and independent histories (393ms)
+  ✓   95 [firefox] › tests/browser/api.spec.ts:73:1 › reentrant listeners run after the current event batch and exceptions are isolated (425ms)
+  ✓   96 [firefox] › tests/browser/api.spec.ts:95:1 › reentrant branches drain FIFO and preserve event batches despite callback errors (304ms)
+  ✓   97 [firefox] › tests/browser/api.spec.ts:120:1 › destroy during a queue drain discards pending work and remaining notifications (369ms)
+  ✓   98 [firefox] › tests/browser/api.spec.ts:137:1 › long reentrant chains do not depend on the JavaScript call stack (455ms)
+  ✓   99 [firefox] › tests/browser/clipboard.spec.ts:22:1 › API paste/cut/copy settle once, retain IDs on redo and expose completion after document/selection (431ms)
+  ✓  100 [firefox] › tests/browser/clipboard.spec.ts:38:56 › denied clipboard leaves document and history intact (398ms)
+  ✓  101 [firefox] › tests/browser/clipboard.spec.ts:38:56 › unavailable clipboard leaves document and history intact (390ms)
+  ✓  102 [firefox] › tests/browser/clipboard.spec.ts:46:1 › invalid indentation and generated-ID collision reject whole paste (555ms)
+  ✓  103 [firefox] › tests/browser/clipboard.spec.ts:56:113 › cut rejects deferred completion after edit (543ms)
+  ✓  104 [firefox] › tests/browser/clipboard.spec.ts:56:113 › cut rejects deferred completion after replace (411ms)
+  ✓  105 [firefox] › tests/browser/clipboard.spec.ts:56:113 › cut rejects deferred completion after interaction (414ms)
+  ✓  106 [firefox] › tests/browser/clipboard.spec.ts:56:113 › paste rejects deferred completion after edit (316ms)
+  ✓  107 [firefox] › tests/browser/clipboard.spec.ts:56:113 › paste rejects deferred completion after replace (375ms)
+  ✓  108 [firefox] › tests/browser/clipboard.spec.ts:56:113 › paste rejects deferred completion after interaction (397ms)
+  ✓  109 [firefox] › tests/browser/clipboard.spec.ts:69:1 › pending requests keep captured selection/target; copy survives edits; destroy suppresses completion (430ms)
+  ✓  110 [firefox] › tests/browser/clipboard.spec.ts:77:1 › native keyboard clipboard round trip works without duplicate API request and textarea keeps native routing (540ms)
+  ✓  111 [firefox] › tests/browser/clipboard.spec.ts:91:1 › read-only permits copy/links but rejects cut/paste; root cannot be cut (374ms)
+  ✓  112 [firefox] › tests/browser/clipboard.spec.ts:97:1 › URL modifier label clicks open protected tabs; branch selection, cancellation, callback failure and reclassification (497ms)
+  -  113 [firefox] › tests/browser/clipboard.spec.ts:111:1 › real asynchronous Clipboard API in a granted secure Chromium context
+  ✓  114 [firefox] › tests/browser/clipboard.spec.ts:120:1 › empty clipboard no-op, empty physical label and literal HTML are preserved (383ms)
+  ✓  115 [firefox] › tests/browser/clipboard.spec.ts:129:1 › deferred cut deletes its captured sources after selection change and leaves clipboard errors isolated between mounts (251ms)
+  ✓  116 [firefox] › tests/browser/clipboard.spec.ts:136:1 › URL press cancellation and read-only replacement/paste reclassification (425ms)
+  ✓  117 [firefox] › tests/browser/clipboard.spec.ts:144:1 › review fixture real clipboard, multiline/checkbox paste, undo/redo and denial evidence (512ms)
+  ✓  118 [firefox] › tests/browser/clipboard.spec.ts:165:1 › explicit hidden paste target keeps selection visible and completion identifies inserted roots (300ms)
+  ✓  119 [firefox] › tests/browser/clipboard.spec.ts:177:63 › native two indentation paste and four-space copy preserve the forest and one-step undo (401ms)
+  ✓  120 [firefox] › tests/browser/clipboard.spec.ts:177:63 › native four indentation paste and four-space copy preserve the forest and one-step undo (423ms)
+  ✓  121 [firefox] › tests/browser/clipboard.spec.ts:177:63 › native tabs indentation paste and four-space copy preserve the forest and one-step undo (394ms)
+  ✓  122 [firefox] › tests/browser/clipboard.spec.ts:177:63 › native mixed indentation paste and four-space copy preserve the forest and one-step undo (398ms)
+  ✓  123 [firefox] › tests/browser/clipboard.spec.ts:206:170 › odd-space API paste rejects atomically with a clear indentation error (241ms)
+  ✓  124 [firefox] › tests/browser/clipboard.spec.ts:206:170 › space-depth-jump API paste rejects atomically with a clear indentation error (237ms)
+  ✓  125 [firefox] › tests/browser/clipboard.spec.ts:206:170 › mixed-depth-jump API paste rejects atomically with a clear indentation error (241ms)
+  ✓  126 [firefox] › tests/browser/drag.spec.ts:20:129 › actual group drag before previews gradient, freezes layout and commits one undoable move (508ms)
+  ✓  127 [firefox] › tests/browser/drag.spec.ts:20:129 › actual group drag after previews gradient, freezes layout and commits one undoable move (641ms)
+  ✓  128 [firefox] › tests/browser/drag.spec.ts:20:129 › actual group drag child previews gradient, freezes layout and commits one undoable move (446ms)
+  ✓  129 [firefox] › tests/browser/drag.spec.ts:35:48 › root left drop assigns side and append order; before/after root siblings adopts their side (449ms)
+  ✓  130 [firefox] › tests/browser/drag.spec.ts:35:48 › root right drop assigns side and append order; before/after root siblings adopts their side (461ms)
+  ✓  131 [firefox] › tests/browser/drag.spec.ts:43:1 › left outward zones mirror at 200% zoom and host scale; inward same-position rejects (544ms)
+  ✓  132 [firefox] › tests/browser/drag.spec.ts:57:1 › multi-parent and ancestor selections normalize to one visual forest without duplicate descendants (405ms)
+  ✓  133 [firefox] › tests/browser/drag.spec.ts:64:1 › collapsed child drop stays collapsed, selects visible target and reveals preserved subtrees on expansion (397ms)
+  ✓  134 [firefox] › tests/browser/drag.spec.ts:72:105 › invalid cycle has prohibited cursor, no gradient, no history (392ms)
+  ✓  135 [firefox] › tests/browser/drag.spec.ts:72:105 › invalid selected has prohibited cursor, no gradient, no history (377ms)
+  ✓  136 [firefox] › tests/browser/drag.spec.ts:72:105 › invalid same-position has prohibited cursor, no gradient, no history (419ms)
+  ✓  137 [firefox] › tests/browser/drag.spec.ts:72:105 › invalid root has prohibited cursor, no gradient, no history (534ms)
+  ✓  138 [firefox] › tests/browser/drag.spec.ts:72:105 › invalid inward-same-position has prohibited cursor, no gradient, no history (365ms)
+  ✓  139 [firefox] › tests/browser/drag.spec.ts:82:116 › Escape clears drag feedback and cancels mutation (384ms)
+  ✓  140 [firefox] › tests/browser/drag.spec.ts:82:116 › pointercancel clears drag feedback and cancels mutation (356ms)
+  ✓  141 [firefox] › tests/browser/drag.spec.ts:82:116 › capture-loss clears drag feedback and cancels mutation (380ms)
+  ✓  142 [firefox] › tests/browser/drag.spec.ts:82:116 › replacement clears drag feedback and cancels mutation (397ms)
+  ✓  143 [firefox] › tests/browser/drag.spec.ts:82:116 › edit clears drag feedback and cancels mutation (379ms)
+  ✓  144 [firefox] › tests/browser/drag.spec.ts:82:116 › destroy clears drag feedback and cancels mutation (374ms)
+  ✓  145 [firefox] › tests/browser/drag.spec.ts:97:1 › stationary edge pointer autopans across frames, re-hits the target and stops on cancel without relayout (642ms)
+  ✓  146 [firefox] › tests/browser/drag.spec.ts:108:1 › unselected press selects one source; read-only and non-mouse input never drag (560ms)
+  ✓  147 [firefox] › tests/browser/drag.spec.ts:115:1 › reference drag comparison and environment evidence (626ms)
+  ✓  148 [firefox] › tests/browser/drag.spec.ts:125:1 › stationary pointer gradient is re-evaluated as autopan moves its target away (1.5s)
+  ✓  149 [firefox] › tests/browser/drag.spec.ts:134:1 › real pointer capture release and outside-widget release cancel drops (469ms)
+  ✓  150 [firefox] › tests/browser/drag.spec.ts:142:124 › inward-half left before at zoom 1 previews sibling drop and commits one move (474ms)
+  ✓  151 [firefox] › tests/browser/drag.spec.ts:142:124 › inward-half left before at zoom 2 previews sibling drop and commits one move (493ms)
+  ✓  152 [firefox] › tests/browser/drag.spec.ts:142:124 › inward-half left after at zoom 1 previews sibling drop and commits one move (461ms)
+  ✓  153 [firefox] › tests/browser/drag.spec.ts:142:124 › inward-half left after at zoom 2 previews sibling drop and commits one move (459ms)
+  ✓  154 [firefox] › tests/browser/drag.spec.ts:142:124 › inward-half right before at zoom 1 previews sibling drop and commits one move (466ms)
+  ✓  155 [firefox] › tests/browser/drag.spec.ts:142:124 › inward-half right before at zoom 2 previews sibling drop and commits one move (703ms)
+  ✓  156 [firefox] › tests/browser/drag.spec.ts:142:124 › inward-half right after at zoom 1 previews sibling drop and commits one move (482ms)
+  ✓  157 [firefox] › tests/browser/drag.spec.ts:142:124 › inward-half right after at zoom 2 previews sibling drop and commits one move (464ms)
+  ✓  158 [firefox] › tests/browser/editing.spec.ts:5:1 › F2 selects text, native multiline typing freezes geometry and one commit relayouts once (358ms)
+  ✓  159 [firefox] › tests/browser/editing.spec.ts:20:5 › Tab on root: visible provisional insertion, exact placement and one-entry commit (299ms)
+  ✓  160 [firefox] › tests/browser/editing.spec.ts:20:5 › Enter on root: visible provisional insertion, exact placement and one-entry commit (298ms)
+  ✓  161 [firefox] › tests/browser/editing.spec.ts:20:5 › Shift+Enter on root: visible provisional insertion, exact placement and one-entry commit (288ms)
+  ✓  162 [firefox] › tests/browser/editing.spec.ts:20:5 › Shift+Tab on root: visible provisional insertion, exact placement and one-entry commit (287ms)
+  ✓  163 [firefox] › tests/browser/editing.spec.ts:20:5 › Tab on one: visible provisional insertion, exact placement and one-entry commit (293ms)
+  ✓  164 [firefox] › tests/browser/editing.spec.ts:20:5 › Enter on one: visible provisional insertion, exact placement and one-entry commit (290ms)
+  ✓  165 [firefox] › tests/browser/editing.spec.ts:20:5 › Shift+Enter on one: visible provisional insertion, exact placement and one-entry commit (298ms)
+  ✓  166 [firefox] › tests/browser/editing.spec.ts:20:5 › Shift+Tab on one: visible provisional insertion, exact placement and one-entry commit (309ms)
+  ✓  167 [firefox] › tests/browser/editing.spec.ts:40:1 › Escape restores collapsed-parent creation and inserted-parent wrapping with selection and redo intact (359ms)
+  ✓  168 [firefox] › tests/browser/editing.spec.ts:50:1 › click-to-edit only on sole selection and after pointer release; moved presses never edit (574ms)
+  ✓  169 [firefox] › tests/browser/editing.spec.ts:58:1 › outside pointer commits before resolving the new node target; external blur commits without stealing focus (358ms)
+  ✓  170 [firefox] › tests/browser/editing.spec.ts:68:1 › composition Enter is guarded; platform textarea shortcuts never move, select map nodes or create history (305ms)
+  ✓  171 [firefox] › tests/browser/editing.spec.ts:78:1 › checkbox inheritance, empty creation commit, existing unchanged no-op and event order/origin (295ms)
+  ✓  172 [firefox] › tests/browser/editing.spec.ts:85:1 › valid replacement/destroy discard edits, invalid replacement preserves buffer, public content commands finish it (329ms)
+  ✓  173 [firefox] › tests/browser/editing.spec.ts:94:1 › deferred style refresh cannot move the scene during typing; cancellation applies refresh (296ms)
+  ✓  174 [firefox] › tests/browser/editing.spec.ts:102:1 › long labels stay editable inside the viewport; provisional Escape restores the prior view (443ms)
+  ✓  175 [firefox] › tests/browser/integration.spec.ts:2:1 › invalid explicit edit, insertion and link targets reject before changing an active buffer (315ms)
+  ✘  176 [firefox] › tests/browser/integration.spec.ts:23:1 › menu reentrant replacement and throwing ID callback preserve atomicity and cleanup (30.3s)
+(node:87522) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:87522) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  177 [firefox] › tests/browser/menu.spec.ts:6:1 › keyboard menu traversal, disabled discovery, edit and focus return (1.3s)
+  ✓  178 [firefox] › tests/browser/menu.spec.ts:29:1 › right click preserves selected group; unselected node becomes sole selection; pointer commands undo once (568ms)
+  ✓  179 [firefox] › tests/browser/menu.spec.ts:46:1 › root protections, checkbox/collapse applicability and user event origins (564ms)
+  ✓  180 [firefox] › tests/browser/menu.spec.ts:61:1 › read-only menu, disabled option, empty selection and native textarea context menu (743ms)
+  ✓  181 [firefox] › tests/browser/menu.spec.ts:76:1 › bounded scrolling menu under host scaling, outside focus and two-instance isolation (581ms)
+  ✓  182 [firefox] › tests/browser/menu.spec.ts:96:1 › replacement, invalid replacement, resize, API editing and destruction clean up menu (485ms)
+  ✓  183 [firefox] › tests/browser/menu.spec.ts:115:1 › menu clipboard and protected link use shared completion and policy path (767ms)
+  ✓  184 [firefox] › tests/browser/menu.spec.ts:130:1 › accessible hierarchy, selection, checkboxes and viewport/link event origins (831ms)
+(node:87557) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:87557) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  185 [webkit] › tests/browser/api.spec.ts:12:1 › malformed JavaScript commands reject atomically with stable errors (972ms)
+  ✓  186 [webkit] › tests/browser/api.spec.ts:45:1 › model commands, event isolation, replacement, and independent histories (362ms)
+  ✓  187 [webkit] › tests/browser/api.spec.ts:73:1 › reentrant listeners run after the current event batch and exceptions are isolated (330ms)
+  ✓  188 [webkit] › tests/browser/api.spec.ts:95:1 › reentrant branches drain FIFO and preserve event batches despite callback errors (324ms)
+  ✓  189 [webkit] › tests/browser/api.spec.ts:120:1 › destroy during a queue drain discards pending work and remaining notifications (324ms)
+  ✓  190 [webkit] › tests/browser/api.spec.ts:137:1 › long reentrant chains do not depend on the JavaScript call stack (382ms)
+  ✓  191 [webkit] › tests/browser/clipboard.spec.ts:22:1 › API paste/cut/copy settle once, retain IDs on redo and expose completion after document/selection (455ms)
+  ✓  192 [webkit] › tests/browser/clipboard.spec.ts:38:56 › denied clipboard leaves document and history intact (375ms)
+  ✓  193 [webkit] › tests/browser/clipboard.spec.ts:38:56 › unavailable clipboard leaves document and history intact (369ms)
+  ✓  194 [webkit] › tests/browser/clipboard.spec.ts:46:1 › invalid indentation and generated-ID collision reject whole paste (485ms)
+  ✓  195 [webkit] › tests/browser/clipboard.spec.ts:56:113 › cut rejects deferred completion after edit (535ms)
+  ✓  196 [webkit] › tests/browser/clipboard.spec.ts:56:113 › cut rejects deferred completion after replace (586ms)
+  ✓  197 [webkit] › tests/browser/clipboard.spec.ts:56:113 › cut rejects deferred completion after interaction (592ms)
+  ✓  198 [webkit] › tests/browser/clipboard.spec.ts:56:113 › paste rejects deferred completion after edit (617ms)
+  ✓  199 [webkit] › tests/browser/clipboard.spec.ts:56:113 › paste rejects deferred completion after replace (846ms)
+  ✓  200 [webkit] › tests/browser/clipboard.spec.ts:56:113 › paste rejects deferred completion after interaction (813ms)
+  ✓  201 [webkit] › tests/browser/clipboard.spec.ts:69:1 › pending requests keep captured selection/target; copy survives edits; destroy suppresses completion (720ms)
+  ✓  202 [webkit] › tests/browser/clipboard.spec.ts:77:1 › native keyboard clipboard round trip works without duplicate API request and textarea keeps native routing (929ms)
+  ✓  203 [webkit] › tests/browser/clipboard.spec.ts:91:1 › read-only permits copy/links but rejects cut/paste; root cannot be cut (904ms)
+  ✓  204 [webkit] › tests/browser/clipboard.spec.ts:97:1 › URL modifier label clicks open protected tabs; branch selection, cancellation, callback failure and reclassification (1.2s)
+  -  205 [webkit] › tests/browser/clipboard.spec.ts:111:1 › real asynchronous Clipboard API in a granted secure Chromium context
+  ✓  206 [webkit] › tests/browser/clipboard.spec.ts:120:1 › empty clipboard no-op, empty physical label and literal HTML are preserved (659ms)
+  ✓  207 [webkit] › tests/browser/clipboard.spec.ts:129:1 › deferred cut deletes its captured sources after selection change and leaves clipboard errors isolated between mounts (564ms)
+  ✓  208 [webkit] › tests/browser/clipboard.spec.ts:136:1 › URL press cancellation and read-only replacement/paste reclassification (1.1s)
+  ✓  209 [webkit] › tests/browser/clipboard.spec.ts:144:1 › review fixture real clipboard, multiline/checkbox paste, undo/redo and denial evidence (1.2s)
+  ✓  210 [webkit] › tests/browser/clipboard.spec.ts:165:1 › explicit hidden paste target keeps selection visible and completion identifies inserted roots (891ms)
+  ✓  211 [webkit] › tests/browser/clipboard.spec.ts:177:63 › native two indentation paste and four-space copy preserve the forest and one-step undo (1.2s)
+  ✓  212 [webkit] › tests/browser/clipboard.spec.ts:177:63 › native four indentation paste and four-space copy preserve the forest and one-step undo (1.2s)
+  ✓  213 [webkit] › tests/browser/clipboard.spec.ts:177:63 › native tabs indentation paste and four-space copy preserve the forest and one-step undo (1.1s)
+  ✓  214 [webkit] › tests/browser/clipboard.spec.ts:177:63 › native mixed indentation paste and four-space copy preserve the forest and one-step undo (1.2s)
+  ✓  215 [webkit] › tests/browser/clipboard.spec.ts:206:170 › odd-space API paste rejects atomically with a clear indentation error (591ms)
+  ✓  216 [webkit] › tests/browser/clipboard.spec.ts:206:170 › space-depth-jump API paste rejects atomically with a clear indentation error (609ms)
+  ✓  217 [webkit] › tests/browser/clipboard.spec.ts:206:170 › mixed-depth-jump API paste rejects atomically with a clear indentation error (584ms)
+  ✓  218 [webkit] › tests/browser/drag.spec.ts:20:129 › actual group drag before previews gradient, freezes layout and commits one undoable move (1.2s)
+  ✓  219 [webkit] › tests/browser/drag.spec.ts:20:129 › actual group drag after previews gradient, freezes layout and commits one undoable move (1.7s)
+  ✓  220 [webkit] › tests/browser/drag.spec.ts:20:129 › actual group drag child previews gradient, freezes layout and commits one undoable move (1.1s)
+  ✓  221 [webkit] › tests/browser/drag.spec.ts:35:48 › root left drop assigns side and append order; before/after root siblings adopts their side (996ms)
+  ✓  222 [webkit] › tests/browser/drag.spec.ts:35:48 › root right drop assigns side and append order; before/after root siblings adopts their side (1.0s)
+  ✓  223 [webkit] › tests/browser/drag.spec.ts:43:1 › left outward zones mirror at 200% zoom and host scale; inward same-position rejects (1.2s)
+  ✓  224 [webkit] › tests/browser/drag.spec.ts:57:1 › multi-parent and ancestor selections normalize to one visual forest without duplicate descendants (804ms)
+  ✓  225 [webkit] › tests/browser/drag.spec.ts:64:1 › collapsed child drop stays collapsed, selects visible target and reveals preserved subtrees on expansion (917ms)
+  ✓  226 [webkit] › tests/browser/drag.spec.ts:72:105 › invalid cycle has prohibited cursor, no gradient, no history (790ms)
+  ✓  227 [webkit] › tests/browser/drag.spec.ts:72:105 › invalid selected has prohibited cursor, no gradient, no history (913ms)
+  ✓  228 [webkit] › tests/browser/drag.spec.ts:72:105 › invalid same-position has prohibited cursor, no gradient, no history (794ms)
+  ✓  229 [webkit] › tests/browser/drag.spec.ts:72:105 › invalid root has prohibited cursor, no gradient, no history (758ms)
+  ✓  230 [webkit] › tests/browser/drag.spec.ts:72:105 › invalid inward-same-position has prohibited cursor, no gradient, no history (762ms)
+  ✓  231 [webkit] › tests/browser/drag.spec.ts:82:116 › Escape clears drag feedback and cancels mutation (732ms)
+  ✓  232 [webkit] › tests/browser/drag.spec.ts:82:116 › pointercancel clears drag feedback and cancels mutation (593ms)
+  ✓  233 [webkit] › tests/browser/drag.spec.ts:82:116 › capture-loss clears drag feedback and cancels mutation (595ms)
+  ✓  234 [webkit] › tests/browser/drag.spec.ts:82:116 › replacement clears drag feedback and cancels mutation (605ms)
+  ✓  235 [webkit] › tests/browser/drag.spec.ts:82:116 › edit clears drag feedback and cancels mutation (605ms)
+  ✓  236 [webkit] › tests/browser/drag.spec.ts:82:116 › destroy clears drag feedback and cancels mutation (556ms)
+  ✓  237 [webkit] › tests/browser/drag.spec.ts:97:1 › stationary edge pointer autopans across frames, re-hits the target and stops on cancel without relayout (823ms)
+  ✓  238 [webkit] › tests/browser/drag.spec.ts:108:1 › unselected press selects one source; read-only and non-mouse input never drag (751ms)
+  ✓  239 [webkit] › tests/browser/drag.spec.ts:115:1 › reference drag comparison and environment evidence (744ms)
+  ✓  240 [webkit] › tests/browser/drag.spec.ts:125:1 › stationary pointer gradient is re-evaluated as autopan moves its target away (2.5s)
+  ✓  241 [webkit] › tests/browser/drag.spec.ts:134:1 › real pointer capture release and outside-widget release cancel drops (521ms)
+  ✓  242 [webkit] › tests/browser/drag.spec.ts:142:124 › inward-half left before at zoom 1 previews sibling drop and commits one move (586ms)
+  ✓  243 [webkit] › tests/browser/drag.spec.ts:142:124 › inward-half left before at zoom 2 previews sibling drop and commits one move (619ms)
+  ✓  244 [webkit] › tests/browser/drag.spec.ts:142:124 › inward-half left after at zoom 1 previews sibling drop and commits one move (621ms)
+  ✓  245 [webkit] › tests/browser/drag.spec.ts:142:124 › inward-half left after at zoom 2 previews sibling drop and commits one move (671ms)
+  ✓  246 [webkit] › tests/browser/drag.spec.ts:142:124 › inward-half right before at zoom 1 previews sibling drop and commits one move (678ms)
+  ✓  247 [webkit] › tests/browser/drag.spec.ts:142:124 › inward-half right before at zoom 2 previews sibling drop and commits one move (784ms)
+  ✓  248 [webkit] › tests/browser/drag.spec.ts:142:124 › inward-half right after at zoom 1 previews sibling drop and commits one move (1.0s)
+  ✓  249 [webkit] › tests/browser/drag.spec.ts:142:124 › inward-half right after at zoom 2 previews sibling drop and commits one move (1.0s)
+  ✓  250 [webkit] › tests/browser/editing.spec.ts:5:1 › F2 selects text, native multiline typing freezes geometry and one commit relayouts once (912ms)
+  ✓  251 [webkit] › tests/browser/editing.spec.ts:20:5 › Tab on root: visible provisional insertion, exact placement and one-entry commit (695ms)
+  ✓  252 [webkit] › tests/browser/editing.spec.ts:20:5 › Enter on root: visible provisional insertion, exact placement and one-entry commit (555ms)
+  ✓  253 [webkit] › tests/browser/editing.spec.ts:20:5 › Shift+Enter on root: visible provisional insertion, exact placement and one-entry commit (637ms)
+  ✓  254 [webkit] › tests/browser/editing.spec.ts:20:5 › Shift+Tab on root: visible provisional insertion, exact placement and one-entry commit (573ms)
+  ✓  255 [webkit] › tests/browser/editing.spec.ts:20:5 › Tab on one: visible provisional insertion, exact placement and one-entry commit (574ms)
+  ✓  256 [webkit] › tests/browser/editing.spec.ts:20:5 › Enter on one: visible provisional insertion, exact placement and one-entry commit (503ms)
+  ✓  257 [webkit] › tests/browser/editing.spec.ts:20:5 › Shift+Enter on one: visible provisional insertion, exact placement and one-entry commit (463ms)
+  ✓  258 [webkit] › tests/browser/editing.spec.ts:20:5 › Shift+Tab on one: visible provisional insertion, exact placement and one-entry commit (450ms)
+  ✓  259 [webkit] › tests/browser/editing.spec.ts:40:1 › Escape restores collapsed-parent creation and inserted-parent wrapping with selection and redo intact (510ms)
+  ✓  260 [webkit] › tests/browser/editing.spec.ts:50:1 › click-to-edit only on sole selection and after pointer release; moved presses never edit (544ms)
+  ✓  261 [webkit] › tests/browser/editing.spec.ts:58:1 › outside pointer commits before resolving the new node target; external blur commits without stealing focus (511ms)
+  ✓  262 [webkit] › tests/browser/editing.spec.ts:68:1 › composition Enter is guarded; platform textarea shortcuts never move, select map nodes or create history (501ms)
+  ✓  263 [webkit] › tests/browser/editing.spec.ts:78:1 › checkbox inheritance, empty creation commit, existing unchanged no-op and event order/origin (435ms)
+  ✓  264 [webkit] › tests/browser/editing.spec.ts:85:1 › valid replacement/destroy discard edits, invalid replacement preserves buffer, public content commands finish it (508ms)
+  ✓  265 [webkit] › tests/browser/editing.spec.ts:94:1 › deferred style refresh cannot move the scene during typing; cancellation applies refresh (388ms)
+  ✓  266 [webkit] › tests/browser/editing.spec.ts:102:1 › long labels stay editable inside the viewport; provisional Escape restores the prior view (434ms)
+  ✓  267 [webkit] › tests/browser/integration.spec.ts:2:1 › invalid explicit edit, insertion and link targets reject before changing an active buffer (358ms)
+  ✘  268 [webkit] › tests/browser/integration.spec.ts:23:1 › menu reentrant replacement and throwing ID callback preserve atomicity and cleanup (30.1s)
+(node:87714) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:87714) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  269 [webkit] › tests/browser/menu.spec.ts:6:1 › keyboard menu traversal, disabled discovery, edit and focus return (636ms)
+  ✓  270 [webkit] › tests/browser/menu.spec.ts:29:1 › right click preserves selected group; unselected node becomes sole selection; pointer commands undo once (410ms)
+  ✓  271 [webkit] › tests/browser/menu.spec.ts:46:1 › root protections, checkbox/collapse applicability and user event origins (436ms)
+  ✓  272 [webkit] › tests/browser/menu.spec.ts:61:1 › read-only menu, disabled option, empty selection and native textarea context menu (817ms)
+  ✓  273 [webkit] › tests/browser/menu.spec.ts:76:1 › bounded scrolling menu under host scaling, outside focus and two-instance isolation (489ms)
+  ✓  274 [webkit] › tests/browser/menu.spec.ts:96:1 › replacement, invalid replacement, resize, API editing and destruction clean up menu (352ms)
+  ✓  275 [webkit] › tests/browser/menu.spec.ts:115:1 › menu clipboard and protected link use shared completion and policy path (495ms)
+  ✓  276 [webkit] › tests/browser/menu.spec.ts:130:1 › accessible hierarchy, selection, checkboxes and viewport/link event origins (494ms)
+
+
+  1) [chromium] › tests/browser/integration.spec.ts:23:1 › menu reentrant replacement and throwing ID callback preserve atomicity and cleanup
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('#primary').getByRole('menuitem', { name: 'Add child', exact: true })
+        - locator resolved to <button type="button" tabindex="-1" role="menuitem" aria-disabled="false">Add child</button>
+      - attempting click action
+        - waiting for element to be visible, enabled and stable
+        - element is not stable
+      - retrying click action
+        - waiting for element to be visible, enabled and stable
+      - element was detached from the DOM, retrying
+
+
+      38 |         window.primary.on('error', e => { document.body.dataset.error = e.code; }); window.primary.focus();
+      39 |     });
+    > 40 |     await page.keyboard.press('Shift+F10'); await page.locator('#primary').getByRole('menuitem', { name: 'Add child', exact: true }).click();
+         |                                                                                                                                      ^
+      41 |     await expect(page.locator('body')).toHaveAttribute('data-error', 'HOST_CALLBACK');
+      42 |     await expect(page.locator('#primary [role="treeitem"]')).toHaveCount(1);
+      43 |     await expect(page.locator('#primary textarea, #primary [role="menu"]')).toHaveCount(0);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/integration.spec.ts:40:134
+
+    Error Context: test-results/integration-menu-reentrant-6d7e6-serve-atomicity-and-cleanup-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/integration-menu-reentrant-6d7e6-serve-atomicity-and-cleanup-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/integration-menu-reentrant-6d7e6-serve-atomicity-and-cleanup-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [firefox] › tests/browser/integration.spec.ts:23:1 › menu reentrant replacement and throwing ID callback preserve atomicity and cleanup
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('#primary').getByRole('menuitem', { name: 'Add child', exact: true })
+
+
+      38 |         window.primary.on('error', e => { document.body.dataset.error = e.code; }); window.primary.focus();
+      39 |     });
+    > 40 |     await page.keyboard.press('Shift+F10'); await page.locator('#primary').getByRole('menuitem', { name: 'Add child', exact: true }).click();
+         |                                                                                                                                      ^
+      41 |     await expect(page.locator('body')).toHaveAttribute('data-error', 'HOST_CALLBACK');
+      42 |     await expect(page.locator('#primary [role="treeitem"]')).toHaveCount(1);
+      43 |     await expect(page.locator('#primary textarea, #primary [role="menu"]')).toHaveCount(0);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/integration.spec.ts:40:134
+
+    Error Context: test-results/integration-menu-reentrant-6d7e6-serve-atomicity-and-cleanup-firefox/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/integration-menu-reentrant-6d7e6-serve-atomicity-and-cleanup-firefox/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/integration-menu-reentrant-6d7e6-serve-atomicity-and-cleanup-firefox/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [webkit] › tests/browser/integration.spec.ts:23:1 › menu reentrant replacement and throwing ID callback preserve atomicity and cleanup
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('#primary').getByRole('menuitem', { name: 'Add child', exact: true })
+
+
+      38 |         window.primary.on('error', e => { document.body.dataset.error = e.code; }); window.primary.focus();
+      39 |     });
+    > 40 |     await page.keyboard.press('Shift+F10'); await page.locator('#primary').getByRole('menuitem', { name: 'Add child', exact: true }).click();
+         |                                                                                                                                      ^
+      41 |     await expect(page.locator('body')).toHaveAttribute('data-error', 'HOST_CALLBACK');
+      42 |     await expect(page.locator('#primary [role="treeitem"]')).toHaveCount(1);
+      43 |     await expect(page.locator('#primary textarea, #primary [role="menu"]')).toHaveCount(0);
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/integration.spec.ts:40:134
+
+    Error Context: test-results/integration-menu-reentrant-6d7e6-serve-atomicity-and-cleanup-webkit/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/integration-menu-reentrant-6d7e6-serve-atomicity-and-cleanup-webkit/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/integration-menu-reentrant-6d7e6-serve-atomicity-and-cleanup-webkit/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    [chromium] › tests/browser/integration.spec.ts:23:1 › menu reentrant replacement and throwing ID callback preserve atomicity and cleanup
+    [firefox] › tests/browser/integration.spec.ts:23:1 › menu reentrant replacement and throwing ID callback preserve atomicity and cleanup
+    [webkit] › tests/browser/integration.spec.ts:23:1 › menu reentrant replacement and throwing ID callback preserve atomicity and cleanup
+  2 skipped
+  271 passed (3.8m)
+ ELIFECYCLE  Command failed with exit code 1.

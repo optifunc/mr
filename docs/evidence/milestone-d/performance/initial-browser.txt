@@ -1,0 +1,98 @@
+> @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
+> playwright test tests/browser/performance.spec.ts --workers=1
+
+[WebServer] (node:83763) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:83773) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:83783) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:83783) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [chromium] › tests/browser/performance.spec.ts:7:1 › release workload: cold/font load, relayout, actual input rendering opportunities and frame traces (357ms)
+(node:83802) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:83802) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 [firefox] › tests/browser/performance.spec.ts:7:1 › release workload: cold/font load, relayout, actual input rendering opportunities and frame traces (1.0s)
+(node:83811) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:83811) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  3 [webkit] › tests/browser/performance.spec.ts:7:1 › release workload: cold/font load, relayout, actual input rendering opportunities and frame traces (658ms)
+
+
+  1) [chromium] › tests/browser/performance.spec.ts:7:1 › release workload: cold/font load, relayout, actual input rendering opportunities and frame traces
+
+    Error: page.evaluate: ReferenceError: Cannot access 'document' before initialization
+        at eval (eval at evaluate (:290:30), <anonymous>:2:18)
+        at UtilityScript.evaluate (<anonymous>:292:16)
+        at UtilityScript.<anonymous> (<anonymous>:1:44)
+        at eval (eval at evaluate (:290:30), <anonymous>:2:18)
+        at UtilityScript.evaluate (<anonymous>:292:16)
+        at UtilityScript.<anonymous> (<anonymous>:1:44)
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/performance.spec.ts:10:32
+
+    Error Context: test-results/performance-release-worklo-b15ef-ortunities-and-frame-traces-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/performance-release-worklo-b15ef-ortunities-and-frame-traces-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/performance-release-worklo-b15ef-ortunities-and-frame-traces-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [firefox] › tests/browser/performance.spec.ts:7:1 › release workload: cold/font load, relayout, actual input rendering opportunities and frame traces
+
+    Error: page.evaluate: can't access lexical declaration 'document' before initialization
+    @debugger eval code line 290 > eval:2:18
+    evaluate@debugger eval code:292:16
+    @debugger eval code:1:44
+
+        at @debugger eval code line 290 > eval:2:18
+        at evaluate@debugger eval code:292:16
+        at @debugger eval code:1:44
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/performance.spec.ts:10:32
+
+    Error Context: test-results/performance-release-worklo-b15ef-ortunities-and-frame-traces-firefox/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/performance-release-worklo-b15ef-ortunities-and-frame-traces-firefox/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/performance-release-worklo-b15ef-ortunities-and-frame-traces-firefox/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [webkit] › tests/browser/performance.spec.ts:7:1 › release workload: cold/font load, relayout, actual input rendering opportunities and frame traces
+
+    Error: page.evaluate: ReferenceError: Cannot access 'document' before initialization.
+
+       8 |     await page.goto('/examples/performance/index.html'); await page.evaluate(() => document.fonts.ready);
+       9 |     const cold = await page.evaluate(() => ({ mountMs: window.mountDuration, navigation: performance.getEntriesByType('navigation')[0]!.toJSON(), paints: performance.getEntriesByType('paint').map(e => e.toJSON()) }));
+    > 10 |     const metrics = await page.evaluate(async () => {
+         |                                ^
+      11 |         const tree = document.querySelector<HTMLElement>('.mindmap')!, editor = window.primary;
+      12 |         const frame = () => new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+      13 |         const full: number[] = [], structural: number[] = [];
+        at /Users/yezo/Scratch/09-26/mr/tests/browser/performance.spec.ts:10:32
+
+    Error Context: test-results/performance-release-worklo-b15ef-ortunities-and-frame-traces-webkit/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/performance-release-worklo-b15ef-ortunities-and-frame-traces-webkit/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/performance-release-worklo-b15ef-ortunities-and-frame-traces-webkit/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    [chromium] › tests/browser/performance.spec.ts:7:1 › release workload: cold/font load, relayout, actual input rendering opportunities and frame traces
+    [firefox] › tests/browser/performance.spec.ts:7:1 › release workload: cold/font load, relayout, actual input rendering opportunities and frame traces
+    [webkit] › tests/browser/performance.spec.ts:7:1 › release workload: cold/font load, relayout, actual input rendering opportunities and frame traces
+ ELIFECYCLE  Command failed with exit code 1.

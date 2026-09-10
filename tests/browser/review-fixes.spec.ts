@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import type { Page } from '@playwright/test';
-const evidence = process.env.MINDMAP_EVIDENCE ?? 'docs/evidence/milestone-c/review-fixes';
+const evidence = process.env.MINDMAP_EVIDENCE ?? 'docs/evidence/milestone-d/regression';
 const phase = process.env.REVIEW_BEFORE ? 'before' : 'after';
 mkdirSync(evidence, { recursive: true });
 const frames = (page: Page) => page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));

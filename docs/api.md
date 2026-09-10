@@ -1,6 +1,6 @@
 # Mind map widget API
 
-Stages 1–8 are implemented; stage-9 release evidence and remaining environment checks are recorded in acceptance. The complete contract
+All widget features are implemented at the stage-9 product checkpoint. Release evidence and remaining environment checks are recorded in acceptance. The complete contract
 remains in [requirements](requirements.md). See [acceptance](acceptance.md) for
 verified behavior and pending interaction stages.
 
@@ -291,7 +291,7 @@ Home/End moves to the endpoints. Enter/Space activates an enabled item. Escape/T
 closes and returns focus to the canvas. The menu scrolls within small hosts, stays
 unscaled by map zoom, and accounts for host CSS scale. Outside pointer/focus closes
 it without stealing host input focus. Textareas retain their native context menu.
-Document changes, selection replacement, viewport moves, resize, a new edit and
+Document changes, selection replacement, viewport moves, actual host size changes, a new edit and
 destruction close the menu. Invalid replacement leaves it intact. Menu commands
 use the shared command/clipboard path and emit user origins.
 
@@ -306,3 +306,7 @@ unfinished edits and drags and suppresses late clipboard results. Caller-owned
 host content and attributes are preserved. Queries retain the final detached state;
 mutating calls after destruction return false or do nothing, and new subscriptions
 return inert unsubscribe functions.
+
+Unknown explicit target IDs, group IDs and move destination IDs reject with
+`INVALID_TARGET` before finishing an active editor. The buffer, focus, document and
+history remain intact. Initial unchanged-size observer delivery does not close a menu.

@@ -1,0 +1,28 @@
+> @mindmap/widget@0.1.0 test:package /Users/yezo/Scratch/09-26/mr
+> pnpm build && node scripts/package-consumer.mjs
+
+
+> @mindmap/widget@0.1.0 build /Users/yezo/Scratch/09-26/mr
+> vite build && tsc -p tsconfig.build.json
+
+vite v7.3.1 building client environment for production...
+transforming...
+✓ 24 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/mindmap.css   5.71 kB │ gzip:  1.54 kB
+dist/mindmap.js   78.38 kB │ gzip: 20.59 kB
+✓ built in 129ms
+file:///Users/yezo/Scratch/09-26/mr/scripts/package-consumer.mjs:14
+    if (result.status !== 0) throw Error(`Failed: ${command} ${args.join(' ')}`);
+                                   ^
+
+Error: Failed: /opt/homebrew/Cellar/node/24.2.0/bin/node /Users/yezo/Scratch/09-26/mr/node_modules/vite/bin/vite.js build /var/folders/lk/7r7cs2j52zn8c2hdkyj0y4zh0000gn/T/mindmap-consumer-73oBgs
+    at run (file:///Users/yezo/Scratch/09-26/mr/scripts/package-consumer.mjs:14:36)
+    at file:///Users/yezo/Scratch/09-26/mr/scripts/package-consumer.mjs:24:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:358:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:665:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:99:5)
+
+Node.js v24.2.0
+ ELIFECYCLE  Command failed with exit code 1.

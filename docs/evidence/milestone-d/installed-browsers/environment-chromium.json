@@ -1,0 +1,11 @@
+{
+  "browser": "152.0.7977.83",
+  "platform": "darwin",
+  "viewport": {
+    "width": 1440,
+    "height": 1200
+  },
+  "deviceScaleFactor": 1,
+  "font": "12px / 15px Arial, Helvetica, sans-serif",
+  "gradient": "linear-gradient(to left, rgb(189, 189, 189), rgba(0, 0, 0, 0))"
+}

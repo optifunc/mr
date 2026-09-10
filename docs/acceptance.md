@@ -367,9 +367,41 @@ Unavailable release checks remain not run, with the required environment and nex
 action recorded. Do not declare release validation complete while required evidence
 is missing. Document any user-approved change to release scope explicitly.
 
-Stage 8 is technically complete: typecheck/build, 163 unit tests and 117 browser
-cases passed. [Stage-8 report](evidence/milestone-d/stage8/report.md). Stage-9
-release checks are in progress. User decision: pending.
+**Implementation is at the stage-9 product checkpoint. User decision: pending.**
+Final verification: typecheck/build, 163 unit tests and 490 browser cases passed
+with two documented clipboard-permission skips. All exact accepted-default images
+passed; the isolated packaged consumer passed in three engines. Installed Chrome
+152 passed 98 cases plus 12 final lifecycle/menu cases.
+
+Stage 8 is technically complete; stage-9 release tooling, profiling, packaged
+integration and review fixtures are implemented. Required unavailable release/manual
+checks remain not run, so release validation is **not complete**.
+
+- [Complete D report and all 18 acceptance criteria](evidence/milestone-d/report.md)
+- [Final full browser gate](evidence/milestone-d/browser.txt)
+- [Stage-8 menu/API evidence](evidence/milestone-d/stage8/report.md)
+- [Final lifecycle/API corrections](evidence/milestone-d/integration.txt)
+- [Default comparison](evidence/milestone-d/regression/comparison-chromium.png),
+  [editing comparison](evidence/milestone-d/regression/editing-comparison-chromium.png),
+  [drag comparison](evidence/milestone-d/regression/drag-comparison-chromium.png),
+  [keyboard menu](evidence/milestone-d/regression/menu-keyboard-chromium.png)
+- [Separate installed-tarball consumer](evidence/milestone-d/package/result.json)
+- [Performance methodology, samples and limits](evidence/milestone-d/performance/report.md)
+- [Actual browser / manual check matrix](evidence/milestone-d/installed-browsers/report.md)
+
+Demo: http://127.0.0.1:5173/ (`pnpm build` then `pnpm dev`). It contains menus,
+all accepted A/B/C fixtures and gestures, reference comparisons, event/state display,
+valid/invalid host replacement, snapshot inspection, read-only and menu-disabled
+routes, repeated mounting/destruction in the public-package integration example,
+and the isolated workload. The D report gives reproducible product exercises.
+
+Existing default/edit/drag appearance remains accepted through C. New menu and
+stage-9 screenshots are review candidates; no accepted baseline or supplied image
+is overwritten. Stage-9 product acceptance is separate from all technical passes.
+Required gaps: latest stable Chrome/Edge/Firefox, actual Safari, VoiceOver/Safari,
+NVDA/Windows, actual OS IME and physical input-to-display/manual smoothness. Installed
+Chrome 152 automation is additional evidence, not the latest stable Chrome gate.
+No scope reduction or release waiver is inferred from this handover.
 
 ### B stage-4 interim evidence
 

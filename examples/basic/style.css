@@ -16,3 +16,5 @@ main { display: grid; gap: 24px; } section { min-width: 0; } #primary { height: 
 .drag-comparison { display: flex; flex-wrap: wrap; gap: 16px; }
 .drag-comparison figure { margin: 0; }
 #drag-map { width: 620px; height: 300px; max-width: 100%; }
+
+#snapshot { max-height: 240px; overflow: auto; padding: 12px; background: white; font: 12px/1.5 monospace; }

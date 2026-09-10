@@ -1,0 +1,77 @@
+{
+  "consumer": "/private/var/folders/lk/7r7cs2j52zn8c2hdkyj0y4zh0000gn/T/mindmap-consumer-f839UV",
+  "tarball": "mindmap-widget-0.1.0.tgz",
+  "date": "2026-09-10T09:47:26.830Z",
+  "results": [
+    {
+      "browser": "chromium",
+      "version": "145.0.7632.6",
+      "passed": true,
+      "requests": [
+        "http://127.0.0.1:5180/",
+        "http://127.0.0.1:5180/assets/index-BzmcIwjq.js",
+        "http://127.0.0.1:5180/assets/index-D8YeMeI5.css"
+      ],
+      "errors": []
+    },
+    {
+      "browser": "firefox",
+      "version": "146.0.1",
+      "passed": true,
+      "requests": [
+        "http://127.0.0.1:5180/",
+        "http://127.0.0.1:5180/assets/index-BzmcIwjq.js",
+        "http://127.0.0.1:5180/assets/index-D8YeMeI5.css"
+      ],
+      "errors": []
+    },
+    {
+      "browser": "webkit",
+      "version": "26.0",
+      "passed": true,
+      "requests": [
+        "http://127.0.0.1:5180/",
+        "http://127.0.0.1:5180/assets/index-BzmcIwjq.js",
+        "http://127.0.0.1:5180/assets/index-D8YeMeI5.css"
+      ],
+      "errors": []
+    }
+  ],
+  "package": {
+    "name": "@mindmap/widget",
+    "version": "0.1.0",
+    "private": false,
+    "type": "module",
+    "files": [
+      "dist",
+      "docs/api.md",
+      "examples/consumer"
+    ],
+    "sideEffects": [
+      "**/*.css"
+    ],
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/mindmap.js"
+      },
+      "./styles.css": "./dist/mindmap.css"
+    },
+    "devDependencies": {
+      "@playwright/test": "1.58.2",
+      "typescript": "5.9.3",
+      "vite": "7.3.1",
+      "vitest": "4.0.18",
+      "@types/node": "24.10.1"
+    },
+    "scripts": {
+      "dev": "vite --host 127.0.0.1",
+      "build": "vite build && tsc -p tsconfig.build.json",
+      "typecheck": "tsc --noEmit",
+      "test": "vitest run",
+      "test:browser": "playwright test",
+      "perf": "playwright test performance --project=chromium --workers=1",
+      "test:package": "pnpm build && node scripts/package-consumer.mjs"
+    }
+  }
+}

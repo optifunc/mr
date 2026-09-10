@@ -1,4 +1,3 @@
-
 > @mindmap/widget@0.1.0 test:browser /Users/yezo/Scratch/09-26/mr
 > playwright test tests/browser/menu.spec.ts --workers=1
 

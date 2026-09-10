@@ -1,0 +1,54 @@
+{
+  "input": "[ ] Parent\n\t[x] Child\\nline\n\t  \\  literal spaces\n  Sibling\nOther\n\n",
+  "output": "[ ] Parent\n    [x] Child\\nline\n        \\  literal spaces\n    Sibling\nOther\n\n",
+  "document": {
+    "root": {
+      "id": "root",
+      "text": "Clipboard indentation",
+      "children": [
+        {
+          "id": "aa4e3918-0e4b-44bd-8a3d-290591222657",
+          "text": "Parent",
+          "children": [
+            {
+              "id": "07e93334-f6ca-42e0-8c41-4b404cf43ec7",
+              "text": "Child\nline",
+              "children": [
+                {
+                  "id": "364fa146-51f8-46fa-9dab-5318ae35537a",
+                  "text": "  literal spaces",
+                  "children": []
+                }
+              ],
+              "checked": true
+            },
+            {
+              "id": "bbd41f79-4283-4e52-af42-79b5404cb284",
+              "text": "Sibling",
+              "children": []
+            }
+          ],
+          "side": "right",
+          "checked": false
+        },
+        {
+          "id": "8fb11646-af0e-4896-9e63-2a1915b53671",
+          "text": "Other",
+          "children": [],
+          "side": "right"
+        },
+        {
+          "id": "dfe5ece7-9415-40d4-bf5a-10a34f04f91d",
+          "text": "",
+          "children": [],
+          "side": "right"
+        }
+      ]
+    }
+  },
+  "completion": [
+    "user:paste",
+    "user:copy"
+  ],
+  "undoRedo": "exact document including IDs"
+}

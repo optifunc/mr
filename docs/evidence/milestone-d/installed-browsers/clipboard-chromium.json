@@ -1,0 +1,85 @@
+{
+  "document": {
+    "root": {
+      "id": "root",
+      "text": "Clipboard + links",
+      "children": [
+        {
+          "id": "mixed",
+          "text": "Release\nSecond line",
+          "children": [
+            {
+              "id": "done",
+              "text": "Code complete",
+              "children": [],
+              "checked": true
+            },
+            {
+              "id": "escaped",
+              "text": "[x] literal marker\nBackslash \\ and tab\tend",
+              "children": []
+            },
+            {
+              "id": "empty",
+              "text": "",
+              "children": []
+            }
+          ],
+          "side": "left",
+          "checked": false,
+          "collapsed": true
+        },
+        {
+          "id": "destination",
+          "text": "Paste here",
+          "children": [
+            {
+              "id": "7c6c268d-ea75-4f6d-bab3-9576c5fd653b",
+              "text": "Release\nSecond line",
+              "children": [
+                {
+                  "id": "dd70c546-6568-452a-9e8a-8d71e0d506db",
+                  "text": "Code complete",
+                  "children": [],
+                  "checked": true
+                },
+                {
+                  "id": "37598b3f-f5ad-4c3f-b139-c17befd41568",
+                  "text": "[x] literal marker\nBackslash \\ and tab\tend",
+                  "children": []
+                },
+                {
+                  "id": "b0c7a14e-b66b-4a47-aeec-75eff879561b",
+                  "text": "",
+                  "children": []
+                }
+              ],
+              "checked": false
+            }
+          ],
+          "side": "right"
+        },
+        {
+          "id": "url",
+          "text": "https://example.com/",
+          "children": [],
+          "side": "right"
+        },
+        {
+          "id": "prose",
+          "text": "See https://example.com/",
+          "children": [],
+          "side": "right"
+        }
+      ]
+    }
+  },
+  "selection": {
+    "ids": [
+      "7c6c268d-ea75-4f6d-bab3-9576c5fd653b"
+    ],
+    "activeId": "7c6c268d-ea75-4f6d-bab3-9576c5fd653b"
+  },
+  "clipboardPath": "native Meta+C / Meta+V",
+  "undoRedo": "exact document equality"
+}

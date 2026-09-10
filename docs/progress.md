@@ -4,67 +4,45 @@ Last updated: 2026-09-10
 
 ## Current state
 
-**Milestone D is authorized and in progress, based on clean `7979ca8`.**
-Stage 8 implements the context menu, tree group semantics, viewport/link origins
-and interaction cleanup. All four supplied images were opened and inspected.
-Typecheck/build and 163 unit tests pass. Initial menu browser gate: 20 passed,
-1 invalid platform focus assumption corrected to use a host text input.
-The expanded stage-8 gate passed all 117 browser cases in three engines, including
-exact accepted-default PNG comparisons. Stage 8 is technically complete; next is
-stage-9 packaging, workload profiling, final regressions and environment checks.
-New captures go to `evidence/milestone-d/`, preserving accepted A/B/C artifacts.
-User authorized coherent commits and continuing to the stage-9 product checkpoint.
+**Milestone D is implemented and stopped at the stage-9 product checkpoint.**
+Product acceptance is pending. Required unavailable release/manual checks remain
+not run, so release validation is not declared complete.
 
+- Widget/menu implementation: `87da40b`; final API atomicity and initial-resize
+  corrections: `de15b91`. The stage-9 commit containing the final report records
+  the tested demo, package metadata, harness and evidence state.
+- Passed: strict typecheck, ESM/CSS/declaration build, **163 unit tests** and
+  **490 browser cases** across Chromium/Firefox/WebKit. **Two explicit skips**
+  are the existing Chromium-only async clipboard permission counterparts; native
+  clipboard input passed in all three engines. All three exact accepted-A PNGs passed.
+- Passed: real tarball installation in an isolated consumer, declaration check,
+  production build and behavior in all three engines; **98 installed Chrome 152
+  cases**, followed by **12 final lifecycle/menu cases**; three-engine review-demo
+  smoke including evidence URLs, snapshot/replacement and consumer cleanup.
+- Profiled: exactly 1,000 total / 500 visible nodes, cold mount/font load, warmed
+  median/p95, actual input and Chromium frame traces. Full-relayout p95:
+  **7.1 ms Chromium, 18 ms Firefox, 17 ms WebKit**. Input opportunity tails can
+  exceed a nominal frame; physical presentation/manual smoothness remains unverified.
+- Inspected all supplied references and final default/edit/drag/menu/clipboard,
+  scaled-host and packaged-consumer screenshots. No known functional or visual
+  regression remains after final checks. Accepted A/B/C and reference files are unchanged.
+- Release gaps: latest stable Chrome/Edge/Firefox, actual Safari (automation setting
+  disabled), VoiceOver/Safari, NVDA/Windows, real OS IME and physical display checks.
+  These are not passed or waived. Follow the matrix before release.
 
-**Milestone C (stages 6–7) is complete and accepted at `bb4145b` on 2026-09-10.**
-Original C checkpoint gates passed: typecheck/build, 145 unit tests, 346 browser cases with 2
-explicit engine-specific permission skips, exact accepted-default comparisons and
-workload diagnostics. [C report](evidence/milestone-c/report.md),
-[acceptance](acceptance.md#milestone-c-stages-67). Demo: http://127.0.0.1:5175/.
-Previous follow-up: blue URL labels and editor widths at least as wide as leaf/
-collapsed nodes. Typecheck/build, 145 unit tests and 178 focused browser cases
-passed (2 documented permission skips). [Follow-up evidence](evidence/milestone-c/link-editor-review/report.md).
-Accepted drag follow-up: regular-arrow valid drops and mirrored inward-half sibling drops.
-Typecheck/build, 147 unit tests and 126 focused browser cases passed, including
-three exact accepted-default comparisons. [Drag review evidence](evidence/milestone-c/drag-review/report.md).
-Previous follow-up: four-space copy and two/four-space/tab paste with whole-input
-spacing detection. Typecheck/build, 163 unit tests and 79 focused browser cases
-passed (2 documented permission skips). [Clipboard evidence](evidence/milestone-c/clipboard-indentation/report.md).
-Latest follow-up: physical fit shortcut, editor visibility after host resize and
-queued viewport events/API mutations. Typecheck/build, 163 unit tests and 267 browser
-cases passed (no failures/skips), including three exact accepted-default comparisons.
-[Review fixes evidence](evidence/milestone-c/review-fixes/report.md).
-The stage-7 product checkpoint is accepted. Next: await authorization for milestone D
-(stages 8–9); its implementation and release checks remain outstanding.
+Runnable review: **http://127.0.0.1:5173/**. Fresh start: `pnpm build` then `pnpm dev`.
+The demo includes all A/B/C fixtures, menus, public API/state/events, read-only and
+menu-disabled routes, a built-package mount/destroy example, the target workload,
+reference comparisons, test results and known gaps.
 
-**Milestone B is technically complete and accepted at `4209b2a` on 2026-09-08.**
-The user accepted the stage-5 product checkpoint, including the final reviewed
-behavior and appearance. [Acceptance record](acceptance.md#milestone-b-stages-45).
-Milestone A's default baseline at `253b99d` remains accepted and unchanged.
-The approved Up/Down corrections now prefer siblings, then same-depth nodes, then
-the nearest shallower node outside the ancestor chain. All ten examples are verified.
-Root Up/Down, including Shift, now does nothing as requested on 2026-09-08.
-[Navigation evidence](evidence/milestone-b/navigation-root/report.md).
-The approved editing adjustments now support typing replacement, hide horizontal
-scrollbars, and anchor left editors outward. The latest sizing correction uses
-an eight-M default for new nodes, a maximum of that default and node width for
-leaves/collapsed nodes (C follow-up), and selection width for expanded parents,
-with the bottom border on the branch line and stable text position.
-[Editor sizing evidence](evidence/milestone-b/editor-sizing/report.md).
-The latest approved controls remove the focused-widget frame, use Ctrl+Space on
-all platforms, and expand collapsed nodes by clicking their circles without
-changing selection. [Latest evidence](evidence/milestone-b/focus-controls/report.md).
-Milestone C is complete and accepted as recorded above; next is authorization for milestone D.
+[D report and all 18 criteria](evidence/milestone-d/report.md),
+[performance](evidence/milestone-d/performance/report.md),
+[release/manual matrix](evidence/milestone-d/installed-browsers/report.md),
+[acceptance](acceptance.md#milestone-d-stages-89), [API](api.md), [testing](testing.md).
+Next: user's stage-9 product review. No further implementation milestone is started.
 
-Stages 4–5 include mouse/range selection, geometry navigation, keyboard sibling-block
-movement, viewport controls, checkbox/structural gestures, native textarea editing,
-and provisional creation with one-entry commit or full cancellation restoration.
-[Review report and gaps](evidence/milestone-b/report.md),
-[product exercises](acceptance.md#milestone-b-stages-45).
-
-Run `pnpm dev`, then open http://127.0.0.1:5173.
-[Accepted A baseline](evidence/milestone-a/checkbox-size/report.md),
-[API](api.md), [testing](testing.md).
+Earlier milestones remain accepted: A at `253b99d`, B at `4209b2a`, C at `bb4145b`.
+Historical progress and superseded checkpoint notes below retain their original scope.
 
 ## Milestones
 
@@ -73,7 +51,7 @@ Run `pnpm dev`, then open http://127.0.0.1:5173.
 | A: Foundation and appearance | 1–3 | Complete | Accepted at `253b99d`, including default visuals | [A](acceptance.md#milestone-a-stages-13) |
 | B: Navigation and editing | 4–5 | Complete | Accepted at `4209b2a` on 2026-09-08 | [B](acceptance.md#milestone-b-stages-45) |
 | C: Clipboard and dragging | 6–7 | Complete | Accepted at `bb4145b` on 2026-09-10 | [C](acceptance.md#milestone-c-stages-67) |
-| D: Integration and release | 8–9 | Not started | Pending | [D](acceptance.md#milestone-d-stages-89) |
+| D: Integration and release | 8–9 | Implemented; release/manual gates pending | Pending at stage 9 | [D](acceptance.md#milestone-d-stages-89) |
 
 ## Verification and revisions
 
@@ -657,3 +635,31 @@ immediate menu opening, user origins and default label/menu text contrast >=4.5.
 [resize reproduction](evidence/milestone-d/initial-resize-before.txt).
 Final full-suite/package/installed-browser follow-up checks are next. No assertions
 were weakened; accepted images remain unchanged. Product/release status is pending.
+
+## D stage-9 handover — 2026-09-10
+
+Final widget source is `de15b91`; release/demo/harness/evidence are in the commit
+containing this entry and [D report](evidence/milestone-d/report.md). Final build,
+typecheck, 163 unit tests and 490 browser cases passed with two explicit clipboard
+permission skips. The exact accepted-default PNG comparisons passed in all engines.
+The isolated tarball consumer passed typecheck/build and three browser runs. The
+installed Chrome 152 gate passed 98 cases, followed by 12 final lifecycle/menu cases.
+The demo smoke passed all three engines, including links, public-export preview,
+snapshot/replacement controls and repeated cleanup. Final local link and whitespace
+audits passed; accepted A/B/C/reference paths have no diff from `7979ca8`.
+
+Inspected the final supplied-vs-widget default/edit/drag comparisons in every
+engine, menu focus/disabled/small-host states, clipboard results, zoomed drag,
+consumer and review-demo screenshots. No accepted baseline was replaced. The
+profiler records cold/font-load, warmed median/p95, handler and rendering-opportunity
+latencies and compressed compositor traces. Relayout meets 100 ms on this M2;
+one-frame physical response/manual smoothness is not proven and observed tails
+remain explicitly reported. Every unavailable browser/screen-reader/IME check is
+not run in the release matrix. Product acceptance is pending and no release gate
+is waived. Stop here for the requested stage-9 review, with the server at 5173.
+
+Final demo screenshot inspection corrected Inspect snapshot opening the earlier
+event disclosure instead of its own panel. The snapshot now opens in a bounded
+scrollable panel; the strengthened three-engine demo smoke verifies visibility.
+This demo-only correction follows the full gate; widget source and fixtures are
+unchanged. Before/after review screenshots are preserved in the D demo evidence.

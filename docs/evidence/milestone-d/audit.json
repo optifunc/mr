@@ -1,0 +1,24 @@
+{
+  "base": "7979ca8",
+  "widgetSource": "de15b91",
+  "state": "final stage-9 working tree / commit containing this file",
+  "localLinksChecked": 231,
+  "missingLinks": [],
+  "protectedPathsChanged": [],
+  "sourceTypecheck": "passed",
+  "build": "passed",
+  "unitTests": {
+    "passed": 163
+  },
+  "browserTests": {
+    "passed": 490,
+    "skipped": 2,
+    "failed": 0
+  },
+  "isolatedPackageEngines": 3,
+  "installedChromeCases": 98,
+  "installedChromeFinalCases": 12,
+  "reviewDemoEngines": 3,
+  "screenshots": "inspected; accepted baselines unchanged",
+  "releaseValidation": "incomplete; see installed-browsers/report.md"
+}

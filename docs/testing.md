@@ -9,10 +9,10 @@ Use Node 22.12+ (verified with Node 24.2.0) and pnpm 10.28.1.
 - `pnpm build`: ESM, declarations, and explicitly exported CSS in `dist/`.
 - `pnpm test`: pure Vitest tests.
 - `pnpm exec playwright install`: install Chromium, Firefox, and WebKit if absent.
-- `pnpm test:browser --workers=1`: milestone C full gate; limits contention without
+- `pnpm test:browser --workers=1`: full release regression gate; limits contention without
   changing coverage, assertions or timeouts.
 - `pnpm test:browser`: run all three Playwright engines, start Vite automatically,
-  capture current screenshots under `docs/evidence/milestone-c/`, retain failure traces in
+  capture current screenshots under `docs/evidence/milestone-d/`, retain failure traces in
   ignored `test-results/`.
 
 Stage 1 verified all commands above except browser installation (matching browser
@@ -33,8 +33,8 @@ Playwright WebKit is not actual Safari verification.
   targeted B gestures, editing screenshots, and approved A regression.
 - `/?workload`: mixed-depth deterministic map with exactly 1,000 total and 500
   visible nodes (250 collapsed leaves each hide two children).
-- `pnpm perf`: Chromium early workload diagnostic, writes JSON samples and a
-  screenshot under `docs/evidence/milestone-b/`.
+- `pnpm perf`: current Chromium release profiler, writes samples and a screenshot
+  under `docs/evidence/milestone-d/performance/`. The early diagnostic remains `workload.spec.ts`.
 - `pnpm test:browser tests/browser/render.spec.ts --project=firefox`: targeted
   Firefox rendering verification; other projects can be selected identically.
 
@@ -232,3 +232,51 @@ buffer and frozen tree are retained. A separate provisional edit commits once.
 Viewport listeners test FIFO for commands and all four public viewport methods,
 coalescing, detached payloads, exceptions and destruction. Existing A default-image,
 API, editing, sizing, pointer/keyboard and drag checks are included.
+
+## Milestone D — stage-9 release and review
+
+Start `pnpm build` then `pnpm dev` for the complete review demo. The handover URL is
+http://127.0.0.1:5173/. Keep a persistent `pnpm dev --port 5173 --strictPort` when
+running multiple browser commands: a reused managed server otherwise exits with
+its owning Playwright run. The default suite uses the pinned engines; it does not
+silently substitute installed applications.
+
+```sh
+pnpm typecheck
+pnpm build
+pnpm test
+MINDMAP_EVIDENCE=docs/evidence/milestone-d/regression pnpm test:browser --workers=1
+pnpm test:package
+pnpm perf
+```
+
+- Menu/integration: `pnpm test:browser tests/browser/menu.spec.ts tests/browser/integration.spec.ts --workers=1`.
+- All-engine final profiler: `pnpm test:browser tests/browser/performance.spec.ts --workers=1`.
+  It uses the isolated `/examples/performance/` fixture, cold mount/font-load
+  measures, 30 warmed relayout samples after five warmups, actual pointer/keyboard/
+  wheel input, synchronous handler and rendering-opportunity timing, and Chromium
+  frame/input/paint traces. See [performance report](evidence/milestone-d/performance/report.md)
+  for methodology and physical-presentation limits. `workload.spec.ts` remains the
+  earlier diagnostic on the larger interactive demo.
+- `pnpm test:package` creates a new temporary directory, packs the library, installs
+  the tarball offline with pnpm, compiles the public declarations and builds the
+  consumer with Vite. Production browser checks cover both mounts, CSS, menu/edit/
+  undo, read-only, destruction/remount, preserved host content and absence of
+  unexpected requests or runtime errors. The recorded temp source can be reopened.
+- Installed Chrome: prefix browser commands with `MINDMAP_BROWSER_CHANNEL=chrome`;
+  installed Edge uses `msedge`. Keep separate evidence directories. Do not run
+  approved pinned-engine pixel baselines against a different browser build.
+- Actual Safari launch attempt: `python3 scripts/safari-check.py`. Requires Safari's
+  Allow Remote Automation setting; its smoke does not replace full manual gestures.
+
+[Review report and all 18 criteria](evidence/milestone-d/report.md),
+[release/manual environment matrix](evidence/milestone-d/installed-browsers/report.md),
+[stage-8 gate](evidence/milestone-d/stage8/report.md).
+The current default capture paths are milestone D; accepted A/B/C artifacts are
+preserved. Current comparison candidates require user stage-9 acceptance.
+
+After collecting all three final workload profiles, run
+`node scripts/summarize-performance.mjs` to regenerate the performance table.
+`node scripts/review-demo.mjs` verifies the running demo's snapshot/replacement
+controls, evidence URLs and built-package preview/cleanup in all three engines;
+it expects the server at 5173 and the evidence reports to exist.

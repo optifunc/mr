@@ -1,0 +1,14 @@
+152.0.7977.83
+node:internal/modules/run_main:105
+    triggerUncaughtException(
+    ^
+
+page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5173/
+Call log:
+  - navigating to "http://127.0.0.1:5173/", waiting until "load"
+
+    at /Users/yezo/Scratch/09-26/mr/[eval1]:1:156 {
+  name: 'Error'
+}
+
+Node.js v24.2.0

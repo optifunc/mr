@@ -1,0 +1,15 @@
+- tree "Mind map":
+  - treeitem "Geometry" [checked] [expanded] [level=1]:
+    - text: Geometry
+    - group:
+      - treeitem "First line Second line" [expanded] [level=2] [selected]:
+        - text: First line Second line
+        - group:
+          - treeitem "Empty label" [level=3]
+          - treeitem [level=3]
+      - treeitem "Checked label" [checked] [level=2] [selected]
+      - treeitem "Unchecked label" [expanded] [level=2]:
+        - text: Unchecked label
+        - group:
+          - treeitem "Independent child" [checked] [level=3]
+      - treeitem "<b>Plain text</b>" [level=2]

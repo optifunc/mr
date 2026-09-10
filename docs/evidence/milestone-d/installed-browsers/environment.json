@@ -1,0 +1,22 @@
+{
+  "date": "2026-09-10",
+  "os": "ProductName:\t\tmacOS\nProductVersion:\t\t26.6.2\nBuildVersion:\t\t25G83",
+  "architecture": "arm64",
+  "applications": {
+    "Google Chrome": {
+      "installed": true,
+      "version": "152.0.7977.83"
+    },
+    "Safari": {
+      "installed": true,
+      "version": "26.6.2"
+    },
+    "Microsoft Edge": {
+      "installed": false
+    },
+    "Firefox": {
+      "installed": false
+    }
+  },
+  "manualScreenReaderSession": "not available"
+}
