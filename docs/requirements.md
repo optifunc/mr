@@ -359,6 +359,7 @@ commands immediately open the new node's inline editor.
 | Delete | Delete selected subtrees |
 | Space | Expand or collapse the active node |
 | Ctrl+Space | Toggle checked state of selected checkbox nodes on every platform, including macOS |
+| Primary modifier+1 | Add/remove checkbox presence on selected nodes, matching the active node's context-menu action (Cmd+1 on macOS, Ctrl+1 elsewhere) |
 | Primary modifier+Up / Down | Move the selected sibling block up / down one position, wrapping at the edge |
 | Primary modifier+inward arrow | Move the selected block immediately after its parent; root children flip sides |
 | Primary modifier+outward arrow | No action |
@@ -390,8 +391,10 @@ Additional requirements:
   checkbox and shall not add a checkbox to nodes without one. If selected
   checkbox nodes have mixed states, the command checks all of them; otherwise
   it toggles all of them.
-- A context-menu command shall add or remove checkbox presence. Adding creates
-  an unchecked checkbox; removing discards checked state.
+- A context-menu command and Cmd+1/Ctrl+1 shall add or remove checkbox presence.
+  The active node determines the action: remove if it has a checkbox, otherwise
+  add. Apply it to all selected nodes, preserving existing checked states on add.
+  Adding creates an unchecked checkbox; removing discards checked state.
 - All primary-modifier shortcuts shall use Command on macOS.
 - While the inline editor is open, normal platform text-editing shortcuts take
   precedence. Enter, Shift+Enter, and Escape retain the behavior in section

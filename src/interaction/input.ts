@@ -3,6 +3,7 @@ export interface InputActions {
     command(command: MindMapCommand, replacementText?: string): boolean;
     select(id: string | undefined, toggle: boolean, range: boolean, release: boolean): void;
     selected(id: string): boolean;
+    checkboxPresent(): boolean;
     viewport(): Viewport;
     pan(x: number, y: number): void;
     zoom(scale: number, x: number, y: number): void;
@@ -41,6 +42,8 @@ export class Input {
             else if (!e.ctrlKey && !e.metaKey) command = { type: 'toggleCollapse' };
         } else if (key.startsWith('arrow')) command = { type: primary ? 'moveSelection' : 'navigate', direction: key.slice(5) as 'left' | 'right' | 'up' | 'down', ...(!primary ? { extend: e.shiftKey } : {}) };
         else if (primary) {
+            if (key === '1' && !e.shiftKey && !(this.mac ? e.ctrlKey : e.metaKey))
+                command = { type: this.actions.checkboxPresent() ? 'removeCheckbox' : 'addCheckbox' };
             if (key === 'a') command = { type: 'selectAll' };
             if (key === 'z') command = { type: e.shiftKey ? 'redo' : 'undo' };
             if (key === 'y') command = { type: 'redo' };
@@ -61,10 +64,9 @@ export class Input {
         }
         if (command && !e.altKey) {
             e.preventDefault();
-            // Hosts such as Trilium listen above the widget and can zoom their
-            // entire UI even when defaultPrevented is true. Claim zoom chords
-            // before dispatch, including reset/clamp no-ops.
-            if (['zoomIn', 'zoomOut', 'resetZoom', 'fit'].includes(command.type)) e.stopPropagation();
+            // Hosts may ignore defaultPrevented and act on the same shortcut.
+            // Claim zoom and checkbox-presence chords, including no-ops.
+            if (['zoomIn', 'zoomOut', 'resetZoom', 'fit', 'addCheckbox', 'removeCheckbox'].includes(command.type)) e.stopPropagation();
             this.actions.command(command);
         }
     };

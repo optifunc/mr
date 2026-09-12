@@ -72,6 +72,7 @@ export class MindMapEditor {
             command: (command, replacementText) => this.run(() => this.canExecute(command) ? this.dispatch(command, 'user', replacementText) : false),
             select: (id, toggle, range, release) => this.pointerSelect(id, toggle, range, release),
             selected: id => this.store.selection.ids.includes(id),
+            checkboxPresent: () => this.store.model.nodes.get(this.store.selection.activeId ?? '')?.checked !== undefined,
             viewport: () => this.getViewport(), pan: (x, y) => { this.run(() => { this.applyViewport({ ...this.viewport, x, y }, 'user'); return true; }); },
             zoom: (scale, x, y) => { this.run(() => { const p = this.localPoint(x, y); this.applyViewport(zoomAt(this.viewport, scale, p.x, p.y), 'user'); return true; }); },
             startDrag: (id, x, y) => this.drag.start(id, x, y), drag: (x, y) => this.drag.update(x, y), drop: (x, y) => this.drag.finish(x, y), cancelDrag: () => this.drag.cancel(),

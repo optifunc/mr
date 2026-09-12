@@ -2,6 +2,18 @@
 
 Last updated: 2026-09-12
 
+## Checkbox presence shortcut — 2026-09-12
+
+Cmd+1 on macOS / Ctrl+1 elsewhere now invokes the active node's Add/Remove
+checkbox menu action for the selection. Both menu variants show the matching
+shortcut and accessible key metadata. Existing states survive adding to a mixed
+selection; removal discards them. Ctrl+Space still toggles checked state.
+Passed typecheck/build, 177 unit tests and 54 browser cases in three engines,
+including Mac/Windows routing, mixed selections, history, focus, root, read-only,
+editing and instance isolation. Inspected the new menu hints; no clipping or
+alignment discrepancy found. [Evidence and review steps](evidence/milestone-d/checkbox-shortcut/report.md).
+This follow-up awaits product review; milestone D acceptance remains unchanged.
+
 ## Deletion selection follow-up — 2026-09-12
 
 Approved behavior implemented: deletion selects the next surviving sibling, then

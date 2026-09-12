@@ -159,8 +159,8 @@ for (const platform of ['MacIntel', 'Win32']) test(`menu groups, rounded highlig
     await expect(menu.getByRole('separator')).toHaveCount(5);
     await expect(menu).toHaveCSS('border-radius', '4px');
     const primary = platform === 'MacIntel' ? '⌘' : 'Ctrl+';
-    const hints = ['F2', 'Tab', 'Shift+Enter', 'Enter', 'Shift+Tab', 'Delete', `${primary}X`, `${primary}C`, `${primary}V`, 'Space', '', 'Ctrl+Space', ''];
-    const keys = ['F2', 'Tab', 'Shift+Enter', 'Enter', 'Shift+Tab', 'Delete', ...['X', 'C', 'V'].map(k => `${platform === 'MacIntel' ? 'Meta' : 'Control'}+${k}`), 'Space', null, 'Control+Space', null];
+    const hints = ['F2', 'Tab', 'Shift+Enter', 'Enter', 'Shift+Tab', 'Delete', `${primary}X`, `${primary}C`, `${primary}V`, 'Space', `${primary}1`, 'Ctrl+Space', ''];
+    const keys = ['F2', 'Tab', 'Shift+Enter', 'Enter', 'Shift+Tab', 'Delete', ...['X', 'C', 'V'].map(k => `${platform === 'MacIntel' ? 'Meta' : 'Control'}+${k}`), 'Space', `${platform === 'MacIntel' ? 'Meta' : 'Control'}+1`, 'Control+Space', null];
     const labels = groups.flat();
     for (let i = 0; i < labels.length; i++) {
         const item = menu.getByRole('menuitem', { name: labels[i]!, exact: true });

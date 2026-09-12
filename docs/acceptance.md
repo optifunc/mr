@@ -1,5 +1,10 @@
 # Milestone acceptance and evidence
 
+Checkbox presence shortcut (2026-09-12): Cmd+1/Ctrl+1 and matching Add/Remove menu
+hints implemented. Typecheck/build, 177 unit tests and 54 browser cases passed;
+screenshots inspected. [Evidence and review steps](evidence/milestone-d/checkbox-shortcut/report.md).
+Follow-up product review is pending; milestone D remains accepted.
+
 Deletion selection follow-up (2026-09-12): approved next-sibling, previous-sibling,
 then parent behavior is implemented through the shared delete/cut transaction.
 [Checks, screenshots, reproduction and scope](evidence/milestone-d/delete-selection/report.md).

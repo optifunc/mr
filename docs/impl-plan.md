@@ -350,6 +350,13 @@ Space independently from the platform primary-modifier branch: bare Space remain
 collapse, and Cmd+Space is left unhandled. Textarea/composition input keeps native
 routing. Existing selection, mixed-checkbox, history and read-only rules apply.
 
+Use primary-modifier+1 for checkbox presence, choosing the same add/remove command
+as the active node's menu and applying it through the shared command path. Display
+⌘1 / Ctrl+1 on both menu variants. Consume the chord outside editing, including
+read-only/empty-selection no-ops, so browser/host tab shortcuts do not also run.
+Textarea, composition and menu routing remain native to those controls; extra
+Shift/Alt/secondary modifiers do not invoke the presence shortcut.
+
 Resolve collapsed-circle clicks from layout geometry in local/world coordinates,
 including zoom, host scaling and the circle stroke. Keep SVG strokes decorative
 and pointer-transparent. A circle press preserves selection; release over that

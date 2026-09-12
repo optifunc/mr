@@ -14,7 +14,7 @@ export function menuItems(collapsed: boolean, checked: boolean): MenuItem[] {
         { label: 'Copy', command: { type: 'copy' }, shortcut: 'Primary+C' },
         { label: 'Paste', command: { type: 'paste' }, shortcut: 'Primary+V' },
         { label: collapsed ? 'Expand' : 'Collapse', command: { type: 'toggleCollapse' }, separatorBefore: true, shortcut: 'Space' },
-        { label: checked ? 'Remove checkbox' : 'Add checkbox', command: { type: checked ? 'removeCheckbox' : 'addCheckbox' }, separatorBefore: true },
+        { label: checked ? 'Remove checkbox' : 'Add checkbox', command: { type: checked ? 'removeCheckbox' : 'addCheckbox' }, separatorBefore: true, shortcut: 'Primary+1' },
         { label: 'Toggle checked state', command: { type: 'toggleChecked' }, shortcut: 'Ctrl+Space' },
         { label: 'Open link', command: { type: 'openLink' }, separatorBefore: true },
     ];

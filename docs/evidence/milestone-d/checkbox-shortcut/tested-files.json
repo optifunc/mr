@@ -1,0 +1,11 @@
+{
+  "baseRevision": "f843b31",
+  "sha256": {
+    "src/editor.ts": "15cb8b94021fec2c9ac18929133252160884c7095daa01525f4a7b4bfe00251b",
+    "src/interaction/input.ts": "87ceb66b25206b2db4085eeb496852bbc8bbbc871d2c5be9ac9b48e02f1aaeb4",
+    "src/interaction/menu.ts": "ec7843a1c9ea867c5912da5bf02a5c17bc069f2d853204776690ecc0ebbc061d",
+    "tests/browser/checkbox-shortcut.spec.ts": "90a1ed922b0a42117f3905a032039bc0c5247fe92ea20c7b962b9c34b85592df",
+    "tests/browser/menu.spec.ts": "32d138f74b02588b2f08334ff3df995fdb02d5ebb713b806c374ce752cb1943a",
+    "examples/basic/main.ts": "30ad460d3a3c4c0dce048a2e15c6d8c11b973360d84b52e993397bbcbabf6e29"
+  }
+}
