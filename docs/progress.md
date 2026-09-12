@@ -1,6 +1,20 @@
 # Implementation progress
 
-Last updated: 2026-09-10
+Last updated: 2026-09-12
+
+## Windows host zoom follow-up — 2026-09-12
+
+The Trilium adapter reproduced keyboard and Ctrl+wheel double zoom on Windows:
+host document/window listeners ignore defaultPrevented. The widget now stops
+propagation for its zoom/reset/fit chords (including no-ops) and canvas wheel
+gestures. Textarea/menu routing and unrelated keyboard shortcuts stay unchanged.
+Build/typecheck and 163 unit tests passed; 24 focused cases passed across
+Chromium/Firefox/WebKit on Windows, covering Ctrl and simulated Command routing,
+read-only, editing/menu behavior, multiple maps and host bubbling. Actual Windows
+Trilium Electron 43.4.0 and Chrome 152 integration checks passed. Native macOS
+was not rerun. Source and test changes remain uncommitted; no prior release gate
+or visual baseline was changed. Adapter report/evidence lives at
+`../docs/test-windows.md` relative to the widget repository root in trilium-willow.
 
 ## Current state
 

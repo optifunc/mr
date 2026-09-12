@@ -63,7 +63,9 @@ editor.destroy();
   node), and `panTo(x, y)` (absolute scene translation in local CSS pixels). Zoom
   clamps to .25–4; keyboard steps multiply/divide by 1.2. Viewport never enters history.
   Primary-modifier+Shift+physical Digit0 fits even when its character is `)`;
-  unshifted zero resets zoom.
+  unshifted zero resets zoom. Handled canvas zoom keys and wheel pan/zoom stop
+  DOM event propagation so ancestor host shortcuts cannot also zoom the app.
+  Zoom-limit/reset no-ops are still claimed; textarea and menu routing is unchanged.
 - Events currently emitted: `documentchange`, `selectionchange`, `viewportchange`,
   `editstart`, `editcommit`, `editcancel`, `commandcomplete`, `linkopen`, and `error`.
   Mutation events follow installation/rendering, document before selection.

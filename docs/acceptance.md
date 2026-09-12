@@ -1,5 +1,13 @@
 # Milestone acceptance and evidence
 
+Windows host zoom follow-up (2026-09-12, uncommitted working tree): build/typecheck,
+163 unit tests and all 24 `zoom-isolation.spec.ts` cases passed across three
+browser engines. The parent Trilium adapter also passed actual Windows Electron
+and Chrome integration checks. See the progress entry and the
+[parent adapter report](../../docs/test-windows.md) (in the Trilium integration
+checkout) for reproduction and evidence. Native macOS revalidation
+was not run; this focused follow-up does not waive outstanding release checks.
+
 This record supplements [the implementation plan](impl-plan.md#11-verification-and-acceptance-mapping).
 Its stage gates and all 18 requirement acceptance criteria still apply.
 Passing tests establishes technical evidence; product acceptance also requires

@@ -59,7 +59,14 @@ export class Input {
             if (this.actions.command({ type: 'edit' }, e.key)) e.preventDefault();
             return;
         }
-        if (command && !e.altKey) { e.preventDefault(); this.actions.command(command); }
+        if (command && !e.altKey) {
+            e.preventDefault();
+            // Hosts such as Trilium listen above the widget and can zoom their
+            // entire UI even when defaultPrevented is true. Claim zoom chords
+            // before dispatch, including reset/clamp no-ops.
+            if (['zoomIn', 'zoomOut', 'resetZoom', 'fit'].includes(command.type)) e.stopPropagation();
+            this.actions.command(command);
+        }
     };
     private down = (e: PointerEvent): void => {
         if (e.pointerType !== 'mouse' || e.button !== 0 || (e.target as HTMLElement).closest('textarea, [role="menu"]')) return;
@@ -110,6 +117,8 @@ export class Input {
     private wheel = (e: WheelEvent): void => {
         if ((e.target as HTMLElement).closest('textarea, [role="menu"]')) return;
         e.preventDefault();
+        // This wheel gesture belongs to the canvas (pan or zoom), not the host.
+        e.stopPropagation();
         const unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? this.element.clientHeight : 1;
         const x = e.deltaX * unit, y = e.deltaY * unit, view = this.actions.viewport();
         if (this.primary(e)) this.actions.zoom(view.zoom * Math.exp(-y * .002), e.clientX, e.clientY);
