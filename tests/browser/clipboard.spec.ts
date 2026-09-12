@@ -19,6 +19,34 @@ async function setup(page: import('@playwright/test').Page, mode: 'success' | 'd
     }, { mode, text });
 }
 test.beforeEach(async ({ page }) => { await page.goto('/'); await page.evaluate(() => document.fonts.ready); });
+test('deferred API cut selects the next sibling only after clipboard success and undo restores selection', async ({ page }) => {
+    await setup(page, 'deferred');
+    await page.locator('#primary [data-node-id="b"] .mindmap-label').click();
+    const modifier = await page.evaluate(() => /Mac|iPhone|iPad/.test(navigator.platform) ? 'Meta' : 'Control');
+    await page.evaluate(() => window.primary.execute({ type: 'cut' }));
+    expect(await page.evaluate(() => window.primary.getSelection().activeId)).toBe('b');
+    expect(await page.evaluate(() => window.primary.canUndo())).toBe(false);
+    await page.evaluate(() => window.clip.resolve(''));
+    await expect.poll(() => page.evaluate(() => window.primary.getSelection().activeId)).toBe('c');
+    await expect(page.locator('#primary .mindmap')).toBeFocused();
+    expect(await page.evaluate(() => window.clip.writes)).toEqual(['B\n']);
+    await page.keyboard.press(`${modifier}+z`);
+    expect(await page.evaluate(() => window.primary.getSelection().activeId)).toBe('b');
+    expect(await page.evaluate(() => window.primary.getDocument())).toEqual(referenceMap());
+    expect(await page.evaluate(() => window.primary.canUndo())).toBe(false);
+});
+test('native keyboard cut selects the next sibling and retains focus', async ({ page }) => {
+    await setup(page);
+    await page.locator('#primary [data-node-id="b"] .mindmap-label').click();
+    const modifier = await page.evaluate(() => /Mac|iPhone|iPad/.test(navigator.platform) ? 'Meta' : 'Control');
+    await page.keyboard.press(`${modifier}+x`);
+    await expect.poll(() => page.evaluate(() => window.clip.events.at(-1))).toBe('complete:cut:user');
+    expect(await page.evaluate(() => window.primary.getSelection())).toEqual({ ids: ['c'], activeId: 'c' });
+    await expect(page.locator('#primary .mindmap')).toBeFocused();
+    await page.keyboard.press(`${modifier}+z`);
+    expect(await page.evaluate(() => window.primary.getSelection().activeId)).toBe('b');
+    expect(await page.evaluate(() => window.primary.getDocument())).toEqual(referenceMap());
+});
 test('API paste/cut/copy settle once, retain IDs on redo and expose completion after document/selection', async ({ page }) => {
     await setup(page);
     expect(await page.evaluate(() => window.primary.execute({ type: 'paste', targetId: 'child2' }))).toBe(true);
@@ -131,6 +159,7 @@ test('deferred cut deletes its captured sources after selection change and leave
     await expect.poll(() => page.evaluate(() => window.clip.events.at(-1))).toBe('complete:cut:api');
     expect(await page.evaluate(() => window.primary.getDocument().root.children.map(n => n.id))).toEqual(['child1', 'child2', 'two', 'three']);
     expect(await page.evaluate(() => window.clip.writes)).toEqual(['One\n    A\n    B\n    C\n']);
+    expect(await page.evaluate(() => window.primary.getSelection().activeId)).toBe('child1');
     await page.keyboard.press('Meta+z'); expect(await page.evaluate(() => window.primary.getDocument())).toEqual(referenceMap());
 });
 test('URL press cancellation and read-only replacement/paste reclassification', async ({ page }) => {

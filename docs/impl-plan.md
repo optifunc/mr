@@ -337,9 +337,13 @@ offers Add checkbox to nodes missing one and Remove checkbox to nodes having one
 Existing checkbox states are preserved when adding presence to other selected
 nodes. Checked-state commands follow the requirements' mixed-state rule.
 
-For deletion, prefer the active removed subtree's surviving parent; otherwise use
-the nearest surviving node in the pre-command visual order. Normalize overlapping
-selected subtrees before every delete, cut, copy, or move.
+For deletion, normalize overlapping selected subtrees, then use the removed root
+containing the active node as the selection anchor. Select the next surviving
+sibling in the parent's children order, then the previous surviving sibling, then
+the parent only if none survive. Root children on either side share that sibling
+order. Preserve an active node outside the deletion; if there is no active node,
+use the first normalized removed root as the anchor. Cut uses the same rule.
+Normalize overlapping selected subtrees before every delete, cut, copy, or move.
 
 Use Ctrl+Space for checkbox toggling on all platforms, including macOS. Handle
 Space independently from the platform primary-modifier branch: bare Space remains

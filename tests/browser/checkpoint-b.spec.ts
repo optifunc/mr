@@ -115,7 +115,7 @@ test('keyboard deletion normalizes subtrees and restores useful selection in one
     await page.goto('/'); await page.evaluate(() => { window.primary.setSelection(['one', 'a', 'two'], 'a'); window.primary.focus(); });
     await page.keyboard.press('Delete');
     expect(await page.evaluate(() => window.primary.getDocument().root.children.map(n => n.id))).toEqual(['child1', 'child2', 'three']);
-    expect(await page.evaluate(() => window.primary.getSelection().activeId)).toBe('root');
+    expect(await page.evaluate(() => window.primary.getSelection().activeId)).toBe('three');
     await page.keyboard.press('Meta+z'); expect(await page.evaluate(() => window.primary.getDocument())).toEqual(referenceMap()); expect(await page.evaluate(() => window.primary.canUndo())).toBe(false);
 });
 

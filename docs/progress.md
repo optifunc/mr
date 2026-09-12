@@ -2,6 +2,20 @@
 
 Last updated: 2026-09-12
 
+## Deletion selection follow-up — 2026-09-12
+
+Approved behavior implemented: deletion selects the next surviving sibling, then
+the previous sibling, then the parent only when none survive. Multi-node deletion
+uses the active removed subtree; explicit deletion elsewhere preserves the active
+node. Sibling order is the document's child array order, including root branches
+on either side. Cut shares the reducer and undo/redo restores selection.
+Passed typecheck/build, 177 unit tests and 75 unique focused browser cases across
+Chromium/Firefox/WebKit after correcting two new clipboard-test assumptions.
+Inspected three deletion screenshots. Earlier failed test runs are retained;
+full release/package/performance gates were not rerun for this focused change.
+Verification and screenshots: [deletion report](evidence/milestone-d/delete-selection/report.md).
+This follow-up awaits product review; milestone D remains complete and accepted.
+
 ## Windows host zoom follow-up — 2026-09-12
 
 The Trilium adapter reproduced keyboard and Ctrl+wheel double zoom on Windows:

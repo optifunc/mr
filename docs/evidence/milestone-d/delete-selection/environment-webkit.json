@@ -1,0 +1,11 @@
+{
+  "browser": "webkit",
+  "version": "26.0",
+  "os": "darwin",
+  "platform": "MacIntel",
+  "viewport": {
+    "width": 1400,
+    "height": 1000
+  },
+  "deviceScaleFactor": 1
+}

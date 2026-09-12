@@ -1,5 +1,10 @@
 # Milestone acceptance and evidence
 
+Deletion selection follow-up (2026-09-12): approved next-sibling, previous-sibling,
+then parent behavior is implemented through the shared delete/cut transaction.
+[Checks, screenshots, reproduction and scope](evidence/milestone-d/delete-selection/report.md).
+Product review of this follow-up is pending; milestone D acceptance is unchanged.
+
 Windows host zoom follow-up (2026-09-12, uncommitted working tree): build/typecheck,
 163 unit tests and all 24 `zoom-isolation.spec.ts` cases passed across three
 browser engines. The parent Trilium adapter also passed actual Windows Electron

@@ -382,8 +382,9 @@ Additional requirements:
   It shall start unchecked.
 - A new parent created by Shift+Tab shall not have a checkbox.
 - Deleting all non-root nodes is allowed.
-- When deleting, the next active node shall be the nearest surviving node in
-  visual order, preferring the deleted block's parent.
+- When deleting the active node, select its next surviving sibling, or its
+  previous surviving sibling if none follows. Select the parent only when no
+  siblings survive. For a removed subtree, apply this rule at its root.
 - Space on a leaf shall have no effect.
 - Ctrl+Space shall affect every selected node that already has a
   checkbox and shall not add a checkbox to nodes without one. If selected

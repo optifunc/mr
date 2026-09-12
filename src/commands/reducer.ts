@@ -131,10 +131,18 @@ export function prepare(model: Model, selection: Selection, command: MindMapComm
                 stack.push(...n.children);
             }
             let fallback = selection.activeId;
-            while (fallback && removed.has(fallback))
-                fallback = get(fallback).parent ?? undefined;
-            if (!fallback)
-                fallback = get(roots[0]!).parent ?? model.rootId;
+            if (!fallback || removed.has(fallback)) {
+                // Anchor at the whole removed subtree, even when its active node
+                // is a descendant. Skip siblings removed by this transaction.
+                let anchor = get(fallback ?? roots[0]!);
+                while (anchor.parent && removed.has(anchor.parent))
+                    anchor = get(anchor.parent);
+                const parent = get(anchor.parent!);
+                const index = parent.children.indexOf(anchor.id);
+                fallback = parent.children.slice(index + 1).find(id => !removed.has(id))
+                    ?? parent.children.slice(0, index).reverse().find(id => !removed.has(id))
+                    ?? parent.id;
+            }
             for (const id of roots) {
                 const n = get(id);
                 splice(n.parent!, get(n.parent!).children.indexOf(id), 1);

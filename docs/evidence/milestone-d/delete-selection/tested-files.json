@@ -1,0 +1,13 @@
+{
+  "baseRevision": "17e0e84",
+  "sha256": {
+    "src/commands/reducer.ts": "3acd3963afaeed16c90e56030fe38dc39b0d111be26ea139bdb509bae5f60962",
+    "tests/unit/delete-selection.test.ts": "62721e157bd185d532c52a5f07ea95d5eea1904b0ec1082e5822e4123e35c51f",
+    "tests/unit/model.test.ts": "46d8cae707af3764a3af010484a07ee369cf0ef68ebdbda17c2a758bbf9732b6",
+    "tests/browser/delete-selection.spec.ts": "e171b495d6cbf2a127e1e9f09d6cf04f2d302e20f53b5d30af2b1fe9a3799f2a",
+    "tests/browser/checkpoint-b.spec.ts": "57e54764144b0bc2f38d897d81f806eea4445c2fc3bf007e6a859966af1080ba",
+    "tests/browser/clipboard.spec.ts": "09a93b13f166b1bfd33d06849327f9f82760551804ec372db0319fd034b52884",
+    "tests/browser/menu.spec.ts": "e49817c1c1e1ffadb586d98cae03260879288c0f330d0a4ef804bb22dadcc55a",
+    "examples/basic/main.ts": "25751ed732c564889d63ec7061af833b1afa9249865fcfbb90d1dc44dd89c657"
+  }
+}
