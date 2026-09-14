@@ -1,0 +1,98 @@
+[
+  {
+    "phase": "before",
+    "uiZoom": 1,
+    "mapZoom": 1,
+    "paintedWidth": 1.0
+  },
+  {
+    "phase": "before",
+    "uiZoom": 1,
+    "mapZoom": 2,
+    "paintedWidth": 1.0
+  },
+  {
+    "phase": "before",
+    "uiZoom": 0.9,
+    "mapZoom": 1,
+    "paintedWidth": 0.55
+  },
+  {
+    "phase": "before",
+    "uiZoom": 0.9,
+    "mapZoom": 2,
+    "paintedWidth": 0.553
+  },
+  {
+    "phase": "before",
+    "uiZoom": 0.8,
+    "mapZoom": 1,
+    "paintedWidth": 0.625
+  },
+  {
+    "phase": "before",
+    "uiZoom": 0.8,
+    "mapZoom": 2,
+    "paintedWidth": 0.625
+  },
+  {
+    "phase": "before",
+    "uiZoom": 0.67,
+    "mapZoom": 1,
+    "paintedWidth": 0.739
+  },
+  {
+    "phase": "before",
+    "uiZoom": 0.67,
+    "mapZoom": 2,
+    "paintedWidth": 0.743
+  },
+  {
+    "phase": "after",
+    "uiZoom": 1,
+    "mapZoom": 1,
+    "paintedWidth": 1.0
+  },
+  {
+    "phase": "after",
+    "uiZoom": 1,
+    "mapZoom": 2,
+    "paintedWidth": 1.0
+  },
+  {
+    "phase": "after",
+    "uiZoom": 0.9,
+    "mapZoom": 1,
+    "paintedWidth": 0.997
+  },
+  {
+    "phase": "after",
+    "uiZoom": 0.9,
+    "mapZoom": 2,
+    "paintedWidth": 0.997
+  },
+  {
+    "phase": "after",
+    "uiZoom": 0.8,
+    "mapZoom": 1,
+    "paintedWidth": 0.999
+  },
+  {
+    "phase": "after",
+    "uiZoom": 0.8,
+    "mapZoom": 2,
+    "paintedWidth": 0.999
+  },
+  {
+    "phase": "after",
+    "uiZoom": 0.67,
+    "mapZoom": 1,
+    "paintedWidth": 0.907
+  },
+  {
+    "phase": "after",
+    "uiZoom": 0.67,
+    "mapZoom": 2,
+    "paintedWidth": 0.955
+  }
+]

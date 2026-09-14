@@ -2,6 +2,16 @@
 
 Last updated: 2026-09-14
 
+## Host zoom border rendering — 2026-09-14
+
+Fixed editor and checkbox borders becoming too thin at reduced Trilium UI zoom.
+Inset shadows retain the 1px stroke; padding reserves the former border space.
+Build/typechecks, 178 widget unit tests and 81 browser cases passed, including
+fractional scale, text alignment and forced-colors fallback. Verified native
+macOS Trilium at four UI zooms and two map zooms with before/after pixel evidence.
+[Report and review steps](evidence/milestone-d/host-zoom-borders/report.md).
+Product review is pending; changes are uncommitted.
+
 ## One-second tooltip adjustment — 2026-09-14
 
 Reduced the delay to 1,000 ms; re-entry and cancellation behavior are unchanged.

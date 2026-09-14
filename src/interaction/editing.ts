@@ -36,7 +36,7 @@ export class TextEditor {
         const labelTop = g.box.y + parseFloat(nodeStyle.paddingTop) +
             (g.box.height - parseFloat(nodeStyle.paddingTop) - parseFloat(nodeStyle.paddingBottom) - labelHeight) / 2;
         const top = labelTop - 3;
-        // Center the lower 1px border on the branch stroke. Root has an ellipse,
+        // Center the lower 1px painted frame on the branch stroke. Root has an ellipse,
         // so its editor keeps the label-sized vertical frame instead.
         const preferredHeight = g.side === null ? labelHeight + 6 : g.baseline + .5 - top;
         let width = 0, edited = false;
@@ -53,11 +53,12 @@ export class TextEditor {
                 const ratio = Math.max(0, width - 22) / (paddingLeft + paddingRight);
                 paddingLeft *= ratio; paddingRight *= ratio;
             }
+            // The frame is painted without a layout border; reserve its 1px in padding.
             Object.assign(area.style, {
                 left: `${left}px`, top: `${top}px`, width: `${width}px`, height: `${height}px`,
-                paddingLeft: `${paddingLeft}px`,
-                paddingRight: `${paddingRight}px`,
-                paddingBottom: `${Math.max(0, height - labelHeight - 4)}px`,
+                paddingLeft: `${paddingLeft + 1}px`,
+                paddingRight: `${paddingRight + 1}px`,
+                paddingBottom: `${Math.max(0, height - labelHeight - 4) + 1}px`,
                 // Full-node and outward-growing left frames can include the checkbox
                 // prefix. Keep it visible through padding while text stays opaque.
                 ...(checkbox && (!limits.compact || g.side === 'left') ? { backgroundClip: 'content-box' } : {}),
@@ -79,7 +80,7 @@ export class TextEditor {
             // Preserve the inward text edge on short left-side labels, including
             // multiline labels whose rows stay left-aligned. As text grows, use
             // the available width before native overflow scrolling takes over.
-            if (limits.compact && !limits.creation && g.side === 'left') area.style.paddingLeft = `${Math.max(2, width - measureText(area.value) - 4)}px`;
+            if (limits.compact && !limits.creation && g.side === 'left') area.style.paddingLeft = `${Math.max(2, width - measureText(area.value) - 4) + 1}px`;
         }, options);
         doc.addEventListener('pointerdown', e => { if (!area.contains(e.target as Node)) finish(true, false); }, { ...options, capture: true });
         area.addEventListener('blur', () => finish(true, false), options);

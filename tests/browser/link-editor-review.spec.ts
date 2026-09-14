@@ -39,7 +39,7 @@ for (const zoom of [1, 1.5, 2]) test(`compact editor uses the larger node/eight-
             const probe = label.cloneNode(false) as HTMLElement; probe.style.width = 'max-content'; probe.style.position = 'absolute'; probe.textContent = 'MMMMMMMM'; n.append(probe);
             const defaultWidth = Math.ceil(parseFloat(getComputedStyle(probe).width)) + 6; probe.remove();
             const s = getComputedStyle(area), nr = n.getBoundingClientRect(), lr = label.getBoundingClientRect(), ar = area.getBoundingClientRect();
-            return { id, width: parseFloat(s.width), nodeWidth: parseFloat(getComputedStyle(n).width), defaultWidth, area: ar.toJSON(), label: lr.toJSON(), node: nr.toJSON(), paddingLeft: parseFloat(s.paddingLeft), paddingTop: parseFloat(s.paddingTop), scrollLeft: area.scrollLeft, scrollTop: area.scrollTop };
+            return { id, width: parseFloat(s.width), nodeWidth: parseFloat(getComputedStyle(n).width), defaultWidth, area: ar.toJSON(), label: lr.toJSON(), node: nr.toJSON(), borderLeft: parseFloat(s.borderLeftWidth), borderTop: parseFloat(s.borderTopWidth), paddingLeft: parseFloat(s.paddingLeft), paddingTop: parseFloat(s.paddingTop), scrollLeft: area.scrollLeft, scrollTop: area.scrollTop };
         }, id);
         if (id === 'wide-left' || id === 'collapsed-right' || id === 'collapsed-left') await page.locator('#primary').screenshot({ path: `${evidence}/${phase}-${id}-${zoom}-${info.project.name}.png` });
         if (id === 'collapsed-left') {
@@ -49,8 +49,8 @@ for (const zoom of [1, 1.5, 2]) test(`compact editor uses the larger node/eight-
             await expect(page.locator('#primary [data-node-id="collapsed-left"] input')).toBeChecked();
         }
         expect.soft(measured.width).toBeCloseTo(Math.max(measured.nodeWidth, measured.defaultWidth), 2);
-        expect.soft(Math.abs(measured.area.x + (1 + measured.paddingLeft - measured.scrollLeft) * zoom - measured.label.x)).toBeLessThan(.8);
-        expect.soft(Math.abs(measured.area.y + (1 + measured.paddingTop - measured.scrollTop) * zoom - measured.label.y)).toBeLessThan(.1);
+        expect.soft(Math.abs(measured.area.x + (measured.borderLeft + measured.paddingLeft - measured.scrollLeft) * zoom - measured.label.x)).toBeLessThan(.8);
+        expect.soft(Math.abs(measured.area.y + (measured.borderTop + measured.paddingTop - measured.scrollTop) * zoom - measured.label.y)).toBeLessThan(.1);
         expect.soft(Math.abs(measured.area.bottom - .5 * zoom - measured.node.bottom)).toBeLessThan(.1);
         const frame = await editor.boundingBox(); await editor.fill('Changed\nMany more lines\nMore text'); expect(await editor.boundingBox()).toEqual(frame);
         await page.keyboard.press('Escape'); expect(await page.evaluate(() => window.primary.canUndo())).toBe(false);

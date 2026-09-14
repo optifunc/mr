@@ -468,3 +468,10 @@ Product review remains pending.
 
 The subsequent one-second adjustment also passed build and all 30 browser checks.
 [Timing evidence](evidence/milestone-d/tooltip-delay/one-second-results.json).
+
+## 2026-09-14 host zoom border follow-up
+
+Editor and checkbox frame thickness now survives fractional UI zoom. Build,
+typechecks, unit checks and 81 browser cases passed; native macOS before/after
+measurements and screenshots are [recorded here](evidence/milestone-d/host-zoom-borders/report.md).
+Product review remains pending. No visual baselines were replaced.

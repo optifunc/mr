@@ -1,0 +1,17 @@
+{
+  "fractionalScaleAndForcedColors": {
+    "startTime": "2026-09-14T16:17:36.547Z",
+    "duration": 9503.853,
+    "expected": 12,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "editingRegressionCasesPassed": 69,
+  "regressionSpecs": [
+    "editor-sizing.spec.ts",
+    "link-editor-review.spec.ts",
+    "editing-review.spec.ts",
+    "checkpoint-b.spec.ts"
+  ]
+}

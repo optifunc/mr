@@ -1,0 +1,42 @@
+[
+  {
+    "phase": "before",
+    "uiZoom": 1,
+    "paintedWidth": 1.0
+  },
+  {
+    "phase": "before",
+    "uiZoom": 0.9,
+    "paintedWidth": 0.556
+  },
+  {
+    "phase": "before",
+    "uiZoom": 0.8,
+    "paintedWidth": 0.625
+  },
+  {
+    "phase": "before",
+    "uiZoom": 0.67,
+    "paintedWidth": 0.74
+  },
+  {
+    "phase": "after",
+    "uiZoom": 1,
+    "paintedWidth": 1.0
+  },
+  {
+    "phase": "after",
+    "uiZoom": 0.9,
+    "paintedWidth": 0.999
+  },
+  {
+    "phase": "after",
+    "uiZoom": 0.8,
+    "paintedWidth": 0.998
+  },
+  {
+    "phase": "after",
+    "uiZoom": 0.67,
+    "paintedWidth": 0.997
+  }
+]

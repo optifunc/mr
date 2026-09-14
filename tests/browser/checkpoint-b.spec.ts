@@ -23,7 +23,7 @@ test('editing reference, multiline, checkbox/root alignment and frozen geometry 
         const measured = await page.locator('#secondary').evaluate((host, id) => {
             const label = host.querySelector(`[data-node-id="${id}"] .mindmap-label`)!.getBoundingClientRect();
             const textarea = host.querySelector('textarea')!, area = textarea.getBoundingClientRect(), style = getComputedStyle(textarea);
-            return { id, label: label.toJSON(), area: area.toJSON(), dx: area.x + (1 + parseFloat(style.paddingLeft)) * 1.5 - label.x, dy: area.y + (1 + parseFloat(style.paddingTop)) * 1.5 - label.y };
+            return { id, label: label.toJSON(), area: area.toJSON(), dx: area.x + (parseFloat(style.borderLeftWidth) + parseFloat(style.paddingLeft)) * 1.5 - label.x, dy: area.y + (parseFloat(style.borderTopWidth) + parseFloat(style.paddingTop)) * 1.5 - label.y };
         }, id);
         expect(Math.abs(measured.dx)).toBeLessThan(.76); expect(Math.abs(measured.dy)).toBeLessThan(.76);
         measurements.push(measured);

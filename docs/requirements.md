@@ -137,6 +137,8 @@ Requirements:
   expand that node without changing the current selection or opening an editor.
   Expand on release over the same circle after a click, not a drag/cancellation.
   Read-only mode leaves the node and selection unchanged.
+- In-place editor and checkbox outer frames shall retain their intended logical
+  one-pixel thickness at fractional host UI zoom, with normal map zoom scaling.
 - Checkbox nodes shall show a native-looking square checkbox immediately
   before the label, optically aligned with the text (with the text block for
   multiline labels). Checked labels shall remain readable; no strike-through is

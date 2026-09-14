@@ -1,0 +1,546 @@
+[
+  {
+    "phase": "before",
+    "uiZoom": 1,
+    "mapZoom": 1,
+    "dpr": 2,
+    "editorBorder": "1px",
+    "editorShadow": "none",
+    "checkboxBorder": "1px",
+    "checkboxShadow": "none",
+    "editor": {
+      "x": 772.0234375,
+      "y": 418.5,
+      "width": 102.359375,
+      "height": 20.5,
+      "top": 418.5,
+      "right": 874.3828125,
+      "bottom": 439,
+      "left": 772.0234375
+    },
+    "checkbox": {
+      "x": 474.9375,
+      "y": 421.5,
+      "width": 13,
+      "height": 13,
+      "top": 421.5,
+      "right": 487.9375,
+      "bottom": 434.5,
+      "left": 474.9375
+    },
+    "viewport": {
+      "width": 1200,
+      "height": 800
+    }
+  },
+  {
+    "phase": "before",
+    "uiZoom": 1,
+    "mapZoom": 2,
+    "dpr": 2,
+    "editorBorder": "1px",
+    "editorShadow": "none",
+    "checkboxBorder": "1px",
+    "checkboxShadow": "none",
+    "editor": {
+      "x": 752.7568969726562,
+      "y": 408.5,
+      "width": 204.71875,
+      "height": 41,
+      "top": 408.5,
+      "right": 957.4756469726562,
+      "bottom": 449.5,
+      "left": 752.7568969726562
+    },
+    "checkbox": {
+      "x": 158.5850067138672,
+      "y": 414.5,
+      "width": 26,
+      "height": 26,
+      "top": 414.5,
+      "right": 184.5850067138672,
+      "bottom": 440.5,
+      "left": 158.5850067138672
+    },
+    "viewport": {
+      "width": 1200,
+      "height": 800
+    }
+  },
+  {
+    "phase": "before",
+    "uiZoom": 0.9,
+    "mapZoom": 1,
+    "dpr": 1.7999999523162842,
+    "editorBorder": "0.555556px",
+    "editorShadow": "none",
+    "checkboxBorder": "0.555556px",
+    "checkboxShadow": "none",
+    "editor": {
+      "x": 781.3428955078125,
+      "y": 463.1632080078125,
+      "width": 102.31771087646484,
+      "height": 20.494792938232422,
+      "top": 463.1632080078125,
+      "right": 883.6606063842773,
+      "bottom": 483.6580009460449,
+      "left": 781.3428955078125
+    },
+    "checkbox": {
+      "x": 484.36370849609375,
+      "y": 466.16668701171875,
+      "width": 12.994791984558105,
+      "height": 12.994791984558105,
+      "top": 466.16668701171875,
+      "right": 497.35850048065186,
+      "bottom": 479.16147899627686,
+      "left": 484.36370849609375
+    },
+    "viewport": {
+      "width": 1333,
+      "height": 889
+    }
+  },
+  {
+    "phase": "before",
+    "uiZoom": 0.9,
+    "mapZoom": 2,
+    "dpr": 1.7999999523162842,
+    "editorBorder": "0.555556px",
+    "editorShadow": "none",
+    "checkboxBorder": "0.555556px",
+    "checkboxShadow": "none",
+    "editor": {
+      "x": 823.69091796875,
+      "y": 453.1632080078125,
+      "width": 204.6354217529297,
+      "height": 40.989585876464844,
+      "top": 453.1632080078125,
+      "right": 1028.3263397216797,
+      "bottom": 494.15279388427734,
+      "left": 823.69091796875
+    },
+    "checkbox": {
+      "x": 229.73257446289062,
+      "y": 459.1701354980469,
+      "width": 25.98958396911621,
+      "height": 25.98958396911621,
+      "top": 459.1701354980469,
+      "right": 255.72215843200684,
+      "bottom": 485.1597194671631,
+      "left": 229.73257446289062
+    },
+    "viewport": {
+      "width": 1333,
+      "height": 889
+    }
+  },
+  {
+    "phase": "before",
+    "uiZoom": 0.8,
+    "mapZoom": 1,
+    "dpr": 1.600000023841858,
+    "editorBorder": "0.625px",
+    "editorShadow": "none",
+    "checkboxBorder": "0.625px",
+    "checkboxShadow": "none",
+    "editor": {
+      "x": 869.72216796875,
+      "y": 518.8671875,
+      "width": 102.314453125,
+      "height": 20.48828125,
+      "top": 518.8671875,
+      "right": 972.03662109375,
+      "bottom": 539.35546875,
+      "left": 869.72216796875
+    },
+    "checkbox": {
+      "x": 572.73974609375,
+      "y": 521.875,
+      "width": 12.998046875,
+      "height": 12.998046875,
+      "top": 521.875,
+      "right": 585.73779296875,
+      "bottom": 534.873046875,
+      "left": 572.73974609375
+    },
+    "viewport": {
+      "width": 1500,
+      "height": 1000
+    }
+  },
+  {
+    "phase": "before",
+    "uiZoom": 0.8,
+    "mapZoom": 2,
+    "dpr": 1.600000023841858,
+    "editorBorder": "0.625px",
+    "editorShadow": "none",
+    "checkboxBorder": "0.625px",
+    "checkboxShadow": "none",
+    "editor": {
+      "x": 912.0712890625,
+      "y": 508.8671875,
+      "width": 204.62890625,
+      "height": 40.9765625,
+      "top": 508.8671875,
+      "right": 1116.7001953125,
+      "bottom": 549.84375,
+      "left": 912.0712890625
+    },
+    "checkbox": {
+      "x": 318.1064758300781,
+      "y": 514.8828125,
+      "width": 25.996074676513672,
+      "height": 25.99609375,
+      "top": 514.8828125,
+      "right": 344.1025505065918,
+      "bottom": 540.87890625,
+      "left": 318.1064758300781
+    },
+    "viewport": {
+      "width": 1500,
+      "height": 1000
+    }
+  },
+  {
+    "phase": "before",
+    "uiZoom": 0.67,
+    "mapZoom": 1,
+    "dpr": 1.340000033378601,
+    "editorBorder": "0.746269px",
+    "editorShadow": "none",
+    "checkboxBorder": "0.746269px",
+    "checkboxShadow": "none",
+    "editor": {
+      "x": 1024.5792236328125,
+      "y": 615.48876953125,
+      "width": 102.30876159667969,
+      "height": 20.48740577697754,
+      "top": 615.48876953125,
+      "right": 1126.8879852294922,
+      "bottom": 635.9761753082275,
+      "left": 1024.5792236328125
+    },
+    "checkbox": {
+      "x": 727.599365234375,
+      "y": 618.4971923828125,
+      "width": 12.989738464355469,
+      "height": 12.989738464355469,
+      "top": 618.4971923828125,
+      "right": 740.5891036987305,
+      "bottom": 631.486930847168,
+      "left": 727.599365234375
+    },
+    "viewport": {
+      "width": 1791,
+      "height": 1194
+    }
+  },
+  {
+    "phase": "before",
+    "uiZoom": 0.67,
+    "mapZoom": 2,
+    "dpr": 1.340000033378601,
+    "editorBorder": "0.746269px",
+    "editorShadow": "none",
+    "checkboxBorder": "0.746269px",
+    "checkboxShadow": "none",
+    "editor": {
+      "x": 1066.9222412109375,
+      "y": 605.4957885742188,
+      "width": 204.61752319335938,
+      "height": 40.97481155395508,
+      "top": 605.4957885742188,
+      "right": 1271.5397644042969,
+      "bottom": 646.4706001281738,
+      "left": 1066.9222412109375
+    },
+    "checkbox": {
+      "x": 472.9623107910156,
+      "y": 611.5125732421875,
+      "width": 25.979476928710938,
+      "height": 25.979476928710938,
+      "top": 611.5125732421875,
+      "right": 498.94178771972656,
+      "bottom": 637.4920501708984,
+      "left": 472.9623107910156
+    },
+    "viewport": {
+      "width": 1791,
+      "height": 1194
+    }
+  },
+  {
+    "phase": "after",
+    "uiZoom": 1,
+    "mapZoom": 1,
+    "dpr": 2,
+    "editorBorder": "0px",
+    "editorShadow": "rgb(153, 153, 153) 0px 0px 0px 1px inset",
+    "checkboxBorder": "0px",
+    "checkboxShadow": "rgb(136, 136, 136) 0px 0px 0px 1px inset",
+    "editor": {
+      "x": 767.0234375,
+      "y": 418.5,
+      "width": 102.359375,
+      "height": 20.5,
+      "top": 418.5,
+      "right": 869.3828125,
+      "bottom": 439,
+      "left": 767.0234375
+    },
+    "checkbox": {
+      "x": 479.9375,
+      "y": 421.5,
+      "width": 13,
+      "height": 13,
+      "top": 421.5,
+      "right": 492.9375,
+      "bottom": 434.5,
+      "left": 479.9375
+    },
+    "viewport": {
+      "width": 1200,
+      "height": 800
+    }
+  },
+  {
+    "phase": "after",
+    "uiZoom": 1,
+    "mapZoom": 2,
+    "dpr": 2,
+    "editorBorder": "0px",
+    "editorShadow": "rgb(153, 153, 153) 0px 0px 0px 1px inset",
+    "checkboxBorder": "0px",
+    "checkboxShadow": "rgb(136, 136, 136) 0px 0px 0px 1px inset",
+    "editor": {
+      "x": 752.765869140625,
+      "y": 408.5,
+      "width": 204.71875,
+      "height": 41,
+      "top": 408.5,
+      "right": 957.484619140625,
+      "bottom": 449.5,
+      "left": 752.765869140625
+    },
+    "checkbox": {
+      "x": 178.593994140625,
+      "y": 414.5,
+      "width": 26,
+      "height": 26,
+      "top": 414.5,
+      "right": 204.593994140625,
+      "bottom": 440.5,
+      "left": 178.593994140625
+    },
+    "viewport": {
+      "width": 1200,
+      "height": 800
+    }
+  },
+  {
+    "phase": "after",
+    "uiZoom": 0.9,
+    "mapZoom": 1,
+    "dpr": 1.7999999523162842,
+    "editorBorder": "0px",
+    "editorShadow": "rgb(153, 153, 153) 0px 0px 0px 1px inset",
+    "checkboxBorder": "0px",
+    "checkboxShadow": "rgb(136, 136, 136) 0px 0px 0px 1px inset",
+    "editor": {
+      "x": 781.3387451171875,
+      "y": 463.1632080078125,
+      "width": 102.31771087646484,
+      "height": 20.494792938232422,
+      "top": 463.1632080078125,
+      "right": 883.6564559936523,
+      "bottom": 483.6580009460449,
+      "left": 781.3387451171875
+    },
+    "checkbox": {
+      "x": 494.3681945800781,
+      "y": 466.16668701171875,
+      "width": 12.994791984558105,
+      "height": 12.994791984558105,
+      "top": 466.16668701171875,
+      "right": 507.36298656463623,
+      "bottom": 479.16147899627686,
+      "left": 494.3681945800781
+    },
+    "viewport": {
+      "width": 1333,
+      "height": 889
+    }
+  },
+  {
+    "phase": "after",
+    "uiZoom": 0.9,
+    "mapZoom": 2,
+    "dpr": 1.7999999523162842,
+    "editorBorder": "0px",
+    "editorShadow": "rgb(153, 153, 153) 0px 0px 0px 1px inset",
+    "checkboxBorder": "0px",
+    "checkboxShadow": "rgb(136, 136, 136) 0px 0px 0px 1px inset",
+    "editor": {
+      "x": 823.6825561523438,
+      "y": 453.1632080078125,
+      "width": 204.6354217529297,
+      "height": 40.989585876464844,
+      "top": 453.1632080078125,
+      "right": 1028.3179779052734,
+      "bottom": 494.15279388427734,
+      "left": 823.6825561523438
+    },
+    "checkbox": {
+      "x": 249.7415771484375,
+      "y": 459.1701354980469,
+      "width": 25.98958396911621,
+      "height": 25.98958396911621,
+      "top": 459.1701354980469,
+      "right": 275.7311611175537,
+      "bottom": 485.1597194671631,
+      "left": 249.7415771484375
+    },
+    "viewport": {
+      "width": 1333,
+      "height": 889
+    }
+  },
+  {
+    "phase": "after",
+    "uiZoom": 0.8,
+    "mapZoom": 1,
+    "dpr": 1.600000023841858,
+    "editorBorder": "0px",
+    "editorShadow": "rgb(153, 153, 153) 0px 0px 0px 1px inset",
+    "checkboxBorder": "0px",
+    "checkboxShadow": "rgb(136, 136, 136) 0px 0px 0px 1px inset",
+    "editor": {
+      "x": 869.7266845703125,
+      "y": 518.8671875,
+      "width": 102.314453125,
+      "height": 20.48828125,
+      "top": 518.8671875,
+      "right": 972.0411376953125,
+      "bottom": 539.35546875,
+      "left": 869.7266845703125
+    },
+    "checkbox": {
+      "x": 582.7442626953125,
+      "y": 521.875,
+      "width": 12.998046875,
+      "height": 12.998046875,
+      "top": 521.875,
+      "right": 595.7423095703125,
+      "bottom": 534.873046875,
+      "left": 582.7442626953125
+    },
+    "viewport": {
+      "width": 1500,
+      "height": 1000
+    }
+  },
+  {
+    "phase": "after",
+    "uiZoom": 0.8,
+    "mapZoom": 2,
+    "dpr": 1.600000023841858,
+    "editorBorder": "0px",
+    "editorShadow": "rgb(153, 153, 153) 0px 0px 0px 1px inset",
+    "checkboxBorder": "0px",
+    "checkboxShadow": "rgb(136, 136, 136) 0px 0px 0px 1px inset",
+    "editor": {
+      "x": 912.080322265625,
+      "y": 508.8671875,
+      "width": 204.62890625,
+      "height": 40.9765625,
+      "top": 508.8671875,
+      "right": 1116.709228515625,
+      "bottom": 549.84375,
+      "left": 912.080322265625
+    },
+    "checkbox": {
+      "x": 338.115478515625,
+      "y": 514.8828125,
+      "width": 25.99609375,
+      "height": 25.99609375,
+      "top": 514.8828125,
+      "right": 364.111572265625,
+      "bottom": 540.87890625,
+      "left": 338.115478515625
+    },
+    "viewport": {
+      "width": 1500,
+      "height": 1000
+    }
+  },
+  {
+    "phase": "after",
+    "uiZoom": 0.67,
+    "mapZoom": 1,
+    "dpr": 1.340000033378601,
+    "editorBorder": "0px",
+    "editorShadow": "rgb(153, 153, 153) 0px 0px 0px 1px inset",
+    "checkboxBorder": "0px",
+    "checkboxShadow": "rgb(136, 136, 136) 0px 0px 0px 1px inset",
+    "editor": {
+      "x": 1024.5814208984375,
+      "y": 615.48876953125,
+      "width": 102.30876159667969,
+      "height": 20.48740577697754,
+      "top": 615.48876953125,
+      "right": 1126.8901824951172,
+      "bottom": 635.9761753082275,
+      "left": 1024.5814208984375
+    },
+    "checkbox": {
+      "x": 737.6062622070312,
+      "y": 618.4971923828125,
+      "width": 12.989738464355469,
+      "height": 12.989738464355469,
+      "top": 618.4971923828125,
+      "right": 750.5960006713867,
+      "bottom": 631.486930847168,
+      "left": 737.6062622070312
+    },
+    "viewport": {
+      "width": 1791,
+      "height": 1194
+    }
+  },
+  {
+    "phase": "after",
+    "uiZoom": 0.67,
+    "mapZoom": 2,
+    "dpr": 1.340000033378601,
+    "editorBorder": "0px",
+    "editorShadow": "rgb(153, 153, 153) 0px 0px 0px 1px inset",
+    "checkboxBorder": "0px",
+    "checkboxShadow": "rgb(136, 136, 136) 0px 0px 0px 1px inset",
+    "editor": {
+      "x": 1066.926513671875,
+      "y": 605.4957885742188,
+      "width": 204.61752319335938,
+      "height": 40.97481155395508,
+      "top": 605.4957885742188,
+      "right": 1271.5440368652344,
+      "bottom": 646.4706001281738,
+      "left": 1066.926513671875
+    },
+    "checkbox": {
+      "x": 492.97601318359375,
+      "y": 611.5125732421875,
+      "width": 25.979476928710938,
+      "height": 25.979476928710938,
+      "top": 611.5125732421875,
+      "right": 518.9554901123047,
+      "bottom": 637.4920501708984,
+      "left": 492.97601318359375
+    },
+    "viewport": {
+      "width": 1791,
+      "height": 1194
+    }
+  }
+]
