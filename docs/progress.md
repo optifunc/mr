@@ -1,6 +1,31 @@
 # Implementation progress
 
-Last updated: 2026-09-12
+Last updated: 2026-09-14
+
+## One-second tooltip adjustment — 2026-09-14
+
+Reduced the delay to 1,000 ms; re-entry and cancellation behavior are unchanged.
+Timing checks now assert hidden at 999 ms and visible at 1,000 ms.
+Build and all 30 three-engine tooltip checks passed.
+
+## Two-second tooltip timing — 2026-09-14
+
+Replaced the native title attribute with a tooltip owned by each editor. It appears
+after two seconds over a link node, hides on exit and resets on every re-entry.
+It remains readable at any map zoom and clears on editing, input and teardown.
+Build/typecheck and 178 unit tests passed; all 30 timing and interaction cases
+passed in Chromium, Firefox and WebKit. Stock Trilium real-time hover and visual
+inspection are recorded in [the evidence report](evidence/milestone-d/tooltip-delay/report.md).
+Product review remains pending; no existing visual baselines changed.
+
+## Link hints and clipboard termination — 2026-09-14
+
+Implemented platform-specific link tooltips and removed the copied outline's final
+newline. Empty labels use `\e` to preserve round trips. Existing literal escaping,
+native clipboard behavior, indentation and cut/undo semantics remain covered.
+Build/typecheck, 178 unit tests and 94 browser cases passed (two expected non-Chromium
+permission skips). No visual baselines changed. [Evidence](evidence/milestone-d/link-clipboard/report.md).
+Product review is pending; the next step is review of the Trilium integration.
 
 ## Checkbox presence shortcut — 2026-09-12
 

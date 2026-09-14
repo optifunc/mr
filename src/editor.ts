@@ -2,6 +2,7 @@ import { MindMapError } from './types';
 import type { MindMapCommand, MindMapDocument, MindMapEditorEvents, MindMapEditorOptions, Origin, Selection, Viewport } from './types';
 import { Store } from './model/store';
 import { Scene } from './render/scene';
+import { LinkTooltip } from './interaction/link-tooltip';
 import { validateCommand } from './commands/validate';
 import { TextEditor } from './interaction/editing';
 import { contentCommands } from './commands/reducer';
@@ -19,6 +20,7 @@ export class MindMapEditor {
     private readonly element: HTMLDivElement;
     private readonly store: Store;
     private readonly scene: Scene;
+    private readonly linkTooltip: LinkTooltip;
     private readonly resize: ResizeObserver;
     private readonly fonts: FontFaceSet;
     private readonly fontListener = (): void => { this.refreshLayout(); };
@@ -56,6 +58,7 @@ export class MindMapEditor {
         host.append(this.element);
         this.viewportSize = { width: this.element.clientWidth, height: this.element.clientHeight };
         this.scene = new Scene(this.element);
+        this.linkTooltip = new LinkTooltip(this.element);
         this.viewport = { x: this.element.clientWidth / 2, y: this.element.clientHeight / 2, zoom: 1 };
         this.measuredViewport = !!this.element.clientWidth && !!this.element.clientHeight;
         this.applyViewport(this.viewport);
@@ -131,7 +134,7 @@ export class MindMapEditor {
             return true;
         });
     }
-    private render(geometry: boolean): void { this.store.visualOrder = this.scene.render(this.store.model, this.store.selection, geometry).visualOrder; }
+    private render(geometry: boolean): void { if (geometry) this.linkTooltip.hide(); this.store.visualOrder = this.scene.render(this.store.model, this.store.selection, geometry).visualOrder; }
     refreshLayout(): void { this.run(() => { if (this.textEditor) { this.deferredLayout = true; return true; } this.scene.refresh(); this.render(true); return true; }); }
     private emit<K extends keyof MindMapEditorEvents>(type: K, payload: () => MindMapEditorEvents[K]): void {
         if (type === 'documentchange') { this.generation++; this.input?.reset(); this.menu?.close(true); }
@@ -303,6 +306,7 @@ export class MindMapEditor {
         const originalViewport = this.getViewport();
         if (creation) { if (!this.store.beginCreation(command)) return false; this.render(true); }
         else { this.store.beginEdit(target); this.store.setSelection([target], target); this.render(false); }
+        this.linkTooltip.hide();
         this.generation++; this.input.reset(); this.menu.close(false);
         const edit = this.store.edit!; this.editOrigin = origin; this.editViewport = creation ? originalViewport : undefined;
         this.selectionPath.reset(this.store.selection); this.revealIds([edit.id], origin);
@@ -411,7 +415,7 @@ export class MindMapEditor {
     private applyViewport(view: Viewport, origin: Origin = 'api'): void {
         if (this.destroyed || ![view.x, view.y, view.zoom].every(Number.isFinite)) return;
         const changed = view.x !== this.viewport.x || view.y !== this.viewport.y || view.zoom !== this.viewport.zoom;
-        if (changed) { this.menu?.close(true); this.viewportOrigin = origin; }
+        if (changed) { this.linkTooltip.hide(); this.menu?.close(true); this.viewportOrigin = origin; }
         this.viewport = view;
         this.scene.scene.style.transform = `translate(${view.x}px, ${view.y}px) scale(${view.zoom})`;
         if (changed && !this.viewportFrame) this.viewportFrame = requestAnimationFrame(() => {
@@ -458,5 +462,5 @@ export class MindMapEditor {
         return () => { set.delete(listener as (event: never) => void); };
     }
     destroy(): void { if (this.destroyed)
-        return; this.discardEdit(); this.destroyed = true; this.queue = []; this.listeners.clear(); this.menu.close(false); this.menuAbort.abort(); this.clipboard.destroy(); this.input.destroy(); cancelAnimationFrame(this.viewportFrame); this.resize.disconnect(); this.fonts.removeEventListener('loadingdone', this.fontListener); this.scene.destroy(); this.element.remove(); }
+        return; this.discardEdit(); this.destroyed = true; this.queue = []; this.listeners.clear(); this.menu.close(false); this.menuAbort.abort(); this.clipboard.destroy(); this.linkTooltip.destroy(); this.input.destroy(); cancelAnimationFrame(this.viewportFrame); this.resize.disconnect(); this.fonts.removeEventListener('loadingdone', this.fontListener); this.scene.destroy(); this.element.remove(); }
 }

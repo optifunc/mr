@@ -6,10 +6,18 @@ import { labelUrl } from '../../src/interaction/links';
 import { node, referenceMap } from '../fixtures/maps';
 
 describe('clipboard text contract', () => {
+    it('copies without a final newline, preserving empty labels and literal empty markers', () => {
+        for (const text of ['', '\\e', 'Ends in\n', 'ordinary']) {
+            const model = validateDocument({ root: node('root', text) });
+            const copied = serialize(model, ['root']);
+            expect(copied.endsWith('\n')).toBe(false);
+            expect(parse(copied)).toEqual([{ text, children: [] }]);
+        }
+    });
     it('normalizes ancestors, preserves hidden nodes and visual root sides', () => {
         const doc = referenceMap(), model = validateDocument(doc);
-        expect(serialize(model, ['c', 'child1', 'one', 'a'])).toBe('Child 1\nOne\n    A\n    B\n    C\n');
-        expect(serialize(model, ['collapsed'])).toBe('Collapsed node\n    Hidden descendant\n');
+        expect(serialize(model, ['c', 'child1', 'one', 'a'])).toBe('Child 1\nOne\n    A\n    B\n    C');
+        expect(serialize(model, ['collapsed'])).toBe('Collapsed node\n    Hidden descendant');
         doc.root.children.reverse();
         expect(serialize(validateDocument(doc), ['root']).indexOf('Child2')).toBeLessThan(serialize(validateDocument(doc), ['root']).indexOf('Three'));
     });
@@ -17,7 +25,7 @@ describe('clipboard text contract', () => {
         const values = [node('1', '[x] literal'), { ...node('2', 'a\\b\tc\nd\n'), checked: false }, { ...node('3', ''), checked: true }, node('4', '    indented spaces'), node('5', '')];
         const model = validateDocument({ root: { ...node('root'), children: values.map(n => ({ ...n, side: 'right' })) } });
         const text = serialize(model, values.map(n => n.id));
-        expect(text).toBe('\\[x] literal\n[ ] a\\\\b\\tc\\nd\\n\n[x] \n\\    indented spaces\n\n');
+        expect(text).toBe('\\[x] literal\n[ ] a\\\\b\\tc\\nd\\n\n[x] \\e\n\\    indented spaces\n\\e');
         expect(parse(text)).toEqual(values.map(({ id: _, ...n }) => n));
         expect(parse(text.replace(/\n/g, '\r\n'))).toEqual(parse(text));
     });
@@ -65,7 +73,7 @@ describe('whole label URLs', () => {
 });
 
 it('explicit visual order determines copied forest order without reordering subtree siblings', () => {
-    expect(serialize(validateDocument(referenceMap()), ['child1', 'one', 'a'], ['one', 'a', 'b', 'c', 'child1'])).toBe('One\n    A\n    B\n    C\nChild 1\n');
+    expect(serialize(validateDocument(referenceMap()), ['child1', 'one', 'a'], ['one', 'a', 'b', 'c', 'child1'])).toBe('One\n    A\n    B\n    C\nChild 1');
 });
 
 it('an explicit hidden paste target preserves hidden-ancestor collapse and a visible selection', () => {

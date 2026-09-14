@@ -65,8 +65,10 @@ export class Scene {
                 const oldCheckbox = element.querySelector('input');
                 if ((oldCheckbox !== null) !== (n.checked !== undefined))
                     element.replaceChildren(...labelElement(this.widget.ownerDocument, n, g.id === model.rootId).childNodes);
-                element.querySelector('.mindmap-label')!.textContent = n.text;
-                element.querySelector('.mindmap-label')!.classList.toggle('mindmap-link', !!labelUrl(n.text));
+                const label = element.querySelector<HTMLElement>('.mindmap-label')!;
+                const link = !!labelUrl(n.text);
+                label.textContent = n.text;
+                label.classList.toggle('mindmap-link', link);
                 Object.assign(element.style, { left: `${g.box.x}px`, top: `${g.box.y}px`, width: `${g.box.width}px`, height: `${g.box.height}px` });
                 element.setAttribute('aria-selected', String(selection.ids.includes(n.id)));
                 element.setAttribute('role', 'treeitem');

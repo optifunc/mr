@@ -445,6 +445,10 @@ Additional requirements:
   "http:" or "https:" URL.
 - Partial URLs embedded in other text shall remain plain text.
 - URL detection shall occur after edit commit and document replacement.
+- Link labels show "Cmd+click to open" on macOS and "Ctrl+click to open" elsewhere;
+  show it after one second over a link node, hide it on exit, and restart the
+  full delay on every re-entry. Movement between the label and checkbox within
+  the same node does not restart the delay. Remove it when the label stops being a URL.
 - The URL label shall use standard link blue (#0000EE) without a text underline.
   Its normal branch line remains unchanged.
 - Primary-modifier+click on the URL label shall open it in a new browser tab or
@@ -472,7 +476,9 @@ Additional requirements:
 ### 12.1 Serialization
 
 - Clipboard exchange shall use "text/plain".
-- Each node occupies one physical clipboard line.
+- Each node occupies one physical clipboard line. Do not append a final newline.
+- Encode an empty label as "\e", including a final empty item, so copy/paste
+  preserves it without a terminating newline. Literal backslashes remain escaped.
 - Four spaces per level express depth relative to the copied selection.
 - Sibling order and root-side visual order shall be preserved.
 - A multiline label shall encode a newline as the two characters "\n".

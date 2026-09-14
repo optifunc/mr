@@ -29,7 +29,7 @@ test('deferred API cut selects the next sibling only after clipboard success and
     await page.evaluate(() => window.clip.resolve(''));
     await expect.poll(() => page.evaluate(() => window.primary.getSelection().activeId)).toBe('c');
     await expect(page.locator('#primary .mindmap')).toBeFocused();
-    expect(await page.evaluate(() => window.clip.writes)).toEqual(['B\n']);
+    expect(await page.evaluate(() => window.clip.writes)).toEqual(['B']);
     await page.keyboard.press(`${modifier}+z`);
     expect(await page.evaluate(() => window.primary.getSelection().activeId)).toBe('b');
     expect(await page.evaluate(() => window.primary.getDocument())).toEqual(referenceMap());
@@ -58,7 +58,7 @@ test('API paste/cut/copy settle once, retain IDs on redo and expose completion a
     expect(await page.evaluate(() => window.primary.canUndo())).toBe(false);
     await page.keyboard.press('Meta+Shift+z'); expect(await page.evaluate(() => window.primary.getDocument())).toEqual(pasted);
     await page.evaluate(() => window.primary.execute({ type: 'copy', ids: ['one', 'a', 'child1'] }));
-    await expect.poll(() => page.evaluate(() => window.clip.writes.at(-1))).toBe('One\n    A\n    B\n    C\nChild 1\n');
+    await expect.poll(() => page.evaluate(() => window.clip.writes.at(-1))).toBe('One\n    A\n    B\n    C\nChild 1');
     await page.evaluate(() => window.primary.execute({ type: 'cut', ids: ['one', 'a'] }));
     await expect.poll(() => page.evaluate(() => window.primary.getDocument().root.children.some(n => n.id === 'one'))).toBe(false);
     await page.keyboard.press('Meta+z'); expect(await page.evaluate(() => window.primary.getDocument())).toEqual(pasted);
@@ -98,7 +98,7 @@ test('pending requests keep captured selection/target; copy survives edits; dest
     await setup(page, 'deferred'); await page.evaluate(() => { window.primary.execute({ type: 'paste' }); window.primary.setSelection(['child1']); window.primary.setZoom(1.5); window.clip.resolve('Captured'); });
     await expect.poll(() => page.evaluate(() => window.primary.getDocument().root.children.find(n => n.id === 'one')!.children.at(-1)!.text)).toBe('Captured');
     await setup(page, 'deferred'); await page.evaluate(() => { window.primary.execute({ type: 'copy', ids: ['a'] }); window.primary.execute({ type: 'setText', targetId: 'a', text: 'Changed' }); window.clip.resolve(''); });
-    await expect.poll(() => page.evaluate(() => window.clip.events.at(-1))).toBe('complete:copy:api'); expect(await page.evaluate(() => window.clip.writes)).toEqual(['A\n']);
+    await expect.poll(() => page.evaluate(() => window.clip.events.at(-1))).toBe('complete:copy:api'); expect(await page.evaluate(() => window.clip.writes)).toEqual(['A']);
     await setup(page, 'deferred'); await page.evaluate(() => { window.primary.execute({ type: 'paste' }); window.primary.destroy(); window.clip.resolve('Never'); });
     await page.waitForTimeout(30); expect(await page.evaluate(() => window.clip.events)).toEqual([]);
 });
@@ -142,7 +142,7 @@ test('real asynchronous Clipboard API in a granted secure Chromium context', asy
     await page.evaluate(async () => { await navigator.clipboard.writeText('[x] Real API\\nsecond line\n'); window.primary.execute({ type: 'paste', targetId: 'root' }); });
     await expect.poll(() => page.evaluate(() => window.primary.getDocument().root.children.at(-1)!.text)).toBe('Real API\nsecond line');
     await page.evaluate(() => window.primary.execute({ type: 'copy' }));
-    await expect.poll(() => page.evaluate(() => navigator.clipboard.readText())).toBe('[x] Real API\\nsecond line\n');
+    await expect.poll(() => page.evaluate(() => navigator.clipboard.readText())).toBe('[x] Real API\\nsecond line');
 });
 
 test('empty clipboard no-op, empty physical label and literal HTML are preserved', async ({ page }) => {
@@ -158,7 +158,7 @@ test('deferred cut deletes its captured sources after selection change and leave
     await setup(page, 'deferred'); await page.evaluate(() => { window.primary.execute({ type: 'cut', ids: ['one', 'a'] }); window.primary.setSelection(['child1']); window.secondary.execute({ type: 'setText', targetId: 'multi', text: 'Other instance' }); window.clip.resolve(''); });
     await expect.poll(() => page.evaluate(() => window.clip.events.at(-1))).toBe('complete:cut:api');
     expect(await page.evaluate(() => window.primary.getDocument().root.children.map(n => n.id))).toEqual(['child1', 'child2', 'two', 'three']);
-    expect(await page.evaluate(() => window.clip.writes)).toEqual(['One\n    A\n    B\n    C\n']);
+    expect(await page.evaluate(() => window.clip.writes)).toEqual(['One\n    A\n    B\n    C']);
     expect(await page.evaluate(() => window.primary.getSelection().activeId)).toBe('child1');
     await page.keyboard.press('Meta+z'); expect(await page.evaluate(() => window.primary.getDocument())).toEqual(referenceMap());
 });
@@ -228,7 +228,7 @@ for (const mode of ['two', 'four', 'tabs', 'mixed'] as const) test(`native ${mod
     await page.keyboard.press('Meta+Shift+z'); expect(await page.evaluate(() => window.primary.getDocument())).toEqual(pasted);
     await page.keyboard.press('Meta+c'); await expect.poll(() => page.evaluate(() => window.clip.events)).toEqual(['user:paste', 'user:copy']);
     await external.fill(''); await external.focus(); await page.keyboard.press('Meta+v');
-    const output = '[ ] Parent\n    [x] Child\\nline\n        \\  literal spaces\n    Sibling\nOther\n\n';
+    const output = '[ ] Parent\n    [x] Child\\nline\n        \\  literal spaces\n    Sibling\nOther\n\\e';
     await expect(external).toHaveValue(output);
     writeFileSync(`${evidence}/indentation-${mode}-${info.project.name}.json`, JSON.stringify({ input, output: await external.inputValue(), document: pasted, completion: await page.evaluate(() => window.clip.events), undoRedo: 'exact document including IDs' }, null, 2) + '\n');
 });

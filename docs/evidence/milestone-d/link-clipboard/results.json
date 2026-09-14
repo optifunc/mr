@@ -1,0 +1,22 @@
+{
+  "testedAt": "2026-09-14T13:55:42.859Z",
+  "stats": {
+    "startTime": "2026-09-14T13:55:42.859Z",
+    "duration": 20498.108,
+    "expected": 94,
+    "skipped": 2,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "platform": "macOS arm64",
+  "widgetBaseCommit": "7c53c4b",
+  "specs": [
+    "clipboard.spec.ts",
+    "link-tooltip.spec.ts"
+  ],
+  "engines": [
+    "Chromium",
+    "Firefox",
+    "WebKit"
+  ]
+}

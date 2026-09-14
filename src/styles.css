@@ -80,3 +80,7 @@
   .mindmap .mindmap-selected { outline: 1px solid Highlight; }
   .mindmap .mindmap-menu-navigated button:focus { outline-color: Highlight; }
 }
+
+/* Outside the scaled scene: hints retain readable text at every map zoom. */
+.mindmap .mindmap-link-tooltip { position: absolute; z-index: 6; box-sizing: border-box; max-width: calc(100% - 8px); padding: 4px 7px; border: 1px solid #888; border-radius: 4px; background: #fff; color: #111; box-shadow: 1px 2px 4px #0002; font: 12px/16px Arial, Helvetica, sans-serif; overflow-wrap: anywhere; pointer-events: none; }
+.mindmap .mindmap-link-tooltip[hidden] { display: none; }

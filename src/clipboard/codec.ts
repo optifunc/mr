@@ -3,8 +3,8 @@ import { normalizeRoots } from '../model/document';
 import type { Model } from '../model/document';
 
 export interface ClipboardNode { text: string; checked?: boolean; children: ClipboardNode[] }
-const encode = (text: string): string => text.replace(/\\/g, '\\\\').replace(/\r\n|\n|\r/g, '\\n').replace(/\t/g, '\\t').replace(/^ /, '\\ ');
-const decode = (text: string): string => text.replace(/\\([\\nt\[ ])/g, (_, c: string) => c === 'n' ? '\n' : c === 't' ? '\t' : c);
+const encode = (text: string): string => text === '' ? '\\e' : text.replace(/\\/g, '\\\\').replace(/\r\n|\n|\r/g, '\\n').replace(/\t/g, '\\t').replace(/^ /, '\\ ');
+const decode = (text: string): string => text === '\\e' ? '' : text.replace(/\\([\\nt\[ ])/g, (_, c: string) => c === 'n' ? '\n' : c === 't' ? '\t' : c);
 
 export function serialize(model: Model, ids: readonly string[], order?: readonly string[]): string {
     const work = normalizeRoots(model, ids, order).reverse().map(id => ({ id, depth: 0 }));
@@ -18,7 +18,7 @@ export function serialize(model: Model, ids: readonly string[], order?: readonly
         const children = id === model.rootId ? [...n.children.filter(c => model.nodes.get(c)!.side === 'left'), ...n.children.filter(c => model.nodes.get(c)!.side === 'right')] : n.children;
         for (let i = children.length - 1; i >= 0; i--) work.push({ id: children[i]!, depth: depth + 1 });
     }
-    return lines.length ? lines.join('\n') + '\n' : '';
+    return lines.join('\n');
 }
 
 export function parse(text: string): ClipboardNode[] {

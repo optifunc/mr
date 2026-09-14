@@ -1,0 +1,12 @@
+{
+  "delayMs": 1000,
+  "stats": {
+    "startTime": "2026-09-14T14:25:14.588Z",
+    "duration": 13538.238,
+    "expected": 30,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "bundleSha256": "5d0839f6d4e1636221873820a94983ca7e15b1862d7ec3d3df954c59caf57b6b"
+}

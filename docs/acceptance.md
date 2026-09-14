@@ -453,3 +453,18 @@ No scope reduction or release waiver is inferred from this handover.
 
 Stage-4 implementation and checks are recorded in [progress](progress.md#b-stage-4-checkpoint-2026-09-07).
 Default PNGs remain byte-identical to the three accepted A engine images. This interim record is superseded by the complete stage-5 evidence above.
+
+## 2026-09-14 link and clipboard follow-up
+
+Technical checks passed for platform link hints and no-final-newline copying,
+including empty-label round trips. [Evidence and commands](evidence/milestone-d/link-clipboard/report.md).
+Product acceptance remains pending; previous milestone acceptance is unchanged.
+
+## 2026-09-14 two-second tooltip follow-up
+
+The approved per-entry delay is implemented. All 30 browser checks passed,
+including cancellation and modifier-click behavior. [Evidence](evidence/milestone-d/tooltip-delay/report.md).
+Product review remains pending.
+
+The subsequent one-second adjustment also passed build and all 30 browser checks.
+[Timing evidence](evidence/milestone-d/tooltip-delay/one-second-results.json).

@@ -1,0 +1,29 @@
+{
+  "stats": {
+    "startTime": "2026-09-14T14:21:11.118Z",
+    "duration": 12589.323,
+    "expected": 30,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "engines": [
+    "Chromium",
+    "Firefox",
+    "WebKit"
+  ],
+  "trilium": {
+    "testedAt": "2026-09-14T14:22:28.605Z",
+    "bundleSha256": "27f1b1105c580456e8c301ea0b009a8b42975d5a018c54e77910b01d2dcd8492",
+    "id": "d9ZtMR2Hrcd3",
+    "observedMilliseconds": [
+      2008,
+      2509
+    ],
+    "passed": [
+      "No hint before 1.7 seconds; visible after two seconds on both real mouse entries",
+      "Exit hides immediately; re-entry repeats full delay",
+      "Correct macOS hint in stock Trilium; map content unchanged"
+    ]
+  }
+}
