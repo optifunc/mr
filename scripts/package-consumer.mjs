@@ -58,6 +58,17 @@ try {
             await tree.focus(); await page.keyboard.press('Shift+F10'); await page.locator('#destroy').click();
             await expect(page.locator('#first .mindmap')).toHaveCount(0); await expect(page.locator('#host-content')).toHaveText('Caller-owned content');
             await page.locator('#mount').click(); await expect(page.getByRole('tree')).toHaveCount(2);
+            await page.locator('#commands').click();
+            await expect(page.getByRole('menu', { name: 'Consumer commands' }).getByRole('menuitem')).toHaveCount(14);
+            await page.screenshot({ path: join(evidence, `host-menu-${name}.png`) });
+            await page.keyboard.press('Escape'); await expect(page.locator('#commands')).toBeFocused();
+            await page.locator('#commands').click(); await page.getByRole('menuitem', { name: 'Host action', exact: true }).click();
+            await expect(page.locator('#events')).toHaveText('Host action completed');
+            await page.getByText('Widget keymap reference', { exact: true }).click();
+            await expect(page.locator('#keymap [data-action="edit"]')).toHaveText('F2');
+            await expect(page.locator('#keymap [data-action="toggleChecked"]')).toHaveText('Ctrl+Space');
+            await expect(page.locator('#keymap [data-action="newLine"]')).toHaveText('Shift+Enter');
+            await page.locator('#keymap').screenshot({ path: join(evidence, `keymap-${name}.png`) });
             await Promise.all(assetChecks);
             expect(errors).toEqual([]); expect(requests.every(url => url.startsWith('http://127.0.0.1:5180/'))).toBe(true);
             for (const path of Object.keys(identity.files).filter(path => /\.(html|js|css)$/.test(path))) expect(assets, `Expected loaded asset: ${path}`).toContain(path);

@@ -1,0 +1,106 @@
+{
+  "passed": true,
+  "identity": {
+    "runId": "d0da0350-0e5b-4915-adfd-1cf0b4407ce2",
+    "tarballSha256": "e3337de058e83149402b56e9e8c2258bdb8917134dd75e80399b6c09fb78fca8",
+    "files": {
+      "assets/index-CiMf5MTt.js": "a5face9fa920cd75c1b247b5797092c4c36df0b4e7006ca217b5834026268d53",
+      "assets/index-g01wsLtD.css": "f27ed2409b998213bbe8093be4f65e3a61e991bdbf95829fb028d209710a297e",
+      "index.html": "80049ab90b25e6892829067e1bdb494ae62425febb140f9e3509c944bba5c427"
+    }
+  },
+  "consumer": "/private/var/folders/lk/7r7cs2j52zn8c2hdkyj0y4zh0000gn/T/mindmap-consumer-u5j22M",
+  "tarball": "mindmap-widget-0.1.0.tgz",
+  "date": "2026-09-17T18:33:38.685Z",
+  "results": [
+    {
+      "browser": "chromium",
+      "version": "145.0.7632.6",
+      "passed": true,
+      "runId": "d0da0350-0e5b-4915-adfd-1cf0b4407ce2",
+      "assets": [
+        "assets/index-g01wsLtD.css",
+        "index.html",
+        "assets/index-CiMf5MTt.js"
+      ],
+      "requests": [
+        "http://127.0.0.1:5180/",
+        "http://127.0.0.1:5180/assets/index-CiMf5MTt.js",
+        "http://127.0.0.1:5180/assets/index-g01wsLtD.css"
+      ],
+      "errors": []
+    },
+    {
+      "browser": "firefox",
+      "version": "146.0.1",
+      "passed": true,
+      "runId": "d0da0350-0e5b-4915-adfd-1cf0b4407ce2",
+      "assets": [
+        "index.html",
+        "assets/index-g01wsLtD.css",
+        "assets/index-CiMf5MTt.js"
+      ],
+      "requests": [
+        "http://127.0.0.1:5180/",
+        "http://127.0.0.1:5180/assets/index-CiMf5MTt.js",
+        "http://127.0.0.1:5180/assets/index-g01wsLtD.css"
+      ],
+      "errors": []
+    },
+    {
+      "browser": "webkit",
+      "version": "26.0",
+      "passed": true,
+      "runId": "d0da0350-0e5b-4915-adfd-1cf0b4407ce2",
+      "assets": [
+        "index.html",
+        "assets/index-g01wsLtD.css",
+        "assets/index-CiMf5MTt.js"
+      ],
+      "requests": [
+        "http://127.0.0.1:5180/",
+        "http://127.0.0.1:5180/assets/index-CiMf5MTt.js",
+        "http://127.0.0.1:5180/assets/index-g01wsLtD.css"
+      ],
+      "errors": []
+    }
+  ],
+  "package": {
+    "name": "@mindmap/widget",
+    "version": "0.1.0",
+    "private": false,
+    "type": "module",
+    "files": [
+      "dist",
+      "docs/api.md",
+      "examples/consumer"
+    ],
+    "sideEffects": [
+      "**/*.css"
+    ],
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/mindmap.js"
+      },
+      "./styles.css": "./dist/mindmap.css"
+    },
+    "devDependencies": {
+      "@playwright/test": "1.58.2",
+      "typescript": "5.9.3",
+      "vite": "7.3.1",
+      "vitest": "4.0.18",
+      "@types/node": "24.10.1"
+    },
+    "scripts": {
+      "dev": "vite --host 127.0.0.1",
+      "build": "vite build && tsc -p tsconfig.build.json",
+      "typecheck": "tsc --noEmit",
+      "test": "vitest run",
+      "test:browser": "playwright test",
+      "test:tools": "node --test tests/tools/*.test.mjs",
+      "perf": "playwright test performance --project=chromium --workers=1",
+      "test:package": "pnpm build && node scripts/package-consumer.mjs"
+    }
+  }
+}

@@ -1,5 +1,21 @@
 # Testing and demo
 
+## Command registry and host menus
+
+After `pnpm build` (the consumer typechecks against the public built package):
+
+```sh
+pnpm typecheck
+pnpm test
+MINDMAP_EVIDENCE=docs/evidence/command-registry/menus pnpm test:browser host-menu.spec.ts integration.spec.ts menu.spec.ts --workers=3
+MINDMAP_EVIDENCE=docs/evidence/command-registry/package pnpm test:package
+```
+
+The packaged consumer's **Consumer commands** button demonstrates shared command
+metadata, a host action and focus return. Its **Widget keymap reference** reads
+the exported widget registry. After `pnpm dev`, open `/examples/consumer/`.
+This verifies API integration; the Willow toolbar/modal has its own later review.
+
 ## P2 review corrections
 
 - `pnpm test:tools` runs verification-tool regressions for preview startup/exit,

@@ -35,6 +35,12 @@ editor.destroy();
 
 ## Available now
 
+- `getCommands()` returns detached selection-dependent command descriptors with
+  `id`, `label`, `toolbarLabel`, `command`, structured `bindings`, grouping and
+  current `enabled` state. Commands needing additional parameters (e.g. move or
+  setText) are invoked explicitly through `execute`. `getNodeMenuItems()` returns
+  the stable 13-entry node menu with the same metadata and applicability.
+
 - `getDocument`, validated atomic `setDocument`, detached `getSelection`, and
   `setSelection(ids, activeId?)`. Hidden IDs are omitted from selection; an explicit
   active ID must belong to the requested IDs. Replacement clears history/selects root.
@@ -324,3 +330,65 @@ return inert unsubscribe functions.
 Unknown explicit target IDs, group IDs and move destination IDs reject with
 `INVALID_TARGET` before finishing an active editor. The buffer, focus, document and
 history remain intact. Initial unchanged-size observer delivery does not close a menu.
+
+## Command and shortcut metadata
+
+The widget's registry is authoritative for editor shortcuts and labels.
+`getActionDefinitions()` returns a detached registry snapshot. `getKeymapReference()`
+returns reference entries, including alternate bindings, native clipboard chords,
+label-editing actions and the link gesture. Neither requires a document or editor.
+Use `shortcutGroups` for section order and `formatShortcut(binding, mac)` for
+display text; pass `true` as the third argument for `aria-keyshortcuts` notation.
+`isMacPlatform(navigator.platform)` provides the widget's platform detection.
+
+```ts
+import { getKeymapReference, formatShortcut, isMacPlatform } from '@mindmap/widget';
+const mac = isMacPlatform(navigator.platform);
+const rows = getKeymapReference().map(action => ({
+  label: action.label,
+  group: action.group,
+  shortcuts: action.bindings.map(binding => formatShortcut(binding, mac)),
+}));
+```
+
+Toolbar hints and menus should use the bindings on `editor.getCommands()` or
+`editor.getNodeMenuItems()`. Recheck `canExecute(item.command)` on activation;
+the returned enabledness is a snapshot. Subscribe to document, selection, edit
+and viewport events to refresh host controls. Persist committed documents only
+from `documentchange`, not from presentation snapshots during provisional edits.
+
+The registry separates action IDs from executable commands: `toggleCheckbox`
+resolves to add/remove based on the active node; label/context-menu actions and
+reference gestures are not extra `MindMapCommand` variants. Native clipboard
+events and textarea shortcuts retain browser handling. `resolveShortcut`,
+`matchesShortcut` and `actionCommand` are shared pure helpers; optional registry
+arguments permit isolated contract tests, not runtime editor keymap configuration.
+
+## Host menus
+
+`ContextMenu` is a reusable presenter with the widget's styles/navigation. Its
+constructor takes a positioned host, a command-applicability callback and an
+execution callback. `open(items, x, y, options?)` takes coordinates in that host's
+local CSS pixels, clamps to its bounds, and accepts both command descriptors and
+host actions `{label, canExecute, action, separatorBefore?}`. Leading separators
+are suppressed. `options` supports a menu label, a `returnFocus` element/callback
+and `onClose`. `close(restoreFocus = false)` removes listeners and observers.
+The host owns teardown and editor-event subscriptions for toolbar-triggered menus.
+Host actions never pass through editor reducers/applicability.
+
+For native node targeting, set `onContextMenu(request)` in editor options. It
+replaces built-in presentation after preserving a selected group/active node or
+selecting an unselected target. It also receives blank-canvas and empty-selection
+keyboard requests. `request` provides `clientX`, `clientY`, detached `selection`
+and current node-menu `items`. Convert client coordinates to the host overlay's
+local coordinates, accounting for host scale if present. Return a cleanup callback
+accepting `restoreFocus`; the editor calls it on selection/document/viewport changes,
+new editing, actual resize, destruction, or another request. Exceptions are reported
+as `HOST_CALLBACK`. `contextMenu:false` disables these requests as well as the
+built-in menu. Omitting the callback preserves the default 13-item menu and origins.
+
+A menu mounted outside the editor may contain host-only actions while the editor
+is inert. An unavailable/inert editor cannot originate input: the adapter must
+provide a separate focusable pane route and may use `getNodeMenuDescriptors()`
+with editor commands disabled. Exclude textareas from that route. Commands invoked
+via `editor.execute` have API origin; the default built-in menu retains user origin.

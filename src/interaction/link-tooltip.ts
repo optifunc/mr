@@ -1,3 +1,4 @@
+import { formatShortcut, getActionDefinitions, isMacPlatform } from '../commands/registry';
 /** Per-entry hover hint, independent of the browser's native tooltip timer. */
 export class LinkTooltip {
     private readonly abort = new AbortController();
@@ -11,8 +12,8 @@ export class LinkTooltip {
         this.tip.className = 'mindmap-link-tooltip';
         this.tip.id = `mindmap-link-tooltip-${crypto.randomUUID()}`;
         this.tip.setAttribute('role', 'tooltip');
-        this.tip.textContent = /Mac|iPhone|iPad/.test(doc.defaultView!.navigator.platform)
-            ? 'Cmd+click to open' : 'Ctrl+click to open';
+        const binding = getActionDefinitions().find(action => action.id === 'openLink')!.bindings[0]!;
+        this.tip.textContent = `${formatShortcut(binding, isMacPlatform(doc.defaultView!.navigator.platform)).replace('⌘', 'Cmd+')} to open`;
         this.tip.hidden = true;
         widget.append(this.tip);
         const signal = this.abort.signal;

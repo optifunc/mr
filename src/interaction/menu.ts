@@ -1,39 +1,45 @@
 import type { MindMapCommand } from '../types';
 
-export interface MenuItem { label: string; command: MindMapCommand; separatorBefore?: boolean; shortcut?: string }
-/** Stable order; applicability always comes from the shared command path. */
-export function menuItems(collapsed: boolean, checked: boolean): MenuItem[] {
-    return [
-        { label: 'Edit', command: { type: 'edit' }, shortcut: 'F2' },
-        { label: 'Add child', command: { type: 'insertChild' }, separatorBefore: true, shortcut: 'Tab' },
-        { label: 'Add sibling before', command: { type: 'insertBefore' }, shortcut: 'Shift+Enter' },
-        { label: 'Add sibling after', command: { type: 'insertAfter' }, shortcut: 'Enter' },
-        { label: 'Insert parent', command: { type: 'insertParent' }, shortcut: 'Shift+Tab' },
-        { label: 'Delete', command: { type: 'delete' }, shortcut: 'Delete' },
-        { label: 'Cut', command: { type: 'cut' }, separatorBefore: true, shortcut: 'Primary+X' },
-        { label: 'Copy', command: { type: 'copy' }, shortcut: 'Primary+C' },
-        { label: 'Paste', command: { type: 'paste' }, shortcut: 'Primary+V' },
-        { label: collapsed ? 'Expand' : 'Collapse', command: { type: 'toggleCollapse' }, separatorBefore: true, shortcut: 'Space' },
-        { label: checked ? 'Remove checkbox' : 'Add checkbox', command: { type: checked ? 'removeCheckbox' : 'addCheckbox' }, separatorBefore: true, shortcut: 'Primary+1' },
-        { label: 'Toggle checked state', command: { type: 'toggleChecked' }, shortcut: 'Ctrl+Space' },
-        { label: 'Open link', command: { type: 'openLink' }, separatorBefore: true },
-    ];
+import { formatShortcut, getNodeMenuDescriptors, isMacPlatform } from '../commands/registry';
+import type { CommandDescriptor, Shortcut } from '../commands/registry';
+
+export interface MenuItem {
+    label: string; command: MindMapCommand; separatorBefore?: boolean;
+    bindings?: readonly Shortcut[];
+}
+export interface HostMenuItem {
+    label: string; action(): void; canExecute(): boolean; separatorBefore?: boolean;
+}
+export type MenuEntry = MenuItem | HostMenuItem;
+export interface MenuOpenOptions {
+    returnFocus?: HTMLElement | (() => void);
+    label?: string;
+    onClose?: () => void;
+}
+/** Stable order and dynamic labels come from the same registry as keyboard input. */
+export function menuItems(collapsed: boolean, checked: boolean): CommandDescriptor[] {
+    return getNodeMenuDescriptors({ collapsed, checkboxPresent: checked });
 }
 
 export class ContextMenu {
     private menu: HTMLDivElement | undefined;
     private abort: AbortController | undefined;
+    private options: MenuOpenOptions = {};
+    private resize: ResizeObserver | undefined;
     constructor(private readonly host: HTMLElement, private readonly can: (command: MindMapCommand) => boolean,
         private readonly execute: (command: MindMapCommand) => void) {}
-    open(items: MenuItem[], x: number, y: number): void {
+    open(items: readonly MenuEntry[], x: number, y: number, settings: MenuOpenOptions = {}): void {
         this.close(false);
+        if (!items.length) return;
+        this.options = settings;
         const doc = this.host.ownerDocument, menu = doc.createElement('div');
         this.menu = menu; this.abort = new AbortController();
         const options = { signal: this.abort.signal };
-        menu.className = 'mindmap-menu'; menu.setAttribute('role', 'menu'); menu.setAttribute('aria-label', 'Node commands');
-        const mac = /Mac|iPhone|iPad/.test(doc.defaultView!.navigator.platform);
-        const buttons = items.map(item => {
-            if (item.separatorBefore) {
+        menu.className = 'mindmap-menu'; menu.setAttribute('role', 'menu'); menu.setAttribute('aria-label', settings.label ?? 'Node commands');
+        const mac = isMacPlatform(doc.defaultView!.navigator.platform);
+        const can = (item: MenuEntry): boolean => 'command' in item ? this.can(item.command) : item.canExecute();
+        const buttons = items.map((item, index) => {
+            if (index && item.separatorBefore) {
                 const separator = doc.createElement('div');
                 separator.className = 'mindmap-menu-separator'; separator.setAttribute('role', 'separator');
                 menu.append(separator);
@@ -42,17 +48,19 @@ export class ContextMenu {
             button.type = 'button'; button.tabIndex = -1; button.setAttribute('role', 'menuitem');
             const label = doc.createElement('span');
             label.className = 'mindmap-menu-label'; label.textContent = item.label; button.append(label);
-            if (item.shortcut) {
+            const binding = 'command' in item ? item.bindings?.find(binding => binding.key !== 'Click') : undefined;
+            if (binding) {
                 const hint = doc.createElement('span');
                 hint.className = 'mindmap-menu-shortcut'; hint.setAttribute('aria-hidden', 'true');
-                hint.textContent = item.shortcut.replace('Primary+', mac ? '⌘' : 'Ctrl+');
-                button.setAttribute('aria-keyshortcuts', item.shortcut.replace('Primary', mac ? 'Meta' : 'Control').replace('Ctrl', 'Control'));
+                hint.textContent = formatShortcut(binding, mac);
+                button.setAttribute('aria-keyshortcuts', formatShortcut(binding, mac, true));
                 button.append(hint);
             }
-            button.setAttribute('aria-disabled', String(!this.can(item.command)));
+            button.setAttribute('aria-disabled', String(!can(item)));
             button.addEventListener('click', () => {
-                if (!this.can(item.command)) return;
-                this.close(true); this.execute(item.command);
+                if (!can(item)) return;
+                this.close(true);
+                if ('command' in item) this.execute(item.command); else item.action();
             }, options);
             menu.append(button); return button;
         });
@@ -76,14 +84,26 @@ export class ContextMenu {
         }, options);
         menu.addEventListener('pointerdown', e => e.stopPropagation(), options);
         menu.addEventListener('wheel', e => e.stopPropagation(), options);
-        doc.addEventListener('pointerdown', e => { if (!menu.contains(e.target as Node)) this.close(this.host.contains(e.target as Node)); }, { ...options, capture: true });
+        doc.addEventListener('pointerdown', e => { if (!menu.contains(e.target as Node)) this.close(false); }, { ...options, capture: true });
         doc.addEventListener('focusin', e => { if (!menu.contains(e.target as Node)) this.close(false); }, options);
+        const width = this.host.clientWidth, height = this.host.clientHeight;
+        this.resize = new ResizeObserver(() => {
+            if (this.host.clientWidth !== width || this.host.clientHeight !== height) this.close(false);
+        });
+        this.resize.observe(this.host);
         buttons[0]!.focus({ preventScroll: true });
     }
     close(focus = false): void {
         const existed = !!this.menu;
         this.abort?.abort(); this.abort = undefined;
+        this.resize?.disconnect(); this.resize = undefined;
         this.menu?.remove(); this.menu = undefined;
-        if (existed && focus) this.host.focus({ preventScroll: true });
+        const settings = this.options; this.options = {};
+        if (existed && focus) {
+            const target = settings.returnFocus ?? this.host;
+            if (typeof target === 'function') target();
+            else if (target.isConnected) target.focus({ preventScroll: true });
+        }
+        if (existed) settings.onClose?.();
     }
 }

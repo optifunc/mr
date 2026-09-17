@@ -1,4 +1,5 @@
 import type { NodeGeometry } from '../layout/layout';
+import { isMacPlatform, resolveShortcut } from '../commands/registry';
 /** A native text buffer over frozen scene geometry. It never writes document text. */
 export class TextEditor {
     readonly textarea: HTMLTextAreaElement;
@@ -71,8 +72,9 @@ export class TextEditor {
         area.addEventListener('compositionend', () => { this.composing = false; }, options);
         area.addEventListener('keydown', e => {
             if (this.composing || e.isComposing || e.keyCode === 229) return;
-            if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); finish(false, true); }
-            if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); e.stopPropagation(); finish(true, true); }
+            const action = resolveShortcut(e, 'label', isMacPlatform(doc.defaultView!.navigator.platform));
+            if (action?.id === 'cancelEditing') { e.preventDefault(); e.stopPropagation(); finish(false, true); }
+            if (action?.id === 'finishEditing') { e.preventDefault(); e.stopPropagation(); finish(true, true); }
             // Shift+Enter and all platform text shortcuts stay native.
         }, options);
         area.addEventListener('input', () => {

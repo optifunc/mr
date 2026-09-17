@@ -1,5 +1,24 @@
 # Implementation progress
 
+## Command registry and host menus — 2026-09-17
+
+Implemented the first Willow chrome foundation checkpoint on `3e0d069`:
+one widget command/shortcut registry now drives keyboard resolution, menu hints,
+platform formatting and the public keymap reference. Native clipboard/text editing
+still uses browser behavior. `getCommands()`/`getNodeMenuItems()` expose current
+labels and applicability without a document clone. `ContextMenu` supports host
+actions and focus return; `onContextMenu` preserves widget targeting while allowing
+an overlay outside the editor, including blank-canvas/empty-selection requests.
+
+Build, typecheck and 184 widget unit tests passed, together with adapter build,
+typecheck and 46 adapter unit tests. The corrected menu/host-menu/lifecycle suite
+passed 99 cases across Chromium/Firefox/WebKit; the installed consumer passed in
+all three, including its widget-sourced keymap reference and host action.
+[Evidence, reproducible commands, initial failures and limits](evidence/command-registry/report.md).
+
+Existing product acceptance is unchanged; this checkpoint adds integration APIs.
+Next is the Willow adapter's toolbar/status bar, responsive menus and help dialog.
+
 Last updated: 2026-09-14
 
 ## Host zoom border rendering — 2026-09-14

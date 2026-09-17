@@ -1,5 +1,16 @@
 # Milestone acceptance and evidence
 
+## 2026-09-17 — Command registry and host-menu integration
+
+The first Willow chrome implementation checkpoint provides widget-owned command
+and shortcut metadata, a generated consumer keymap reference, shared host menus
+and context-menu delegation. Build/typechecks, 184 widget and 46 adapter unit
+tests passed. The corrected menu/lifecycle browser suite passed 99 cases in three
+engines, and the isolated packaged consumer passed in all three.
+[Checkpoint evidence and validation limits](evidence/command-registry/report.md).
+Willow bars/modal and their visual acceptance remain future adapter work; this
+does not supersede the existing release/manual checks below.
+
 Checkbox presence shortcut (2026-09-12): Cmd+1/Ctrl+1 and matching Add/Remove menu
 hints implemented. Typecheck/build, 177 unit tests and 54 browser cases passed;
 screenshots inspected. [Evidence and review steps](evidence/milestone-d/checkbox-shortcut/report.md).

@@ -1,3 +1,4 @@
+import type { CommandDescriptor } from './commands/registry';
 export type NodeId = string;
 export type RootSide = 'left' | 'right';
 export interface MindMapNode {
@@ -20,7 +21,16 @@ export interface MindMapEditorOptions {
     createNodeId?: () => NodeId;
     historyLimit?: number;
     contextMenu?: boolean;
+    /** Replaces the built-in menu after widget targeting. Cleanup runs on invalidation. */
+    onContextMenu?: (request: ContextMenuRequest) => ((restoreFocus: boolean) => void) | void;
     readonly?: boolean;
+}
+export interface ContextMenuRequest {
+    /** Viewport/client coordinates, suitable for converting to a host overlay anchor. */
+    clientX: number;
+    clientY: number;
+    selection: Selection;
+    items: (CommandDescriptor & { enabled: boolean })[];
 }
 export interface Selection {
     ids: NodeId[];
