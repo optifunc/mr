@@ -7,7 +7,7 @@ export interface InputActions {
     checkboxPresent(): boolean;
     viewport(): Viewport;
     pan(x: number, y: number): void;
-    zoom(scale: number, x: number, y: number): void;
+    zoomByWheel(direction: -1 | 1, x: number, y: number): void;
     hit(x: number, y: number): string | undefined;
     marker(x: number, y: number): string | undefined;
     startDrag(id: string, x: number, y: number): boolean;
@@ -108,7 +108,11 @@ export class Input {
         e.stopPropagation();
         const unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? this.element.clientHeight : 1;
         const x = e.deltaX * unit, y = e.deltaY * unit, view = this.actions.viewport();
-        if (this.primary(e)) this.actions.zoom(view.zoom * Math.exp(-y * .002), e.clientX, e.clientY);
+        if (this.primary(e)) {
+            // Wheel magnitudes/units vary by OS, mouse and host UI scale. Use
+            // direction alone; a horizontal-only event must not change zoom.
+            if (e.deltaY !== 0) this.actions.zoomByWheel(e.deltaY < 0 ? 1 : -1, e.clientX, e.clientY);
+        }
         else this.actions.pan(view.x - (e.shiftKey ? y || x : x), view.y - (e.shiftKey ? 0 : y));
     };
     reset(): void { this.cancel(); }

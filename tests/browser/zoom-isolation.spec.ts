@@ -48,7 +48,7 @@ for (const platform of ['Win32', 'MacIntel']) {
         test('pointer zoom and wheel panning stay inside the canvas; outside input still bubbles', async ({ page }) => {
             await page.locator('#primary .mindmap').hover({ position: { x: 20, y: 20 } });
             await page.keyboard.down(primary); await page.mouse.wheel(0, -100); await page.keyboard.up(primary);
-            await expect.poll(() => page.evaluate(() => window.primary.getViewport().zoom)).toBeCloseTo(Math.exp(.2));
+            await expect.poll(() => page.evaluate(() => window.primary.getViewport().zoom)).toBeCloseTo(1.01);
             const view = await page.evaluate(() => window.primary.getViewport());
             await page.mouse.wheel(0, 50);
             await expect.poll(() => page.evaluate(() => window.primary.getViewport().y)).toBeCloseTo(view.y - 50);

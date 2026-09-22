@@ -503,7 +503,10 @@ Do not relayout the tree while previewing a move.
 
 Apply pan and zoom as one shared scene transform. Normalize wheel delta units;
 plain wheel pans vertically, Shift wheel horizontally, and primary-modifier wheel
-zooms about the pointer. Clamp zoom to 0.25–4.0. Keyboard zoom uses multiplicative
+zooms about the pointer by one percentage point of the configured default scale
+per nonzero vertical event, using direction alone (2026-09-22). Ignore wheel
+magnitude and units for zoom; preserve normalized deltas for panning. Clamp zoom
+to 0.25–4.0. Keyboard zoom uses multiplicative
 steps, reset sets 1.0, and fit centers visible bounds with padding within that range.
 Host `zoom` options may override minimum, maximum and initial/reset scale
 (2026-09-22); validate and copy them once, then use them in every zoom/Fit path.

@@ -1,0 +1,99 @@
+$ pnpm pack --pack-destination /private/var/folders/lk/7r7cs2j52zn8c2hdkyj0y4zh0000gn/T/mindmap-consumer-jip6HJ
+📦  @mindmap/widget@0.1.0
+Tarball Contents
+dist/clipboard/browser.d.ts
+dist/clipboard/codec.d.ts
+dist/clipboard/paste.d.ts
+dist/commands/keyboard-move.d.ts
+dist/commands/reducer.d.ts
+dist/commands/registry.d.ts
+dist/commands/validate.d.ts
+dist/editor.d.ts
+dist/history/history.d.ts
+dist/index.d.ts
+dist/interaction/drag.d.ts
+dist/interaction/drop.d.ts
+dist/interaction/editing.d.ts
+dist/interaction/input.d.ts
+dist/interaction/link-tooltip.d.ts
+dist/interaction/links.d.ts
+dist/interaction/menu.d.ts
+dist/interaction/navigation.d.ts
+dist/interaction/viewport.d.ts
+dist/layout/layout.d.ts
+dist/mindmap.css
+dist/mindmap.js
+dist/model/document.d.ts
+dist/model/store.d.ts
+dist/render/measure.d.ts
+dist/render/scene.d.ts
+dist/types.d.ts
+docs/api.md
+examples/consumer/index.html
+examples/consumer/main.ts
+examples/consumer/README.md
+examples/consumer/style.css
+package.json
+README.md
+Tarball Details
+/private/var/folders/lk/7r7cs2j52zn8c2hdkyj0y4zh0000gn/T/mindmap-consumer-jip6HJ/mindmap-widget-0.1.0.tgz
+
+$ tar -tzf /private/var/folders/lk/7r7cs2j52zn8c2hdkyj0y4zh0000gn/T/mindmap-consumer-jip6HJ/mindmap-widget-0.1.0.tgz
+package/dist/mindmap.css
+package/examples/consumer/style.css
+package/examples/consumer/index.html
+package/dist/mindmap.js
+package/package.json
+package/docs/api.md
+package/examples/consumer/README.md
+package/README.md
+package/dist/clipboard/browser.d.ts
+package/dist/clipboard/codec.d.ts
+package/dist/model/document.d.ts
+package/dist/interaction/drag.d.ts
+package/dist/interaction/drop.d.ts
+package/dist/interaction/editing.d.ts
+package/dist/editor.d.ts
+package/dist/history/history.d.ts
+package/dist/index.d.ts
+package/dist/interaction/input.d.ts
+package/dist/commands/keyboard-move.d.ts
+package/dist/layout/layout.d.ts
+package/dist/interaction/link-tooltip.d.ts
+package/dist/interaction/links.d.ts
+package/examples/consumer/main.ts
+package/dist/render/measure.d.ts
+package/dist/interaction/menu.d.ts
+package/dist/interaction/navigation.d.ts
+package/dist/clipboard/paste.d.ts
+package/dist/commands/reducer.d.ts
+package/dist/commands/registry.d.ts
+package/dist/render/scene.d.ts
+package/dist/model/store.d.ts
+package/dist/types.d.ts
+package/dist/commands/validate.d.ts
+package/dist/interaction/viewport.d.ts
+
+$ pnpm install --offline --ignore-scripts
+Progress: resolved 0, reused 0, downloaded 1, added 0
+Packages: +1
++
+Progress: resolved 1, reused 0, downloaded 1, added 1, done
+
+dependencies:
++ @mindmap/widget 0.1.0
+
+Done in 241ms using pnpm v10.28.1
+
+$ /opt/homebrew/Cellar/node/24.2.0/bin/node /Users/yezo/Scratch/09-26/trilium-willow/mr/node_modules/typescript/bin/tsc -p /private/var/folders/lk/7r7cs2j52zn8c2hdkyj0y4zh0000gn/T/mindmap-consumer-jip6HJ/tsconfig.json
+
+$ /opt/homebrew/Cellar/node/24.2.0/bin/node /Users/yezo/Scratch/09-26/trilium-willow/mr/node_modules/vite/bin/vite.js build /private/var/folders/lk/7r7cs2j52zn8c2hdkyj0y4zh0000gn/T/mindmap-consumer-jip6HJ
+vite v7.3.1 building client environment for production...
+transforming...
+✓ 6 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  0.87 kB │ gzip:  0.49 kB
+dist/assets/index-g01wsLtD.css   7.08 kB │ gzip:  1.92 kB
+dist/assets/index-Cyn5DDdf.js   75.52 kB │ gzip: 22.67 kB
+✓ built in 167ms

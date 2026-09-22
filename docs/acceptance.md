@@ -1,5 +1,12 @@
 # Milestone acceptance and evidence
 
+## 2026-09-22 — One-point wheel zoom
+
+Implemented consistent one-percentage-point wheel steps with pointer anchoring.
+Typecheck/build, 195 unit tests, 63 browser cases and the packaged consumer passed.
+[Evidence and environment limits](evidence/wheel-step/report.md). No baseline
+changes; native Windows user review remains pending.
+
 ## 2026-09-22 — Host-configurable zoom
 
 Optional zoom limits and initial/reset scale are implemented and verified.

@@ -83,7 +83,11 @@ export class MindMapEditor {
             selected: id => this.store.selection.ids.includes(id),
             checkboxPresent: () => this.store.model.nodes.get(this.store.selection.activeId ?? '')?.checked !== undefined,
             viewport: () => this.getViewport(), pan: (x, y) => { this.run(() => { this.applyViewport({ ...this.viewport, x, y }, 'user'); return true; }); },
-            zoom: (scale, x, y) => { this.run(() => { const p = this.localPoint(x, y); this.applyViewport(zoomAt(this.viewport, scale, p.x, p.y, this.zoomOptions), 'user'); return true; }); },
+            zoomByWheel: (direction, x, y) => { this.run(() => {
+                const p = this.localPoint(x, y);
+                const scale = Number((this.viewport.zoom + direction * this.zoomOptions.default / 100).toFixed(12));
+                this.applyViewport(zoomAt(this.viewport, scale, p.x, p.y, this.zoomOptions), 'user'); return true;
+            }); },
             startDrag: (id, x, y) => this.drag.start(id, x, y), drag: (x, y) => this.drag.update(x, y), drop: (x, y) => this.drag.finish(x, y), cancelDrag: () => this.drag.cancel(),
             hit: (x, y) => this.hit(x, y), marker: (x, y) => this.hit(x, y, true),
         });

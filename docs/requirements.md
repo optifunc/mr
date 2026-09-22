@@ -573,7 +573,10 @@ Ordinary sibling
   Primary-modifier+Minus, Primary-modifier+0, and
   Primary-modifier+Shift+0 respectively. The shifted physical `Digit0` key shall
   trigger fit even when its character is `)` on the keyboard layout.
-- Zoom shall be continuous for the wheel and stepped for keyboard commands.
+- Each nonzero vertical primary-modifier wheel event shall add/subtract one
+  percentage point of the configured initial/reset scale, independent of wheel
+  magnitude, delta units, platform, and current zoom. Zero/horizontal-only wheel
+  events shall not zoom. Keyboard zoom retains its multiplicative steps.
 - The default zoom range shall be 25% through 400%. Hosts may configure positive,
   finite minimum, maximum and initial/reset scales at construction; all zoom
   paths and Fit shall honor those limits. Scene geometry remains unchanged.

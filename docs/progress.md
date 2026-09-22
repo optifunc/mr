@@ -1,5 +1,13 @@
 # Implementation progress
 
+## Consistent wheel zoom — 2026-09-22
+
+Each nonzero vertical modifier+wheel event now changes zoom by one percentage
+point of the configured default, independent of platform and delta magnitude.
+Typecheck/build, 195 unit tests, 63 three-engine browser cases and the packaged
+consumer passed. [Evidence](evidence/wheel-step/report.md). Native Windows review
+is pending; platform bindings and Windows-sized deltas passed browser coverage.
+
 ## Configurable viewport zoom — 2026-09-22
 
 Added optional min/max/initial-reset zoom settings while retaining standalone

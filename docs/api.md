@@ -76,7 +76,10 @@ editor.destroy();
   initial zoom and the `resetZoom` command. Keyboard steps multiply/divide by 1.2.
   Viewport values and events always use actual scene scales, so hosts may display
   relative percentages (e.g. divide by 1.43 when using a 1.43 baseline).
-  Viewport never enters history.
+  Primary-modifier wheel zoom adds/subtracts `zoom.default / 100` per nonzero
+  vertical event, using direction alone regardless of delta magnitude or mode.
+  It remains pointer-anchored; zero/horizontal-only events do not zoom. Pan
+  retains delta scaling. Viewport never enters history.
   Primary-modifier+Shift+physical Digit0 fits even when its character is `)`;
   unshifted zero resets zoom. Handled canvas zoom keys and wheel pan/zoom stop
   DOM event propagation so ancestor host shortcuts cannot also zoom the app.
