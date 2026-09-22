@@ -505,6 +505,8 @@ Apply pan and zoom as one shared scene transform. Normalize wheel delta units;
 plain wheel pans vertically, Shift wheel horizontally, and primary-modifier wheel
 zooms about the pointer. Clamp zoom to 0.25–4.0. Keyboard zoom uses multiplicative
 steps, reset sets 1.0, and fit centers visible bounds with padding within that range.
+Host `zoom` options may override minimum, maximum and initial/reset scale
+(2026-09-22); validate and copy them once, then use them in every zoom/Fit path.
 Initial mounting centers the root at 100%. ResizeObserver updates viewport size;
 zero-size containers defer fitting until measurable. Coalesce viewport events to
 one per rendered frame and never emit document events for these operations.

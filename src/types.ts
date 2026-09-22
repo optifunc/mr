@@ -18,12 +18,19 @@ export interface MindMapDocument {
 }
 export interface MindMapEditorOptions {
     document: MindMapDocument;
+    /** Actual scene scales. Defaults: min .25, max 4, initial/reset 1. */
+    zoom?: Partial<ZoomOptions>;
     createNodeId?: () => NodeId;
     historyLimit?: number;
     contextMenu?: boolean;
     /** Replaces the built-in menu after widget targeting. Cleanup runs on invalidation. */
     onContextMenu?: (request: ContextMenuRequest) => ((restoreFocus: boolean) => void) | void;
     readonly?: boolean;
+}
+export interface ZoomOptions {
+    min: number;
+    max: number;
+    default: number;
 }
 export interface ContextMenuRequest {
     /** Viewport/client coordinates, suitable for converting to a host overlay anchor. */

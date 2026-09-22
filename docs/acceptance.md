@@ -1,5 +1,13 @@
 # Milestone acceptance and evidence
 
+## 2026-09-22 — Host-configurable zoom
+
+Optional zoom limits and initial/reset scale are implemented and verified.
+Standalone defaults are unchanged. Typecheck/build, 195 unit tests, 33 zoom
+browser cases and the packaged consumer passed across all three engines.
+[Evidence and test corrections](evidence/zoom-baseline/report.md).
+Willow visual acceptance remains pending; previous widget acceptance is retained.
+
 ## 2026-09-17 — Command registry and host-menu integration
 
 The first Willow chrome implementation checkpoint provides widget-owned command

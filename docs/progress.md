@@ -1,5 +1,13 @@
 # Implementation progress
 
+## Configurable viewport zoom — 2026-09-22
+
+Added optional min/max/initial-reset zoom settings while retaining standalone
+widget defaults. Willow uses 1.43 as displayed 100%, with its existing geometry.
+Typecheck/build, 195 unit tests, 33 three-engine zoom browser cases and the
+three-engine packaged consumer passed. [Evidence](evidence/zoom-baseline/report.md).
+No baseline changes; user review of the Willow appearance is pending.
+
 ## Command registry and host menus — 2026-09-17
 
 Implemented the first Willow chrome foundation checkpoint on `3e0d069`:

@@ -19,6 +19,7 @@ const editor = new MindMapEditor(host, {
   },
   historyLimit: 100,
   readonly: false,
+  // zoom: { min: .25, max: 4, default: 1 }, // actual scene scales
   // createNodeId: () => crypto.randomUUID(),
 });
 const unsubscribe = editor.on('documentchange', ({ document }) => {
@@ -67,7 +68,15 @@ editor.destroy();
   and idempotent `destroy`.
 - `getViewport`, `setZoom(scale)`, `fit`, `panToNode(id)` (minimal reveal of a visible
   node), and `panTo(x, y)` (absolute scene translation in local CSS pixels). Zoom
-  clamps to .25–4; keyboard steps multiply/divide by 1.2. Viewport never enters history.
+  defaults to .25–4 with initial/reset scale 1. Constructor `zoom` options can
+  override `min`, `max`, and `default`; all must be finite and positive with
+  `min <= default <= max`, otherwise construction throws `RangeError` before
+  mounting. Options are copied at construction. API zoom, wheel zoom, keyboard
+  commands, command applicability and Fit use the same limits. `default` controls
+  initial zoom and the `resetZoom` command. Keyboard steps multiply/divide by 1.2.
+  Viewport values and events always use actual scene scales, so hosts may display
+  relative percentages (e.g. divide by 1.43 when using a 1.43 baseline).
+  Viewport never enters history.
   Primary-modifier+Shift+physical Digit0 fits even when its character is `)`;
   unshifted zero resets zoom. Handled canvas zoom keys and wheel pan/zoom stop
   DOM event propagation so ancestor host shortcuts cannot also zoom the app.

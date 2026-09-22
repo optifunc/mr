@@ -574,7 +574,9 @@ Ordinary sibling
   Primary-modifier+Shift+0 respectively. The shifted physical `Digit0` key shall
   trigger fit even when its character is `)` on the keyboard layout.
 - Zoom shall be continuous for the wheel and stepped for keyboard commands.
-- The default zoom range shall be 25% through 400%.
+- The default zoom range shall be 25% through 400%. Hosts may configure positive,
+  finite minimum, maximum and initial/reset scales at construction; all zoom
+  paths and Fit shall honor those limits. Scene geometry remains unchanged.
 - Resizing the host element shall resize the viewport and keep an active editor
   within its available bounds without changing document
   data.
