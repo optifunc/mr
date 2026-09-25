@@ -118,8 +118,9 @@ Trilium Electron 43.4.0 and Chrome 152 integration checks passed. Native macOS
 was not rerun. Source and test changes remain uncommitted; no prior release gate
 or visual baseline was changed. Adapter report/evidence lives at
 `../docs/test-windows.md` relative to the widget repository root in trilium-willow.
-A1 recheck on 2026-09-25: that report is absent, so this historical Windows host
-claim remains unverified for advertised support.
+A1 recheck on 2026-09-25: that automated report is absent. The owner confirmed
+Windows support and daily use on that date; detailed historical regression
+evidence remains unavailable.
 
 ## Current state
 

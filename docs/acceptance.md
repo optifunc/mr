@@ -47,8 +47,9 @@ Windows host zoom follow-up (2026-09-12, uncommitted working tree): build/typech
 163 unit tests and all 24 `zoom-isolation.spec.ts` cases passed across three
 browser engines. The original parent-adapter entry asserted actual Windows Electron
 and Chrome integration checks. Its referenced `docs/test-windows.md` report is
-missing from the parent checkout as of 2026-09-25, so that host claim remains
-unverified and must not be used to advertise Windows support. Native macOS revalidation
+missing from the parent checkout as of 2026-09-25. The owner confirmed Windows
+support and daily use on that date; the missing report is an archived automated
+evidence gap, not a limitation on Windows support. Native macOS revalidation
 was not run; this focused follow-up does not waive outstanding release checks.
 
 This record supplements [the implementation plan](impl-plan.md#11-verification-and-acceptance-mapping).
