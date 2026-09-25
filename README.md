@@ -32,3 +32,9 @@ editor.destroy();
 Run `pnpm typecheck`, `pnpm test`, `pnpm test:browser --workers=1`,
 `pnpm test:package`, and `pnpm perf`. Product acceptance and required manual/current
 stable browser release validation remain separate from automated test passes.
+
+## License
+
+[MIT](LICENSE). The npm package includes the license; built JavaScript retains
+the notice. Third-party reference screenshots under `docs/free-mind-references/`
+are not relicensed and are excluded from the published package.

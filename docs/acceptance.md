@@ -1,5 +1,12 @@
 # Milestone acceptance and evidence
 
+## 2026-09-25 — MIT distribution notices
+
+Owner-selected MIT is applied to the source and package metadata. Built JavaScript
+and the packed widget retain the complete notice. Build/typecheck, 195 unit tests
+and actual tarball inspection passed. No product behavior changed; prior browser
+and manual acceptance is unchanged. [Evidence and publication handoff](evidence/licensing/report.md).
+
 ## 2026-09-22 — One-point wheel zoom
 
 Implemented consistent one-percentage-point wheel steps with pointer anchoring.
@@ -38,10 +45,10 @@ Product review of this follow-up is pending; milestone D acceptance is unchanged
 
 Windows host zoom follow-up (2026-09-12, uncommitted working tree): build/typecheck,
 163 unit tests and all 24 `zoom-isolation.spec.ts` cases passed across three
-browser engines. The parent Trilium adapter also passed actual Windows Electron
-and Chrome integration checks. See the progress entry and the
-[parent adapter report](../../docs/test-windows.md) (in the Trilium integration
-checkout) for reproduction and evidence. Native macOS revalidation
+browser engines. The original parent-adapter entry asserted actual Windows Electron
+and Chrome integration checks. Its referenced `docs/test-windows.md` report is
+missing from the parent checkout as of 2026-09-25, so that host claim remains
+unverified and must not be used to advertise Windows support. Native macOS revalidation
 was not run; this focused follow-up does not waive outstanding release checks.
 
 This record supplements [the implementation plan](impl-plan.md#11-verification-and-acceptance-mapping).

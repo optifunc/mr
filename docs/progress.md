@@ -1,5 +1,12 @@
 # Implementation progress
 
+## 2026-09-25 — MIT licensing
+
+Owner-selected MIT is applied to the source and package metadata. Built JavaScript
+and the packed widget retain the complete notice. Build/typecheck, 195 unit tests
+and actual tarball inspection passed. No product behavior changed; prior browser
+and manual acceptance is unchanged. [Evidence and publication handoff](evidence/licensing/report.md).
+
 ## Consistent wheel zoom — 2026-09-22
 
 Each nonzero vertical modifier+wheel event now changes zoom by one percentage
@@ -111,6 +118,8 @@ Trilium Electron 43.4.0 and Chrome 152 integration checks passed. Native macOS
 was not rerun. Source and test changes remain uncommitted; no prior release gate
 or visual baseline was changed. Adapter report/evidence lives at
 `../docs/test-windows.md` relative to the widget repository root in trilium-willow.
+A1 recheck on 2026-09-25: that report is absent, so this historical Windows host
+claim remains unverified for advertised support.
 
 ## Current state
 

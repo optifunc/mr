@@ -1,6 +1,7 @@
 {
   "name": "@mindmap/widget",
   "version": "0.1.0",
+  "license": "MIT",
   "private": false,
   "type": "module",
   "packageManager": "pnpm@10.28.1",
